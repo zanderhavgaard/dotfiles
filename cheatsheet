@@ -1,0 +1,92 @@
+--- Commands I have trouble remembering... ---
+
+
+	~ Firefox
+alt+right/left-arrow - go back/forward in tab hisotry
+F6 - focus search bar
+ctrl+tab - next tab
+ctrl+shift+tab - previous tab
+ctrl+j - search using search engine
+ctrl+l - focs url text bar and select text
+
+	>> pacman <<
+
+pacman -S {pkg} install {pkg}
+pacman -Syu update package database and upgrade installed packages
+pacman -Sy update package database
+pacman -Su upgrade installed packages
+pacman -Syy force update of package database even if recently updated
+pacman -Syyuw download programs but leave them uninstalled (for manual install)
+pacman -Syu equivalent to Debian `sudo apt-get update && sudo apt-get upgrade`
+pacman -R {pkg} remove package {pkg}
+pacman -Rs remove package as well as unneeded dependencies
+pacman -Rns remove package, dependencies, and system config files (recommended for all package uninstallations)
+pacman -Q display all installed packages
+pacman -Q | wc -l display total number of installed packages by counting lines of output
+pacman -Qe display only packages explicitly installed
+pacman -Qeq display only names of explicitly installed packages, and not version numbers ("quiet")
+pacman -Qn display only packages installed from main repositories
+pacman -Qm display only packages installed from AUR
+pacman -Qdt display orphaned dependencies
+pacman -Ss search remote repository for package
+pacman -Qs search local repository for package
+
+	>>> MarkDown workflow
+create .pdf from .md
+pandoc <input>.md -o <output>.pdf "-fmarkdown-implicit_figures -o" --from=gfm -V geometry:margin=.4in --highlight-style=espresso
+
+	>>> CLI resize images
+have imagemagick installed
+$ convert -resize 50% <input file> <output file>
+
+	>>> net stuff
+nload - monitor network usage in real time
+nload -m -monitor all network interfaces
+
+
+	>>> disk stuff
+du - disk usage
+ncdu - curses diskusage
+lsblk - show disks and partitions
+sudo fdisk -l - show detailed disk information
+df -h - show free space on disk
+
+	>>> ssh-keygen
+ssh-keygen -t rsa -b 4096 -C "zander@$HOST"
+
+	>>> setting which executable to be on path / finding multiple versions of the same binary
+sudo update-alternatives --display <binary>
+sudo update-alternatives --config <binary>
+
+	>>> Vim Vixen [Firefox extension]
+- h, j, k, l: scroll left, down, right, up, and right
+- j, k: scroll vertically
+- h, l: scroll horizontally
+- Ctrl+U, Ctrl+D: scroll pages by half of screen
+- Ctrl+B, Ctrl+F: scroll pages by a screen
+- 0, $: scroll a page to leftmost/rightmost
+- gg, G: scroll to top/bottom
+
+- gg, G: scroll to top and bottom
+- d: delete current tab
+- u: reopen close tab
+- K, J: select prev or next tab
+- r: reload current tab
+- zp: toggle pin/unpin current tab
+- zd: duplicate current tab
+
+- f: start following links in the page
+- H: go back in histories
+- L: go forward in histories
+- [[, ]]: find prev or next links and open it
+- gu: go to parent directory
+- gU: go to root directory
+
+- :: open console
+- o, t, w: open a page in current tab, new tab, or new window
+- O, T, W: similar to o, t, w, but that contains current URL
+- b: Select tabs by URL or title
+- zi, zo: zoom-in/zoom-out
+- zz: Set default zoom level
+- y: copy URL in current tab
+- Shift+Esc: enable or disable the add-on in current tab.

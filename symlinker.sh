@@ -1,0 +1,85 @@
+#!/bin/sh
+
+echo -e "
+░█▀▀░█░█░█▄█░█░░░▀█▀░█▀█░█░█░█▀▀░█▀▄
+░▀▀█░░█░░█░█░█░░░░█░░█░█░█▀▄░█▀▀░█▀▄
+░▀▀▀░░▀░░▀░▀░▀▀▀░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀
+"
+
+# user
+user="zander"
+# dotfiles directory
+dfd="/home/$user/dotfiles"
+# config files directory
+cfd="/home/$user/.config"
+
+echo -e "\nSymlinking .aliases ..."
+rm ~/.aliases
+ln -sv $dfd/.aliases /home/$user/.aliases
+
+echo -e "\nSymlinking .env ..."
+rm ~/.env
+ln -sv $dfd/.env /home/$user/.env
+
+echo -e "\nSymlinking .zshrc ..."
+rm ~/.zshrc
+ln -sv $dfd/.zshrc /home/$user/.zshrc
+
+echo -e "\nSymlinking tmux config ..."
+rm ~/.tmux.conf
+ln -sv $dfd/.tmux.conf /home/$user/.tmux.conf
+
+echo -e "\nSymlinking termite config ..."
+rm -r $cfd/termite/*
+ln -sv $dfd/termite/config $cfd/termite/config
+
+echo -e "\nSymlinking kitty config ..."
+rm $cfd/kitty/kitty.conf
+ln -sv $dfd/kitty/kitty.conf $cfd/kitty/kitty.conf
+
+echo -e "\nSymlinking alacritty config ..."
+rm $cfd/alacritty/alacritty.yml
+ln -sv $dfd/alacritty/alacritty.yml $cfd/alacritty/alacritty.yml
+
+echo -e "\nSymlinking i3 config ..."
+rm -r $cfd/i3/*
+ln -sv $dfd/i3/config $cfd/i3/config
+
+echo -e "\nSymlinking polybar config ..."
+rm -r $cfd/polybar/*
+ln -sv $dfd/polybar/config $cfd/polybar/config
+ln -sv $dfd/polybar/launch.sh $cfd/polybar/launch.sh
+
+echo -e "\nSymlinking neofetch config ..."
+rm $cfd/neofetch/config.conf
+ln -sv $dfd/neofetch/config.conf $cfd/neofetch/config.conf
+
+echo -e "\nSymlinking rofi config ..."
+rm $cfd/rofi/config
+ln -sv $dfd/rofi/config $cfd/rofi/config
+
+echo -e "\nSymlinking git congfig ..."
+rm ~/.gitconfig
+ln -sv $dfd/.gitconfig /home/$user/.gitconfig
+
+echo -e "\nSymlinking VS Code config ..."
+rm $cfd/Code\ -\ OSS/User/settings.json
+ln -sv $dfd/Code/User/settings.json $cfd/Code\ -\ OSS/User/settings.json
+
+echo -e "\nSymlinking zathura config ..."
+rm $cfd/zathura/zathurarc
+ln -sv $dfd/zathura/zathurarc $cfd/zathura/zathurarc
+
+echo -e "\n symlinking ranger config ...."
+rm $cfd/ranger/rc.conf
+rm $cfd/ranger/scope.sh
+ln -sv $dfd/ranger/rc.conf $cfd/ranger/rc.conf
+ln -sv $dfd/ranger/scope.sh $cfd/ranger/scope.sh
+
+echo -e "\n symlinking cli-vis config ..."
+rm -r $cfd/vis
+ln -sv $dfd/vis $cfd/vis
+
+echo -e "\n symlinking dunst config ..."
+rm $cfd/dunst/dunstrc
+ln -sv $dfd/dunst/dunstrc $cfd/dunst/dunstrc

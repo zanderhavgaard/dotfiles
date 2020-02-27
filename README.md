@@ -1,2 +1,2 @@
 # dotfiles
-Personal dotfiles
+... dotfiles, man.

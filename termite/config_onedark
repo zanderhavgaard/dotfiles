@@ -1,0 +1,64 @@
+[options]
+# default config https://github.com/thestinger/termite/blob/master/config
+allow_bold = true
+audible_bell = false
+browser = xdg-open
+clickable_url = true
+cursor_blink = true
+cursor_shape = block
+dynamic_title = true
+filter_unmatched_urls = true
+font = Hasklug Nerd Font Regular 10
+geometry = 900x650
+highlight = #2f2f2f
+icon_name = terminal
+modify_other_keys = false
+mouse_autohide = false
+scroll_on_output = false
+scroll_on_keystroke = true
+scrollbar = off
+scrollback_lines = 15000
+size_hints = false
+search_wrap = true
+urgent_on_bell = true
+
+[colors]
+background = rgba(20, 26, 31, 0.95)
+
+# special
+foreground      = #efefef
+foreground_bold = #efefef
+cursor          = #efefef
+#background      = #141A1F
+
+# black
+color0  = #141A1F
+color8  = #1A2128
+
+# red
+color9  = #EC5252
+color1  = #FF9191
+
+# green
+color10  = #5DA713
+color2 = #9ACD68
+
+# yellow
+color11  = #C97016
+color3 = #EDA55D
+
+# blue
+color12  = #3890E9
+color4 = #7DBEFF
+
+# magenta
+color13  = #A359ED
+color5 = #CB96FF
+
+# cyan
+color14  = #13AFAF
+color6 = #6ECFCF
+
+# white
+color15  = #6B859E
+color7 = #A6B5CB

@@ -1,0 +1,29 @@
+rofi.modi: drun,run,window,ssh
+// rofi.modi: run,drun,window,ssh
+// rofi.theme: /home/zander/Applications/rofi-themes/User\ Themes/onedark.rasi
+// confg inspired from https://github.com/niklascarlsson/dotfiles/blob/master/dotfiles.org
+!
+!! Colors
+rofi.color-window: argb:f2171717, #18222B, #4D4D4D
+rofi.color-normal: argb:00171717, #F8F8F2, argb:00535c5c, argb:00171717, #3092D4
+rofi.color-urgent: argb:00171717, #FD0F1C, argb:e54b5160, argb:00171717, #3092D4
+rofi.color-active: argb:00171717, #CB89D0, argb:e44b5160, argb:00171717, #3092D4
+!
+!! Appearance
+rofi.width: 1500
+rofi.lines: 10
+rofi.font: Hasklug Nerd Font 16
+rofi.bw: 0
+rofi.padding: 50
+rofi.line-margin: 5
+rofi.eh: 1
+!
+!! Core config
+rofi.m: -1
+
+rofi.sidebar-mode: true
+rofi.separator-style: none
+rofi.hide-scrollbar: true
+rofi.show-icons: false
+rofi.location: 0
+rofi.matching: fuzzy

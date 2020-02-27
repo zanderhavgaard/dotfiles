@@ -1,0 +1,89 @@
+#       _    _     ___    _    ___  ___  ___
+#      /_\  | |   |_ _|  /_\  / __|| __|/ __|
+#  _  / _ \ | |__  | |  / _ \ \__ \| _| \__ \
+# (_)/_/ \_\|____||___|/_/ \_\|___/|___||___/
+#
+
+# update neovim
+alias nvim_update="bash /home/zander/neovim-config/update.sh"
+
+# read std.in to clipboard
+alias to_clipboard="xclip -i -selection c"
+
+# dock / undock laptop
+alias home="bash /home/zander/dotfiles/dock/home.sh"
+alias dock="bash /home/zander/dotfiles/dock/dock.sh"
+alias undock="bash /home/zander/dotfiles/dock/undock.sh"
+
+# what is the weather?
+alias weather="curl wttr.in"
+
+# what is docker storing?
+alias docker_status="echo -e \"\nContainers:\n\" && docker ps -a && echo -e \"\nImages:\n\" && docker image ls && echo -e \"\nVolumes:\n\" && docker volume ls"
+
+# play background music from youtube
+alias background_music="bash /home/zander/dotfiles/scripts/background_music.sh"
+
+# generate password
+alias random_password="date +%s | sha256sum | base64 | head -c 32 ; echo"
+
+# msc shortcuts
+alias rp="cd /home/zander/Dropbox/ITU/Master/3_semester/rp/researchprojectlambdaapp"
+alias thesis_docs="cd /home/zander/Insync/zanderhavgaard@gmail.com/Google\ Drive/ITU/Master/Thesis_lyfe/Thesis && ls -al"
+alias thesis="cd /home/zander/Dropbox/ITU/Master/4_semester/thesis && ls -al"
+alias tc="cd /home/zander/Dropbox/ITU/Master/4_semester/thesis/thesis-code && l"
+alias ta="cd /home/zander/Dropbox/ITU/Master/4_semester/ta_devops && ls -al"
+
+# start emacs in no-gui mode
+# alias emacs="emacs -nw"
+
+# gotop params
+alias gotop="gotop -p -c vice"
+
+# use ncdu > du
+alias ncdu="ncdu --color dark -rr"
+
+# fzf preview files
+alias preview="fzf --preview 'bat --color \"always\" {}'"
+
+# use prettyping > ping
+alias ping="prettyping --nolegend"
+
+# use bat > cat
+alias cat="bat"
+
+# use lsdeluxe
+# alias ls="lsd"
+# alias l="lsd -al"
+
+# use exa
+alias ls="exa --icons"
+alias l="exa --icons --git -alh"
+
+# add a newline before neofetch
+alias neofetch="echo -e \"\n\" && neofetch"
+
+# cat cheatsheet
+alias cs="cat /home/zander/dotfiles/cheatsheet"
+alias vimcs="cat /home/zander/neovim-config/cheatsheet"
+
+# update grub after changes to kernel setup
+alias update-grub="grub-mkconfig -o /boot/grub/grub.cfg"
+
+# connect to VPN ...
+alias start_vpn="nmcli connection up 'PIA - Denmark'"
+alias stop_vpn="nmcli connection down 'PIA - Denmark'"
+
+# itu shortcuts
+alias 4sem="cd /home/zander/Dropbox/ITU/Master/4_semester"
+alias 3sem="cd /home/zander/Dropbox/ITU/Master/3_semester"
+alias 2sem="cd /home/zander/Dropbox/ITU/Master/2_semester"
+alias itu="cd /home/zander/Dropbox/ITU"
+
+# wifi config stuff
+alias wifi_list="nmcli device wifi list"
+alias wifi_off="nmcli device disconnect wlp4s0"
+alias wifi_on="nmcli device connect wlp4s0"
+alias wifi_disconnect="nmcli connection down"
+alias wifi_connect="nmcli connection up"
+alias wifi="nmcli radio && nmcli device && nmcli d wifi rescan && nmcli d wifi list && echo 'Connect to new wifi: nmcli -ask device wifi connect \"SSID-Name\"'"

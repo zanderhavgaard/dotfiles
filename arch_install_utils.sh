@@ -13,6 +13,8 @@ tldr
 the_silver_searcher
 ripgrep
 
+ctags
+
 ranger
 fff
 

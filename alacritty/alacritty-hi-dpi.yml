@@ -94,15 +94,15 @@ tabspaces: 4
 font:
   # Normal (roman) font face
   normal:
-    family: Hasklug Nerd Font
+    family: Hack Nerd Font
     style: Regular
   # Bold font face
   bold:
-    family: Hasklug Nerd Font
+    family: Hack Nerd Font
     style: Bold
   # Italic font face
   italic:
-    family: Hasklug Nerd Font
+    family: Hack Nerd Font
     style: Italic
 
   # Point size

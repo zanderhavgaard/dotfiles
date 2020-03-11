@@ -76,7 +76,7 @@ font-1 = "FontAwesome:size=9;1"
 font-2 = "Hasklug Nerd Font:style=Regular:size=12;2"
 
 ; modules to display
-modules-left = i3 
+modules-left = i3
 modules-center = music date
 modules-right =  pulseaudio caffeine-status filesystem  wlan eth battery kernel-ver
 ; separator between modules
@@ -181,14 +181,13 @@ type = internal/fs
 interval = 25
 
 mount-0 = /
+mount-1 = /home
 
 label-mounted = %mountpoint% %free%
 label-unmounted = %mountpoint% not mounted
 
 format-mounted = " <label-mounted> "
 format-mounted-prefix = "  "
-; format-mounted-background = ${colors.red}
-; format-mounted-foreground = ${colors.black}
 
 [module/xbacklight]
 type = internal/xbacklight

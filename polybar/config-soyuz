@@ -78,7 +78,7 @@ font-2 = "Hasklug Nerd Font:style=Regular:size=12;2"
 ; modules to display
 modules-left = i3
 modules-center = music date
-modules-right =  pulseaudio caffeine-status filesystem  wlan eth battery kernel-ver
+modules-right =  pulseaudio launch-term caffeine-status filesystem  wlan eth battery kernel-ver
 ; separator between modules
 ; separator = " "
 
@@ -133,6 +133,13 @@ label-urgent-padding = 1
 
 ; Separator in between workspaces
 ; label-separator = |
+
+[module/launch-term]
+type = custom/script
+exec = echo "  "
+format-background = ${colors.background}
+format-foreground = ${colors.grey-alt}
+click-left = alacritty
 
 [module/pia-status]
 type = custom/script

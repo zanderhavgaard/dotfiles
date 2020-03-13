@@ -78,7 +78,7 @@ font-2 = "Hasklug Nerd Font:style=Regular:size=12;2"
 ; modules to display
 modules-left = i3 format-inverted-bg-blue-bg
 modules-center =
-modules-right =  alsa music xrandr caffeine-status memory cpu temperature filesystem pia-status wlan eth  battery0 battery1 date kernel-ver
+modules-right =  alsa music launch-term xrandr caffeine-status memory cpu temperature filesystem pia-status wlan eth  battery0 battery1 date kernel-ver
 ; separator between modules
 separator = "|"
 
@@ -135,6 +135,13 @@ label-urgent-padding = 1
 
 ; Separator in between workspaces
 ; label-separator = |
+
+[module/launch-term]
+type = custom/script
+exec = echo "  "
+format-background = ${colors.background}
+format-foreground = ${colors.grey-alt}
+click-left = alacritty
 
 [module/pia-status]
 type = custom/script

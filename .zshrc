@@ -42,7 +42,9 @@ antigen bundle "MichaelAquilina/zsh-auto-notify"
 antigen bundle caarlos0/zsh-open-pr
 
 # theme
-antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
+# antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
+# antigen theme https://github.com/geometry-zsh/geometry 
+antigen theme https://github.com/reobin/typewritten
 
 # commit antigen commands
 antigen apply

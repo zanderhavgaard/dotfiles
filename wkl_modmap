@@ -7,6 +7,9 @@ clear lock
 clear mod4
 clear mod1
 
+keycode 49 = Escape NoSymbol Escape
+keycode 9 = grave asciitilde grave asciitilde dead_grave dead_tilde dead_grave
+
 ! Make left alt --> Super_L
 keycode 64 = Super_L
 add mod4 = Super_L

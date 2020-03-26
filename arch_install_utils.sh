@@ -2,7 +2,99 @@
 
 echo -e "\nInstall utils ...?\n"
 
-utils="
+
+xorg_windomanager="
+i3-gaps
+lightdm
+lightdm-gtk-greeter
+lightdm-webkit-theme-litarvan
+mesa
+xorg-server
+xorg-apps
+xorg-xinit
+xorg-xrandr
+arandr
+"
+read -p "Install i3-wm and xorg? " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo pacman -S $xorg_windomanager
+fi
+
+amd_cpu_gpu_specific="
+amd-ucode
+xf86-video-amdgpu
+"
+read -p "Install packages for AMD CPU + GPU ? " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo pacman -S $amd_cpu_gpu_specific
+fi
+
+audio="
+alsa-utils
+alsa-plugins
+alsa-lib
+pulseaudio
+pulseaudio-alsa
+"
+read -p "Install alsa and pulseaudio packages? " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo pacman -S $audio
+fi
+
+system_libs_utils_misc="
+inetutils
+lvm2
+openssh
+ntp
+pandoc
+ufw
+w3m
+xautolock
+playerctl
+usbutils
+pavucontrol
+flameshot
+dunst
+i3lock-color
+cronie
+qt5ct
+gtk-engine-murrine
+gtk-engines
+net-tools
+lxappearance
+"
+read -p "Install misc system libs/utils/backends? " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo pacman -S $system_libs_utils_misc
+fi
+
+read -p "Setup defaults for UFW? " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    # setup ufw
+    sudo ufw default disallow incoming
+    sudo ufw default allow outgoing
+    sudo ufw enbale
+    sudo systemctl enable ufw
+fi
+
+virtualization="
+qemu
+virt-manager
+virt-viewer
+dnsmasq
+vde2
+bridge-utils
+openbsd-netcat
+ebtables
+iptables
+"
+read -p "Install virtualization packages? " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo pacman -S $virtualization
+fi
+
+
+cli_tools="
 exa
 bat
 prettyping
@@ -12,16 +104,145 @@ ncdu
 tldr
 the_silver_searcher
 ripgrep
-
-ctags
-
 ranger
-fff
-
-pavucontrol
-
-gtk-engine-murrine
-gtk-engines
+tmux
+jq
+nmap
+arp-scan
+figlet
+htop
+neofetch
+nload
+zip
+unzip
+tldr
+speedtest-cli
+lolcat
+cowsay
+fortune-mod
 "
+read -p "Install cli_tools? " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo pacman -S $cli_tools
+fi
 
-sudo pacman -S $utils
+vim_related="
+neovim
+neovim-qt
+vim
+ctags
+xsel
+"
+read -p "Install vim packages? " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo pacman -S $vim_related
+fi
+
+applications="
+zsh
+git
+alacritty
+firefox
+qutebrowser
+thunderbird
+docker
+docker-compose
+python-pywal
+discord
+rofi
+dmenu
+feh
+picom
+thunar
+zathura
+zathura-pdf-poppler
+mpv
+mps-youtube
+graphicsmagick
+imagemagick
+flameshot
+"
+read -p "Install assorted applications, eg. browser/terminal/email? " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo pacman -S $applications
+fi
+
+development="
+base-devel
+python
+pip
+pyenv
+clang
+terraform
+kubectl
+minikube
+nodejs
+npm
+shellcheck
+yamllint
+"
+read -p "Install development packags? " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo pacman -S $development
+fi
+
+fonts="
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+noto-fonts-extra
+gnu-free-fonts
+noto-fonts
+ttf-bitstream-vera
+ttf-dejavue
+ttf-droid
+ttf-liberation
+"
+read -p "Install fonts?" -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo pacman -S $fonts
+fi
+
+themes="
+arc-gtk-theme
+arc-icon-theme
+capitaine-cursors
+"
+read -p "Install themes?" -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo pacman -S $themes
+fi
+
+read -p "Install yay AUR-helper?" -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    mkdir -p ~/Applications
+    git clone https://aur.archlinux.org/yay.git ~/Applications/yay
+    cd ~/Applications/yay
+    makepkg -si
+    cd
+fi
+
+aur="
+antigen-git
+bitwarden-bin
+bonsai.sh-git
+cava
+cli-visualizer
+dropbox
+figlet-fonts
+gotop-bin
+insync
+kubernetes-helm-bin
+lazygit
+magic-wormhole
+pfetch-git
+polybar
+slack-desktop
+spotify
+tty-clock
+zoom
+"
+read -p "Install AUR packages using yay? " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    yay -S $aur
+fi

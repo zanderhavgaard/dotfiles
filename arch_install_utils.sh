@@ -15,7 +15,7 @@ xorg-xinit
 xorg-xrandr
 arandr
 "
-read -p "Install i3-wm and xorg? " -n 1 -r ; echo
+read -p "Install i3-wm and xorg? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $xorg_windomanager
 fi
@@ -24,7 +24,7 @@ amd_cpu_gpu_specific="
 amd-ucode
 xf86-video-amdgpu
 "
-read -p "Install packages for AMD CPU + GPU ? " -n 1 -r ; echo
+read -p "Install packages for AMD CPU + GPU ? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $amd_cpu_gpu_specific
 fi
@@ -36,7 +36,7 @@ alsa-lib
 pulseaudio
 pulseaudio-alsa
 "
-read -p "Install alsa and pulseaudio packages? " -n 1 -r ; echo
+read -p "Install alsa and pulseaudio packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $audio
 fi
@@ -63,7 +63,7 @@ gtk-engines
 net-tools
 lxappearance
 "
-read -p "Install misc system libs/utils/backends? " -n 1 -r ; echo
+read -p "Install misc system libs/utils/backends? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $system_libs_utils_misc
 fi
@@ -88,7 +88,7 @@ openbsd-netcat
 ebtables
 iptables
 "
-read -p "Install virtualization packages? " -n 1 -r ; echo
+read -p "Install virtualization packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $virtualization
 fi
@@ -121,7 +121,7 @@ lolcat
 cowsay
 fortune-mod
 "
-read -p "Install cli_tools? " -n 1 -r ; echo
+read -p "Install cli_tools? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $cli_tools
 fi
@@ -133,7 +133,7 @@ vim
 ctags
 xsel
 "
-read -p "Install vim packages? " -n 1 -r ; echo
+read -p "Install vim packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $vim_related
 fi
@@ -162,7 +162,7 @@ graphicsmagick
 imagemagick
 flameshot
 "
-read -p "Install assorted applications, eg. browser/terminal/email? " -n 1 -r ; echo
+read -p "Install assorted applications, eg. browser/terminal/email? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $applications
 fi
@@ -181,7 +181,7 @@ npm
 shellcheck
 yamllint
 "
-read -p "Install development packags? " -n 1 -r ; echo
+read -p "Install development packags? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $development
 fi
@@ -198,7 +198,7 @@ ttf-dejavue
 ttf-droid
 ttf-liberation
 "
-read -p "Install fonts?" -n 1 -r ; echo
+read -p "Install fonts? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $fonts
 fi
@@ -208,12 +208,12 @@ arc-gtk-theme
 arc-icon-theme
 capitaine-cursors
 "
-read -p "Install themes?" -n 1 -r ; echo
+read -p "Install themes? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $themes
 fi
 
-read -p "Install yay AUR-helper?" -n 1 -r ; echo
+read -p "Install yay AUR-helper? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     mkdir -p ~/Applications
     git clone https://aur.archlinux.org/yay.git ~/Applications/yay
@@ -242,7 +242,7 @@ spotify
 tty-clock
 zoom
 "
-read -p "Install AUR packages using yay? " -n 1 -r ; echo
+read -p "Install AUR packages using yay? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     yay -S $aur
 fi

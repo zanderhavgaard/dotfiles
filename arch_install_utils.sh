@@ -1,5 +1,13 @@
 #!/bin/bash
 
+set -e
+
+echo -e "
+░█▀█░█▀▀░█░█░░░▀█▀░█▀█░█▀▀░▀█▀░█▀█░█░░░█░░
+░█░█░█▀▀░█▄█░░░░█░░█░█░▀▀█░░█░░█▀█░█░░░█░░
+░▀░▀░▀▀▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░░▀░░▀░▀░▀▀▀░▀▀▀
+"
+
 echo -e "\nInstall utils ...?\n"
 
 
@@ -68,7 +76,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $system_libs_utils_misc
 fi
 
-read -p "Setup defaults for UFW? " -n 1 -r ; echo
+read -p "Setup defaults for UFW? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     # setup ufw
     sudo ufw default disallow incoming
@@ -241,8 +249,18 @@ slack-desktop
 spotify
 tty-clock
 zoom
+nerd-fonts-complete
 "
 read -p "Install AUR packages using yay? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     yay -S $aur
+fi
+
+read -p "Create directories for Applications/python venvs? [y/n] " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    # create dir for virtualenvs
+    mkdir ~/.virtualenvs
+
+    # Create Applications dir and clone some usefull stuff
+    mkdir ~/Applications
 fi

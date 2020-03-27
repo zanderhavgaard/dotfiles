@@ -50,6 +50,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 fi
 
 system_libs_utils_misc="
+xwallpaper
 inetutils
 lvm2
 openssh

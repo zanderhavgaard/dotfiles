@@ -17,23 +17,23 @@
 ;==========================================================
 
 [colors]
-white = #f8f8f2
-black = #000000
-black-alt = #4d4d4d
+white = #efefef
+black = #141A1F
+black-alt = #1A2128
 grey-alt = #6B859E
-grey = #e6e6e6
-blue-alt = #bd93f9
-blue = #caa9fa
-purple-alt = #ff79c6
-purple = #ff92d0
-red-alt = #ff5555
-red = #ff6e67
-orange-alt = #f1fa8c
-orange = #f4f99d
-green-alt = #50fa7b
-green = #5af78e
-cyan-alt = #8be9fd
-cyan = #9aedfe
+grey = #A6B5CB
+blue-alt = #3890E9
+blue = #7DBEFF
+purple-alt = #A359ED
+purple = #CB96FF
+red-alt = #EC5252
+red = #FF9191
+orange-alt = #C97016
+orange = #EDA55D
+green-alt = #5DA713
+green = #9ACD68
+cyan-alt = #13AFAF
+cyan = #6ECFCF
 
 background = #282a36
 background-alt = ${colors.grey}
@@ -111,7 +111,7 @@ label-mode-background = ${colors.orange}
 
 ; focused = Active workspace on focused monitor
 label-focused = %index%
-label-focused-background = ${colors.grey-alt}
+label-focused-background = ${colors.grey}
 label-focused-foreground = ${colors.black}
 label-focused-padding = 1
 
@@ -140,7 +140,7 @@ label-urgent-padding = 1
 type = custom/script
 exec = echo "  "
 format-background = ${colors.background}
-format-foreground = ${colors.grey-alt}
+format-foreground = ${colors.grey}
 click-left = alacritty
 
 [module/pia-status]
@@ -150,7 +150,7 @@ exec = ~/dotfiles/scripts/pia_status.sh
 format = " <label> "
 format-prefix = " "
 format-background = ${colors.background}
-format-foreground = ${colors.grey-alt}
+format-foreground = ${colors.grey}
 
 [module/caffeine-status]
 type = custom/script
@@ -159,7 +159,7 @@ exec = ~/dotfiles/i3lock/check_if_locker_is_running.sh
 format = " <label> "
 format-prefix = " "
 format-background = ${colors.background}
-format-foreground = ${colors.grey-alt}
+format-foreground = ${colors.grey}
 click-left = killall -q xautolock
 click-right = ~/dotfiles/i3lock/start_i3lock.sh & disown
 
@@ -171,7 +171,7 @@ exec = ~/dotfiles/scripts/sp_status.sh
 format = " <label> "
 format-prefix = " "
 format-background = ${colors.background}
-format-foreground = ${colors.grey-alt}
+format-foreground = ${colors.grey}
 
 [module/kernel-ver]
 type = custom/script
@@ -179,7 +179,7 @@ exec = ~/dotfiles/scripts/print_osicon_kernel.sh
 format-prefix = " "
 format = " <label> "
 format-background = ${colors.background}
-format-foreground = ${colors.grey-alt}
+format-foreground = ${colors.grey}
 
 [module/xwindow]
 type = internal/xwindow
@@ -198,7 +198,7 @@ label-unmounted = %mountpoint% not mounted
 format-mounted = " <label-mounted> "
 format-mounted-prefix = "  "
 format-mounted-background = ${colors.background}
-format-mounted-foreground = ${colors.grey-alt}
+format-mounted-foreground = ${colors.grey}
 
 [module/cpu]
 type = internal/cpu
@@ -207,7 +207,7 @@ format-prefix = "  "
 format = "<label> "
 label = %percentage:2%%
 format-background = ${colors.background}
-format-foreground = ${colors.grey-alt}
+format-foreground = ${colors.grey}
 
 [module/memory]
 type = internal/memory
@@ -216,7 +216,7 @@ format-prefix = "  "
 format = " <label> "
 label = %gb_used%
 format-background = ${colors.background}
-format-foreground = ${colors.grey-alt}
+format-foreground = ${colors.grey}
 
 [module/wlan]
 type = internal/network
@@ -227,11 +227,11 @@ format-connected-prefix = " "
 format-connected = " 直 <label-connected> "
 label-connected = %essid%
 format-connected-background = ${colors.background}
-format-connected-foreground = ${colors.grey-alt}
+format-connected-foreground = ${colors.grey}
 
 format-disconnected = " 睊  "
 format-disconnected-background = ${colors.background}
-format-disconnected-foreground = ${colors.grey-alt}
+format-disconnected-foreground = ${colors.grey}
 
 [module/eth]
 type = internal/network
@@ -242,11 +242,11 @@ format-connected = " <label-connected> "
 format-connected-prefix = "  "
 label-connected = %local_ip%
 format-connected-background = ${colors.background}
-format-connected-foreground = ${colors.grey-alt}
+format-connected-foreground = ${colors.grey}
 
 format-disconnected = "  "
 format-disconnected-background = ${colors.background}
-format-disconnected-foreground = ${colors.grey-alt}
+format-disconnected-foreground = ${colors.grey}
 
 [module/date]
 type = internal/date
@@ -254,7 +254,7 @@ interval = 5
 date = "  %A %d %B %Y"
 time = " %H:%M "
 format-background = ${colors.background}
-format-foreground = ${colors.grey-alt}
+format-foreground = ${colors.grey}
 label = %date% %time%
 
 [module/alsa]
@@ -266,11 +266,11 @@ format-volume = <label-volume>
 
 label-volume = "  %percentage%% "
 label-volume-background = ${colors.background}
-label-volume-foreground = ${colors.grey-alt}
+label-volume-foreground = ${colors.grey}
 
 label-muted = " 婢 "
 label-muted-background = ${colors.background}
-label-muted-foreground = ${colors.grey-alt}
+label-muted-foreground = ${colors.grey}
 
 [module/battery0]
 type = internal/battery
@@ -279,11 +279,11 @@ adapter = AC
 full-at = 97
 
 format-full-background = ${colors.background}
-format-full-foreground = ${colors.grey-alt}
+format-full-foreground = ${colors.grey}
 format-charging-background = ${colors.background}
-format-charging-foreground = ${colors.grey-alt}
+format-charging-foreground = ${colors.grey}
 format-discharging-background = ${colors.background}
-format-discharging-foreground = ${colors.grey-alt}
+format-discharging-foreground = ${colors.grey}
 
 
 format-discharging = " <ramp-capacity> <label-discharging> int "
@@ -309,11 +309,11 @@ adapter = AC
 full-at = 97
 
 format-full-background = ${colors.background}
-format-full-foreground = ${colors.grey-alt}
+format-full-foreground = ${colors.grey}
 format-charging-background = ${colors.background}
-format-charging-foreground = ${colors.grey-alt}
+format-charging-foreground = ${colors.grey}
 format-discharging-background = ${colors.background}
-format-discharging-foreground = ${colors.grey-alt}
+format-discharging-foreground = ${colors.grey}
 
 
 format-discharging = " <ramp-capacity> <label-discharging> ext "
@@ -338,7 +338,7 @@ thermal-zone = 0
 warn-temperature = 60
 
 format-background = ${colors.background}
-format-foreground = ${colors.grey-alt}
+format-foreground = ${colors.grey}
 
 format = " <ramp> <label> "
 ; format-background = ${colors.green}
@@ -362,7 +362,7 @@ format-spacing = 1
 
 label-open = "   "
 label-open-format-background = ${colors.background}
-label-open-foreground = ${colors.grey-alt}
+label-open-foreground = ${colors.grey}
 
 label-close = " ﰸ "
 ; label-close-background = ${colors.red}

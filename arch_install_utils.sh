@@ -180,7 +180,7 @@ fi
 development="
 base-devel
 python
-pip
+python-pip
 pyenv
 clang
 terraform
@@ -204,7 +204,6 @@ noto-fonts-extra
 gnu-free-fonts
 noto-fonts
 ttf-bitstream-vera
-ttf-dejavue
 ttf-droid
 ttf-liberation
 "

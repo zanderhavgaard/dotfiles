@@ -67,7 +67,7 @@ exec --no-startup-id hsetroot -solid "#14191F"
 #
 
 # should set danish keyboard
-exec --no-startup-id setxkbmap dk
+exec --no-startup-id setxkbmap us
 
 # do not move mouse to different monitor when switching focus
 # mouse_warping none

@@ -104,6 +104,7 @@ fi
 
 
 cli_tools="
+diff-so-fancy
 exa
 bat
 prettyping

@@ -35,7 +35,7 @@ green = #9ACD68
 cyan-alt = #13AFAF
 cyan = #6ECFCF
 
-background = #282a36
+background = #282C36
 background-alt = ${colors.grey}
 foreground = ${colors.black-alt}
 foreground-alt = ${colors.grey}

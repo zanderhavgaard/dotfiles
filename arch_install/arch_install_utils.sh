@@ -130,6 +130,7 @@ speedtest-cli
 lolcat
 cowsay
 fortune-mod
+xclip
 "
 read -p "Install cli_tools? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -154,6 +155,7 @@ git
 alacritty
 firefox
 qutebrowser
+vimb
 thunderbird
 docker
 docker-compose

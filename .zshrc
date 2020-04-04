@@ -43,8 +43,9 @@ antigen bundle caarlos0/zsh-open-pr
 
 # theme
 # antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
-# antigen theme https://github.com/geometry-zsh/geometry 
+# antigen theme https://github.com/geometry-zsh/geometry
 antigen theme https://github.com/reobin/typewritten
+# antigen theme https://github.com/hohmannr/bubblified
 
 # commit antigen commands
 antigen apply

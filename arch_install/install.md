@@ -370,9 +370,14 @@ For virtualbox guests
 pacman -S virtualbox-guest-utils virtualbox-guest-modules-arch mesa mesa-libgl
 ```
 
-Install xorg server and utils
+(Optional) Install xorg server and utils
 ```bash
 pacman -S xorg
+```
+
+(Optional) Install a window manager
+```bash
+pacman -S i3-gaps
 ```
 
 (Optional) install a display manager and themes

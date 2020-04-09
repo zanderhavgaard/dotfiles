@@ -72,6 +72,7 @@ gtk-engines
 net-tools
 lxappearance
 arch-wiki-docs
+arch-wiki-lite
 "
 read -p "Install misc system libs/utils/backends? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

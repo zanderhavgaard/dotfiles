@@ -31,8 +31,8 @@ alias random_password="date +%s | sha256sum | base64 | head -c 32 ; echo"
 alias rp="cd /home/zander/Dropbox/ITU/Master/3_semester/rp/researchprojectlambdaapp"
 alias thesis_docs="cd /home/zander/Insync/zanderhavgaard@gmail.com/Google\ Drive/ITU/Master/Thesis_lyfe/Thesis && ls -al"
 alias thesis="cd /home/zander/Dropbox/ITU/Master/4_semester/thesis && ls -al"
-alias tc="cd /home/zander/Dropbox/ITU/Master/4_semester/thesis/thesis-code && figlet thesis-code && l"
-alias tce="cd /home/zander/Dropbox/ITU/Master/4_semester/thesis/thesis-code && nvim"
+alias fb="cd /home/zander/Dropbox/ITU/Master/4_semester/thesis/faas-benchmarker && figlet -w 120 faas-benchmarker && l"
+alias fbe="cd /home/zander/Dropbox/ITU/Master/4_semester/thesis/faas-benchmarker && nvim"
 alias ta="cd /home/zander/Dropbox/ITU/Master/4_semester/ta_devops && figlet ta-devops && ls -al"
 
 # start emacs in no-gui mode

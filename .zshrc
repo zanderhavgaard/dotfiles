@@ -4,9 +4,6 @@
 # (_)/___||___/|_||_||_|_\ \___|
 #
 
-# btw I use Arch...
-pfetch
-
 # make sure the correct character set is used
 export LANG="en_DK.UTF-8"
 
@@ -62,3 +59,7 @@ source ~/.env-local
 # needed for docker plugin
 autoload -Uz compinit
 compinit
+
+# btw I use Arch...
+pfetch
+

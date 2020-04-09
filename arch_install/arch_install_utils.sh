@@ -71,6 +71,7 @@ gtk-engine-murrine
 gtk-engines
 net-tools
 lxappearance
+arch-wiki-docs
 "
 read -p "Install misc system libs/utils/backends? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

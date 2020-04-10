@@ -4,9 +4,6 @@
 # (_)/___||___/|_||_||_|_\ \___|
 #
 
-# btw I use Arch...
-pfetch
-
 # make sure the correct character set is used
 export LANG="en_DK.UTF-8"
 
@@ -43,9 +40,10 @@ antigen bundle caarlos0/zsh-open-pr
 
 # theme
 # antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
-# antigen theme https://github.com/geometry-zsh/geometry
-antigen theme https://github.com/reobin/typewritten
+# antigen theme https://github.com/reobin/typewritten
 # antigen theme https://github.com/hohmannr/bubblified
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure
 
 # commit antigen commands
 antigen apply
@@ -62,3 +60,7 @@ source ~/.env-local
 # needed for docker plugin
 autoload -Uz compinit
 compinit
+
+# btw I use Arch...
+pfetch
+

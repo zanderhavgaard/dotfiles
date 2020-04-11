@@ -40,10 +40,11 @@ antigen bundle caarlos0/zsh-open-pr
 
 # theme
 # antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
-# antigen theme https://github.com/reobin/typewritten
+antigen theme https://github.com/reobin/typewritten
 # antigen theme https://github.com/hohmannr/bubblified
-antigen bundle mafredri/zsh-async
-antigen bundle sindresorhus/pure
+
+# antigen bundle mafredri/zsh-async
+# antigen bundle sindresorhus/pure
 
 # commit antigen commands
 antigen apply
@@ -63,4 +64,3 @@ compinit
 
 # btw I use Arch...
 pfetch
-

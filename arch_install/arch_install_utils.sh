@@ -191,6 +191,7 @@ clang
 terraform
 kubectl
 minikube
+helm
 nodejs
 npm
 shellcheck
@@ -247,7 +248,6 @@ dropbox
 figlet-fonts
 gotop-bin
 insync
-kubernetes-helm-bin
 lazygit
 magic-wormhole
 pfetch-git

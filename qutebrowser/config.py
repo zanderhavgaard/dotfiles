@@ -1,4 +1,39 @@
+# stop linters from going crazy...
+# pylint: disable=C0111
+from qutebrowser.config.configfiles import ConfigAPI  # noqa: F401
+from qutebrowser.config.config import ConfigContainer  # noqa: F401
+c = c  # noqa: F821 pylint: disable=E0602,C0103
+config = config  # noqa: F821 pylint: disable=E0602,C0103
 
+# choose what backend to use
+# webengine is ~chromium
+# webkit is ~safari
+c.backend = 'webengine'
+#  c.backend = 'webkit'
+
+# auto save sessions
+c.auto_save.session = True
+
+# tab position
+c.tabs.position = 'top'
+#  c.tabs.position = 'left'
+
+# resize autocompletion pop-up
+c.completion.shrink = True
+
+# TODO
+# set a sensible user-agent
+#  c.content.headers.user_agent = ''
+
+# set stylesheet for dark colors
+c.content.user_stylesheets = [
+    '/home/zander/Applications/solarized-everything-css/css/darculized/darculized-all-sites.css'
+]
+
+
+# ====================================================================
+# THEME
+# ====================================================================
 
 # base16-qutebrowser (https://github.com/theova/base16-qutebrowser)
 # Base16 qutebrowser template by theova

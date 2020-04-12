@@ -62,10 +62,6 @@ echo -e "\nSymlinking git congfig ..."
 rm ~/.gitconfig
 ln -sv $dfd/.gitconfig /home/$user/.gitconfig
 
-echo -e "\nSymlinking VS Code config ..."
-rm $cfd/Code\ -\ OSS/User/settings.json
-ln -sv $dfd/Code/User/settings.json $cfd/Code\ -\ OSS/User/settings.json
-
 echo -e "\nSymlinking zathura config ..."
 rm $cfd/zathura/zathurarc
 ln -sv $dfd/zathura/zathurarc $cfd/zathura/zathurarc
@@ -83,3 +79,7 @@ ln -sv $dfd/vis $cfd/vis
 echo -e "\n symlinking dunst config ..."
 rm $cfd/dunst/dunstrc
 ln -sv $dfd/dunst/dunstrc $cfd/dunst/dunstrc
+
+echo -e "\n symlinking qutebrowser config ..."
+rm -rf $cfd/qutebrowser
+ln -sv $dfd/qutebrowser $cfd/qutebrowser

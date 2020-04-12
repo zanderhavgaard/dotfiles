@@ -26,9 +26,9 @@ c.completion.shrink = True
 #  c.content.headers.user_agent = ''
 
 # set stylesheet for dark colors
-c.content.user_stylesheets = [
-    '/home/zander/Applications/solarized-everything-css/css/darculized/darculized-all-sites.css'
-]
+#  c.content.user_stylesheets = [
+#  '/home/zander/Applications/solarized-everything-css/css/darculized/darculized-all-sites.css'
+#  ]
 
 
 # ====================================================================

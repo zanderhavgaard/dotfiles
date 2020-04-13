@@ -257,6 +257,7 @@ spotify
 tty-clock
 zoom
 nerd-fonts-complete
+ly
 "
 read -p "Install AUR packages using yay? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

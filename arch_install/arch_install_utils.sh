@@ -21,7 +21,6 @@ xorg-server
 xorg-apps
 xorg-xinit
 xorg-xrandr
-arandr
 "
 read -p "Install i3-wm and xorg? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -73,6 +72,7 @@ net-tools
 lxappearance
 arch-wiki-docs
 arch-wiki-lite
+arandr
 "
 read -p "Install misc system libs/utils/backends? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

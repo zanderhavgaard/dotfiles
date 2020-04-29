@@ -6,8 +6,7 @@ set -e
 # stream music from youtube to run in the background
 
 # youtube video urls
-music_urls="
-
+synthwave="
 https://www.youtube.com/watch?v=mZvQ9ipTK_8
 https://www.youtube.com/watch?v=ICcFMBzOnYs
 https://www.youtube.com/watch?v=gd6nEquwuhM
@@ -15,7 +14,6 @@ https://www.youtube.com/watch?v=6lBg2EEty24
 https://www.youtube.com/watch?v=-7POr2G21LI
 https://www.youtube.com/watch?v=_AXIOfilxi0
 https://www.youtube.com/watch?v=isIj3tuQTDY
-https://www.youtube.com/watch?v=dgCnYsDTiXU
 https://www.youtube.com/watch?v=6TEGPexTqr4
 https://www.youtube.com/watch?v=ByS1Rlk_AL8
 https://www.youtube.com/watch?v=WI4-HUn8dFc
@@ -26,7 +24,6 @@ https://www.youtube.com/watch?v=PWMTDRWJqu4
 https://www.youtube.com/watch?v=4P9xkQagCcc
 https://www.youtube.com/watch?v=Fs13eG36VR8
 https://www.youtube.com/watch?v=oquatvvKyBc
-https://www.youtube.com/watch?v=qWZL5RnfgtI
 https://www.youtube.com/watch?v=KPa1_7AF1lM
 https://www.youtube.com/watch?v=e6zZ7PIk9Vc
 https://www.youtube.com/watch?v=7q1bbRzNQmI
@@ -54,10 +51,17 @@ https://www.youtube.com/watch?v=ghvdhJRBMzE
 https://www.youtube.com/watch?v=prHFVUaL_bU
 https://www.youtube.com/watch?v=1pnoGkhxXaw
 https://www.youtube.com/watch?v=KKkEklLLgS0
+https://www.youtube.com/watch?v=oYprCmo1T-0
+https://www.youtube.com/watch?v=hQqgdGgJPWw
+https://www.youtube.com/watch?v=5B7UBni0yT8
+https://www.youtube.com/watch?v=5B7UBni0yT8
+https://www.youtube.com/watch?v=arzw0tFK5O4
+https://www.youtube.com/watch?v=Eq7rItvK9Vg
+https://www.youtube.com/watch?v=1Ho_8X16UHc
+https://www.youtube.com/watch?v=L7BkunLMEpk
+"
 
-
-https://www.youtube.com/watch?v=qEI1_oGPQr0
-https://www.youtube.com/watch?v=B2J0ZUe6zzk
+electronica="
 https://www.youtube.com/watch?v=JrQLGtNeguk
 https://www.youtube.com/watch?v=v5i_j10Ur9k
 https://www.youtube.com/watch?v=YxZRw1Xh8_c
@@ -73,18 +77,17 @@ https://www.youtube.com/watch?v=avmjunRX_xo
 https://www.youtube.com/watch?v=tM0sxOAu7mc
 https://www.youtube.com/watch?v=YQWA0kkT3lY
 https://www.youtube.com/watch?v=2_kNjDFg4t8
-https://www.youtube.com/watch?v=IVvpfQjR6jQ
 https://www.youtube.com/watch?v=xHlqSABb7pI
 https://www.youtube.com/watch?v=PC0rOWYWzDM
 https://www.youtube.com/watch?v=LYgNN8lDQ5s
 https://www.youtube.com/watch?v=SVrrjp-6pz8
-https://www.youtube.com/watch?v=MzmenT8hz9Q
 https://www.youtube.com/watch?v=cVFzblT5VPE
 https://www.youtube.com/watch?v=hicayypkI7g
 https://www.youtube.com/watch?v=NCmmGtadax4
 https://www.youtube.com/watch?v=2u6m7R2JV_g
+"
 
-
+misc_instrumental="
 https://www.youtube.com/watch?v=Zz6oob45faU
 https://www.youtube.com/watch?v=N0LZ20ppkNo
 https://www.youtube.com/watch?v=s-jtdKjzQaE
@@ -98,41 +101,67 @@ https://www.youtube.com/watch?v=uh-zU_XODpc
 https://www.youtube.com/watch?v=44Q5VePSaCs
 https://www.youtube.com/watch?v=w0jyU13gtBs
 https://www.youtube.com/watch?v=aXMX0sAL9bQ
-
-
-
 "
 
-mpv_command="mpv --ytdl-format=bestvideo+bestaudio --cache=yes --demuxer-max-bytes=123400KiB --demuxer-readahead-secs=20"
 
-# the command to play videos
-if [[ "$*" != *--show-video* ]]; then
-    mpv_command="${mpv_command} --no-video"
-fi
+function stream_no_video {
+	mpv \
+		--ytdl-format=bestvideo+bestaudio \
+		--cache=yes \
+		--demuxer-max-bytes=123400KiB \
+		--demuxer-readahead-secs=20 \
+		--no-video \
+		$1
+}
 
-echo -e "\n>>> Press q to skip to next video <<<\n"
+function stream_with_video {
+	mpv \
+		--ytdl-format=bestvideo+bestaudio \
+		--cache=yes \
+		--demuxer-max-bytes=123400KiB \
+		--demuxer-readahead-secs=20 \
+		$1
+}
 
-for url in $(shuf -e $music_urls) ; do
+function get_video_title {
+	youtube-dl \
+		--skip-download \
+		--get-title \
+		$1
+}
 
-    # get the video title
-    video_title=$(youtube-dl --skip-download --get-title $url)
+function play_music {
+	echo -e "\n>>> Press q to skip to next video <<<\n"
+	shuffled=$(shuf -e $2)
+	for url in $shuffled ; do
 
-    # print stuff
-    echo
-    echo -e "\tNow playing ..."
-    echo
-    echo -e "\t$url"
-    echo
-    figlet "$video_title"
-    echo
+		# get the video title
+		video_title=$(get_video_title $url)
 
+		# print title and url
+		echo -e "Now playing ... ( $url )\n"
+		figlet "$video_title"
+		echo
 
-    # play music
-    $mpv_command $url
+		# play music
+		[[ "$*" = *--show-video* ]]  \
+			&& stream_with_video $url \
+			|| stream_no_video $url
+	done
+}
 
-    echo
+# concatenate urls
+urls=$synthwave
+urls+=' '
+urls+=$electronica
+urls+=' '
+urls+=$misc_instrumental
 
-done
+# play video?
+video=$1
+
+# play the list of urls
+play_music "$video" "$urls"
 
 # say goodbye
 echo -e "\tNo more music ..."

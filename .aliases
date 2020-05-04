@@ -4,6 +4,9 @@
 # (_)/_/ \_\|____||___|/_/ \_\|___/|___||___/
 #
 
+# tail log files
+alias tailf="tail -f -n 999999"
+
 # update neovim
 alias nvim_update="bash /home/zander/neovim-config/update.sh"
 

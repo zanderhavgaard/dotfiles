@@ -36,7 +36,6 @@ cyan-alt = #13AFAF
 cyan = #6ECFCF
 
 background = #282C36
-; background = #00000
 background-alt = ${colors.grey}
 foreground = ${colors.black-alt}
 foreground-alt = ${colors.grey}
@@ -49,21 +48,20 @@ alert = #bd2c40
 [bar/top-bar]
 monitor = ${env:MONITOR}
 width = 100%
-height = 25
+height = 20
 
 ; corner radius
 radius = 0.0
 fixed-center = false
 
-; background = ${colors.background}
-background = #00000
+background = ${colors.background}
 foreground = ${colors.foreground}
 
 # size of lines underneath things?
 line-size = 0
 
 ; padding around bar
-border-size = 5
+border-size = 0
 
 # padding around polybar minus tray
 padding-left = 0
@@ -78,18 +76,20 @@ font-1 = "FontAwesome:size=9;1"
 font-2 = "Hasklug Nerd Font:style=Regular:size=12;2"
 
 ; modules to display
-modules-left = i3
+modules-left = i3 format-inverted-bg-blue-bg
 modules-center =
 modules-right =  alsa music launch-term xrandr caffeine-status memory cpu temperature filesystem pia-status wlan eth  battery0 battery1 date kernel-ver
 ; separator between modules
-; separator = " "
+separator = "|"
 
 ; sys tray
-tray-background = ${colors.background}
 tray-detached = false
 tray-position = right
-tray-padding = 2
+; tray-padding = 2
 ; tray-offset-x = 10
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -138,7 +138,7 @@ label-urgent-padding = 1
 
 [module/launch-term]
 type = custom/script
-exec = echo "   "
+exec = echo "  "
 format-background = ${colors.background}
 format-foreground = ${colors.grey}
 click-left = alacritty
@@ -147,8 +147,8 @@ click-left = alacritty
 type = custom/script
 interval = 1
 exec = ~/dotfiles/scripts/pia_status.sh
-format = " <label>  "
-format-prefix = "  "
+format = " <label> "
+format-prefix = " "
 format-background = ${colors.background}
 format-foreground = ${colors.grey}
 
@@ -156,8 +156,8 @@ format-foreground = ${colors.grey}
 type = custom/script
 interval = 1
 exec = ~/dotfiles/i3lock/check_if_locker_is_running.sh
-format = " <label>  "
-format-prefix = "  "
+format = " <label> "
+format-prefix = " "
 format-background = ${colors.background}
 format-foreground = ${colors.grey}
 click-left = killall -q xautolock
@@ -360,10 +360,8 @@ type = custom/menu
 expand-right = true
 format-spacing = 1
 
-format-background = ${colors.background}
-
 label-open = "   "
-; label-open-format-background = ${colors.background}
+label-open-format-background = ${colors.background}
 label-open-foreground = ${colors.grey}
 
 label-close = " ﰸ "

@@ -52,11 +52,11 @@ width = 100%
 height = 25
 
 ; corner radius
-radius = 0.0
+radius = 10.0
 fixed-center = false
 
-; background = ${colors.background}
-background = #00000
+background = ${colors.background}
+; background = #00000
 foreground = ${colors.foreground}
 
 # size of lines underneath things?

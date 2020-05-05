@@ -337,16 +337,13 @@ type = internal/temperature
 thermal-zone = 0
 warn-temperature = 60
 
+format = " <ramp> <label> "
 format-background = ${colors.background}
 format-foreground = ${colors.grey}
 
-format = " <ramp> <label> "
-; format-background = ${colors.green}
-; format-foreground = ${colors.black}
-
 format-warn = " <ramp> <label-warn> "
-; format-warn-background = ${colors.red}
-; format-warn-foreground = ${colors.black}
+format-warn-background = ${colors.background}
+format-warn-foreground = ${colors.grey}
 
 label = %temperature-c%
 label-warn = %temperature-c%

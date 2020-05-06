@@ -55,8 +55,8 @@ height = 25
 radius = 10.0
 fixed-center = false
 
-background = ${colors.background}
-; background = #00000
+; background = ${colors.background}
+background = #00
 foreground = ${colors.foreground}
 
 # size of lines underneath things?
@@ -75,17 +75,17 @@ padding-right = 0
 
 font-0 = "Hasklug Nerd Font:size=9;1"
 font-1 = "FontAwesome:size=9;1"
-font-2 = "Hasklug Nerd Font:style=Regular:size=12;2"
+font-2 = "Hasklug Nerd Font:style=Regular:size=18;3"
 
 ; modules to display
-modules-left = i3
+modules-left = l i3 r
 modules-center =
-modules-right =  alsa music launch-term xrandr caffeine-status memory cpu temperature filesystem pia-status wlan eth  battery0 battery1 date kernel-ver
+modules-right = l alsa r    l spotify r    l launch-term xrandr caffeine-status r    l memory cpu temperature r   l filesystem r    l pia-status wlan eth r     l battery0 battery1 r    l date r     l kernel-ver r
 ; separator between modules
 ; separator = " "
 
 ; sys tray
-tray-background = ${colors.background}
+; tray-background = ${colors.background}
 tray-detached = false
 tray-position = right
 tray-padding = 2
@@ -94,6 +94,19 @@ tray-padding = 2
 cursor-click = pointer
 cursor-scroll = ns-resize
 
+[module/l]
+type = custom/text
+content = ""
+content-font = 3
+content-background = $00
+content-foreground = ${colors.background}
+
+[module/r]
+type = custom/text
+content = ""
+content-font = 3
+content-background = $00
+content-foreground = ${colors.background}
 
 [module/i3]
 type = internal/i3
@@ -163,7 +176,7 @@ format-foreground = ${colors.grey}
 click-left = killall -q xautolock
 click-right = ~/dotfiles/i3lock/start_i3lock.sh & disown
 
-[module/music]
+[module/spotify]
 type = custom/script
 interval = 1
 exec = ~/dotfiles/scripts/sp_status.sh
@@ -251,7 +264,7 @@ format-disconnected-foreground = ${colors.grey}
 [module/date]
 type = internal/date
 interval = 5
-date = "  %A %d %B %Y"
+date = "  %a %d %b "
 time = " %H:%M "
 format-background = ${colors.background}
 format-foreground = ${colors.grey}

@@ -34,11 +34,11 @@ green-alt = #5DA713
 green = #9ACD68
 cyan-alt = #13AFAF
 cyan = #6ECFCF
+dark-grey = #282C36
 
-background = #282C36
-; background = #00000
+background = ${colors.dark-grey}
 background-alt = ${colors.grey}
-foreground = ${colors.black-alt}
+foreground = ${colors.grey-alt}
 foreground-alt = ${colors.grey}
 
 ; propably need these for specific functions
@@ -46,71 +46,81 @@ primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
 
-[bar/top-bar]
+; base colors that modules use
+[section/base]
+background = ${colors.dark-grey}
+; foreground = ${colors.grey}
+foreground = ${colors.black}
+format-background = ${colors.dark-grey}
+; format-foreground = ${colors.grey}
+format-foreground = ${colors.black}
+
+
+[bar/main-bar]
 monitor = ${env:MONITOR}
+bottom = false
 width = 100%
-height = 25
+height = 2%
 
 ; corner radius
-radius = 10.0
-fixed-center = false
+radius = 7.0
+; fixed-center = true
 
+inherit = section/base
 ; background = ${colors.background}
-background = #00
-foreground = ${colors.foreground}
+; foreground = ${colors.foreground}
 
 # size of lines underneath things?
-line-size = 0
+line-size = 1
 
 ; padding around bar
 border-size = 5
 
 # padding around polybar minus tray
-padding-left = 0
-padding-right = 0
+; padding-left = 0
+; padding-right = 0
 
 ; module-margin = 1
 ; module-margin-left = 1
 ; module-margin-right = 1
 
-font-0 = "Hasklug Nerd Font:size=9;1"
+; font-0 = "Hack Nerd Font:size=9;1"
+font-0 = "Iosevka Nerd Font:size=9;1"
 font-1 = "FontAwesome:size=9;1"
 font-2 = "Hasklug Nerd Font:style=Regular:size=18;3"
 
 ; modules to display
-modules-left = l i3 r
+modules-left = l-ra i3 r-ra    l-r xwindow r-r
 modules-center =
-modules-right = l alsa r    l spotify r    l launch-term xrandr caffeine-status r    l memory cpu temperature r   l filesystem r    l pia-status wlan eth r     l battery0 battery1 r    l date r     l kernel-ver r
+modules-right =  l-pa alsa r-pa  l-ga spotify r-ga    l-g launch-term xrandr caffeine-status r-g     l-oa memory cpu temperature r-oa     l-o filesystem r-o     l-ca pia-status wlan eth eth-alt r-ca    l-c battery0 battery1 r-c    l-b date r-b     l-ba kernel-ver r-ba
+
 ; separator between modules
 ; separator = " "
 
 ; sys tray
-; tray-background = ${colors.background}
+tray-background = ${colors.dark-grey}
 tray-detached = false
 tray-position = right
-tray-padding = 2
+; tray-padding = 2
 ; tray-offset-x = 10
 
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-[module/l]
+[module/l-ra]
 type = custom/text
-content = ""
-; content = ""
-; content = " "
+; content = ""
+content = ""
 content-font = 3
-content-background = $00
-content-foreground = ${colors.background}
+content-foreground = ${colors.dark-grey}
+content-background = ${colors.red-alt}
 
-[module/r]
+[module/r-ra]
 type = custom/text
 content = ""
-; content = ""
-; content = " "
 content-font = 3
-content-background = $00
-content-foreground = ${colors.background}
+content-background = ${colors.dark-grey}
+content-foreground = ${colors.red-alt}
 
 [module/i3]
 type = internal/i3
@@ -128,15 +138,15 @@ label-mode-background = ${colors.orange}
 
 ; focused = Active workspace on focused monitor
 label-focused = %index%
-label-focused-background = ${colors.grey}
-label-focused-foreground = ${colors.black}
+label-focused-background = ${colors.red-alt}
+label-focused-foreground = ${colors.white}
 label-focused-padding = 1
 
 ; unfocused = Inactive workspace on any monitor
 label-unfocused = %index%
 label-unfocused-padding = 1
-label-unfocused-background = ${colors.background}
-label-unfocused-foreground = ${colors.grey}
+label-unfocused-background = ${colors.red-alt}
+label-unfocused-foreground = ${colors.black}
 
 ; visible = Active workspace on unfocused monitor
 label-visible = %index%
@@ -153,128 +163,50 @@ label-urgent-padding = 1
 ; Separator in between workspaces
 ; label-separator = |
 
-[module/launch-term]
-type = custom/script
-exec = echo "   "
-format-background = ${colors.background}
-format-foreground = ${colors.grey}
-click-left = alacritty
 
-[module/pia-status]
-type = custom/script
-interval = 1
-exec = ~/dotfiles/scripts/pia_status.sh
-format = " <label>  "
-format-prefix = "  "
-format-background = ${colors.background}
-format-foreground = ${colors.grey}
+[module/l-r]
+type = custom/text
+; content = ""
+content = ""
+content-font = 3
+content-foreground = ${colors.dark-grey}
+content-background = ${colors.red}
 
-[module/caffeine-status]
-type = custom/script
-interval = 1
-exec = ~/dotfiles/i3lock/check_if_locker_is_running.sh
-format = " <label>  "
-format-prefix = "  "
-format-background = ${colors.background}
-format-foreground = ${colors.grey}
-click-left = killall -q xautolock
-click-right = ~/dotfiles/i3lock/start_i3lock.sh & disown
-
-[module/spotify]
-type = custom/script
-interval = 1
-exec = ~/dotfiles/scripts/sp_status.sh
-; exec = echo "$(playerctl metadata artist): $(playerctl metadata title)"
-format = " <label> "
-format-prefix = " "
-format-background = ${colors.background}
-format-foreground = ${colors.grey}
-
-[module/kernel-ver]
-type = custom/script
-exec = ~/dotfiles/scripts/print_osicon_kernel.sh
-format-prefix = " "
-format = " <label> "
-format-background = ${colors.background}
-format-foreground = ${colors.grey}
+[module/r-r]
+type = custom/text
+content = ""
+content-font = 3
+content-background = ${colors.dark-grey}
+content-foreground = ${colors.red}
 
 [module/xwindow]
+inherit = section/base
 type = internal/xwindow
-label = %title:0:30:...%
+label = " %title:0:30:...% "
+format-background = ${colors.red}
 
-[module/filesystem]
-type = internal/fs
-interval = 25
 
-mount-0 = /
-mount-1 = /home
 
-label-mounted = %mountpoint% %free%
-label-unmounted = %mountpoint% not mounted
 
-format-mounted = " <label-mounted> "
-format-mounted-prefix = "  "
-format-mounted-background = ${colors.background}
-format-mounted-foreground = ${colors.grey}
 
-[module/cpu]
-type = internal/cpu
-interval = 2
-format-prefix = "  "
-format = "<label> "
-label = %percentage:2%%
-format-background = ${colors.background}
-format-foreground = ${colors.grey}
 
-[module/memory]
-type = internal/memory
-interval = 2
-format-prefix = "  "
-format = " <label> "
-label = %gb_used%
-format-background = ${colors.background}
-format-foreground = ${colors.grey}
+[module/l-pa]
+type = custom/text
+content = ""
+content-font = 3
+content-background = ${colors.dark-grey}
+content-foreground = ${colors.purple-alt}
 
-[module/wlan]
-type = internal/network
-interface = wlp4s0
-interval = 3.0
-
-format-connected-prefix = " "
-format-connected = " 直 <label-connected> "
-label-connected = %essid%
-format-connected-background = ${colors.background}
-format-connected-foreground = ${colors.grey}
-
-format-disconnected = " 睊  "
-format-disconnected-background = ${colors.background}
-format-disconnected-foreground = ${colors.grey}
-
-[module/eth]
-type = internal/network
-interface = enp0s31f6
-interval = 3.0
-
-format-connected = " <label-connected> "
-format-connected-prefix = "  "
-label-connected = %local_ip%
-format-connected-background = ${colors.background}
-format-connected-foreground = ${colors.grey}
-
-format-disconnected = "  "
-format-disconnected-background = ${colors.background}
-format-disconnected-foreground = ${colors.grey}
-
-[module/date]
-type = internal/date
-interval = 5
-date = "  %a %d %b "
-time = " %H:%M "
-format-background = ${colors.background}
-format-foreground = ${colors.grey}
-label = %date% %time%
+[module/r-pa]
+type = custom/text
+content = ""
+content-font = 3
+content-foreground = ${colors.dark-grey}
+content-background = ${colors.purple-alt}
 
 [module/alsa]
+inherit = section/base
+format-volume-background = ${colors.purple-alt}
 type = internal/alsa
 
 # format-volume = <label-volume> <bar-volume>
@@ -282,103 +214,96 @@ format-volume = <label-volume>
 ; format-volume-background = ${colors.red}
 
 label-volume = "  %percentage%% "
-label-volume-background = ${colors.background}
-label-volume-foreground = ${colors.grey}
+; label-volume-background = ${colors.background}
+; label-volume-foreground = ${colors.grey}
 
 label-muted = " 婢 "
-label-muted-background = ${colors.background}
-label-muted-foreground = ${colors.grey}
-
-[module/battery0]
-type = internal/battery
-battery = BAT0
-adapter = AC
-full-at = 97
-
-format-full-background = ${colors.background}
-format-full-foreground = ${colors.grey}
-format-charging-background = ${colors.background}
-format-charging-foreground = ${colors.grey}
-format-discharging-background = ${colors.background}
-format-discharging-foreground = ${colors.grey}
+; label-muted-background = ${colors.background}
+; label-muted-foreground = ${colors.grey}
 
 
-format-discharging = " <ramp-capacity> <label-discharging> int "
-format-discharging-prefix = "  "
+[module/l-ga]
+type = custom/text
+content = ""
+content-font = 3
+content-background = ${colors.dark-grey}
+content-foreground = ${colors.green-alt}
 
-format-charging = " <ramp-capacity> <label-charging> int "
-format-charging-prefix = "  "
+[module/r-ga]
+type = custom/text
+content = ""
+content-font = 3
+content-foreground = ${colors.dark-grey}
+content-background = ${colors.green-alt}
 
-format-full = " <ramp-capacity> int "
-format-full-prefix = " ﮣ "
-
-; ramp when plugged in
-ramp-capacity-0 = " "
-ramp-capacity-1 = " "
-ramp-capacity-2 = " "
-ramp-capacity-3 = " "
-ramp-capacity-4 = " "
-
-[module/battery1]
-type = internal/battery
-battery = BAT1
-adapter = AC
-full-at = 97
-
-format-full-background = ${colors.background}
-format-full-foreground = ${colors.grey}
-format-charging-background = ${colors.background}
-format-charging-foreground = ${colors.grey}
-format-discharging-background = ${colors.background}
-format-discharging-foreground = ${colors.grey}
+[module/spotify]
+inherit = section/base
+type = custom/script
+interval = 1
+exec = ~/dotfiles/scripts/sp_status.sh
+; exec = echo "$(playerctl metadata artist): $(playerctl metadata title)"
+format = " <label> "
+format-prefix = " "
+; format-background = ${colors.background}
+; format-foreground = ${colors.grey}
+format-background = ${colors.green-alt}
 
 
-format-discharging = " <ramp-capacity> <label-discharging> ext "
-format-discharging-prefix = "  "
 
-format-charging = " <ramp-capacity> <label-charging> ext "
-format-charging-prefix = "  "
 
-format-full = " <ramp-capacity> ext "
-format-full-prefix = " ﮣ "
 
-; ramp when plugged in
-ramp-capacity-0 = " "
-ramp-capacity-1 = " "
-ramp-capacity-2 = " "
-ramp-capacity-3 = " "
-ramp-capacity-4 = " "
 
-[module/temperature]
-type = internal/temperature
-thermal-zone = 0
-warn-temperature = 60
 
-format = " <ramp> <label> "
-format-background = ${colors.background}
-format-foreground = ${colors.grey}
+[module/l-g]
+type = custom/text
+content = ""
+content-font = 3
+content-background = ${colors.dark-grey}
+content-foreground = ${colors.green}
 
-format-warn = " <ramp> <label-warn> "
-format-warn-background = ${colors.background}
-format-warn-foreground = ${colors.grey}
+[module/r-g]
+type = custom/text
+content = ""
+content-font = 3
+content-foreground = ${colors.dark-grey}
+content-background = ${colors.green}
 
-label = %temperature-c%
-label-warn = %temperature-c%
+[module/launch-term]
+inherit = section/base
+type = custom/script
+exec = echo "   "
+click-left = alacritty
+; format-background = ${colors.background}
+; format-foreground = ${colors.grey}
+; format-background = ${colors.red}
+; format-foreground = ${colors.blue}
+format-background = ${colors.green}
 
-ramp-0 = " "
-ramp-1 = " "
-ramp-2 = " "
+[module/caffeine-status]
+inherit = section/base
+type = custom/script
+interval = 1
+exec = ~/dotfiles/i3lock/check_if_locker_is_running.sh
+format = " <label>  "
+format-prefix = "  "
+; format-background = ${colors.background}
+; format-foreground = ${colors.grey}
+click-left = killall -q xautolock
+click-right = ~/dotfiles/i3lock/start_i3lock.sh & disown
+format-background = ${colors.green}
 
 [module/xrandr]
+inherit = section/base
+format-background = ${colors.green}
 type = custom/menu
 expand-right = true
 format-spacing = 1
 
-format-background = ${colors.background}
+; format-background = ${colors.background}
 
 label-open = "   "
 ; label-open-format-background = ${colors.background}
-label-open-foreground = ${colors.grey}
+; label-open-foreground = ${colors.grey}
 
 label-close = " ﰸ "
 ; label-close-background = ${colors.red}
@@ -416,18 +341,340 @@ menu-2-2-exec = ~/dotfiles/xrandr/pro_dock/1080_DP2-2_left
 menu-2-3 = "1080p_DP2-2_mirrored"
 menu-2-3-exec = ~/dotfiles/xrandr/pro_dock/1080_DP2-2_mirrored
 
+
+
+
+
+
+
+
+[module/l-oa]
+type = custom/text
+content = ""
+content-font = 3
+content-background = ${colors.dark-grey}
+content-foreground = ${colors.orange-alt}
+
+[module/r-oa]
+type = custom/text
+content = ""
+content-font = 3
+content-foreground = ${colors.dark-grey}
+content-background = ${colors.orange-alt}
+
+
+[module/cpu]
+inherit = section/base
+type = internal/cpu
+interval = 2
+format-prefix = "  "
+format = "<label> "
+label = %percentage:2%%
+format-background = ${colors.orange-alt}
+
+[module/memory]
+inherit = section/base
+type = internal/memory
+interval = 2
+format-prefix = "  "
+format = " <label> "
+label = %gb_used%
+format-background = ${colors.orange-alt}
+
+[module/temperature]
+inherit = section/base
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+format = " <ramp> <label> "
+; format-background = ${colors.background}
+; format-foreground = ${colors.grey}
+
+format-warn = " <ramp> <label-warn> "
+; format-warn-background = ${colors.background}
+; format-warn-foreground = ${colors.grey}
+
+label = %temperature-c%
+label-warn = %temperature-c%
+
+ramp-0 = " "
+ramp-1 = " "
+ramp-2 = " "
+
+format-background = ${colors.orange-alt}
+
+
+
+
+[module/l-o]
+type = custom/text
+content = ""
+content-font = 3
+content-background = ${colors.dark-grey}
+content-foreground = ${colors.orange}
+
+[module/r-o]
+type = custom/text
+content = ""
+content-font = 3
+content-foreground = ${colors.dark-grey}
+content-background = ${colors.orange}
+
+[module/filesystem]
+inherit = section/base
+type = internal/fs
+interval = 25
+
+mount-0 = /
+mount-1 = /home
+
+label-mounted = %mountpoint% %free%
+label-unmounted = %mountpoint% not mounted
+
+format-mounted = " <label-mounted> "
+format-mounted-prefix = "  "
+; format-mounted-background = ${colors.background}
+; format-mounted-foreground = ${colors.grey}
+format-mounted-background = ${colors.orange}
+
+
+
+
+
+[module/l-ca]
+type = custom/text
+content = ""
+content-font = 3
+content-background = ${colors.dark-grey}
+content-foreground = ${colors.cyan-alt}
+
+[module/r-ca]
+type = custom/text
+content = ""
+content-font = 3
+content-foreground = ${colors.dark-grey}
+content-background = ${colors.cyan-alt}
+
+[module/pia-status]
+inherit = section/base
+type = custom/script
+interval = 1
+exec = ~/dotfiles/scripts/pia_status.sh
+format = " <label>  "
+format-prefix = "  "
+; format-background = ${colors.background}
+; format-foreground = ${colors.grey}
+format-background = ${colors.cyan-alt}
+
+[module/wlan]
+inherit = section/base
+type = internal/network
+interface = wlp4s0
+interval = 3.0
+
+format-connected-prefblueix = " "
+format-connected = " 直 <label-connected> "
+label-connected = %essid%
+; format-connected-background = ${colors.background}
+; format-connected-foreground = ${colors.grey}
+
+format-disconnected = " 睊  "
+; format-disconnected-background = ${colors.background}
+; format-disconnected-foreground = ${colors.grey}
+format-background = ${colors.cyan-alt}
+
+[module/eth]
+inherit = section/base
+type = internal/network
+interface = enp0s31f6
+interval = 3.0
+
+format-connected = " <label-connected> "
+format-connected-prefix = "  "
+label-connected = %local_ip%
+; format-connected-background = ${colors.background}
+; format-connected-foreground = ${colors.grey}
+format-connected-background = ${colors.cyan-alt}
+
+format-disconnected = "  "
+; format-disconnected-background = ${colors.background}
+; format-disconnected-foreground = ${colors.grey}
+format-disconnected-background = ${colors.cyan-alt}
+
+[module/eth-alt]
+inherit = section/base
+type = internal/network
+interface = enp6s0
+interval = 3.0
+
+format-connected = " <label-connected> "
+format-connected-prefix = "  "
+label-connected = %local_ip%
+; format-connected-background = ${colors.background}
+; format-connected-foreground = ${colors.grey}
+format-connected-background = ${colors.cyan-alt}
+
+format-disconnected = "  "
+; format-disconnected-background = ${colors.background}
+; format-disconnected-foreground = ${colors.grey}
+format-disconnected-background = ${colors.cyan-alt}
+
+
+
+
+
+[module/l-c]
+type = custom/text
+content = ""
+content-font = 3
+content-background = ${colors.dark-grey}
+content-foreground = ${colors.cyan}
+
+[module/r-c]
+type = custom/text
+content = ""
+content-font = 3
+content-foreground = ${colors.dark-grey}
+content-background = ${colors.cyan}
+
+[module/battery0]
+inherit = section/base
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 97
+
+; format-full-background = ${colors.background}
+; format-full-foreground = ${colors.grey}
+; format-charging-background = ${colors.background}
+; format-charging-foreground = ${colors.grey}
+; format-discharging-background = ${colors.background}
+; format-discharging-foreground = ${colors.grey}
+
+
+format-discharging = " <ramp-capacity> <label-discharging> int "
+format-discharging-prefix = "  "
+
+format-charging = " <ramp-capacity> <label-charging> int "
+format-charging-prefix = "  "
+
+format-full = " <ramp-capacity> int "
+format-full-prefix = " ﮣ "
+
+; ramp when plugged in
+ramp-capacity-0 = " "
+ramp-capacity-1 = " "
+ramp-capacity-2 = " "
+ramp-capacity-3 = " "
+ramp-capacity-4 = " "
+
+format-background = ${colors.cyan}
+
+[module/battery1]
+inherit = section/base
+type = internal/battery
+battery = BAT1
+adapter = AC
+full-at = 97
+
+; format-full-background = ${colors.background}
+; format-full-foreground = ${colors.grey}
+; format-charging-background = ${colors.background}
+; format-charging-foreground = ${colors.grey}
+; format-discharging-background = ${colors.background}
+; format-discharging-foreground = ${colors.grey}
+
+
+format-discharging = " <ramp-capacity> <label-discharging> ext "
+format-discharging-prefix = "  "
+
+format-charging = " <ramp-capacity> <label-charging> ext "
+format-charging-prefix = "  "
+
+format-full = " <ramp-capacity> ext "
+format-full-prefix = " ﮣ "
+
+; ramp when plugged in
+ramp-capacity-0 = " "
+ramp-capacity-1 = " "
+ramp-capacity-2 = " "
+ramp-capacity-3 = " "
+ramp-capacity-4 = " "
+
+format-background = ${colors.cyan}
+
+
+
+
+
+[module/l-b]
+type = custom/text
+content = ""
+content-font = 3
+content-background = ${colors.dark-grey}
+content-foreground = ${colors.blue}
+
+[module/r-b]
+type = custom/text
+content = ""
+content-font = 3
+content-foreground = ${colors.dark-grey}
+content-background = ${colors.blue}
+
+[module/date]
+inherit = section/base
+type = internal/date
+interval = 5
+date = "  %a %d %b "
+time = " %H:%M "
+label = %date% %time%
+format-background = ${colors.blue}
+
+
+
+
+
+[module/l-ba]
+type = custom/text
+content = ""
+content-font = 3
+content-background = ${colors.dark-grey}
+content-foreground = ${colors.blue-alt}
+
+[module/r-ba]
+type = custom/text
+content = ""
+content-font = 3
+content-foreground = ${colors.dark-grey}
+content-background = ${colors.blue-alt}
+
+[module/kernel-ver]
+inherit = section/base
+type = custom/script
+exec = ~/dotfiles/scripts/print_osicon_kernel.sh
+format-prefix = " "
+format = " <label> "
+; format-background = ${colors.background}
+; format-foreground = ${colors.grey}
+format-background = ${colors.blue-alt}
+
+
+
+
+
+
+
 [settings]
 screenchange-reload = true
-; set to true if using no compositor for tranbsparency
 pseudo-transparency = false
 ;compositing-background = xor
 ;compositing-background = screen
 ;compositing-foreground = source
 ;compositing-border = over
-;pseudo-transparency = false
 
 [global/wm]
-margin-top = 0
-margin-bottom = 0
+; margin-top = 0
+; margin-bottom = 0
 
 ; vim:ft=dosini

@@ -84,10 +84,9 @@ border-size = 5
 ; module-margin-left = 1
 ; module-margin-right = 1
 
-; font-0 = "Hack Nerd Font:size=9;1"
 font-0 = "Iosevka Nerd Font:size=9;1"
 font-1 = "FontAwesome:size=9;1"
-font-2 = "Hasklug Nerd Font:style=Regular:size=18;3"
+font-2 = "Iosevka Nerd Font:style=Regular:size=18;3"
 
 ; modules to display
 modules-left = l-ra i3 r-ra    l-r xwindow r-r
@@ -107,18 +106,27 @@ tray-position = right
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-[module/l-ra]
-type = custom/text
-; content = ""
+[section/left-content]
 content = ""
+; content = ""
 content-font = 3
+
+[section/right-content]
+content = ""
+; content = ""
+content-font = 3
+
+
+[module/l-ra]
+inherit = section/left-content
+type = custom/text
 content-foreground = ${colors.dark-grey}
 content-background = ${colors.red-alt}
 
 [module/r-ra]
+inherit = section/left-content
 type = custom/text
 content = ""
-content-font = 3
 content-background = ${colors.dark-grey}
 content-foreground = ${colors.red-alt}
 
@@ -165,17 +173,14 @@ label-urgent-padding = 1
 
 
 [module/l-r]
+inherit = section/left-content
 type = custom/text
-; content = ""
-content = ""
-content-font = 3
 content-foreground = ${colors.dark-grey}
 content-background = ${colors.red}
 
 [module/r-r]
+inherit = section/left-content
 type = custom/text
-content = ""
-content-font = 3
 content-background = ${colors.dark-grey}
 content-foreground = ${colors.red}
 
@@ -191,16 +196,14 @@ format-background = ${colors.red}
 
 
 [module/l-pa]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-background = ${colors.dark-grey}
 content-foreground = ${colors.purple-alt}
 
 [module/r-pa]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-foreground = ${colors.dark-grey}
 content-background = ${colors.purple-alt}
 
@@ -223,16 +226,14 @@ label-muted = " 婢 "
 
 
 [module/l-ga]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-background = ${colors.dark-grey}
 content-foreground = ${colors.green-alt}
 
 [module/r-ga]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-foreground = ${colors.dark-grey}
 content-background = ${colors.green-alt}
 
@@ -255,16 +256,14 @@ format-background = ${colors.green-alt}
 
 
 [module/l-g]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-background = ${colors.dark-grey}
 content-foreground = ${colors.green}
 
 [module/r-g]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-foreground = ${colors.dark-grey}
 content-background = ${colors.green}
 
@@ -349,16 +348,14 @@ menu-2-3-exec = ~/dotfiles/xrandr/pro_dock/1080_DP2-2_mirrored
 
 
 [module/l-oa]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-background = ${colors.dark-grey}
 content-foreground = ${colors.orange-alt}
 
 [module/r-oa]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-foreground = ${colors.dark-grey}
 content-background = ${colors.orange-alt}
 
@@ -408,16 +405,14 @@ format-background = ${colors.orange-alt}
 
 
 [module/l-o]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-background = ${colors.dark-grey}
 content-foreground = ${colors.orange}
 
 [module/r-o]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-foreground = ${colors.dark-grey}
 content-background = ${colors.orange}
 
@@ -443,16 +438,14 @@ format-mounted-background = ${colors.orange}
 
 
 [module/l-ca]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-background = ${colors.dark-grey}
 content-foreground = ${colors.cyan-alt}
 
 [module/r-ca]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-foreground = ${colors.dark-grey}
 content-background = ${colors.cyan-alt}
 
@@ -525,16 +518,14 @@ format-disconnected-background = ${colors.cyan-alt}
 
 
 [module/l-c]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-background = ${colors.dark-grey}
 content-foreground = ${colors.cyan}
 
 [module/r-c]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-foreground = ${colors.dark-grey}
 content-background = ${colors.cyan}
 
@@ -609,16 +600,14 @@ format-background = ${colors.cyan}
 
 
 [module/l-b]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-background = ${colors.dark-grey}
 content-foreground = ${colors.blue}
 
 [module/r-b]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-foreground = ${colors.dark-grey}
 content-background = ${colors.blue}
 
@@ -636,16 +625,14 @@ format-background = ${colors.blue}
 
 
 [module/l-ba]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-background = ${colors.dark-grey}
 content-foreground = ${colors.blue-alt}
 
 [module/r-ba]
+inherit = section/right-content
 type = custom/text
-content = ""
-content-font = 3
 content-foreground = ${colors.dark-grey}
 content-background = ${colors.blue-alt}
 

@@ -63,7 +63,7 @@ width = 100%
 height = 2%
 
 ; corner radius
-radius = 7.0
+; radius = 0.0
 ; fixed-center = true
 
 inherit = section/base
@@ -74,7 +74,7 @@ inherit = section/base
 line-size = 1
 
 ; padding around bar
-border-size = 5
+; border-size = 5
 
 # padding around polybar minus tray
 ; padding-left = 0

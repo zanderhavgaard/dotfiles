@@ -263,7 +263,6 @@ tty-clock
 zoom
 nerd-fonts-complete
 ly
-i3-gaps-rounded
 "
 read -p "Install AUR packages using yay? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

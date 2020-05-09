@@ -96,18 +96,18 @@ cursor-scroll = ns-resize
 
 [module/l]
 type = custom/text
-; content = ""
+content = ""
 ; content = ""
-content = " "
+; content = " "
 content-font = 3
 content-background = $00
 content-foreground = ${colors.background}
 
 [module/r]
 type = custom/text
-; content = ""
+content = ""
 ; content = ""
-content = " "
+; content = " "
 content-font = 3
 content-background = $00
 content-foreground = ${colors.background}

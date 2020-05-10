@@ -563,6 +563,7 @@ ramp-capacity-4 = " "
 
 format-discharging-background = ${colors.cyan}
 format-charging-background = ${colors.cyan}
+format-full-background = ${colors.cyan}
 
 [module/battery1]
 inherit = section/base
@@ -597,6 +598,7 @@ ramp-capacity-4 = " "
 
 format-discharging-background = ${colors.cyan}
 format-charging-background = ${colors.cyan}
+format-full-background = ${colors.cyan}
 
 
 

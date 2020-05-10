@@ -55,7 +55,7 @@
     # make new branch and check it out
     nb = checkout -b
     # add all files to staging
-    a = add .
+    a = add -u .
     # commit with a message
     cm = commit -m
     # checout branch

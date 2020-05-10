@@ -475,7 +475,8 @@ label-connected = %essid%
 format-disconnected = " 睊  "
 ; format-disconnected-background = ${colors.background}
 ; format-disconnected-foreground = ${colors.grey}
-format-background = ${colors.cyan-alt}
+format-connected-background = ${colors.cyan-alt}
+format-disconnected-background = ${colors.cyan-alt}
 
 [module/eth]
 inherit = section/base
@@ -560,7 +561,8 @@ ramp-capacity-2 = " "
 ramp-capacity-3 = " "
 ramp-capacity-4 = " "
 
-format-background = ${colors.cyan}
+format-discharging-background = ${colors.cyan}
+format-charging-background = ${colors.cyan}
 
 [module/battery1]
 inherit = section/base
@@ -593,7 +595,8 @@ ramp-capacity-2 = " "
 ramp-capacity-3 = " "
 ramp-capacity-4 = " "
 
-format-background = ${colors.cyan}
+format-discharging-background = ${colors.cyan}
+format-charging-background = ${colors.cyan}
 
 
 

@@ -68,3 +68,5 @@
     s = status
     # push
     p = push
+    # force push
+    fp = push --force

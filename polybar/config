@@ -210,6 +210,7 @@ content-background = ${colors.purple-alt}
 [module/alsa]
 inherit = section/base
 format-volume-background = ${colors.purple-alt}
+format-muted-background = ${colors.purple-alt}
 type = internal/alsa
 
 # format-volume = <label-volume> <bar-volume>

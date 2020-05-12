@@ -401,7 +401,7 @@ ramp-1 = " "
 ramp-2 = " "
 
 format-background = ${colors.orange-alt}
-format-warrn-background = ${colors.orange-alt}
+format-warn-background = ${colors.orange-alt}
 
 
 

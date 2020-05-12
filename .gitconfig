@@ -4,8 +4,8 @@
 
 [core]
     ; pager = cat
-    ; pager = diff-so-fancy | less --tabs=4 -RFX
-    pager = delta --theme='OneHalfDark'
+    pager = diff-so-fancy | less --tabs=4 -RFX
+    ; pager = delta --theme='OneHalfDark'
     editor = nvim
 
 # url shorthands

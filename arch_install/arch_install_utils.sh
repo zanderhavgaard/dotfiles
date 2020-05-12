@@ -264,6 +264,7 @@ zoom
 nerd-fonts-complete
 ly
 git-delta
+circleci-cli-bin
 "
 read -p "Install AUR packages using yay? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

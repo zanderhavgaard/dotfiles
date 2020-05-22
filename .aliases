@@ -37,6 +37,7 @@ alias thesis="cd /home/zander/Dropbox/ITU/Master/4_semester/thesis && ls -al"
 alias fb="cd /home/zander/Dropbox/ITU/Master/4_semester/thesis/faas-benchmarker && figlet -w 120 faas-benchmarker && ls && git status && echo ''"
 alias fbe="cd /home/zander/Dropbox/ITU/Master/4_semester/thesis/faas-benchmarker && nvim"
 alias ta="cd /home/zander/Dropbox/ITU/Master/4_semester/ta_devops && figlet ta-devops && ls -al"
+alias te="cd /home/zander/Dropbox/ITU/Master/4_semester/thesis/Thesis && zathura out/main.pdf & ; nvim main.tex"
 
 # start emacs in no-gui mode
 # alias emacs="emacs -nw"

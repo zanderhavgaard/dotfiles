@@ -30,6 +30,7 @@ pacman -Qm display only packages installed from AUR
 pacman -Qdt display orphaned dependencies
 pacman -Ss search remote repository for package
 pacman -Qs search local repository for package
+pacman -Scc clear pacman cache of packages
 
 	>>> MarkDown workflow
 create .pdf from .md

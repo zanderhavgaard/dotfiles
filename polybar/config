@@ -427,9 +427,11 @@ mount-0 = /
 mount-1 = /home
 
 label-mounted = %mountpoint% %free%
-label-unmounted = %mountpoint% not mounted
+label-unmounted =
+format-unmounted-background = ${colors.orange}
 
 format-mounted = " <label-mounted> "
+; format-unmounted = " <label-unmounted> "
 format-mounted-prefix = "  "
 ; format-mounted-background = ${colors.background}
 ; format-mounted-foreground = ${colors.grey}

@@ -70,8 +70,6 @@ gtk-engine-murrine
 gtk-engines
 net-tools
 lxappearance
-arch-wiki-docs
-arch-wiki-lite
 arandr
 wmctrl
 "

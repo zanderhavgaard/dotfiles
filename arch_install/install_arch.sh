@@ -178,7 +178,8 @@ pacstrap /mnt base
 # ====================================================================================
 # Everythin until EOF will run in the new shell in the new arch system
 # ====================================================================================
-cat <<EOF > /mnt/setup.sh
+# cat <<EOF > /mnt/setup.sh
+# TODO uncomment
 
 # ====================================================================================
 # utils for chroot script
@@ -248,8 +249,50 @@ else
 fi
 
 # ====================================================================================
-# format partitions
+# setup mkinitcpio
 # ====================================================================================
+
+pmsg "Editing kernel modules ..."
+# TODO use sed to make the change
+# nvim /etc/mkinitcpio.conf
+
+pmsg "Creating initial ramdisk for mainline kernel ..."
+mkinitcpio -p linux
+
+pmsg "Creating initial ramdisk for lts kernel"
+mkinitcpio -p linux-lts
+
+# ====================================================================================
+# generate locale
+# ====================================================================================
+pmsg "Setting up locale.gen file ..."
+# TODO use sed to uncommnet
+# nvim /etc/locale.gen (uncomment en_US.UTF-8)
+
+pmsg "Generating locale ..."
+locale-gen
+
+# ====================================================================================
+# setup grub
+# ====================================================================================
+pmsg "Enabling disk encryption in grub config ..."
+# TODO use sed
+nvim /etc/default/grub
+
+# ====================================================================================
+# setup EFI
+# ====================================================================================
+pmsg "Creating mount point for EFI partition ..."
+mkdir /boot/EFI
+
+pmsg "Mounting EFI partition ..."
+mount "${INSTALL_DISK}1" /boot/EFI
+
+pmsg "Installing grub ..."
+grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
+
+pmsg "Creating locale directory for grub"
+mkdir /boot/grub/locale
 
 # ====================================================================================
 # format partitions
@@ -259,20 +302,9 @@ fi
 # format partitions
 # ====================================================================================
 
-# ====================================================================================
-# format partitions
-# ====================================================================================
 
-# ====================================================================================
-# format partitions
-# ====================================================================================
-
-# ====================================================================================
-# format partitions
-# ====================================================================================
-
-
-EOF
+# TODO uncomment
+# EOF
 
 # ====================================================================================
 # end of the sub system shell

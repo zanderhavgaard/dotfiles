@@ -173,18 +173,54 @@ read -n 1 -r ; echo
 # install arch
 # ====================================================================================
 pmsg "Installing base arch system ..."
-pacstrap -i /mnt base
+pacstrap /mnt base
 
-pmsg "Changing to shell in new system ..."
-arch-chroot /mnt
+# ====================================================================================
+# Everythin until EOF will run in the new shell in the new arch system
+# ====================================================================================
+cat <<EOF > /mnt/setup.sh
+
+# ====================================================================================
+# utils for chroot script
+# ====================================================================================
+# terminal espace codes for a rainy day
+NONE='\033[00m'
+RED='\033[01;31m'
+GREEN='\033[01;32m'
+YELLOW='\033[01;33m'
+PURPLE='\033[01;35m'
+CYAN='\033[01;36m'
+WHITE='\033[01;37m'
+BOLD='\033[1m'
+UNDERLINE='\033[4m'
+
+# for displaying progress
+function pmsg {
+  echo -e "${PURPLE}-->${NONE} ${BOLD}$1${NONE}"
+}
+
+# for errers
+function errmsg {
+ echo -e "${RED}${BOLD}--> $1${NONE}"
+}
+
+# general messages
+function msg {
+  echo -e "${BOLD}$1${NONE}"
+}
+
+# success message
+function smsg {
+echo -e "${BOLD}${GREEN}--> $1${NONE}"
+}
 
 
+# ====================================================================================
+# end utils for chroot script
+# ====================================================================================
 
-# script seems to break here ...
 
-
-
-pmag "Updating pacman repositories"
+pmsg "Updating pacman repositories"
 pacman -Syyy
 
 pmsg "Installing mainline and lts kernel + headers ..."
@@ -203,10 +239,10 @@ systemctl enable NetworkManager
 
 if [ "$CPU_VENDOR" = "intel" ] ; then
   pmsg "Installing intel ucode ..."
-  pacman -S intel-ucode
+  pacman --noconfirm -S intel-ucode
 elif [ "$CPU_VENDOR" = "amd" ] ; then
   pmsg "Installing amd ucode ..."
-  pacman -S amd-ucode
+  pacman --noconfirm -S amd-ucode
 else
   errmsg "Could not determine CPU vendor, skipping ucode installation."
 fi
@@ -234,3 +270,13 @@ fi
 # ====================================================================================
 # format partitions
 # ====================================================================================
+
+
+EOF
+
+# ====================================================================================
+# end of the sub system shell
+# ====================================================================================
+
+pmsg "Starting to execute commands in the new arch system..."
+arch-chroot /mnt bash setup.sh

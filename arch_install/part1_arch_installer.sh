@@ -71,7 +71,8 @@ read -rp "root partition size in gb [integer]: " ROOT_PART_SIZE
 msg "Specify CPU vendor, must be exact string, will install appropriate ucode."
 read -rp "CPU vendor [amd/intel]: " CPU_VENDOR
 msg "Specify GPU vendor, must be exact string, will install appropriate drivers."
-read -rp "GPU vendor [amd/intel]: " GPU_VENDOR
+read -rp "GPU vendor [amd/intel/none(for headless)]: " GPU_VENDOR
+read -rp "Would you like to install packages for a graphical desktop ? [yes/no]: " INSTALL_GUI
 
 msg
 msg "Summary: "
@@ -81,6 +82,7 @@ msg "install disk: $INSTALL_DISK"
 msg "root partition size: $ROOT_PART_SIZE gb"
 msg "cpu vendor: $CPU_VENDOR"
 msg "gpu vendor: $GPU_VENDOR"
+msg "install gui desktop: $INSTALL_GUI"
 msg
 
 msg "Continue? [y/n]"
@@ -112,7 +114,9 @@ mkfs.ext4 "${INSTALL_DISK}2"
 
 pmsg "Enabling full disk encryption ..."
 pmsg "You will be prompted to input the disk encryption password."
-cryptsetup luksFormat "${INSTALL_DISK}3"
+cryptsetup -q luksFormat "${INSTALL_DISK}3"
+
+pmsg "Unlocking new encrypted disk ..."
 cryptsetup open --type luks "${INSTALL_DISK}3" lvm
 
 # ====================================================================================
@@ -162,12 +166,12 @@ mkdir /mnt/etc
 pmsg "Creating the fstab file ..."
 genfstab -U -p /mnt >> /mnt/etc/fstab
 
-pmsg "Catting generated fstab ..."
-cat /mnt/etc/fstab
+# pmsg "Catting generated fstab ..."
+# cat /mnt/etc/fstab
 
-msg "Does fstab file look good? [y/n]"
-read -n 1 -r ; echo
-[[ $REPLY != "y" ]] && errmsg "aboring ..." && exit
+# msg "Does fstab file look good? [y/n]"
+# read -n 1 -r ; echo
+# [[ $REPLY != "y" ]] && errmsg "aboring ..." && exit
 
 # ====================================================================================
 # install arch
@@ -176,139 +180,32 @@ pmsg "Installing base arch system ..."
 pacstrap /mnt base
 
 # ====================================================================================
-# Everythin until EOF will run in the new shell in the new arch system
+# execute part 2 of the script inside the newly created filesystem
 # ====================================================================================
-# cat <<EOF > /mnt/setup.sh
-# TODO uncomment
+pmsg "Copying part2 script into new filesystem ..."
+cp /root/part2_arch_installer.sh /mnt/part2_arch_installer.sh
 
-# ====================================================================================
-# utils for chroot script
-# ====================================================================================
-# terminal espace codes for a rainy day
-NONE='\033[00m'
-RED='\033[01;31m'
-GREEN='\033[01;32m'
-YELLOW='\033[01;33m'
-PURPLE='\033[01;35m'
-CYAN='\033[01;36m'
-WHITE='\033[01;37m'
-BOLD='\033[1m'
-UNDERLINE='\033[4m'
-
-# for displaying progress
-function pmsg {
-  echo -e "${PURPLE}-->${NONE} ${BOLD}$1${NONE}"
-}
-
-# for errers
-function errmsg {
- echo -e "${RED}${BOLD}--> $1${NONE}"
-}
-
-# general messages
-function msg {
-  echo -e "${BOLD}$1${NONE}"
-}
-
-# success message
-function smsg {
-echo -e "${BOLD}${GREEN}--> $1${NONE}"
-}
-
-
-# ====================================================================================
-# end utils for chroot script
-# ====================================================================================
-
-
-pmsg "Updating pacman repositories"
-pacman -Syyy
-
-pmsg "Installing mainline and lts kernel + headers ..."
-pacman --noconfirm -S linux linux-lts linux-headers linux-lts-headers
-
-Install packages for the system, networking, ssh and a text editor
-pmsg "Installing neccesary packages for the system, networking, ssh, a text editor ..."
-pacman --noconfirm -S vim neovim base-devel openssh networkmanager network-manager-applet wpa_supplicant wireless_tools netctl dialog lvm2 grub efibootmgr dosfstools os-prober mtools ufw linux-firmware
-
-pmsg "Enabling NetworkManager ..."
-systemctl enable NetworkManager
-
-# ====================================================================================
-# Install ucode
-# ====================================================================================
-
-if [ "$CPU_VENDOR" = "intel" ] ; then
-  pmsg "Installing intel ucode ..."
-  pacman --noconfirm -S intel-ucode
-elif [ "$CPU_VENDOR" = "amd" ] ; then
-  pmsg "Installing amd ucode ..."
-  pacman --noconfirm -S amd-ucode
-else
-  errmsg "Could not determine CPU vendor, skipping ucode installation."
-fi
-
-# ====================================================================================
-# setup mkinitcpio
-# ====================================================================================
-
-pmsg "Editing kernel modules ..."
-# TODO use sed to make the change
-# nvim /etc/mkinitcpio.conf
-
-pmsg "Creating initial ramdisk for mainline kernel ..."
-mkinitcpio -p linux
-
-pmsg "Creating initial ramdisk for lts kernel"
-mkinitcpio -p linux-lts
-
-# ====================================================================================
-# generate locale
-# ====================================================================================
-pmsg "Setting up locale.gen file ..."
-# TODO use sed to uncommnet
-# nvim /etc/locale.gen (uncomment en_US.UTF-8)
-
-pmsg "Generating locale ..."
-locale-gen
-
-# ====================================================================================
-# setup grub
-# ====================================================================================
-pmsg "Enabling disk encryption in grub config ..."
-# TODO use sed
-nvim /etc/default/grub
-
-# ====================================================================================
-# setup EFI
-# ====================================================================================
-pmsg "Creating mount point for EFI partition ..."
-mkdir /boot/EFI
-
-pmsg "Mounting EFI partition ..."
-mount "${INSTALL_DISK}1" /boot/EFI
-
-pmsg "Installing grub ..."
-grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
-
-pmsg "Creating locale directory for grub"
-mkdir /boot/grub/locale
-
-# ====================================================================================
-# format partitions
-# ====================================================================================
-
-# ====================================================================================
-# format partitions
-# ====================================================================================
-
-
-# TODO uncomment
-# EOF
+pmsg "Executing part2 script in new arch system ..."
+arch-chroot /mnt bash part2_arch_installer.sh \
+  "$USERNAME" \
+  "$HOSTNAME" \
+  "$INSTALL_DISK" \
+  "$ROOT_PART_SIZE" \
+  "$CPU_VENDOR" \
+  "$GPU_VENDOR" \
+  "$INSTALL_GUI"
 
 # ====================================================================================
 # end of the sub system shell
 # ====================================================================================
 
-pmsg "Starting to execute commands in the new arch system..."
-arch-chroot /mnt bash setup.sh
+
+arch-chroot /mnt
+
+# TODO uncomment
+# pmsg "Unmounting ..."
+# umount -a
+
+# msg
+# smsg "Arch has been installed, you should now reboot."
+# msg

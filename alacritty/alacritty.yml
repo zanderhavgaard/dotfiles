@@ -81,15 +81,20 @@ scrolling:
 font:
   # Normal (roman) font face
   normal:
-    family: Iosevka Nerd Font Mono
+    # family: Iosevka Nerd Font Mono
+    # family: Hack Nerd Font
+    # family: Hasklug Nerd Font
+    family: mononoki Nerd Font
     style: Regular
   # Bold font face
   bold:
-    family: Iosevka Nerd Font Mono
+    # family: Iosevka Nerd Font Mono
+    family: mononoki Nerd Font
     style: Bold
   # Italic font face
   italic:
-    family: Iosevka Nerd Font Mono
+    # family: Iosevka Nerd Font Mono
+    family: mononoki Nerd Font
     style: Italic
 
   # Point size

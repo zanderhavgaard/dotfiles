@@ -67,6 +67,9 @@ pmsg "Reading variables for install ..."
 read -rp "username: " USERNAME
 read -rp "hostname: " HOSTNAME
 read -rp "disk to install to: " INSTALL_DISK
+msg "Prefix for install disk partition, if the disk name ends in a number, eg disk is called '/dev/nvme0n1'"
+msg "Then disk partitions will be called '/dev/nvme0n1px', where 'x' denotes the partition number"
+read -rp "please specify the prefix: " INSTALL_DISK_PREFIX
 read -rp "root partition size in gb [integer]: " ROOT_PART_SIZE
 msg "Specify CPU vendor, must be exact string, will install appropriate ucode."
 read -rp "CPU vendor [amd/intel]: " CPU_VENDOR
@@ -79,6 +82,7 @@ msg "Summary: "
 msg "username: $USERNAME"
 msg "hostname: $HOSTNAME"
 msg "install disk: $INSTALL_DISK"
+msg "install disk part prefix $INSTALL_DISK_PREFIX"
 msg "root partition size: $ROOT_PART_SIZE gb"
 msg "cpu vendor: $CPU_VENDOR"
 msg "gpu vendor: $GPU_VENDOR"
@@ -107,17 +111,17 @@ sfdisk "$INSTALL_DISK" < "$SFDISK_FILE"
 # ====================================================================================
 
 pmsg "Formatting EFI partition ..."
-mkfs.fat -F32 "${INSTALL_DISK}1"
+mkfs.fat -F32 "${INSTALL_DISK_PREFIX}1"
 
 pmsg "Formatting boot partition ..."
-mkfs.ext4 "${INSTALL_DISK}2"
+mkfs.ext4 "${INSTALL_DISK_PREFIX}2"
 
 pmsg "Enabling full disk encryption ..."
 pmsg "You will be prompted to input the disk encryption password."
-cryptsetup -q luksFormat "${INSTALL_DISK}3"
+cryptsetup luksFormat "${INSTALL_DISK_PREFIX}3"
 
 pmsg "Unlocking new encrypted disk ..."
-cryptsetup open --type luks "${INSTALL_DISK}3" lvm
+cryptsetup open --type luks "${INSTALL_DISK_PREFIX}3" lvm
 
 # ====================================================================================
 # configure LVM
@@ -145,7 +149,7 @@ pmsg "Creating the boot parition mount point ..."
 mkdir /mnt/boot
 
 pmsg "Mounting the boot partiion ..."
-mount "${INSTALL_DISK}2" /mnt/boot
+mount "${INSTALL_DISK_PREFIX}2" /mnt/boot
 
 pmsg "Formatting the home partition ..."
 mkfs.ext4 /dev/volgroup0/lv_home
@@ -190,6 +194,7 @@ arch-chroot /mnt bash part2_arch_installer.sh \
   "$USERNAME" \
   "$HOSTNAME" \
   "$INSTALL_DISK" \
+  "$INSTALL_DISK_PREFIX" \
   "$ROOT_PART_SIZE" \
   "$CPU_VENDOR" \
   "$GPU_VENDOR" \
@@ -199,13 +204,9 @@ arch-chroot /mnt bash part2_arch_installer.sh \
 # end of the sub system shell
 # ====================================================================================
 
+pmsg "Unmounting ..."
+umount -a
 
-arch-chroot /mnt
-
-# TODO uncomment
-# pmsg "Unmounting ..."
-# umount -a
-
-# msg
-# smsg "Arch has been installed, you should now reboot."
-# msg
+msg
+smsg "Arch has been installed, you should now reboot."
+msg

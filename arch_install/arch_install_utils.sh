@@ -81,7 +81,7 @@ fi
 read -p "Setup defaults for UFW? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     # setup ufw
-    sudo ufw default disallow incoming
+    sudo ufw default deny incoming
     sudo ufw default allow outgoing
     sudo ufw enbale
     sudo systemctl enable ufw

@@ -43,10 +43,11 @@ echo -e "${BOLD}${GREEN}--> $1${NONE}"
 USERNAME=$1
 HOSTNAME=$2
 INSTALL_DISK=$3
-ROOT_PART_SIZE=$4
-CPU_VENDOR=$5
-GPU_VENDOR=$6
-INSTALL_GUI=$7
+INSTALL_DISK_PREFIX=$4
+ROOT_PART_SIZE=$5
+CPU_VENDOR=$6
+GPU_VENDOR=$7
+INSTALL_GUI=$8
 
 msg
 msg "Start of part 2 script"
@@ -56,6 +57,7 @@ msg
 msg "username: $USERNAME"
 msg "hostname: $HOSTNAME"
 msg "install disk: $INSTALL_DISK"
+msg "install disk part prefix $INSTALL_DISK_PREFIX"
 msg "root partition size: $ROOT_PART_SIZE gb"
 msg "cpu vendor: $CPU_VENDOR"
 msg "gpu vendor: $GPU_VENDOR"
@@ -108,6 +110,8 @@ mkinitcpio -p linux-lts
 # ====================================================================================
 # generate locale
 # ====================================================================================
+
+# TODO make argument
 pmsg "Setting up locale.gen file ..."
 sed '/#en_US.UTF-8/s/^#//g' -i /etc/locale.gen
 
@@ -119,28 +123,28 @@ locale-gen
 # ====================================================================================
 pmsg "Enabling disk encryption in grub config ..."
 sed '/#GRUB_ENABLE_CRYPTODISK=y/s/^#//g' -i /etc/default/grub
-sed 's,GRUB_CMDLINE_LINUX_DEFAULT=",&cryptdevice='"${INSTALL_DISK}"'3:volgroup0:allow-discards ,' -i /etc/default/grub
+sed 's,GRUB_CMDLINE_LINUX_DEFAULT=",&cryptdevice='"${INSTALL_DISK_PREFIX}"'3:volgroup0:allow-discards ,' -i /etc/default/grub
 
 # ====================================================================================
-# setup EFI
+# setup EFI + grub
 # ====================================================================================
-# pmsg "Creating mount point for EFI partition ..."
-# mkdir /boot/EFI
+pmsg "Creating mount point for EFI partition ..."
+mkdir /boot/EFI
 
-# pmsg "Mounting EFI partition ..."
-# mount "${INSTALL_DISK}1" /boot/EFI
+pmsg "Mounting EFI partition ..."
+mount "${INSTALL_DISK_PREFIX}1" /boot/EFI
 
-# pmsg "Installing grub ..."
-# grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
+pmsg "Installing grub ..."
+grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 
-# pmsg "Creating locale directory for grub"
-# mkdir /boot/grub/locale
+pmsg "Creating locale directory for grub"
+[ ! -d /boot/grub/locale ] && mkdir /boot/grub/locale || msg "Directory already exists."
 
-# pmsg "Copying grub locale file ..."
-# cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+pmsg "Copying grub locale file ..."
+cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 
-# pmsg "Generating the grub config file"
-# grub-mkconfig -o /boot/grub/grub.cfg
+pmsg "Generating the grub config file"
+grub-mkconfig -o /boot/grub/grub.cfg
 
 # ====================================================================================
 # Setup swapfile
@@ -163,6 +167,7 @@ echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
 pmsg "Enabling network time ..."
 timedatectl set-ntp true
 
+# TODO make argument
 pmsg "Linking zoneinfo file to Copenhagen ..."
 ln -sf /usr/share/zoneinfo/Europe/Copenhagen /etc/localtime
 
@@ -233,5 +238,4 @@ if [ "$INSTALL_GUI" = "yes" ] ; then
 
   pmsg "Enabling lightdm ..."
   systemctl enable lightdm
-
 fi

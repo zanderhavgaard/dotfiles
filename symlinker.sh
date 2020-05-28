@@ -83,3 +83,9 @@ ln -sv $dfd/dunst/dunstrc $cfd/dunst/dunstrc
 echo -e "\n symlinking qutebrowser config ..."
 rm -rf $cfd/qutebrowser
 ln -sv $dfd/qutebrowser $cfd/qutebrowser
+
+echo -e "\n symlinking bspwm config ..."
+rm -rf $cfd/bspwm
+rm -rf $cfd/sxhkd
+ln -sv $dfd/bspwm $cfd/bspwm
+ln -sv $dfd/sxhkd $cfd/sxhkd

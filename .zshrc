@@ -5,7 +5,7 @@
 #
 
 # make sure the correct character set is used
-export LANG="en_DK.UTF-8"
+export LANG="en_US.UTF-8"
 
 # tell zsh to use colors
 export TERM="xterm-256color"

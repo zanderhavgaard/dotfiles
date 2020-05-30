@@ -23,8 +23,42 @@ super + ctrl + alt + shift + l
 super + shift + ctrl + @space
 	feh --randomize --bg-scale ~/Dropbox/Wallpapers/new
 
+#
+# media control
+#
 
+XF86AudioRaiseVolume
+	amixer sset Master '2%+'
+XF86AudioLowerVolume
+	amixer sset Master '2%-'
+XF86AudioMute
+	amixer set Master toggle
 
+XF86AudioPlay
+	playerctl play-pause
+XF86AudioNext
+	playerctl next
+XF86AudioPrev
+	playerctl previous
+XF86AudioStop
+	playerctl stop
+
+ctrl + super + @space
+	playerctl play-pause
+ctrl + super + Up
+	amixer sset Master '2%+'
+ctrl + super + Down
+	amixer sset Master '2%-'
+ctrl + super + Right
+	playerctl next
+ctrl + super + Left
+	playerctl previous
+
+# backlight
+XF86MonBrightnessUp
+	xbacklight -inc 20 # increase screen brightness
+XF86MonBrightnessDown
+	xbacklight -dec 20 # decrease screen brightness
 #
 # bspwm hotkeys
 #

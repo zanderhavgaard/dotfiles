@@ -19,6 +19,9 @@
 # set wallpapers
 feh --randomize --bg-scale /home/zander/Dropbox/Wallpapers/new
 
+# polybar
+bash /home/zander/.config/polybar/bspwm_launch.sh &
+
 # only start application if they have not been started
 autostart_lockfile="/tmp/bspwm_autostart.lock"
 if [[ ! -f "$autostart_lockfile" ]] ; then
@@ -30,9 +33,6 @@ if [[ ! -f "$autostart_lockfile" ]] ; then
 
   # compsitor
   picom --config /home/zander/dotfiles/picom/picom.conf
-
-  # polybar
-  bash /home/zander/.config/polybar/bspwm_launch.sh &
 
   # autoscreenlock
   bash /home/zander/dotfiles/i3lock/start_i3lock.sh &
@@ -51,6 +51,8 @@ if [[ ! -f "$autostart_lockfile" ]] ; then
 
   # Private Internet Access VPN
   /opt/piavpn/bin/pia-client &
+else
+  notify-send "autostart lock present, will not attempt to restart deamons."
 fi
 
                        # _ _

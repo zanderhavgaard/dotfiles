@@ -15,6 +15,10 @@ super + d
 super + Escape
 	pkill -USR1 -x sxhkd
 
+# lock the screen using i3lock
+super + ctrl + alt + shift + l
+	i3lock -c 282C36
+
 #
 # bspwm hotkeys
 #
@@ -27,8 +31,12 @@ super + alt + q
 super + shift + r
 	bspc wm -r
 
-# close and kill
+# close window
 super + shift + q
+	bspc node -c
+
+# killall of focused application
+super + shift + ctrl + q
 	bspc node -k
 
 # alternate between the tiled and monocle layout
@@ -87,7 +95,7 @@ super + {o,i}
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
+	bspc {desktop -f,node -d} focused:'^{1-9,10}'
 
 #
 # preselect

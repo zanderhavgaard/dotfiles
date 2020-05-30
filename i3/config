@@ -47,7 +47,7 @@ font pango:Noto Mono Regular 13
 #
 
 # lock screen maunally
-bindsym Ctrl+$mod+l exec i3lock -c 000000
+bindsym Ctrl+$mod+l exec i3lock -c 282C36
 
 # lock screen after 15 mins
 # exec xautolock -time 15 -locker 'i3lock -c 000000'
@@ -374,7 +374,7 @@ smart_borders on
 #
 
 # polybar
-exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id ~/.config/polybar/i3_launch.sh
 
 #  ___  _____  _    ___  _____  _   _  ___
 # / __||_   _|/_\  | _ \|_   _|| | | || _ \

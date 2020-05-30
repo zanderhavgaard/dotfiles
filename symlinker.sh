@@ -48,7 +48,8 @@ ln -sv $dfd/i3/config $cfd/i3/config
 echo -e "\nSymlinking polybar config ..."
 rm -r $cfd/polybar/*
 ln -sv $dfd/polybar/config $cfd/polybar/config
-ln -sv $dfd/polybar/launch.sh $cfd/polybar/launch.sh
+ln -sv $dfd/polybar/bspwm_launch.sh $cfd/polybar/bspwm_launch.sh
+ln -sv $dfd/polybar/i3_launch.sh $cfd/polybar/i3_launch.sh
 
 echo -e "\nSymlinking neofetch config ..."
 rm $cfd/neofetch/config.conf

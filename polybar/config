@@ -169,14 +169,14 @@ enable-scroll = true
 reverse-scroll = true
 
 ; focused = Active workspace on focused monitor
-label-focused = %index%
+label-focused = *%index%
 label-focused-background = ${colors.red-alt}
 label-focused-foreground = ${colors.white}
 label-focused-padding = 1
 
-label-occupied = %index%
+label-occupied = *%index%
 label-occupied-background = ${colors.red-alt}
-label-occupied-foreground = ${colors.blue}
+label-occupied-foreground = ${colors.black}
 label-occupied-padding = 1
 
 label-empty = %index%

@@ -19,6 +19,12 @@ super + Escape
 super + ctrl + alt + shift + l
 	i3lock -c 282C36
 
+# cycle wallpaper
+super + shift + ctrl + @space
+	feh --randomize --bg-scale ~/Dropbox/Wallpapers/new
+
+
+
 #
 # bspwm hotkeys
 #

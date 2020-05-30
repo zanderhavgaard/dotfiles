@@ -176,7 +176,7 @@ label-focused-padding = 1
 
 label-occupied = %index%
 label-occupied-background = ${colors.red-alt}
-label-occupied-foreground = ${colors.green}
+label-occupied-foreground = ${colors.blue}
 label-occupied-padding = 1
 
 label-empty = %index%
@@ -190,8 +190,7 @@ label-urgent-background = ${colors.red}
 label-urgent-foreground = ${colors.black}
 label-urgent-padding = 1
 
-format = <label-state> <label-mode>
-; format = %index%
+format = <label-monitor> <label-state> <label-mode>
 
 format-foreground = ${colors.black}
 format-background = ${colors.red-alt}

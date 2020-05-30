@@ -19,32 +19,39 @@
 # set wallpapers
 feh --randomize --bg-scale /home/zander/Dropbox/Wallpapers/new
 
-# hotkey daemon
-# sxhkd &
+# only start application if they have not been started
+autostart_lockfile="/tmp/bspwm_autostart.lock"
+if [[ ! -f "$autostart_lockfile" ]] ; then
+  # create lockfile
+  touch "$autostart_lockfile"
 
-# compsitor
-# picom --config /home/zander/dotfiles/picom/picom.conf
+  # hotkey daemon
+  sxhkd &
 
-# polybar
-bash /home/zander/.config/polybar/bspwm_launch.sh &
+  # compsitor
+  picom --config /home/zander/dotfiles/picom/picom.conf
 
-# autoscreenlock
-# bash /home/zander/dotfiles/i3lock/start_i3lock.sh &
+  # polybar
+  bash /home/zander/.config/polybar/bspwm_launch.sh &
 
-# NetworkManager
-# nm-applet &
+  # autoscreenlock
+  bash /home/zander/dotfiles/i3lock/start_i3lock.sh &
 
-# volume
-# volumeicon &
+  # NetworkManager
+  nm-applet &
 
-# dropbox
-# dropbox start &
+  # volume
+  volumeicon &
 
-# insync
-# insync start &
+  # dropbox
+  dropbox start &
 
-# Private Internet Access VPN
-# /opt/piavpn/bin/pia-client &
+  # insync
+  insync start &
+
+  # Private Internet Access VPN
+  /opt/piavpn/bin/pia-client &
+fi
 
                        # _ _
  # _ __ ___   ___  _ __ (_) |_ ___  _ __
@@ -60,8 +67,8 @@ bash /home/zander/.config/polybar/bspwm_launch.sh &
                        # |___/
 
 if [[ $(hostname) == 'vostok' ]]; then
-   bspc monitor eDP1 -n 0 -d 1 2 3 4 5 6 7 8 9 10
-   bspc monitor DP2-1 -n 1 -d 1 2 3 4 5 6 7 8 9 10
+   bspc monitor eDP1  -d 1 2 3 4 5 6 7 8 9 10
+   bspc monitor DP2-1 -d 1 2 3 4 5 6 7 8 9 10
 elif [[ $(hostname) == 'nostromo' ]]; then
    bspc monitor DisplayPort-0 -n 0 -d 1 2 3 4 5 6 7 8 9 10
    bspc monitor DisplayPort-1 -n 1 -d 1 2 3 4 5 6 7 8 9 10
@@ -87,7 +94,7 @@ fi
 bspc config border_width                  2
 bspc config window_gap                    10
 bspc config top_monocle_padding           -30
-bspc config top_padding                   20
+bspc config top_padding                   30
 bspc config bottom_padding                0
 bspc config left_padding                  0
 bspc config right_padding                 0

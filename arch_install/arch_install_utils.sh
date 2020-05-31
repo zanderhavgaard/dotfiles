@@ -101,6 +101,8 @@ iptables
 read -p "Install virtualization packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $virtualization
+    sudo useradd -aG $USER libvirt
+    sudo systemctl enable libvirtd
 fi
 
 
@@ -181,10 +183,13 @@ imagemagick
 flameshot
 sxiv
 gnome-disk-utility
+signal-desktop
 "
 read -p "Install assorted applications, eg. browser/terminal/email? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $applications
+    sudo useradd -aG $USER docker
+    sudo systemctl enable docker
 fi
 
 development="

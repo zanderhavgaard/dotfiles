@@ -120,12 +120,14 @@ inherit = bar/super
 override-redirect = false
 wm-restack = bspwm
 # wm specific modules
-modules-left = l-ra bspwm r-ra    l-r xwindow r-r
+; modules-left = l-ra bspwm r-ra    l-r xwindow r-r
+modules-left = l-ra bspwm r-ra
 
 [bar/i3-bar]
 inherit = bar/super
 # wm specific modules
-modules-left = l-ra i3 r-ra    l-r xwindow r-r
+; modules-left = l-ra i3 r-ra    l-r xwindow r-r
+modules-left = l-ra i3 r-ra
 
 
 
@@ -169,7 +171,7 @@ enable-scroll = true
 reverse-scroll = true
 
 ; focused = Active workspace on focused monitor
-label-focused = *%index%
+label-focused = ->%index%<-
 label-focused-background = ${colors.red-alt}
 label-focused-foreground = ${colors.white}
 label-focused-padding = 1
@@ -190,7 +192,7 @@ label-urgent-background = ${colors.red}
 label-urgent-foreground = ${colors.black}
 label-urgent-padding = 1
 
-format = <label-monitor> <label-state> <label-mode>
+format =  <label-monitor> >>> <label-state> <label-mode>
 
 format-foreground = ${colors.black}
 format-background = ${colors.red-alt}

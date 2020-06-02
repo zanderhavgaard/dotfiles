@@ -4,15 +4,15 @@ rofi.modi: drun,run,window,ssh
 // confg inspired from https://github.com/niklascarlsson/dotfiles/blob/master/dotfiles.org
 !
 !! Colors
-rofi.color-window: argb:f2171717, #18222B, #4D4D4D
-rofi.color-normal: argb:00171717, #F8F8F2, argb:00535c5c, argb:00171717, #3092D4
-rofi.color-urgent: argb:00171717, #FD0F1C, argb:e54b5160, argb:00171717, #3092D4
-rofi.color-active: argb:00171717, #CB89D0, argb:e44b5160, argb:00171717, #3092D4
+rofi.color-window: argb:f2171717, #282C36, #A6B5CB
+rofi.color-normal: argb:00171717, #EFEFEF, argb:00535c5c, argb:00171717, #3890E9
+rofi.color-urgent: argb:00171717, #EC5252, argb:e54b5160, argb:00171717, #3890E9
+rofi.color-active: argb:00171717, #A359ED, argb:e44b5160, argb:00171717, #3890E9
 !
 !! Appearance
 rofi.width: 1500
 rofi.lines: 10
-rofi.font: Hasklug Nerd Font 16
+rofi.font: Mononoki Nerd Font 16
 rofi.bw: 0
 rofi.padding: 50
 rofi.line-margin: 5

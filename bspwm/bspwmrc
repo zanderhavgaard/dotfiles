@@ -25,35 +25,23 @@ bash /home/zander/.config/polybar/bspwm_launch.sh &
 # hotkey daemon
 killall -q sxhkd ; sxhkd &
 
-# only start application if they have not been started
-autostart_lockfile="/tmp/bspwm_autostart.lock"
-if [[ ! -f "$autostart_lockfile" ]] ; then
-  # create lockfile
-  touch "$autostart_lockfile"
+# compsitor
+picom --config /home/zander/dotfiles/picom/picom.conf
 
-  # compsitor
-  picom --config /home/zander/dotfiles/picom/picom.conf
+# autoscreenlock
+bash /home/zander/dotfiles/i3lock/start_i3lock.sh &
 
-  # autoscreenlock
-  bash /home/zander/dotfiles/i3lock/start_i3lock.sh &
+# NetworkManager
+nm-applet &
 
-  # NetworkManager
-  nm-applet &
+# dropbox
+dropbox start &
 
-  # volume
-  volumeicon &
+# insync
+insync start &
 
-  # dropbox
-  dropbox start &
-
-  # insync
-  insync start &
-
-  # Private Internet Access VPN
-  /opt/piavpn/bin/pia-client &
-else
-  notify-send "autostart lock present, will not attempt to restart deamons."
-fi
+# Private Internet Access VPN
+/opt/piavpn/bin/pia-client &
 
                        # _ _
  # _ __ ___   ___  _ __ (_) |_ ___  _ __

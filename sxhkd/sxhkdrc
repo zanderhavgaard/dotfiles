@@ -83,9 +83,10 @@ super + shift + ctrl + q
 super + m
 	bspc desktop -l next
 
+# TODO not sure what this actuayyly does??
 # send the newest marked node to the newest preselected node
-super + y
-	bspc node newest.marked.local -n newest.!automatic.local
+#super + y
+#	bspc node newest.marked.local -n newest.!automatic.local
 
 # swap the current node and the biggest node
 super + g
@@ -99,9 +100,10 @@ super + g
 super + {t,shift + t,s,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
+# TODO not sure what these do ...
 # set the node flags
-super + ctrl + {m,x,y,z}
-	bspc node -g {marked,locked,sticky,private}
+#super + ctrl + {m,x,y,z}
+#	bspc node -g {marked,locked,sticky,private}
 
 #
 # focus/swap
@@ -140,6 +142,11 @@ super + {o,i}
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} focused:'^{1-9,10}'
+
+# move window through workspaces and into next monitor
+# when reaching first/last workspace
+# ctrl + alt + shift + {Right,Left}
+#    bspc node -d {next,prev} -f
 
 #
 # preselect

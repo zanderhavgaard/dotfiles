@@ -36,7 +36,6 @@ antigen bundle djui/alias-tips
 antigen bundle ael-code/zsh-colored-man-pages
 antigen bundle zpm-zsh/colorize
 antigen bundle "MichaelAquilina/zsh-auto-notify"
-antigen bundle caarlos0/zsh-open-pr
 
 # theme
 # antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship

@@ -197,7 +197,7 @@ label-urgent-background = ${colors.red}
 label-urgent-foreground = ${colors.black}
 label-urgent-padding = 1
 
-label-monitor = " %name% █"
+label-monitor = " %name% ~"
 
 format =  <label-monitor> <label-state> <label-mode>
 

@@ -97,6 +97,7 @@ bridge-utils
 openbsd-netcat
 ebtables
 iptables
+dmidecode
 "
 read -p "Install virtualization packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

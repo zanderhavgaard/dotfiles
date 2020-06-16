@@ -38,15 +38,14 @@ antigen bundle zpm-zsh/colorize
 antigen bundle "MichaelAquilina/zsh-auto-notify"
 
 # theme
-# antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
-antigen theme https://github.com/reobin/typewritten
-# antigen theme https://github.com/hohmannr/bubblified
-
-# antigen bundle mafredri/zsh-async
-# antigen bundle sindresorhus/pure
+antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
+# antigen theme https://github.com/reobin/typewritten
 
 # commit antigen commands
 antigen apply
+
+# ===== spaceship prompt customization =====
+SPACESHIP_CHAR_SYMBOL=">>> "
 
 # ====== Custom settings =====
 # show hidden files in tabcompletion

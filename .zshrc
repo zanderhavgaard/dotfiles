@@ -45,7 +45,7 @@ antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
 antigen apply
 
 # ===== spaceship prompt customization =====
-SPACESHIP_CHAR_SYMBOL=">>> "
+SPACESHIP_CHAR_SYMBOL="> "
 
 # ====== Custom settings =====
 # show hidden files in tabcompletion

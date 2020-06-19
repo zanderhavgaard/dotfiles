@@ -185,6 +185,7 @@ flameshot
 sxiv
 gnome-disk-utility
 signal-desktop
+falkon
 "
 read -p "Install assorted applications, eg. browser/terminal/email? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

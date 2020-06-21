@@ -8,12 +8,6 @@
 ;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
 ;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
 ;
-;
-;   To learn more about how to configure Polybar
-;   go to https://github.com/polybar/polybar
-;
-;   The README contains a lot of information
-;
 ;==========================================================
 
 [colors]
@@ -50,17 +44,17 @@ alert = #bd2c40
 [section/base]
 background = ${colors.dark-grey}
 ; foreground = ${colors.grey}
-foreground = ${colors.black}
+foreground = ${colors.white}
 format-background = ${colors.dark-grey}
 ; format-foreground = ${colors.grey}
-format-foreground = ${colors.black}
+format-foreground = ${colors.white}
 
 
 [bar/super]
 background = ${colors.dark-grey}
-foreground = ${colors.black}
+foreground = ${colors.white}
 format-background = ${colors.dark-grey}
-format-foreground = ${colors.black}
+format-foreground = ${colors.white}
 
 monitor = ${env:MONITOR}
 bottom = false
@@ -89,17 +83,17 @@ line-size = 1
 ; module-margin-left = 1
 ; module-margin-right = 1
 
-font-0 = "Iosevka Nerd Font:size=9;1"
+font-0 = "Mononoki Nerd Font:size=9;1"
 font-1 = "FontAwesome:size=9;1"
-font-2 = "Iosevka Nerd Font:style=Regular:size=18;3"
+font-2 = "Mononoki Nerd Font:style=Regular:size=18;3"
 
 ; modules to display
 modules-left =
 modules-center =
-modules-right =  l-pa alsa r-pa  l-ga spotify r-ga    l-g launch-term xrandr caffeine-status r-g     l-oa memory cpu temperature r-oa     l-o filesystem r-o     l-ca pia-status wlan eth eth-alt r-ca    l-c battery0 battery1 r-c    l-b date r-b     l-ba kernel-ver r-ba
+modules-right =  alsa    spotify      launch-term xrandr caffeine-status       memory cpu temperature       filesystem       pia-status wlan eth eth-alt      battery0 battery1      date       kernel-ver
 
 ; separator between modules
-; separator = " "
+separator = " ▏"
 
 ; sys tray
 tray-background = ${colors.dark-grey}
@@ -124,13 +118,13 @@ override-redirect = false
 wm-restack = bspwm
 # wm specific modules
 ; modules-left = l-ra bspwm r-ra    l-r xwindow r-r
-modules-left = l-ra bspwm r-ra
+modules-left =  bspwm
 
 [bar/i3-bar]
 inherit = bar/super
 # wm specific modules
 ; modules-left = l-ra i3 r-ra    l-r xwindow r-r
-modules-left = l-ra i3 r-ra
+modules-left =  i3
 
 
 
@@ -175,20 +169,20 @@ reverse-scroll = true
 
 ; focused = Active workspace on focused monitor
 label-focused = %index%
-label-focused-background = ${colors.red-alt}
-label-focused-foreground = ${colors.white}
+label-focused-background = ${colors.dark-grey}
+label-focused-foreground = ${colors.blue-alt}
 label-focused-padding = 1
-label-focused-underline = ${colors.white}
+label-focused-underline = ${colors.blue-alt}
 
 label-occupied = %index%
-label-occupied-background = ${colors.red-alt}
-label-occupied-foreground = ${colors.black}
+label-occupied-background = ${colors.dark-grey}
+label-occupied-foreground = ${colors.white}
 label-occupied-padding = 1
-label-occupied-underline = ${colors.black}
+label-occupied-underline = ${colors.white}
 
 label-empty = %index%
-label-empty-background = ${colors.red-alt}
-label-empty-foreground = ${colors.black}
+label-empty-background = ${colors.dark-grey}
+label-empty-foreground = ${colors.white}
 label-empty-padding = 1
 
 ; urgent = Workspace with urgency hint set
@@ -201,8 +195,8 @@ label-monitor = " %name% ~"
 
 format =  <label-monitor> <label-state> <label-mode>
 
-format-foreground = ${colors.black}
-format-background = ${colors.red-alt}
+format-foreground = ${colors.white}
+format-background = ${colors.dark-grey}
 
 
 
@@ -286,8 +280,8 @@ content-background = ${colors.purple-alt}
 
 [module/alsa]
 inherit = section/base
-format-volume-background = ${colors.purple-alt}
-format-muted-background = ${colors.purple-alt}
+; format-volume-background = ${colors.purple-alt}
+; format-muted-background = ${colors.purple-alt}
 type = internal/alsa
 
 # format-volume = <label-volume> <bar-volume>
@@ -325,7 +319,7 @@ format = " <label> "
 format-prefix = " "
 ; format-background = ${colors.background}
 ; format-foreground = ${colors.grey}
-format-background = ${colors.green-alt}
+; format-background = ${colors.green-alt}
 
 
 
@@ -354,7 +348,7 @@ click-left = alacritty
 ; format-foreground = ${colors.grey}
 ; format-background = ${colors.red}
 ; format-foreground = ${colors.blue}
-format-background = ${colors.green}
+; format-background = ${colors.green}
 
 [module/caffeine-status]
 inherit = section/base
@@ -367,11 +361,11 @@ format-prefix = "  "
 ; format-foreground = ${colors.grey}
 click-left = killall -q xautolock
 click-right = ~/dotfiles/i3lock/start_i3lock.sh & disown
-format-background = ${colors.green}
+; format-background = ${colors.green}
 
 [module/xrandr]
 inherit = section/base
-format-background = ${colors.green}
+; format-background = ${colors.green}
 type = custom/menu
 expand-right = true
 format-spacing = 1
@@ -445,7 +439,7 @@ interval = 2
 format-prefix = "  "
 format = "<label> "
 label = %percentage:2%%
-format-background = ${colors.orange-alt}
+; format-background = ${colors.orange-alt}
 
 [module/memory]
 inherit = section/base
@@ -454,7 +448,7 @@ interval = 2
 format-prefix = "  "
 format = " <label> "
 label = %gb_used%
-format-background = ${colors.orange-alt}
+; format-background = ${colors.orange-alt}
 
 [module/temperature]
 inherit = section/base
@@ -477,8 +471,8 @@ ramp-0 = " "
 ramp-1 = " "
 ramp-2 = " "
 
-format-background = ${colors.orange-alt}
-format-warn-background = ${colors.orange-alt}
+; format-background = ${colors.orange-alt}
+; format-warn-background = ${colors.orange-alt}
 
 
 
@@ -505,14 +499,14 @@ mount-1 = /home
 
 label-mounted = %mountpoint% %free%
 label-unmounted =
-format-unmounted-background = ${colors.orange}
+; format-unmounted-background = ${colors.orange}
 
 format-mounted = " <label-mounted> "
 ; format-unmounted = " <label-unmounted> "
 format-mounted-prefix = "  "
 ; format-mounted-background = ${colors.background}
 ; format-mounted-foreground = ${colors.grey}
-format-mounted-background = ${colors.orange}
+; format-mounted-background = ${colors.orange}
 
 
 
@@ -539,7 +533,7 @@ format = " <label>  "
 format-prefix = "  "
 ; format-background = ${colors.background}
 ; format-foreground = ${colors.grey}
-format-background = ${colors.cyan-alt}
+; format-background = ${colors.cyan-alt}
 
 [module/wlan]
 inherit = section/base
@@ -556,8 +550,8 @@ label-connected = %essid%
 format-disconnected = " 睊  "
 ; format-disconnected-background = ${colors.background}
 ; format-disconnected-foreground = ${colors.grey}
-format-connected-background = ${colors.cyan-alt}
-format-disconnected-background = ${colors.cyan-alt}
+; format-connected-background = ${colors.cyan-alt}
+; format-disconnected-background = ${colors.cyan-alt}
 
 [module/eth]
 inherit = section/base
@@ -570,12 +564,12 @@ format-connected-prefix = "  "
 label-connected = %local_ip%
 ; format-connected-background = ${colors.background}
 ; format-connected-foreground = ${colors.grey}
-format-connected-background = ${colors.cyan-alt}
+; format-connected-background = ${colors.cyan-alt}
 
 format-disconnected = "  "
 ; format-disconnected-background = ${colors.background}
 ; format-disconnected-foreground = ${colors.grey}
-format-disconnected-background = ${colors.cyan-alt}
+; format-disconnected-background = ${colors.cyan-alt}
 
 [module/eth-alt]
 inherit = section/base
@@ -588,12 +582,12 @@ format-connected-prefix = "  "
 label-connected = %local_ip%
 ; format-connected-background = ${colors.background}
 ; format-connected-foreground = ${colors.grey}
-format-connected-background = ${colors.cyan-alt}
+; format-connected-background = ${colors.cyan-alt}
 
 format-disconnected = "  "
 ; format-disconnected-background = ${colors.background}
 ; format-disconnected-foreground = ${colors.grey}
-format-disconnected-background = ${colors.cyan-alt}
+; format-disconnected-background = ${colors.cyan-alt}
 
 
 
@@ -642,9 +636,9 @@ ramp-capacity-2 = " "
 ramp-capacity-3 = " "
 ramp-capacity-4 = " "
 
-format-discharging-background = ${colors.cyan}
-format-charging-background = ${colors.cyan}
-format-full-background = ${colors.cyan}
+; format-discharging-background = ${colors.cyan}
+; format-charging-background = ${colors.cyan}
+; format-full-background = ${colors.cyan}
 
 [module/battery1]
 inherit = section/base
@@ -677,9 +671,9 @@ ramp-capacity-2 = " "
 ramp-capacity-3 = " "
 ramp-capacity-4 = " "
 
-format-discharging-background = ${colors.cyan}
-format-charging-background = ${colors.cyan}
-format-full-background = ${colors.cyan}
+; format-discharging-background = ${colors.cyan}
+; format-charging-background = ${colors.cyan}
+; format-full-background = ${colors.cyan}
 
 
 
@@ -704,7 +698,7 @@ interval = 5
 date = "  %a %d %b "
 time = " %H:%M "
 label = %date% %time%
-format-background = ${colors.blue}
+; format-background = ${colors.blue}
 
 
 
@@ -730,7 +724,7 @@ format-prefix = " "
 format = " <label> "
 ; format-background = ${colors.background}
 ; format-foreground = ${colors.grey}
-format-background = ${colors.blue-alt}
+; format-background = ${colors.blue-alt}
 
 
 

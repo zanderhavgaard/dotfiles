@@ -1,7 +1,9 @@
 #!/bin/bash
 
-if [[ -z $(ifconfig | grep tun0) ]]; then
-	echo "ﰸ pia off"
+if [[ $(piactl get connectionstate) = "Connected" ]]; then
+	ip=$(piactl get vpnip)
+	echo "vpn: $ip"
 else
-	echo "廬"
+	ip=$(dig +short myip.opendns.com @resolver1.opendns.com)
+	echo "public ip: $ip"
 fi

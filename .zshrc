@@ -1,14 +1,25 @@
-#     ____ ___  _  _  ___   ___
-#    |_  // __|| || || _ \ / __|
-#  _  / / \__ \| __ ||   /| (__
-# (_)/___||___/|_||_||_|_\ \___|
-#
+#!/bin/zsh
+
+#            _
+#    _______| |__  _ __ ___
+#   |_  / __| '_ \| '__/ __|
+#  _ / /\__ \ | | | | | (__
+# (_)___|___/_| |_|_|  \___|
+
 
 # make sure the correct character set is used
 export LANG="en_US.UTF-8"
 
 # tell zsh to use colors
 export TERM="xterm-256color"
+
+# ===== Typewritten customization =====
+export TYPEWRITTEN_PROMPT_LAYOUT="singleline"
+# export TYPEWRITTEN_SYMBOL="❯"
+export TYPEWRITTEN_SYMBOL=">"
+export TYPEWRITTEN_CURSOR="underscore"
+export TYPEWRITTEN_RIGHT_PROMPT_PREFIX="> "
+export TYPEWRITTEN_GIT_RELATIVE_PATH=true
 
 # ===== antigen =====
 
@@ -38,14 +49,10 @@ antigen bundle zpm-zsh/colorize
 antigen bundle "MichaelAquilina/zsh-auto-notify"
 
 # theme
-antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
-# antigen theme https://github.com/reobin/typewritten
+antigen theme https://github.com/reobin/typewritten
 
 # commit antigen commands
 antigen apply
-
-# ===== spaceship prompt customization =====
-# SPACESHIP_CHAR_SYMBOL="> "
 
 # ====== Custom settings =====
 # show hidden files in tabcompletion

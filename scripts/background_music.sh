@@ -76,7 +76,6 @@ https://www.youtube.com/watch?v=GGBm9gTY2NU
 https://www.youtube.com/watch?v=avmjunRX_xo
 https://www.youtube.com/watch?v=tM0sxOAu7mc
 https://www.youtube.com/watch?v=YQWA0kkT3lY
-https://www.youtube.com/watch?v=2_kNjDFg4t8
 https://www.youtube.com/watch?v=xHlqSABb7pI
 https://www.youtube.com/watch?v=PC0rOWYWzDM
 https://www.youtube.com/watch?v=LYgNN8lDQ5s

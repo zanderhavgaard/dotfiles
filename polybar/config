@@ -529,8 +529,8 @@ inherit = section/base
 type = custom/script
 interval = 1
 exec = ~/dotfiles/scripts/pia_status.sh
-format = " <label>  "
-format-prefix = "  "
+format = " <label> "
+format-prefix = " "
 ; format-background = ${colors.background}
 ; format-foreground = ${colors.grey}
 ; format-background = ${colors.cyan-alt}
@@ -541,9 +541,9 @@ type = internal/network
 interface = wlp4s0
 interval = 3.0
 
-format-connected-prefblueix = " "
+format-connected-prefix = " "
 format-connected = " 直 <label-connected> "
-label-connected = %essid%
+label-connected = %essid% %local_ip%
 ; format-connected-background = ${colors.background}
 ; format-connected-foreground = ${colors.grey}
 

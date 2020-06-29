@@ -23,6 +23,8 @@ alias weather="curl wttr.in"
 
 # what is docker storing?
 alias docker_status="echo -e \"\nContainers:\n\" && docker ps -a && echo -e \"\nImages:\n\" && docker image ls && echo -e \"\nVolumes:\n\" && docker volume ls"
+# prune docker
+alias docker_clean="docker volume prune -f && docker system prune -f"
 
 # play background music from youtube
 alias background_music="bash /home/zander/dotfiles/scripts/background_music.sh"

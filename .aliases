@@ -30,7 +30,11 @@ alias docker_clean="docker volume prune -f && docker system prune -f"
 alias background_music="bash /home/zander/dotfiles/scripts/background_music.sh"
 
 # generate password
-alias random_password="date +%s | sha256sum | base64 | head -c 32 ; echo"
+function random_password {
+    for foo in $(seq 5) ; do
+        date +%s | sha256sum | base64 | head -c 50 ; echo ; sleep 1
+    done
+}
 
 # msc shortcuts
 alias rp="cd /home/zander/Dropbox/ITU/Master/3_semester/rp/researchprojectlambdaapp"

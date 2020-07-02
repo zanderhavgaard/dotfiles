@@ -42,7 +42,6 @@ https://www.youtube.com/watch?v=GBUCmMxmup0
 https://www.youtube.com/watch?v=BfCgF10C58Q
 https://www.youtube.com/watch?v=a0O616pwkYk
 https://www.youtube.com/watch?v=OvYeYtujzjQ
-https://www.youtube.com/watch?v=Ya3XufguZMY
 https://www.youtube.com/watch?v=ph_IhNseCBc
 https://www.youtube.com/watch?v=qv3QkrYir5w
 https://www.youtube.com/watch?v=OpYS5ATpI-U

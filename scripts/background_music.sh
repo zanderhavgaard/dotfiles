@@ -134,6 +134,9 @@ function play_music {
 	shuffled=$(shuf -e $2)
 	for url in $shuffled ; do
 
+		# clear the screen
+		clear
+
 		# get the video title
 		video_title=$(get_video_title $url)
 

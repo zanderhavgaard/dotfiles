@@ -224,6 +224,17 @@ Uncomment the line
 GRUB_ENABLE_CRYPTODISK=y
 ```
 
+Comment the line
+```
+GRUB_DEFAULT=0
+```
+add the lines
+```
+# automatically select the last booted kernel
+GRUB_SAVEDEFAULT=true
+GRUB_DEFAULT=saved
+```
+
 Add cryptdevice=<PARTUUID>:volgroup0 to the GRUB_CMDLINE_LINUX_DEFAULT line If using standard device naming, the option will look like this:
 ```
 cryptdevice=/dev/sda3:volgroup0:allow-discards quiet

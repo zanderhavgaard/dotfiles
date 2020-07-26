@@ -61,10 +61,10 @@ exec --no-startup-id ~/dotfiles/i3lock/start_i3lock.sh
 #
 
 # set initial wallpaper
-exec --no-startup-id feh --randomize --bg-scale ~/Dropbox/Wallpapers/new
+exec --no-startup-id feh --randomize --bg-scale ~/Dropbox/Wallpapers/current
 
 # choose a random
-bindsym Shift+Ctrl+$mod+space exec --no-startup-id feh --randomize --bg-scale ~/Dropbox/Wallpapers/new
+bindsym Shift+Ctrl+$mod+space exec --no-startup-id feh --randomize --bg-scale ~/Dropbox/Wallpapers/current
 
 #  _  _    _    ___  ___ __      __ _    ___  ___
 # | || |  /_\  | _ \|   \\ \    / //_\  | _ \| __|

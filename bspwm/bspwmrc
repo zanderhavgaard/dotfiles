@@ -10,7 +10,7 @@
 #  \__,_|\__,_|\__\___/|___/\__\__,_|_|   \__|
 
 # set wallpapers
-feh --randomize --bg-scale /home/zander/Dropbox/Wallpapers/new
+feh --randomize --bg-scale /home/zander/Dropbox/Wallpapers/current
 
 # polybar
 bash /home/zander/.config/polybar/bspwm_launch.sh &

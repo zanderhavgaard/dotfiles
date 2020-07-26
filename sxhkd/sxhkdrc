@@ -21,7 +21,7 @@ super + ctrl + alt + shift + l
 
 # cycle wallpaper
 super + shift + ctrl + @space
-	feh --randomize --bg-scale ~/Dropbox/Wallpapers/new
+	feh --randomize --bg-scale ~/Dropbox/Wallpapers/current
 
 #
 # media control

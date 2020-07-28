@@ -58,6 +58,9 @@ antigen apply
 # show hidden files in tabcompletion
 # setopt globdots
 
+# Enable Ctrl-x-e to edit command line
+autoload -U edit-command-line
+
 # source custom commands
 source ~/.env
 source ~/.aliases

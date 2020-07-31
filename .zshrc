@@ -18,7 +18,7 @@ export TYPEWRITTEN_PROMPT_LAYOUT="singleline"
 # export TYPEWRITTEN_SYMBOL="❯"
 export TYPEWRITTEN_SYMBOL=">"
 export TYPEWRITTEN_CURSOR="underscore"
-export TYPEWRITTEN_RIGHT_PROMPT_PREFIX="> "
+# export TYPEWRITTEN_RIGHT_PROMPT_PREFIX="> "
 export TYPEWRITTEN_GIT_RELATIVE_PATH=true
 
 # ===== antigen =====

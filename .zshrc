@@ -6,7 +6,6 @@
 #  _ / /\__ \ | | | | | (__
 # (_)___|___/_| |_|_|  \___|
 
-
 # make sure the correct character set is used
 export LANG="en_US.UTF-8"
 
@@ -14,12 +13,12 @@ export LANG="en_US.UTF-8"
 export TERM="xterm-256color"
 
 # ===== Typewritten customization =====
-export TYPEWRITTEN_PROMPT_LAYOUT="singleline"
+# export TYPEWRITTEN_PROMPT_LAYOUT="singleline"
 # export TYPEWRITTEN_SYMBOL="❯"
-export TYPEWRITTEN_SYMBOL=">"
-export TYPEWRITTEN_CURSOR="underscore"
+# export TYPEWRITTEN_SYMBOL=">"
+# export TYPEWRITTEN_CURSOR="underscore"
 # export TYPEWRITTEN_RIGHT_PROMPT_PREFIX="> "
-export TYPEWRITTEN_GIT_RELATIVE_PATH=true
+# export TYPEWRITTEN_GIT_RELATIVE_PATH=true
 
 # ===== antigen =====
 
@@ -49,7 +48,8 @@ antigen bundle zpm-zsh/colorize
 antigen bundle "MichaelAquilina/zsh-auto-notify"
 
 # theme
-antigen theme https://github.com/reobin/typewritten
+# antigen theme https://github.com/reobin/typewritten
+antigen theme romkatv/powerlevel10k
 
 # commit antigen commands
 antigen apply
@@ -72,3 +72,6 @@ compinit
 
 # btw I use Arch...
 pfetch
+
+# To customize prompt, run `p10k configure` or edit ~/dotfiles/.p10k.zsh.
+[[ ! -f ~/dotfiles/.p10k.zsh ]] || source ~/dotfiles/.p10k.zsh

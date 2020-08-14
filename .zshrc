@@ -48,8 +48,8 @@ antigen bundle zpm-zsh/colorize
 antigen bundle "MichaelAquilina/zsh-auto-notify"
 
 # theme
-# antigen theme https://github.com/reobin/typewritten
-antigen theme romkatv/powerlevel10k
+antigen theme https://github.com/reobin/typewritten
+# antigen theme romkatv/powerlevel10k
 
 # commit antigen commands
 antigen apply
@@ -74,4 +74,4 @@ compinit
 pfetch
 
 # To customize prompt, run `p10k configure` or edit ~/dotfiles/.p10k.zsh.
-[[ ! -f ~/dotfiles/.p10k.zsh ]] || source ~/dotfiles/.p10k.zsh
+# [[ ! -f ~/dotfiles/.p10k.zsh ]] || source ~/dotfiles/.p10k.zsh

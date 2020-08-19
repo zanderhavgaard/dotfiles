@@ -48,8 +48,10 @@ antigen bundle zpm-zsh/colorize
 antigen bundle "MichaelAquilina/zsh-auto-notify"
 
 # theme
-antigen theme https://github.com/reobin/typewritten
+# antigen theme https://github.com/reobin/typewritten
 # antigen theme romkatv/powerlevel10k
+# antigen theme agnoster
+antigen theme denysdovhan/spaceship-prompt
 
 # commit antigen commands
 antigen apply

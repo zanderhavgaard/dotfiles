@@ -278,6 +278,7 @@ ly
 git-delta
 circleci-cli-bin
 glow
+ncspot
 "
 read -p "Install AUR packages using yay? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

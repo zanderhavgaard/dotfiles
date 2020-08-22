@@ -28,9 +28,10 @@ function setStatusIcon(){
         # url=$(ps a | grep -oP "https\:\/\/www.youtube.com/watch\?v\=.*")
     # done
 # condition is a super HACK fix, it some point..
-if [[ $(ps cax | grep -c spotify) < 4 ]]; then
-  echo "阮 off"
-else
+# if [[ $(ps cax | grep -c spotify) < 4 ]]; then
+if [[ $(ps cax | grep -c spotify) > 3 ]] || [[ $(ps cax | grep -c ncspot) > 0 ]]; then
   setStatusIcon
   echo "阮 $status_icon $(playerctl metadata artist): $(playerctl metadata title)"
+else
+  echo "阮 off"
 fi

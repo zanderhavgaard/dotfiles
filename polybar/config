@@ -90,7 +90,7 @@ font-2 = "Mononoki Nerd Font:style=Regular:size=18;3"
 ; modules to display
 modules-left =
 modules-center =
-modules-right =  alsa    spotify      launch-term xrandr caffeine-status       memory cpu temperature       filesystem       pia-status wlan eth eth-alt      battery0 battery1      date       kernel-ver
+modules-right =  weather    alsa    spotify      launch-term xrandr caffeine-status       memory cpu temperature       filesystem       pia-status wlan eth eth-alt      battery0 battery1      date       kernel-ver
 
 ; separator between modules
 separator = " ▏"
@@ -262,6 +262,11 @@ label = " %title:0:30:...% "
 format-background = ${colors.red}
 
 
+[module/weather]
+inherit = section/base
+type = custom/script
+interval = 120
+exec = curl -s "v2n.wttr.in?format=%l:+%C+%t"
 
 
 

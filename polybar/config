@@ -266,7 +266,8 @@ format-background = ${colors.red}
 inherit = section/base
 type = custom/script
 interval = 120
-exec = curl -s "v2n.wttr.in?format=%l:+%C+%t"
+; exec = curl -s "v2n.wttr.in?format=%l:+%C+%t"
+exec = curl -s "v2n.wttr.in?format=%C+%t"
 
 
 

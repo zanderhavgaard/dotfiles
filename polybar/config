@@ -90,7 +90,7 @@ font-2 = "Mononoki Nerd Font:style=Regular:size=18;3"
 ; modules to display
 modules-left =
 modules-center =
-modules-right =  weather    alsa    spotify      launch-term xrandr caffeine-status       memory cpu temperature       filesystem       pia-status wlan eth eth-alt      battery0 battery1      date       kernel-ver
+modules-right =  time  weather    alsa    spotify      launch-term xrandr caffeine-status       memory cpu temperature       filesystem       pia-status wlan eth eth-alt      battery0 battery1      date       kernel-ver
 
 ; separator between modules
 separator = " ▏"
@@ -695,6 +695,13 @@ inherit = section/right-content
 type = custom/text
 content-foreground = ${colors.dark-grey}
 content-background = ${colors.blue}
+
+[module/time]
+inherit = section/base
+type = internal/date
+interval = 5
+time = " %H:%M "
+label = %time%
 
 [module/date]
 inherit = section/base

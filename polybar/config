@@ -265,7 +265,7 @@ format-background = ${colors.red}
 [module/weather]
 inherit = section/base
 type = custom/script
-interval = 120
+interval = 60
 exec = curl -s "v2n.wttr.in?format=%l:+%C+%t"
 
 

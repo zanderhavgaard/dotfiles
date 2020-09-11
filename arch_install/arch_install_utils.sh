@@ -180,6 +180,7 @@ dmenu
 feh
 picom
 thunar
+tumbler
 zathura
 zathura-pdf-poppler
 mpv

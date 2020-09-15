@@ -48,6 +48,25 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $audio
 fi
 
+bspwn="
+bspwm
+sxhkd
+"
+read -p "Install bspwm packages? [y/n] " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo pacman -S $bspwn
+fi
+
+gnome_shell="
+gnome-shell
+gnome-tweaks
+gnome-control-center
+"
+read -p "Install gnome shell packages? [y/n] " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo pacman -S $gnome_shell
+fi
+
 system_libs_utils_misc="
 xwallpaper
 inetutils

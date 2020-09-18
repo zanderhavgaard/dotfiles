@@ -79,7 +79,7 @@ alias cs="cat /home/zander/dotfiles/cheatsheet"
 alias vimcs="cat /home/zander/neovim-config/cheatsheet"
 
 # update grub after changes to kernel setup
-alias update-grub="grub-mkconfig -o /boot/grub/grub.cfg"
+alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 # connect to VPN ...
 alias start_vpn="nmcli connection up 'PIA - Denmark'"

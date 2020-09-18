@@ -140,6 +140,7 @@ tldr
 the_silver_searcher
 ripgrep
 ranger
+ueberzug
 tmux
 jq
 nmap

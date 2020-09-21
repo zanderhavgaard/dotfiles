@@ -31,7 +31,7 @@ function setStatusIcon(){
 # if [[ $(ps cax | grep -c spotify) < 4 ]]; then
 if [[ $(ps cax | grep -c spotify) > 3 ]] || [[ $(ps cax | grep -c ncspot) > 0 ]]; then
   setStatusIcon
-  echo "阮 $status_icon $(playerctl metadata artist): $(playerctl metadata title)"
+  echo "$status_icon $(playerctl metadata artist): $(playerctl metadata title)"
 else
-  echo "阮 off"
+  echo "off"
 fi

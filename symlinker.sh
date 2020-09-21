@@ -46,10 +46,8 @@ rm -r $cfd/i3/*
 ln -sv $dfd/i3/config $cfd/i3/config
 
 echo -e "\nSymlinking polybar config ..."
-rm -r $cfd/polybar/*
-ln -sv $dfd/polybar/config $cfd/polybar/config
-ln -sv $dfd/polybar/bspwm_launch.sh $cfd/polybar/bspwm_launch.sh
-ln -sv $dfd/polybar/i3_launch.sh $cfd/polybar/i3_launch.sh
+rm -r $cfd/polybar
+ln -sv $dfd/polybar $cfd/polybar
 
 echo -e "\nSymlinking neofetch config ..."
 rm $cfd/neofetch/config.conf
@@ -69,9 +67,7 @@ ln -sv $dfd/zathura/zathurarc $cfd/zathura/zathurarc
 
 echo -e "\n symlinking ranger config ...."
 rm $cfd/ranger/rc.conf
-rm $cfd/ranger/scope.sh
 ln -sv $dfd/ranger/rc.conf $cfd/ranger/rc.conf
-ln -sv $dfd/ranger/scope.sh $cfd/ranger/scope.sh
 
 echo -e "\n symlinking cli-vis config ..."
 rm -r $cfd/vis

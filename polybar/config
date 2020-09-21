@@ -109,6 +109,14 @@ underline-size = 2
 overline-size = 2
 
 
+[bar/sulaco-bspwm-bar]
+inherit = bar/super
+# bspwm specific
+override-redirect = false
+wm-restack = bspwm
+# wm specific modules
+; modules-left = l-ra bspwm r-ra    l-r xwindow r-r
+modules-left =  bspwm
 
 
 [bar/bspwm-bar]

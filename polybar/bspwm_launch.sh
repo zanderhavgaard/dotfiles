@@ -23,8 +23,9 @@ if type "xrandr" > /dev/null; then
     # for all other systems, use generic
     else
         for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-            MONITOR=$m polybar --reload bspwm-bar -c ~/.config/polybar/config &
+            MONITOR=$m polybar --reload bspwm-top-bar -c ~/.config/polybar/config &
         done
+        polybar --reload bspwm-bottom-bar -c ~/.config/polybar/config &
     fi
 else
     polybar --reload bspwm-bar -c ~/.config/polybar/config &

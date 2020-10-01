@@ -301,6 +301,7 @@ circleci-cli-bin
 glow
 ncspot
 howdoi-git
+duf
 "
 read -p "Install AUR packages using yay? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

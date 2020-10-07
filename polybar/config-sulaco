@@ -330,6 +330,7 @@ label-muted-foreground = ${colors.black}
 inherit = section/base
 type = custom/script
 interval = 1
+click-left = playerctl play-pause
 exec = echo " $(~/dotfiles/scripts/sp_status.sh)"
 ; exec = echo "$(playerctl metadata artist): $(playerctl metadata title)"
 format = "  <label> "

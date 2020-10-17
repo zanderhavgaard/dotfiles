@@ -160,6 +160,7 @@ xclip
 autossh
 bashtop
 hub
+github-cli
 keynav
 calcurse
 bind

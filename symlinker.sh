@@ -39,7 +39,8 @@ ln -sv $dfd/kitty/kitty.conf $cfd/kitty/kitty.conf
 
 echo -e "\nSymlinking alacritty config ..."
 rm $cfd/alacritty/alacritty.yml
-ln -sv $dfd/alacritty/alacritty.yml $cfd/alacritty/alacritty.yml
+ln -sv $dfd/alacritty $cfd/alacritty
+ln -sv $cfd/alacritty/alacritty_dark.yml $cfd/alacritty.yml
 
 echo -e "\nSymlinking i3 config ..."
 rm -r $cfd/i3/*

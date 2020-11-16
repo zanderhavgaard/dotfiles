@@ -12,14 +12,14 @@
 	rebase = false
 
 # url shorthands
-[url "git@github.itu.dk:"]
-    instadOf = itu:
 [url "git@github.com:"]
     insteadOf = gh:
 [url "https://gist.github.com/"]
     insteadOf = gist:
 [url "https://bitbucket.org/"]
     insteadOf = bb:
+[url "https://gitlab.com/"]
+    insteadOf = gl:
 
 [color]
     ui = true
@@ -74,3 +74,5 @@
     p = push
     # force push
     fp = push --force
+    # clean interactively
+    ci = clean -i

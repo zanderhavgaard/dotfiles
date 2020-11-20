@@ -98,7 +98,7 @@ modules-right = launch-term xrandr caffeine-status memory cpu temperature filesy
 tray-background = ${colors.dark-grey}
 tray-detached = false
 tray-position = right
-; tray-padding = 2
+tray-padding = 2
 ; tray-offset-x = 10
 
 underline-size = 0
@@ -542,7 +542,7 @@ format-disconnected-foreground = ${colors.grey}
 [module/eth]
 inherit = section/base
 type = internal/network
-interface = enp6s0
+interface = enp0s31f6
 interval = 3.0
 
 format-connected = " <label-connected> "
@@ -551,7 +551,7 @@ label-connected = %local_ip%
 format-connected-background = ${colors.dark-grey}
 format-connected-foreground = ${colors.grey}
 
-format-disconnected = "  "
+format-disconnected = "  no eth connection "
 format-disconnected-background = ${colors.dark-grey}
 format-disconnected-foreground = ${colors.grey}
 

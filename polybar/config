@@ -98,7 +98,7 @@ modules-right = launch-term xrandr caffeine-status memory cpu temperature filesy
 tray-background = ${colors.dark-grey}
 tray-detached = false
 tray-position = right
-; tray-padding = 2
+tray-padding = 2
 ; tray-offset-x = 10
 
 underline-size = 0
@@ -548,14 +548,12 @@ interval = 3.0
 format-connected = " <label-connected> "
 format-connected-prefix = "  "
 label-connected = %local_ip%
-; format-connected-background = ${colors.background}
-; format-connected-foreground = ${colors.grey}
-; format-connected-background = ${colors.cyan-alt}
+format-connected-background = ${colors.dark-grey}
+format-connected-foreground = ${colors.grey}
 
-format-disconnected = "  "
-; format-disconnected-background = ${colors.background}
-; format-disconnected-foreground = ${colors.grey}
-; format-disconnected-background = ${colors.cyan-alt}
+format-disconnected = "  no eth connection "
+format-disconnected-background = ${colors.dark-grey}
+format-disconnected-foreground = ${colors.grey}
 
 
 

@@ -166,6 +166,7 @@ calcurse
 bind
 moreutils
 nnn
+skim
 "
 read -p "Install cli_tools? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

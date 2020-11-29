@@ -8,7 +8,7 @@
 alias tailf="tail -f -n 999999"
 
 # update neovim
-alias nvim_update="bash /home/zander/neovim-config/update.sh"
+alias nvim_update="cd /home/zander/neovim-config && bash update.sh"
 
 # read std.in to clipboard
 alias to_clipboard="xclip -i -selection c"

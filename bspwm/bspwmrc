@@ -11,9 +11,9 @@
 
 # set wallpapers
 if [ $(cat /etc/hostname) = "sulaco" ] ; then
-    feh --bg-scale /home/zander/dotfiles/wallpaper/onedark_arch_wall.png
+    feh --bg-fill /home/zander/dotfiles/wallpaper/onedark_arch_wall.png
 else
-    feh --randomize --bg-scale /home/zander/Dropbox/Wallpapers/current
+    feh --randomize --bg-fill /home/zander/Dropbox/Wallpapers/current
 fi
 
 # polybar

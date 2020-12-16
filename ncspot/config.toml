@@ -2,9 +2,10 @@ use_nerdfont = true
 audio_cache = true
 notify = true
 bitrate = 320
+volnorm = true
 
 [theme]
-background = "#141A1F"
+background = "black"
 primary = "#EFEFEF"
 secondary = "#3890E9"
 

@@ -1,0 +1,4 @@
+use_nerdfont = true
+audio_cache = true
+notify = true
+bitrate = 320

@@ -87,3 +87,7 @@ rm -rf $cfd/bspwm
 rm -rf $cfd/sxhkd
 ln -sv $dfd/bspwm $cfd/bspwm
 ln -sv $dfd/sxhkd $cfd/sxhkd
+
+echo -e "\n symlinking ncspot config ..."
+rm $cfd/ncspot/config.toml
+ln -sv $dfd/ncspot/config.toml $cfd/ncspot/config.toml

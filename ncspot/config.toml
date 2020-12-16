@@ -2,3 +2,27 @@ use_nerdfont = true
 audio_cache = true
 notify = true
 bitrate = 320
+
+[theme]
+background = "#141A1F"
+primary = "#EFEFEF"
+secondary = "#3890E9"
+
+title = "#EFEFEF"
+
+playing = "#3890E9"
+playing_bg = "#141A1F"
+playing_selected = "#EFEFEF"
+
+highlight = "#141A1F"
+highlight_bg = "#3890E9"
+
+error = "#EFEFEF"
+error_bg = "#EC5252"
+
+statusbar = "#141A1F"
+statusbar_progress = "#3890E9"
+statusbar_bg = "#5DA713"
+
+cmdline = "#EFEFEF"
+cmdline_bg = "#141A1F"

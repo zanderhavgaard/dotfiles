@@ -1,0 +1,5 @@
+set preview true
+set PAGER bat
+set hidden true
+set color256 true
+set icons true

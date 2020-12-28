@@ -91,3 +91,7 @@ ln -sv $dfd/sxhkd $cfd/sxhkd
 echo -e "\n symlinking ncspot config ..."
 rm $cfd/ncspot/config.toml
 ln -sv $dfd/ncspot/config.toml $cfd/ncspot/config.toml
+
+echo -e "\n symlinking lf config ..."
+rm $cfd/lf/lfrc
+ln -sv $dfd/lf/lfrc $cfd/lf/lfrc

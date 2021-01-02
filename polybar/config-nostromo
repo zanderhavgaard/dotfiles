@@ -542,7 +542,7 @@ format-disconnected-foreground = ${colors.grey}
 [module/eth]
 inherit = section/base
 type = internal/network
-interface = enp0s31f6
+interface = enp6s0
 interval = 3.0
 
 format-connected = " <label-connected> "

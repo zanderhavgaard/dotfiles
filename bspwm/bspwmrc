@@ -31,6 +31,9 @@ bash /home/zander/dotfiles/i3lock/start_i3lock.sh &
 # NetworkManager
 nm-applet &
 
+# nextcloud
+nextcloud &
+
 # dropbox
 dropbox start &
 

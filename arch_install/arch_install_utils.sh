@@ -94,6 +94,7 @@ wmctrl
 wireguard-tools
 wireguard-lts
 trayer
+nextcloud-client
 "
 read -p "Install misc system libs/utils/backends? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

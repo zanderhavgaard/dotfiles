@@ -53,6 +53,7 @@ bluez
 bluez-utils
 blueman
 puleaudio-bluetooth
+libldac
 "
 read -p "Install bluetooth packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

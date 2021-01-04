@@ -9,11 +9,20 @@
 # | (_| | |_| | || (_) \__ \ || (_| | |  | |_
 #  \__,_|\__,_|\__\___/|___/\__\__,_|_|   \__|
 
-# set wallpapers
+# do machine specific stuff
 if [ $(cat /etc/hostname) = "sulaco" ] ; then
+    # set wallpapers
     feh --bg-fill /home/zander/dotfiles/wallpaper/onedark_arch_wall.png
+    # start bluetooth applet in the system tray
+    blueman-applet &
+if [ $(cat /etc/hostname) = "vostok" ] ; then
+    # start bluetooth applet in the system tray
+    blueman-applet &
+    # set wallpapers
+    feh --randomize --bg-fill /home/zander/Nextcloud/Wallpapers/current
 else
-    feh --randomize --bg-fill /home/zander/Dropbox/Wallpapers/current
+    # set wallpapers
+    feh --randomize --bg-fill /home/zander/Nextcloud/Wallpapers/current
 fi
 
 # polybar

@@ -48,6 +48,17 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $audio
 fi
 
+bluetooth="
+bluez
+bluez-utils
+blueman
+puleaudio-bluetooth
+"
+read -p "Install bluetooth packages? [y/n] " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo pacman -S $bluetooth
+fi
+
 bspwn="
 bspwm
 sxhkd

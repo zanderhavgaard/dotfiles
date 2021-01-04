@@ -296,6 +296,14 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     cd
 fi
 
+aur_bluetooth="
+pulseaudio-modules-bt
+"
+read -p "Install bluetooth-specific AUR packages using yay? [y/n] " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    yay -S $aur_bluetooth
+fi
+
 aur="
 antigen-git
 bitwarden-bin
@@ -328,6 +336,7 @@ read -p "Install AUR packages using yay? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     yay -S $aur
 fi
+
 
 read -p "Create directories for Applications/python venvs? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

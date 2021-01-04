@@ -328,7 +328,6 @@ git-delta
 circleci-cli-bin
 glow
 ncspot
-howdoi-git
 duf
 ctop
 "

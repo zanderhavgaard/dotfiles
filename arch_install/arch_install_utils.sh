@@ -52,7 +52,7 @@ bluetooth="
 bluez
 bluez-utils
 blueman
-puleaudio-bluetooth
+pulseaudio-bluetooth
 libldac
 "
 read -p "Install bluetooth packages? [y/n] " -n 1 -r ; echo

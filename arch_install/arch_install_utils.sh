@@ -311,10 +311,8 @@ bitwarden-bin
 bonsai.sh-git
 cava
 cli-visualizer
-dropbox
 figlet-fonts
 gotop-bin
-insync
 lazygit
 magic-wormhole
 pfetch-git

@@ -69,6 +69,14 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $bspwn
 fi
 
+xfce="
+xfce4
+"
+read -p "Install xfce packages? [y/n] " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo pacman -S $xfce
+fi
+
 gnome_shell="
 gnome-shell
 gnome-tweaks

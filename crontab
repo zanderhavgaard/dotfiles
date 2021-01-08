@@ -1,4 +1,4 @@
 #!bin/bash
 
 # change wallpaper
-*/10 * * * * DISPLAY=:0 feh --randomize --bg-scale ~/Dropbox/Wallpapers/current
+*/10 * * * * DISPLAY=:0 feh --randomize --bg-scale ~/Nextcloud/Wallpapers/current

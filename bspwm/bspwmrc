@@ -28,10 +28,6 @@ elif [ $(cat /etc/hostname) = "vostok" ] ; then
     blueman-applet &
     # nextcloud
     nextcloud &
-    # dropbox
-    dropbox start &
-    # insync
-    insync start &
     # Private Internet Access VPN
     /opt/piavpn/bin/pia-client &
 elif [ $(cat /etc/hostname) = "nostromo" ] ; then
@@ -39,10 +35,6 @@ elif [ $(cat /etc/hostname) = "nostromo" ] ; then
     feh --randomize --bg-fill /home/zander/Nextcloud/Wallpapers/current
     # nextcloud
     nextcloud &
-    # dropbox
-    dropbox start &
-    # insync
-    insync start &
     # Private Internet Access VPN
     /opt/piavpn/bin/pia-client &
 else

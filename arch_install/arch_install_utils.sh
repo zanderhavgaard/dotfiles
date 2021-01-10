@@ -30,6 +30,8 @@ fi
 amd_cpu_gpu_specific="
 amd-ucode
 xf86-video-amdgpu
+vulkan-radeon
+opencl-mesa
 "
 read -p "Install packages for AMD CPU + GPU ? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

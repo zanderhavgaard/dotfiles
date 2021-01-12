@@ -4,6 +4,10 @@
 # (_)/_/ \_\|____||___|/_/ \_\|___/|___||___/
 #
 
+# exit ranger in the current directory
+alias ranger="source ranger"
+
+# download youtube videoes
 alias ytd="youtube-dl -f bestvideo+bestaudio"
 
 # upgrade all pip packages

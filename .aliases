@@ -4,6 +4,12 @@
 # (_)/_/ \_\|____||___|/_/ \_\|___/|___||___/
 #
 
+# exit ranger in the current directory
+alias ranger="source ranger"
+
+# download youtube videoes
+alias ytd="youtube-dl -f bestvideo+bestaudio"
+
 # upgrade all pip packages
 alias pip_upgrade_all="pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U"
 

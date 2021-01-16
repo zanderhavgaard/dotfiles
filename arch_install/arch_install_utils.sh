@@ -262,6 +262,7 @@ pyenv
 clang
 terraform
 kubectl
+kubectx
 minikube
 helm
 nodejs

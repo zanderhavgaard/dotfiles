@@ -55,7 +55,8 @@ foreground = ${colors.white}
 ; format-background = ${colors.dark-grey}
 ; format-foreground = ${colors.grey}
 
-monitor = eDP1
+; monitor = eDP1
+mointor =
 bottom = true
 width = 100%
 height = 2%

@@ -23,6 +23,7 @@ alias nvim_update="cd /home/zander/neovim-config/scripts && bash update.sh"
 alias to_clipboard="xclip -i -selection c"
 
 # setup laptop screens
+alias lts="bash /home/zander/dotfiles/xrandr/only_laptop"
 alias xrandr_only_laptop="bash /home/zander/dotfiles/xrandr/only_laptop"
 alias xrandr_office_desk="bash /home/zander/dotfiles/xrandr/office_desk.sh"
 alias xrandr_nr_desk="bash /home/zander/dotfiles/xrandr/nr_office_desk.sh"

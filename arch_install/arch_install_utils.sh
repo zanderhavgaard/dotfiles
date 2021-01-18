@@ -198,6 +198,7 @@ glances
 picocom
 sysstat
 bpytop
+tree
 "
 read -p "Install cli_tools? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -262,6 +263,7 @@ pyenv
 clang
 terraform
 kubectl
+kubectx
 minikube
 helm
 nodejs
@@ -269,6 +271,8 @@ npm
 shellcheck
 yamllint
 python-cookiecutter
+ansible
+ansible-lint
 "
 read -p "Install development packags? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

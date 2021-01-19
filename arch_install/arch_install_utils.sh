@@ -104,7 +104,7 @@ usbutils
 pavucontrol
 flameshot
 dunst
-i3lock-color
+i3lock
 cronie
 qt5ct
 gtk-engine-murrine
@@ -149,7 +149,7 @@ dmidecode
 read -p "Install virtualization packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $virtualization
-    sudo useradd -aG $USER libvirt
+    sudo usermod -aG libvirt $USER
     sudo systemctl enable libvirtd
 fi
 
@@ -251,7 +251,7 @@ guvcview
 read -p "Install assorted applications, eg. browser/terminal/email? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $applications
-    sudo useradd -aG $USER docker
+    sudo usermod -aG docker $USER
     sudo systemctl enable docker
 fi
 
@@ -324,7 +324,6 @@ fi
 
 aur="
 antigen-git
-bitwarden-bin
 bonsai.sh-git
 cava
 cli-visualizer

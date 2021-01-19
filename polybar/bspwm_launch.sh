@@ -14,6 +14,8 @@ count=$(xrandr --query | grep " connected" | cut -d" " -f1 | wc -l)
 config="/home/zander/.config/polybar/config"
 if [ $(cat /etc/hostname) = "sulaco" ] ; then
     config="/home/zander/.config/polybar/config-sulaco"
+if [ $(cat /etc/hostname) = "prometheus" ] ; then
+    config="/home/zander/.config/polybar/config-sulaco"
 elif [ $(cat /etc/hostname) = "nostromo" ] ; then
     config="/home/zander/.config/polybar/config-nostromo"
 fi

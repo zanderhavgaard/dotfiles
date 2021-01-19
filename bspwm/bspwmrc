@@ -37,6 +37,9 @@ elif [ $(cat /etc/hostname) = "nostromo" ] ; then
     nextcloud &
     # Private Internet Access VPN
     /opt/piavpn/bin/pia-client &
+elif [ $(cat /etc/hostname) = "prometheus" ] ; then
+    # set wallpapers
+    feh --bg-fill /home/zander/wall.png
 else
     # set wallpapers
     feh --randomize --bg-fill /home/zander/Nextcloud/Wallpapers/current

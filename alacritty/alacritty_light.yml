@@ -82,21 +82,21 @@ font:
   # Normal (roman) font face
   normal:
     # family: Iosevka Nerd Font Mono
-    # family: Hack Nerd Font
+    family: Hack Nerd Font
     # family: Hasklug Nerd Font
-    family: Mononoki Nerd Font
+    # family: Mononoki Nerd Font
     style: Regular
   # Bold font face
   bold:
     # family: Iosevka Nerd Font Mono
-    # family: Hack Nerd Font
-    family: Mononoki Nerd Font
+    family: Hack Nerd Font
+    # family: Mononoki Nerd Font
     style: Bold
   # Italic font face
   italic:
     # family: Iosevka Nerd Font Mono
-    # family: Hack Nerd Font
-    family: Mononoki Nerd Font
+    family: Hack Nerd Font
+    # family: Mononoki Nerd Font
     style: Italic
 
   # Point size

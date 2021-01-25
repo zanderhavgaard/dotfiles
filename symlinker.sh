@@ -95,3 +95,7 @@ ln -sv $dfd/ncspot/config.toml $cfd/ncspot/config.toml
 echo -e "\n symlinking lf config ..."
 rm $cfd/lf/lfrc
 ln -sv $dfd/lf/lfrc $cfd/lf/lfrc
+
+echo -e "\n symlinking flashfocus config ..."
+rm $cfd/flashfocus/flashfocus.yml
+ln -sv $dfd/flashfocus/flashfocus.yml $cfd/flashfocues/flashfocus.yml

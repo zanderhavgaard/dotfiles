@@ -78,8 +78,8 @@ done
 #           |_|
 
 
-# bspc config border_width                  2
-bspc config border_width                  0
+bspc config border_width                  2
+# bspc config border_width                  0
 bspc config window_gap                    10
 # bspc config top_monocle_padding           -30
 # bspc config bottom_monocle_padding        -30

@@ -99,3 +99,7 @@ ln -sv $dfd/lf/lfrc $cfd/lf/lfrc
 echo -e "\n symlinking flashfocus config ..."
 rm $cfd/flashfocus/flashfocus.yml
 ln -sv $dfd/flashfocus/flashfocus.yml $cfd/flashfocus/flashfocus.yml
+
+echo -e "\n symlinking qtile config ..."
+rm $cfd/qtile/config.py
+ln -sv $dfd/qtile/config.py $cfd/qtile/config.py

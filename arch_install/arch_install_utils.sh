@@ -71,6 +71,14 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $bspwn
 fi
 
+qtile="
+qtile
+"
+read -p "Install qtile packages? [y/n] " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo pacman -S $qtile
+fi
+
 xfce="
 xfce4
 "

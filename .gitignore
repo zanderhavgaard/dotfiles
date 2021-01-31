@@ -1,2 +1,3 @@
 libs/*
 vis/vis.log
+**/__pycache__/*

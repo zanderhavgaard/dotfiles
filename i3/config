@@ -61,10 +61,10 @@ exec --no-startup-id ~/dotfiles/i3lock/start_i3lock.sh
 #
 
 # set initial wallpaper
-exec --no-startup-id feh --randomize --bg-scale ~/Dropbox/Wallpapers/current
+exec --no-startup-id feh --randomize --bg-scale ~/Nextcloud/Wallpapers/current
 
 # choose a random
-bindsym Shift+Ctrl+$mod+space exec --no-startup-id feh --randomize --bg-scale ~/Dropbox/Wallpapers/current
+bindsym Shift+Ctrl+$mod+space exec --no-startup-id feh --randomize --bg-scale ~/Nextcloud/Wallpapers/current
 
 #  _  _    _    ___  ___ __      __ _    ___  ___
 # | || |  /_\  | _ \|   \\ \    / //_\  | _ \| __|
@@ -392,11 +392,14 @@ exec --no-startup-id nm-applet
 # volume
 exec --no-startup-id volumeicon
 
-# dropbox
-exec --no-startup-id dropbox start
-
-# insync
-exec --no-startup-id insync start
-
 # Private Internet Access VPN
 exec --no-startup-id /opt/piavpn/bin/pia-client
+
+# start enxtcloud
+exec --no-startup-id nextcloud
+
+# bluetooth manager
+exec --no-startup-id blueman-applet &
+
+# flash windows when changing focus
+exec --no-startup-id flashfocus &

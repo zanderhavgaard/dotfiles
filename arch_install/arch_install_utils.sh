@@ -73,6 +73,7 @@ fi
 
 qtile="
 qtile
+python-iwlib
 "
 read -p "Install qtile packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

@@ -18,14 +18,14 @@ bash /home/zander/.config/polybar/bspwm_launch.sh &
 # do machine specific stuff
 if [ $(cat /etc/hostname) = "sulaco" ] ; then
     # set wallpapers
-    feh --bg-fill /home/zander/dotfiles/wallpaper/onedark_arch_wall.png
+    feh --bg-scale /home/zander/dotfiles/wallpaper/onedark_arch_wall.png
     # start bluetooth applet in the system tray
     blueman-applet &
     # start flashfocus
     flashfocus &
 elif [ $(cat /etc/hostname) = "vostok" ] ; then
     # set wallpapers
-    feh --randomize --bg-fill /home/zander/Nextcloud/Wallpapers/current
+    feh --randomize --bg-scale /home/zander/Nextcloud/Wallpapers/current
     # start bluetooth applet in the system tray
     blueman-applet &
     # nextcloud
@@ -36,7 +36,7 @@ elif [ $(cat /etc/hostname) = "vostok" ] ; then
     flashfocus &
 elif [ $(cat /etc/hostname) = "nostromo" ] ; then
     # set wallpapers
-    feh --randomize --bg-fill /home/zander/Nextcloud/Wallpapers/current
+    feh --randomize --bg-scale /home/zander/Nextcloud/Wallpapers/current
     # nextcloud
     nextcloud &
     # Private Internet Access VPN
@@ -45,13 +45,13 @@ elif [ $(cat /etc/hostname) = "nostromo" ] ; then
     flashfocus &
 elif [ $(cat /etc/hostname) = "prometheus" ] ; then
     # set wallpapers
-    # feh --bg-fill /home/zander/wall.png
-    feh --randomize --bg-fill /home/zander/wallpaper/walls
+    # feh --bg-scale /home/zander/wall.png
+    feh --randomize --bg-scale /home/zander/wallpaper/walls
     # start flashfocus
     flashfocus &
 else
     # set wallpapers
-    feh --randomize --bg-fill /home/zander/Nextcloud/Wallpapers/current
+    feh --randomize --bg-scale /home/zander/Nextcloud/Wallpapers/current
 fi
 
 # compositor

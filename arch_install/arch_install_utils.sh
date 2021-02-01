@@ -333,6 +333,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 fi
 
 aur="
+librewolf-bin
 antigen-git
 bonsai.sh-git
 cava

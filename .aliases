@@ -4,6 +4,8 @@
 # (_)/_/ \_\|____||___|/_/ \_\|___/|___||___/
 #
 
+alias qtile_log="tail -f /home/zander/.local/share/qtile/qtile.log"
+
 # exit ranger in the current directory
 alias ranger="source ranger"
 

@@ -1,21 +1,76 @@
-# Copyright (c) 2020 @zanderhavgaard
-#         _   _ _
-#    __ _| |_(_) | ___
-#   / _` | __| | |/ _ \
-#  | (_| | |_| | |  __/
-#   \__, |\__|_|_|\___|
-#      |_|
+# Copyright (c) 2020 @zanderhavgaard ~ https://github.com/zanderhavgaard/dotfiles
+# Based on the awesomw work of the qtile developers: https://github.com/qtile/qtile
 #
+#        __         ___
+#       /\ \__  __ /\_ \
+#     __\ \ ,_\/\_\\//\ \      __
+#   /'__`\ \ \/\/\ \ \ \ \   /'__`\
+#  /\ \L\ \ \ \_\ \ \ \_\ \_/\  __/
+#  \ \___, \ \__\\ \_\/\____\ \____\
+#   \/___/\ \/__/ \/_/\/____/\/____/
+#       \ \_\
+#        \/_/
+
+# qtile imports
 from typing import List  # noqa: F401
-from libqtile import bar, layout, widget
+from libqtile import hook, bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
+
+# imports
+import socket
+import os
+import subprocess
+
+# custom imports
+from vostok import VostokConfig
+from custom_layouts import custom_layouts
+
+# get the hostname to load specific configuration
+host = socket.gethostname()
+
+# create config
+if host == "vostok":
+    config = VostokConfig()
+elif host == "nostromo":
+    pass
+elif host == "sulaco":
+    pass
+elif host == "prometheus":
+    pass
+
+
+@hook.subscribe.startup_once
+def autostart():
+    # autostart background applications
+    # will only run initial startup
+    subprocess.call(config.autostart_script)
+
+
+# create layouts
+layouts = custom_layouts(colors=config.colors)
+
+# set defaults for widgets
+widget_defaults = dict(
+    font="Mononoki Nerd Font",
+    fontsize=12,
+    padding=3,
+)
+extension_defaults = widget_defaults.copy()
+
+# setup screens
+screens = [
+    Screen(
+        # create bar for screen
+        top=config.top_bar,
+    ),
+]
 
 mod = "mod4"
 terminal = "alacritty"
 launcher = "rofi -show drun ~/dotfiles/rofi/config"
 # TODO fix
-cycle_wallpaper = "feh --randomize --bg -scale ~/Nextcloud/Wallpapers/current"
+cycle_wallpaper = f"feh --randomize --bg -scale {config.wallpapers}"
 
 keys = [
     # Switch between windows in current stack pane
@@ -28,6 +83,8 @@ keys = [
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up in current stack "),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down in current stack "),
     Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window left in current stack "),
+    # toggle floating/tiled for windows
+    Key([mod], "t", lazy.window.toggle_floating()),
     # Switch window focus to other pane(s) of stack
     Key([mod], "space", lazy.layout.next(), desc="Switch window focus to other pane(s) of stack"),
     # Swap panes of split stack
@@ -89,106 +146,6 @@ for i in groups:
         ]
     )
 
-layouts = [
-    layout.Max(),
-    #  layout.Stack(num_stacks=2),
-    #  layout.Bsp(),
-    #  layout.Columns(),
-    #  layout.Matrix(),
-    layout.MonadTall(),
-    layout.MonadWide(),
-    #  layout.RatioTile(),
-    #  layout.Tile(),
-    layout.TreeTab(),
-    #  layout.VerticalTile(),
-    #  layout.Zoomy(),
-]
-
-widget_defaults = dict(
-    font="Mononoki Nerd Font",
-    fontsize=12,
-    padding=3,
-)
-extension_defaults = widget_defaults.copy()
-
-colors = {
-    "background": "#282C36",
-    "white": "#efefef",
-    "black": "#141A1F",
-    "black2": "#1A2128",
-    "grey": "#A6B5CB",
-    "dark_grey": "#6B859E",
-    "blue": "#7DBEFF",
-    "dark_blue": "#3890E9",
-    "purple": "#CB96FF",
-    "dark_purple": "#A359ED",
-    "red": "#FF9191",
-    "dark_red": "#EC5252",
-    "orange": "#EDA55D",
-    "dark_orange": "#C97016",
-    "green": "#9ACD68",
-    "dark_green": "#5DA713",
-    "cyan": "#6ECFCF",
-    "dark_cyan": "#13AFAF",
-}
-
-# config for the bar
-bar_config = {
-    "size": 24,
-    "background": colors["background"],
-    "opacity": 0,
-    "margin": 0,
-}
-
-# create screens
-screens = [
-    Screen(
-        # create bar for screen
-        top=bar.Bar(
-            [
-                widget.Prompt(),
-                widget.Sep(),
-                #  widget.CurrentLayout(),
-                widget.CurrentLayoutIcon(),
-                widget.Sep(),
-                widget.CurrentScreen(),
-                widget.Sep(),
-                widget.GroupBox(),
-                widget.Spacer(),
-                widget.Sep(),
-                widget.Wlan(),
-                widget.Sep(),
-                widget.KeyboardLayout(foreground=colors["green"]),
-                widget.Sep(),
-                widget.Mpris2(),
-                widget.Sep(),
-                widget.TextBox("Vol:"),
-                widget.PulseVolume(),
-                widget.Sep(),
-                widget.TextBox("Battery:"),
-                widget.Battery(battery=0),
-                widget.Battery(battery=1),
-                widget.Sep(),
-                widget.TextBox("Net_down:"),
-                widget.NetGraph(),
-                widget.Sep(),
-                widget.TextBox("CPU:"),
-                widget.CPUGraph(),
-                widget.Sep(),
-                widget.TextBox("Memory:"),
-                widget.MemoryGraph(),
-                widget.Sep(),
-                widget.Clock(format="%A %d %B %Y | %I:%M:%S %p "),
-                widget.Sep(),
-                widget.Systray(),
-            ],
-            size=bar_config["size"],
-            background=bar_config["background"],
-            opacity=bar_config["opacity"],
-            margin=bar_config["margin"],
-        ),
-    ),
-]
 
 # Drag floating layouts.
 mouse = [

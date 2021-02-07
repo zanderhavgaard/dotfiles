@@ -24,6 +24,7 @@ import subprocess
 
 # custom imports
 from vostok import VostokConfig
+from nostromo import NostromoConfig
 from custom_layouts import custom_layouts
 
 # get the hostname to load specific configuration
@@ -33,7 +34,7 @@ host = socket.gethostname()
 if host == "vostok":
     config = VostokConfig()
 elif host == "nostromo":
-    pass
+    config = NostromoConfig()
 elif host == "sulaco":
     pass
 elif host == "prometheus":

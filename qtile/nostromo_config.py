@@ -11,6 +11,8 @@ class NostromoConfig:
 
         self.colors = colors
 
+        self.font = "Mononoki Nerd Font"
+
         # where are wallpapers on this system?
         self.wallpapers = "/home/zander/Nextcloud/Wallpapers/current"
 
@@ -22,23 +24,24 @@ class NostromoConfig:
             "margin": 0,
         }
 
-        self.top_bar = bar.Bar(
+        self.widget_defaults = {"font": self.font, "fontsize": 12, "padding": 10}
+
+    def create_top_bar(self) -> bar.Bar:
+        _bar = bar.Bar(
             [
                 widget.CurrentLayoutIcon(),
                 widget.CurrentLayout(),
                 widget.Sep(),
-                widget.CurrentScreen(active_text="Focused", inactive_text="Not Focused"),
-                widget.Sep(),
-                widget.GroupBox(),
+                widget.GroupBox(padding=5),
                 widget.Spacer(),
                 widget.Prompt(),
-                widget.Sep(),
-                widget.KeyboardLayout(foreground=colors["green"]),
-                widget.Sep(),
-                widget.TextBox("Vol:"),
+                #  widget.Sep(),
+                #  widget.Wlan(),
+                widget.KeyboardLayout(),
                 widget.PulseVolume(),
-                widget.Sep(),
-                widget.Clock(format="%A %d %B %Y | %I:%M:%S %p "),
+                widget.Clock(format=" %A %d %B %Y"),
+                widget.Clock(format=" %I:%M:%S %p"),
+                widget.QuickExit(default_text="[ exit ]"),
                 widget.Sep(),
                 widget.Systray(),
             ],
@@ -47,3 +50,5 @@ class NostromoConfig:
             opacity=self.bar_config["opacity"],
             margin=self.bar_config["margin"],
         )
+
+        return _bar

@@ -12,11 +12,15 @@ def custom_layouts(colors: dict) -> list:
     }
     return [
         layout.MonadTall(**layout_theme),
-        layout.MonadWide(**layout_theme),
-        layout.TreeTab(**layout_theme),
+        layout.RatioTile(**layout_theme),
+        layout.Tile(**layout_theme),
+        layout.Matrix(**layout_theme),
+        layout.Columns(**layout_theme),
         layout.Max(**layout_theme),
-        layout.Floating(**layout_theme),
     ]
+    #  layout.Floating(**layout_theme),
+    #  layout.MonadWide(**layout_theme),
+    #  layout.TreeTab(**layout_theme),
     #  more layouts to try out
     #  layout.Stack(num_stacks=2),
     #  layout.Bsp(),

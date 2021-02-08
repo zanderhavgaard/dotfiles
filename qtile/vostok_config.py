@@ -11,6 +11,8 @@ class VostokConfig:
 
         self.colors = colors
 
+        self.font = "Mononoki Nerd Font"
+
         # where are wallpapers on this system?
         self.wallpapers = "/home/zander/Nextcloud/Wallpapers/current"
 
@@ -22,31 +24,32 @@ class VostokConfig:
             "margin": 0,
         }
 
-        self.top_bar = bar.Bar(
+        self.widget_defaults = {"font": self.font, "fontsize": 12, "padding": 10}
+
+    def create_top_bar(self) -> bar.Bar:
+        battery_config = {
+            "charge_char": "",
+            "discharge_char": "",
+            "empty_char": " ",
+        }
+
+        _bar = bar.Bar(
             [
                 widget.CurrentLayoutIcon(),
                 widget.CurrentLayout(),
                 widget.Sep(),
-                widget.CurrentScreen(active_text="Focused", inactive_text="Not Focused"),
-                widget.Sep(),
-                widget.GroupBox(),
+                widget.GroupBox(padding=5),
                 widget.Spacer(),
                 widget.Prompt(),
                 #  widget.Sep(),
                 #  widget.Wlan(),
-                widget.Sep(),
-                widget.KeyboardLayout(foreground=colors["green"]),
-                widget.Sep(),
-                widget.TextBox("Vol:"),
+                widget.KeyboardLayout(),
                 widget.PulseVolume(),
-                widget.Sep(),
-                widget.TextBox("Battery: 0"),
-                widget.Battery(battery=0),
-                widget.Sep(),
-                widget.TextBox("Battery: 1"),
-                widget.Battery(battery=1),
-                widget.Sep(),
-                widget.Clock(format="%A %d %B %Y | %I:%M:%S %p "),
+                widget.Battery(**battery_config, format="int {char} {percent:2.0%}", battery=0),
+                widget.Battery(**battery_config, format="ext {char} {percent:2.0%}", battery=1),
+                widget.Clock(format=" %A %d %B %Y"),
+                widget.Clock(format=" %I:%M:%S %p"),
+                widget.QuickExit(default_text="[ exit ]"),
                 widget.Sep(),
                 widget.Systray(),
             ],
@@ -55,3 +58,5 @@ class VostokConfig:
             opacity=self.bar_config["opacity"],
             margin=self.bar_config["margin"],
         )
+
+        return _bar

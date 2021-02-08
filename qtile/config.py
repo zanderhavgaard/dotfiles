@@ -11,23 +11,260 @@
 #        \ \_\
 #         \/_/
 
-# qtile imports
 from typing import List  # noqa: F401
 from libqtile import hook, bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
-
-# imports
 import socket
 import os
 import subprocess
+from Xlib import display
 
-# custom imports
-import utils
-from vostok_config import VostokConfig
-from nostromo_config import NostromoConfig
-from prometheus_config import PrometheusConfig
-from custom_layouts import custom_layouts
+
+#    ____      _              ____       _
+#   / ___|___ | | ___  _ __  / ___|  ___| |__   ___ _ __ ___   ___  ___
+#  | |   / _ \| |/ _ \| '__| \___ \ / __| '_ \ / _ \ '_ ` _ \ / _ \/ __|
+#  | |__| (_) | | (_) | |     ___) | (__| | | |  __/ | | | | |  __/\__ \
+#   \____\___/|_|\___/|_|    |____/ \___|_| |_|\___|_| |_| |_|\___||___/
+
+
+# one dark colorscheme palette
+one_dark = {
+    "background": "#282C36",
+    "white": "#efefef",
+    "black": "#141A1F",
+    "black2": "#1A2128",
+    "grey": "#A6B5CB",
+    "dark_grey": "#6B859E",
+    "blue": "#7DBEFF",
+    "dark_blue": "#3890E9",
+    "purple": "#CB96FF",
+    "dark_purple": "#A359ED",
+    "red": "#FF9191",
+    "dark_red": "#EC5252",
+    "orange": "#EDA55D",
+    "dark_orange": "#C97016",
+    "green": "#9ACD68",
+    "dark_green": "#5DA713",
+    "cyan": "#6ECFCF",
+    "dark_cyan": "#13AFAF",
+}
+
+colors = one_dark
+
+#   _   _           _
+#  | \ | | ___  ___| |_ _ __ ___  _ __ ___   ___
+#  |  \| |/ _ \/ __| __| '__/ _ \| '_ ` _ \ / _ \
+#  | |\  | (_) \__ \ |_| | | (_) | | | | | | (_) |
+#  |_| \_|\___/|___/\__|_|  \___/|_| |_| |_|\___/
+
+
+class NostromoConfig:
+    def __init__(self):
+
+        self.config_name = "nostromo"
+
+        self.autostart_script = f"/home/zander/.config/qtile/{self.config_name}_autostart.sh"
+
+        self.colors = colors
+
+        self.font = "Mononoki Nerd Font"
+
+        # where are wallpapers on this system?
+        # TODO ?
+        self.wallpapers = "/home/zander/walls"
+
+        # config for the bar
+        self.bar_config = {
+            "size": 24,
+            "background": colors["background"],
+            "opacity": 0,
+            "margin": 0,
+        }
+
+        self.widget_defaults = {"font": self.font, "fontsize": 12, "padding": 10}
+
+    def create_top_bar(self) -> bar.Bar:
+        _bar = bar.Bar(
+            [
+                widget.CurrentLayoutIcon(),
+                widget.CurrentLayout(),
+                widget.Sep(),
+                widget.GroupBox(
+                    padding=5,
+                ),
+                widget.Spacer(),
+                widget.Prompt(),
+                widget.KeyboardLayout(),
+                widget.PulseVolume(),
+                widget.Clock(
+                    format=" %A %d %B %Y",
+                ),
+                widget.Clock(
+                    format=" %I:%M:%S %p",
+                ),
+                widget.QuickExit(
+                    default_text="[ exit ]",
+                ),
+                widget.Sep(),
+                widget.Systray(),
+            ],
+            size=self.bar_config["size"],
+            background=self.bar_config["background"],
+            opacity=self.bar_config["opacity"],
+            margin=self.bar_config["margin"],
+        )
+
+        return _bar
+
+
+#   ____                           _   _
+#  |  _ \ _ __ ___  _ __ ___   ___| |_| |__   ___ _   _ ___
+#  | |_) | '__/ _ \| '_ ` _ \ / _ \ __| '_ \ / _ \ | | / __|
+#  |  __/| | | (_) | | | | | |  __/ |_| | | |  __/ |_| \__ \
+#  |_|   |_|  \___/|_| |_| |_|\___|\__|_| |_|\___|\__,_|___/
+
+
+class PrometheusConfig:
+    def __init__(self):
+
+        self.config_name = "prometheus"
+
+        self.autostart_script = f"/home/zander/.config/qtile/{self.config_name}_autostart.sh"
+
+        self.colors = colors
+
+        self.font = "Mononoki Nerd Font"
+
+        # where are wallpapers on this system?
+        self.wallpapers = "/home/zander/wallpaper/walls"
+
+        # config for the bar
+        self.bar_config = {
+            "size": 24,
+            "background": colors["background"],
+            "opacity": 0,
+            "margin": 0,
+        }
+
+        self.widget_defaults = {"font": self.font, "fontsize": 12, "padding": 10}
+
+    def create_top_bar(self) -> bar.Bar:
+        _bar = bar.Bar(
+            [
+                widget.CurrentLayoutIcon(),
+                widget.CurrentLayout(),
+                widget.Sep(),
+                widget.GroupBox(
+                    padding=5,
+                ),
+                widget.Spacer(),
+                widget.Prompt(),
+                widget.KeyboardLayout(),
+                widget.PulseVolume(),
+                widget.Clock(
+                    format=" %A %d %B %Y",
+                ),
+                widget.Clock(
+                    format=" %I:%M:%S %p",
+                ),
+                widget.QuickExit(
+                    default_text="[ exit ]",
+                ),
+                widget.Sep(),
+                widget.Systray(),
+            ],
+            size=self.bar_config["size"],
+            background=self.bar_config["background"],
+            opacity=self.bar_config["opacity"],
+            margin=self.bar_config["margin"],
+        )
+
+        return _bar
+
+
+#  __     __        _        _
+#  \ \   / /__  ___| |_ ___ | | __
+#   \ \ / / _ \/ __| __/ _ \| |/ /
+#    \ V / (_) \__ \ || (_) |   <
+#     \_/ \___/|___/\__\___/|_|\_\
+
+
+class VostokConfig:
+    def __init__(self):
+
+        self.config_name = "vostok"
+
+        self.autostart_script = f"/home/zander/.config/qtile/{self.config_name}_autostart.sh"
+
+        self.colors = colors
+
+        self.font = "Mononoki Nerd Font"
+
+        # where are wallpapers on this system?
+        self.wallpapers = "/home/zander/Nextcloud/Wallpapers/current"
+
+        # config for the bar
+        self.bar_config = {
+            "size": 24,
+            "background": colors["background"],
+            "opacity": 0,
+            "margin": 0,
+        }
+
+        self.widget_defaults = {"font": self.font, "fontsize": 12, "padding": 10}
+
+    def create_top_bar(self) -> bar.Bar:
+        battery_config = {
+            "charge_char": "",
+            "discharge_char": "",
+            "empty_char": " ",
+        }
+
+        _bar = bar.Bar(
+            [
+                widget.CurrentLayoutIcon(),
+                widget.CurrentLayout(),
+                widget.Sep(),
+                widget.GroupBox(padding=5),
+                widget.Spacer(),
+                widget.Prompt(),
+                #  widget.Sep(),
+                #  widget.Wlan(),
+                widget.KeyboardLayout(),
+                widget.PulseVolume(),
+                widget.Battery(**battery_config, format="int {char} {percent:2.0%}", battery=0),
+                widget.Battery(**battery_config, format="ext {char} {percent:2.0%}", battery=1),
+                widget.Clock(format=" %A %d %B %Y"),
+                widget.Clock(format=" %I:%M:%S %p"),
+                widget.QuickExit(default_text="[ exit ]"),
+                widget.Sep(),
+                widget.Systray(),
+            ],
+            size=self.bar_config["size"],
+            background=self.bar_config["background"],
+            opacity=self.bar_config["opacity"],
+            margin=self.bar_config["margin"],
+        )
+
+        return _bar
+
+
+def get_number_connected_monitors() -> int:
+    x_display = display.Display()
+    x_screen = x_display.screen()
+    x_screen_root = x_screen.root
+    res = x_screen_root.xrandr_get_screen_resources()._data
+
+    # Dynamic multiscreen! (Thanks XRandr)
+    num_monitors = 0
+    for output in res["outputs"]:
+        mon = x_display.xrandr_get_output_info(output, res["config_timestamp"])._data
+        if mon["num_preferred"]:
+            num_monitors += 1
+
+    return num_monitors
+
 
 # get the hostname to load specific configuration
 host = socket.gethostname()
@@ -51,6 +288,38 @@ def autostart():
 
 
 # create layouts
+def custom_layouts(colors: dict) -> list:
+    layout_theme = {
+        "border_width": 2,
+        "margin": 5,
+        "border_focus": colors["blue"],
+        "border_normal": colors["black"],
+        "single_border_width": 0,
+        "single_margin": 0,
+    }
+    return [
+        layout.MonadTall(**layout_theme),
+        layout.RatioTile(**layout_theme),
+        layout.Tile(**layout_theme),
+        layout.Matrix(**layout_theme),
+        layout.Columns(**layout_theme),
+        layout.Max(**layout_theme),
+    ]
+    # other layouts to try out
+    #  layout.Floating(**layout_theme),
+    #  layout.MonadWide(**layout_theme),
+    #  layout.TreeTab(**layout_theme),
+    #  more layouts to try out
+    #  layout.Stack(num_stacks=2),
+    #  layout.Bsp(),
+    #  layout.Columns(),
+    #  layout.Matrix(),
+    #  layout.RatioTile(),
+    #  layout.Tile(),
+    #  layout.VerticalTile(),
+    #  layout.Zoomy(),
+
+
 layouts = custom_layouts(colors=config.colors)
 
 # set defaults for widgets
@@ -58,7 +327,7 @@ widget_defaults = config.widget_defaults
 extension_defaults = widget_defaults.copy()
 
 
-num_monitors = utils.get_number_connected_monitors()
+num_monitors = get_number_connected_monitors()
 print("num_monitors", num_monitors)
 
 # setup screens
@@ -199,7 +468,7 @@ for i in groups:
 
 
 # Drag floating layouts.
-mouse = [
+jouse = [
     Drag([key_super], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
     Drag([key_super], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
     Click([key_super], "Button2", lazy.window.bring_to_front()),

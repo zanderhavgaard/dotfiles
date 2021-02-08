@@ -26,6 +26,7 @@ import subprocess
 import utils
 from vostok_config import VostokConfig
 from nostromo_config import NostromoConfig
+from prometheus_config import PrometheusConfig
 from custom_layouts import custom_layouts
 
 # get the hostname to load specific configuration
@@ -39,7 +40,7 @@ elif host == "nostromo":
 elif host == "sulaco":
     pass
 elif host == "prometheus":
-    pass
+    config = PrometheusConfig
 
 
 @hook.subscribe.startup_once
@@ -105,8 +106,10 @@ keys = [
     Key([key_super], "f", lazy.window.toggle_fullscreen()),
     # toggle floating/tiled for windows
     Key([key_super], "t", lazy.window.toggle_floating()),
+    # flip layout
+    Key([key_super, key_shift], key_space, lazy.layout.flip()),
     # Switch window focus to other pane(s) of stack
-    Key([key_super], key_space, lazy.layout.next(), desc="Switch window focus to other pane(s) of stack"),
+    #  Key([key_super], key_space, lazy.layout.next(), desc="Switch window focus to other pane(s) of stack"),
     # Swap panes of split stack
     #  Key([key_super, key_shift], key_space, lazy.layout.rotate(), desc="Swap panes of split stack"),
     # Toggle between split and unsplit sides of stack.
@@ -174,6 +177,9 @@ keys.extend(
 
 # create groups (workspaces)
 groups = [Group(i) for i in "1234567890"]
+# TODO per screen groups possible?
+#  https://github.com/qtile/qtile/issues/1271
+#  groups = [[Group(i) for i in "1234567890"] for monitor in num_monitors]
 
 # per group keybinds
 for i in groups:
@@ -181,14 +187,6 @@ for i in groups:
         [
             # mod1 + letter of group = switch to group
             Key([key_super], i.name, lazy.group[i.name].toscreen(), desc="Switch to group {}".format(i.name)),
-            # mod1 + shift + letter of group = switch to & move focused window to group
-            #  Key(
-            #  [key_super, key_shift],
-            #  i.name,
-            #  lazy.window.togroup(i.name, switch_group=True),
-            #  desc="Switch to & move focused window to group {}".format(i.name),
-            #  ),
-            # Or, use below if you prefer not to switch to that group.
             # mod1 + shift + letter of group = move focused window to group
             Key(
                 [key_super, key_shift],
@@ -232,8 +230,14 @@ floating_layout = layout.Floating(
         {"wmclass": "ssh-askpass"},  # ssh-askpass
     ]
 )
+# allow windows to go fullscreen
 auto_fullscreen = True
+# ?
 focus_on_window_activation = "smart"
+# cursor follows focus
+cursor_warp = True
+# focus follows cursor
+follow_mouse_focus = True
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the

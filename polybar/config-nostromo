@@ -281,7 +281,7 @@ format-background = ${colors.red}
 inherit = section/base
 type = custom/script
 interval = 60
-exec = echo " $(curl -s 'v2n.wttr.in?format=%l:+%C+%t')"
+exec = echo " $(curl -s 'v2n.wttr.in/copenhagen?format=%l:+%C+%t')"
 format-prefix = "   "
 format = " <label> "
 format-prefix-background = ${colors.orange-alt}

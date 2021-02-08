@@ -2,10 +2,10 @@ from libqtile import bar, widget
 from one_dark_colorscheme import colors
 
 
-class NostromoConfig:
+class PrometheusConfig:
     def __init__(self):
 
-        self.config_name = "nostromo"
+        self.config_name = "prometheus"
 
         self.autostart_script = f"/home/zander/.config/qtile/{self.config_name}_autostart.sh"
 
@@ -14,7 +14,7 @@ class NostromoConfig:
         self.font = "Mononoki Nerd Font"
 
         # where are wallpapers on this system?
-        self.wallpapers = "/home/zander/Nextcloud/Wallpapers/current"
+        self.wallpapers = "/home/zander/wallpaper/walls"
 
         # config for the bar
         self.bar_config = {

@@ -316,11 +316,11 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $themes
 fi
 
-read -p "Install yay AUR-helper? [y/n] " -n 1 -r ; echo
+read -p "Install paru AUR-helper? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     mkdir -p ~/Applications
-    git clone https://aur.archlinux.org/yay.git ~/Applications/yay
-    cd ~/Applications/yay
+    git clone https://aur.archlinux.org/paru.git ~/Applications/paru
+    cd ~/Applications/paru
     makepkg -si
     cd
 fi
@@ -328,9 +328,9 @@ fi
 aur_bluetooth="
 pulseaudio-modules-bt
 "
-read -p "Install bluetooth-specific AUR packages using yay? [y/n] " -n 1 -r ; echo
+read -p "Install bluetooth-specific AUR packages using paru? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    yay -S $aur_bluetooth
+    paru -S $aur_bluetooth
 fi
 
 aur="
@@ -358,9 +358,9 @@ ncspot
 duf
 ctop
 "
-read -p "Install AUR packages using yay? [y/n] " -n 1 -r ; echo
+read -p "Install AUR packages using paru? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    yay -S $aur
+    paru -S $aur
 fi
 
 

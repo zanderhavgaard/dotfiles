@@ -1,5 +1,3 @@
-# Copyright (c) 2020 @zanderhavgaard ~ https://github.com/zanderhavgaard/dotfiles
-# Based on the awesomw work of the qtile developers: https://github.com/qtile/qtile
 #
 #        __         ___
 #       /\ \__  __ /\_ \
@@ -10,6 +8,8 @@
 #   \/___/\ \/__/ \/_/\/____/\/____/
 #        \ \_\
 #         \/_/
+#
+# config by @zanderhavgaard ~ https://github.com/zanderhavgaard/dotfiles
 
 from typing import List  # noqa: F401
 from libqtile import hook, bar, layout, widget
@@ -19,6 +19,8 @@ import socket
 import os
 import subprocess
 from Xlib import display
+import shlex
+from subprocess import run, PIPE, CompletedProcess, CalledProcessError
 
 
 #    ____      _              ____       _
@@ -52,6 +54,61 @@ one_dark = {
 
 colors = one_dark
 
+
+#   _____                 _   _
+#  |  ___|   _ _ __   ___| |_(_) ___  _ __  ___
+#  | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+#  |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
+#  |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+
+
+def get_number_connected_monitors() -> int:
+    x_display = display.Display()
+    x_screen = x_display.screen()
+    x_screen_root = x_screen.root
+    res = x_screen_root.xrandr_get_screen_resources()._data
+
+    # Dynamic multiscreen! (Thanks XRandr)
+    num_monitors = 0
+    for output in res["outputs"]:
+        mon = x_display.xrandr_get_output_info(output, res["config_timestamp"])._data
+        if mon["num_preferred"]:
+            num_monitors += 1
+
+    return num_monitors
+
+
+def shell(cmd: str, context: str = None, env: dict = None) -> (bool, str):
+    # run a shell command
+
+    # use shlex.split to split command string on spaces to a list of strings
+    cmd_list = shlex.split(cmd)
+
+    try:
+        # create the process, pipe stdout/stderr, output stdout/stderr as strings
+        # add 'check=True' to throw an exception on a non-zero exit code
+        if context is None:
+            proc = run(cmd_list, env=env, stdout=PIPE, text=True)
+        else:
+            proc = run(cmd_list, env=env, stdout=PIPE, cwd=context, text=True)
+    except (OSError, ValueError, CalledProcessError) as err:
+        print("---")
+        print(f"ERROR: Encountered an error executing the shell command: {cmd}")
+        print("---")
+
+    if proc.returncode == 0:
+        return (True, proc.stdout)
+    else:
+        return (False, f"error executing command {cmd}")
+
+
+def kernel_ver() -> str:
+    success, output = shell("/home/zander/dotfiles/scripts/print_osicon_kernel.sh")
+    if success:
+        # strip whitespace
+        return output.strip()
+
+
 #   _   _           _
 #  | \ | | ___  ___| |_ _ __ ___  _ __ ___   ___
 #  |  \| |/ _ \/ __| __| '__/ _ \| '_ ` _ \ / _ \
@@ -63,48 +120,118 @@ class NostromoConfig:
     def __init__(self):
 
         self.config_name = "nostromo"
-
+        self.os_icon = " "
         self.autostart_script = f"/home/zander/.config/qtile/{self.config_name}_autostart.sh"
-
         self.colors = colors
-
         self.font = "Mononoki Nerd Font"
 
         # where are wallpapers on this system?
-        # TODO ?
-        self.wallpapers = "/home/zander/walls"
+        self.wallpapers = "/home/zander/Nextcloud/Wallpapers/current"
 
-        # config for the bar
+        # config for the bar and widgets
         self.bar_config = {
             "size": 24,
             "background": colors["background"],
             "opacity": 0,
             "margin": 0,
         }
-
         self.widget_defaults = {"font": self.font, "fontsize": 12, "padding": 10}
 
-    def create_top_bar(self) -> bar.Bar:
+    def create_top_bar(self, screen_number: int) -> bar.Bar:
         _bar = bar.Bar(
             [
-                widget.CurrentLayoutIcon(),
-                widget.CurrentLayout(),
+                widget.CurrentLayoutIcon(
+                    padding=5,
+                ),
+                widget.CurrentLayout(
+                    padding=5,
+                ),
                 widget.Sep(),
                 widget.GroupBox(
                     padding=5,
+                    highlight_method="line",
+                    active=colors["white"],
+                    inactive=colors["dark_grey"],
+                    foreground=colors["white"],
+                    this_screen_border=colors["dark_blue"],
+                    this_current_screen_border=colors["blue"],
+                    other_screen_border=colors["grey"],
+                    other_screen_current_border=colors["dark_blue"],
+                    urgernt_border=colors["red"],
+                ),
+                widget.Sep(),
+                widget.TextBox(
+                    f"Screen-{screen_number}",
+                    foreground=colors["red"],
+                ),
+                widget.TextBox(
+                    f"{self.config_name}",
+                    foreground=colors["green"],
+                ),
+                widget.TextBox(
+                    f"{self.os_icon} {kernel_ver()}",
+                    foreground=colors["blue"],
                 ),
                 widget.Spacer(),
                 widget.Prompt(),
-                widget.KeyboardLayout(),
-                widget.PulseVolume(),
-                widget.Clock(
-                    format=" %A %d %B %Y",
-                ),
+                # middle
                 widget.Clock(
                     format=" %I:%M:%S %p",
+                    foreground=colors["blue"],
+                ),
+                widget.Clock(
+                    format=" %A %d %B %Y",
+                    foreground=colors["green"],
+                ),
+                widget.Spacer(),
+                # left side
+                widget.TextBox(
+                    "CPU",
+                    foreground=colors["blue"],
+                    padding=0,
+                ),
+                widget.CPUGraph(
+                    border_color=colors["background"],
+                    graph_color=colors["blue"],
+                ),
+                widget.TextBox(
+                    "MEM",
+                    foreground=colors["green"],
+                    padding=0,
+                ),
+                widget.MemoryGraph(
+                    border_color=colors["background"],
+                    graph_color=colors["green"],
+                ),
+                widget.TextBox(
+                    "",
+                    foreground=colors["red"],
+                    padding=0,
+                ),
+                widget.NetGraph(
+                    border_color=colors["background"],
+                    graph_color=colors["red"],
+                    bandwith_type="down",
+                ),
+                widget.TextBox(
+                    "",
+                    foreground=colors["purple"],
+                    padding=0,
+                ),
+                widget.NetGraph(
+                    border_color=colors["background"],
+                    graph_color=colors["purple"],
+                    bandwith_type="up",
+                ),
+                widget.KeyboardLayout(
+                    foreground=colors["blue"],
+                ),
+                widget.PulseVolume(
+                    foreground=colors["orange"],
                 ),
                 widget.QuickExit(
-                    default_text="[ exit ]",
+                    default_text="[ exit_qtile ]",
+                    foreground=colors["white"],
                 ),
                 widget.Sep(),
                 widget.Systray(),
@@ -129,24 +256,21 @@ class PrometheusConfig:
     def __init__(self):
 
         self.config_name = "prometheus"
-
+        self.os_icon = " "
         self.autostart_script = f"/home/zander/.config/qtile/{self.config_name}_autostart.sh"
-
         self.colors = colors
-
         self.font = "Mononoki Nerd Font"
 
         # where are wallpapers on this system?
         self.wallpapers = "/home/zander/wallpaper/walls"
 
-        # config for the bar
+        # config for the bar and widgets
         self.bar_config = {
             "size": 24,
             "background": colors["background"],
             "opacity": 0,
             "margin": 0,
         }
-
         self.widget_defaults = {"font": self.font, "fontsize": 12, "padding": 10}
 
     def create_top_bar(self) -> bar.Bar:
@@ -194,24 +318,21 @@ class VostokConfig:
     def __init__(self):
 
         self.config_name = "vostok"
-
+        self.os_icon = " "
         self.autostart_script = f"/home/zander/.config/qtile/{self.config_name}_autostart.sh"
-
         self.colors = colors
-
         self.font = "Mononoki Nerd Font"
 
         # where are wallpapers on this system?
         self.wallpapers = "/home/zander/Nextcloud/Wallpapers/current"
 
-        # config for the bar
+        # config for the bar and widgets
         self.bar_config = {
             "size": 24,
             "background": colors["background"],
             "opacity": 0,
             "margin": 0,
         }
-
         self.widget_defaults = {"font": self.font, "fontsize": 12, "padding": 10}
 
     def create_top_bar(self) -> bar.Bar:
@@ -250,21 +371,12 @@ class VostokConfig:
         return _bar
 
 
-def get_number_connected_monitors() -> int:
-    x_display = display.Display()
-    x_screen = x_display.screen()
-    x_screen_root = x_screen.root
-    res = x_screen_root.xrandr_get_screen_resources()._data
-
-    # Dynamic multiscreen! (Thanks XRandr)
-    num_monitors = 0
-    for output in res["outputs"]:
-        mon = x_display.xrandr_get_output_info(output, res["config_timestamp"])._data
-        if mon["num_preferred"]:
-            num_monitors += 1
-
-    return num_monitors
-
+#    ____ _                             ____             __ _
+#   / ___| |__   ___   ___  ___  ___   / ___|___  _ __  / _(_) __ _
+#  | |   | '_ \ / _ \ / _ \/ __|/ _ \ | |   / _ \| '_ \| |_| |/ _` |
+#  | |___| | | | (_) | (_) \__ \  __/ | |__| (_) | | | |  _| | (_| |
+#   \____|_| |_|\___/ \___/|___/\___|  \____\___/|_| |_|_| |_|\__, |
+#                                                             |___/
 
 # get the hostname to load specific configuration
 host = socket.gethostname()
@@ -286,6 +398,13 @@ def autostart():
     # will only run initial startup
     subprocess.call(config.autostart_script)
 
+
+#   _                            _
+#  | |    __ _ _   _  ___  _   _| |_ ___
+#  | |   / _` | | | |/ _ \| | | | __/ __|
+#  | |__| (_| | |_| | (_) | |_| | |_\__ \
+#  |_____\__,_|\__, |\___/ \__,_|\__|___/
+#              |___/
 
 # create layouts
 def custom_layouts(colors: dict) -> list:
@@ -309,7 +428,6 @@ def custom_layouts(colors: dict) -> list:
     #  layout.Floating(**layout_theme),
     #  layout.MonadWide(**layout_theme),
     #  layout.TreeTab(**layout_theme),
-    #  more layouts to try out
     #  layout.Stack(num_stacks=2),
     #  layout.Bsp(),
     #  layout.Columns(),
@@ -322,18 +440,26 @@ def custom_layouts(colors: dict) -> list:
 
 layouts = custom_layouts(colors=config.colors)
 
-# set defaults for widgets
+# set defaults for widgets and extensions
 widget_defaults = config.widget_defaults
 extension_defaults = widget_defaults.copy()
 
 
+# dynamically set the correct number of screens
 num_monitors = get_number_connected_monitors()
-print("num_monitors", num_monitors)
 
 # setup screens
-screens = [Screen(top=config.create_top_bar()) for i in range(0, num_monitors)]
+screens = [Screen(top=config.create_top_bar(screen_number=i)) for i in range(0, num_monitors)]
 
-# setup modifier keys to avoud ambiguity
+
+#   __  __           _ _  __ _             _  __
+#  |  \/  | ___   __| (_)/ _(_) ___ _ __  | |/ /___ _   _ ___
+#  | |\/| |/ _ \ / _` | | |_| |/ _ \ '__| | ' // _ \ | | / __|
+#  | |  | | (_) | (_| | |  _| |  __/ |    | . \  __/ |_| \__ \
+#  |_|  |_|\___/ \__,_|_|_| |_|\___|_|    |_|\_\___|\__, |___/
+#                                                   |___/
+
+# setup modifier keys to avoid ambiguity
 key_super = "mod4"
 key_alt = "mod1"
 key_control = "control"
@@ -342,9 +468,22 @@ key_return = "Return"
 key_space = "space"
 key_tab = "Tab"
 
+
+#  __        ___           _
+#  \ \      / (_)_ __   __| | _____      __
+#   \ \ /\ / /| | '_ \ / _` |/ _ \ \ /\ / /
+#    \ V  V / | | | | | (_| | (_) \ V  V /
+#     \_/\_/  |_|_| |_|\__,_|\___/ \_/\_/
+#  __  __                                                   _
+#  |  \/  | __ _ _ __   __ _  __ _  ___ _ __ ___   ___ _ __ | |_
+#  | |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '_ ` _ \ / _ \ '_ \| __|
+#  | |  | | (_| | | | | (_| | (_| |  __/ | | | | |  __/ | | | |_
+#  |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_| |_| |_|\___|_| |_|\__|
+#                            |___/
+
 # window management
 keys = [
-    # Switch between windows in current stack pane
+    # Switch between windows in current layout pane
     Key([key_super], "h", lazy.layout.left(), desc="Move focus left in stack pane"),
     Key([key_super], "k", lazy.layout.up(), desc="Move focus down in stack pane"),
     Key([key_super], "j", lazy.layout.down(), desc="Move focus up in stack pane"),
@@ -401,6 +540,14 @@ keys = [
     Key([key_super, key_shift], "q", lazy.window.kill(), desc="Kill focused window"),
 ]
 
+
+#         _   _ _        _ _  __                      _
+#    __ _| |_(_) | ___  | (_)/ _| ___  ___ _   _  ___| | ___
+#   / _` | __| | |/ _ \ | | | |_ / _ \/ __| | | |/ __| |/ _ \
+#  | (_| | |_| | |  __/ | | |  _|  __/ (__| |_| | (__| |  __/
+#   \__, |\__|_|_|\___| |_|_|_|  \___|\___|\__, |\___|_|\___|
+#      |_|                                 |___/
+
 # manage qtile lifecycle
 keys.extend(
     [
@@ -410,6 +557,14 @@ keys.extend(
         Key([key_super, key_shift, "control"], "q", lazy.shutdown(), desc="Shutdown qtile"),
     ]
 )
+
+
+#   __  __          _ _         _  __
+#  |  \/  | ___  __| (_) __ _  | |/ /___ _   _ ___
+#  | |\/| |/ _ \/ _` | |/ _` | | ' // _ \ | | / __|
+#  | |  | |  __/ (_| | | (_| | | . \  __/ |_| \__ \
+#  |_|  |_|\___|\__,_|_|\__,_| |_|\_\___|\__, |___/
+#                                         |___/
 
 #  media / brightness keys
 keys.extend(
@@ -423,6 +578,13 @@ keys.extend(
         Key([], "XF86KbdBrightnessDown", lazy.spawn("xbacklight -dec 20")),
     ]
 )
+
+
+#   _                           _
+#  | |    __ _ _   _ _ __   ___| |__   ___ _ __ ___
+#  | |   / _` | | | | '_ \ / __| '_ \ / _ \ '__/ __|
+#  | |__| (_| | |_| | | | | (__| | | |  __/ |  \__ \
+#  |_____\__,_|\__,_|_| |_|\___|_| |_|\___|_|  |___/
 
 # what terminal to use
 terminal = "alacritty"
@@ -443,6 +605,14 @@ keys.extend(
         Key([key_super, key_shift, key_control], key_space, lazy.spawn(cycle_wallpaper)),
     ]
 )
+
+
+#    ____
+#   / ___|_ __ ___  _   _ _ __  ___
+#  | |  _| '__/ _ \| | | | '_ \/ __|
+#  | |_| | | | (_) | |_| | |_) \__ \
+#   \____|_|  \___/ \__,_| .__/|___/
+#                        |_|
 
 # create groups (workspaces)
 groups = [Group(i) for i in "1234567890"]
@@ -467,19 +637,28 @@ for i in groups:
     )
 
 
+#   __  __
+#  |  \/  | ___  _   _ ___  ___
+#  | |\/| |/ _ \| | | / __|/ _ \
+#  | |  | | (_) | |_| \__ \  __/
+#  |_|  |_|\___/ \__,_|___/\___|
+
+
 # Drag floating layouts.
-jouse = [
+mouse = [
     Drag([key_super], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
     Drag([key_super], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
     Click([key_super], "Button2", lazy.window.bring_to_front()),
 ]
 
-dgroups_key_binder = None
-dgroups_app_rules = []  # type: List
-main = None  # WARNING: this is deprecated and will be removed soon
-follow_mouse_focus = True
-bring_front_click = False
-cursor_warp = False
+
+#   _____ _             _   _                          _
+#  |  ___| | ___   __ _| |_(_)_ __   __ _   _ __ _   _| | ___  ___
+#  | |_  | |/ _ \ / _` | __| | '_ \ / _` | | '__| | | | |/ _ \/ __|
+#  |  _| | | (_) | (_| | |_| | | | | (_| | | |  | |_| | |  __/\__ \
+#  |_|   |_|\___/ \__,_|\__|_|_| |_|\__, | |_|   \__,_|_|\___||___/
+#                                    |___/
+
 floating_layout = layout.Floating(
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
@@ -499,6 +678,11 @@ floating_layout = layout.Floating(
         {"wmclass": "ssh-askpass"},  # ssh-askpass
     ]
 )
+
+# a few options
+dgroups_key_binder = None
+dgroups_app_rules = []
+bring_front_click = False
 # allow windows to go fullscreen
 auto_fullscreen = True
 # ?
@@ -508,12 +692,6 @@ cursor_warp = True
 # focus follows cursor
 follow_mouse_focus = True
 
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
-wmname = "LG3D"
+# use something else for compatibility
+#  wmname = "LG3D"
+wmname = "qtile"

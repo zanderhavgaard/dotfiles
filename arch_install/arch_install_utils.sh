@@ -71,6 +71,14 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman -S $bspwn
 fi
 
+awesome="
+awesome
+"
+read -p "Install awesomewm packages? [y/n] " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo pacman -S $awesome
+fi
+
 qtile="
 qtile
 python-iwlib

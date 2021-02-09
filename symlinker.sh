@@ -103,3 +103,7 @@ ln -sv $dfd/flashfocus/flashfocus.yml $cfd/flashfocus/flashfocus.yml
 echo -e "\n symlinking qtile config ..."
 rm -rf $cfd/qtile
 ln -sv $dfd/qtile $cfd/qtile
+
+echo -e "\n symlinking awesomewm config ..."
+rm -rf $cfd/awesome
+ln -sv $dfd/awesome $cfd/awesome

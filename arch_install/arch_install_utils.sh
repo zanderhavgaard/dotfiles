@@ -108,6 +108,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 fi
 
 system_libs_utils_misc="
+network-manager-applet
 xwallpaper
 inetutils
 lvm2

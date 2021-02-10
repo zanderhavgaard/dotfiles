@@ -74,6 +74,7 @@ fi
 awesome="
 awesome
 luarocks
+lain
 "
 read -p "Install awesomewm packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

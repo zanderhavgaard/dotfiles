@@ -109,6 +109,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 fi
 
 system_libs_utils_misc="
+volumeicon
 network-manager-applet
 xwallpaper
 inetutils

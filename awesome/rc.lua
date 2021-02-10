@@ -671,6 +671,9 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
+-- gaps between windows
+beautiful.useless_gap = 5
+
 -- autostart
 awful.spawn.with_shell("picom --config /home/zander/dotfiles/picom/picom.conf")
 awful.spawn.with_shell("nm-applet")

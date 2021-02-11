@@ -74,7 +74,6 @@ fi
 awesome="
 awesome
 luarocks
-lain
 "
 read -p "Install awesomewm packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -369,6 +368,7 @@ glow
 ncspot
 duf
 ctop
+lain-git
 "
 read -p "Install AUR packages using paru? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

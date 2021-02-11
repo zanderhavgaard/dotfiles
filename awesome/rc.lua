@@ -665,8 +665,14 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
+-- a few theme configs, TODO move to actual theme
 -- gaps between windows
 beautiful.useless_gap = 5
+local dpi   = require("beautiful.xresources").apply_dpi
+beautiful.border_width = dpi(100)
+beautiful.border_normal = "#141A1F"
+beautiful.border_focus = "#7DBEFF"
+
 
 -- autostart
 awful.spawn.with_shell("picom --config /home/zander/dotfiles/picom/picom.conf")

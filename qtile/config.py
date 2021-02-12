@@ -102,11 +102,20 @@ def shell(cmd: str, context: str = None, env: dict = None) -> (bool, str):
         return (False, f"error executing command {cmd}")
 
 
+def notification(message: str) -> None:
+    shell(f"notify-send '{message}'")
+
+
 def kernel_ver() -> str:
     success, output = shell("/home/zander/dotfiles/scripts/print_osicon_kernel.sh")
     if success:
         # strip whitespace
         return output.strip()
+
+
+def cycle_wallpaper(wallpaper_path: str) -> None:
+    #  notification("Cycling wallpaper ...")
+    success, output = shell(f"feh --randomize --bg -scale {wallpaper_path}")
 
 
 #   _   _           _
@@ -231,7 +240,7 @@ class NostromoConfig:
                 ),
                 widget.QuickExit(
                     default_text="[ exit_qtile ]",
-                    foreground=colors["white"],
+                    foreground=colors["cyan"],
                 ),
                 widget.Sep(),
                 widget.Systray(),
@@ -273,27 +282,101 @@ class PrometheusConfig:
         }
         self.widget_defaults = {"font": self.font, "fontsize": 12, "padding": 10}
 
-    def create_top_bar(self) -> bar.Bar:
+    def create_top_bar(self, screen_number: int) -> bar.Bar:
         _bar = bar.Bar(
             [
-                widget.CurrentLayoutIcon(),
-                widget.CurrentLayout(),
+                widget.CurrentLayoutIcon(
+                    padding=5,
+                ),
+                widget.CurrentLayout(
+                    padding=5,
+                ),
                 widget.Sep(),
                 widget.GroupBox(
                     padding=5,
+                    highlight_method="line",
+                    active=colors["white"],
+                    inactive=colors["dark_grey"],
+                    foreground=colors["white"],
+                    this_screen_border=colors["dark_blue"],
+                    this_current_screen_border=colors["blue"],
+                    other_screen_border=colors["grey"],
+                    other_screen_current_border=colors["dark_blue"],
+                    urgernt_border=colors["red"],
+                ),
+                widget.Sep(),
+                widget.TextBox(
+                    f"Screen-{screen_number}",
+                    foreground=colors["red"],
+                ),
+                widget.TextBox(
+                    f"{self.config_name}",
+                    foreground=colors["green"],
+                ),
+                widget.TextBox(
+                    f"{self.os_icon} {kernel_ver()}",
+                    foreground=colors["blue"],
                 ),
                 widget.Spacer(),
                 widget.Prompt(),
-                widget.KeyboardLayout(),
-                widget.PulseVolume(),
-                widget.Clock(
-                    format=" %A %d %B %Y",
-                ),
+                # middle
                 widget.Clock(
                     format=" %I:%M:%S %p",
+                    foreground=colors["blue"],
+                ),
+                widget.Clock(
+                    format=" %A %d %B %Y",
+                    foreground=colors["green"],
+                ),
+                widget.Spacer(),
+                # left side
+                widget.TextBox(
+                    "CPU",
+                    foreground=colors["blue"],
+                    padding=0,
+                ),
+                widget.CPUGraph(
+                    border_color=colors["background"],
+                    graph_color=colors["blue"],
+                ),
+                widget.TextBox(
+                    "MEM",
+                    foreground=colors["green"],
+                    padding=0,
+                ),
+                widget.MemoryGraph(
+                    border_color=colors["background"],
+                    graph_color=colors["green"],
+                ),
+                widget.TextBox(
+                    "",
+                    foreground=colors["red"],
+                    padding=0,
+                ),
+                widget.NetGraph(
+                    border_color=colors["background"],
+                    graph_color=colors["red"],
+                    bandwith_type="down",
+                ),
+                widget.TextBox(
+                    "",
+                    foreground=colors["purple"],
+                    padding=0,
+                ),
+                widget.NetGraph(
+                    border_color=colors["background"],
+                    graph_color=colors["purple"],
+                    bandwith_type="up",
+                ),
+                widget.KeyboardLayout(
+                    foreground=colors["blue"],
+                ),
+                widget.PulseVolume(
+                    foreground=colors["orange"],
                 ),
                 widget.QuickExit(
-                    default_text="[ exit ]",
+                    default_text="[ exit_qtile ]",
+                    foreground=colors["cyan"],
                 ),
                 widget.Sep(),
                 widget.Systray(),
@@ -592,7 +675,7 @@ terminal = "alacritty"
 launcher = "rofi -show drun ~/dotfiles/rofi/config"
 # TODO fix
 # command to cycle new set of wallpapers
-cycle_wallpaper = f"feh --randomize --bg -scale {config.wallpapers}"
+#  cycle_wallpaper = f"feh --randomize --bg -scale {config.wallpapers}"
 
 # launch applications
 keys.extend(
@@ -602,7 +685,7 @@ keys.extend(
         # launch applications
         Key([key_super], "d", lazy.spawn(launcher)),
         # cycle wallpaper
-        Key([key_super, key_shift, key_control], key_space, lazy.spawn(cycle_wallpaper)),
+        Key([key_super, key_shift, key_control], "w", cycle_wallpaper(config.wallpapers)),
     ]
 )
 

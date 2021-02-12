@@ -38,26 +38,26 @@ theme.background = theme.black
 -- configure theme
 theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/zh"
 theme.font                                      = "Mononoki Nerd Font 12"
-theme.menu_bg_normal                            = "#000000"
-theme.menu_bg_focus                             = "#000000"
-theme.bg_normal                                 = "#000000"
-theme.bg_focus                                  = "#000000"
-theme.bg_urgent                                 = "#000000"
-theme.fg_normal                                 = "#aaaaaa"
-theme.fg_focus                                  = "#ff8c00"
-theme.fg_urgent                                 = "#af1d18"
-theme.fg_minimize                               = "#ffffff"
+theme.menu_bg_normal                            = theme.black
+theme.menu_bg_focus                             = theme.black
+theme.bg_normal                                 = theme.black
+theme.bg_focus                                  = theme.black
+theme.bg_urgent                                 = theme.black
+theme.fg_normal                                 = theme.grey
+theme.fg_focus                                  = theme.orange
+theme.fg_urgent                                 = theme.red
+theme.fg_minimize                               = theme.white
 theme.border_width                              = dpi(2)
-theme.border_normal                             = "#1c2022"
+theme.border_normal                             = theme.black_alt
 theme.border_focus                              = theme.blue
-theme.border_marked                             = "#3ca4d8"
+theme.border_marked                             = theme.cyan
 theme.menu_border_width                         = 0
 theme.menu_width                                = dpi(130)
 theme.menu_submenu_icon                         = theme.confdir .. "/icons/submenu.png"
-theme.menu_fg_normal                            = "#aaaaaa"
-theme.menu_fg_focus                             = "#ff8c00"
-theme.menu_bg_normal                            = "#050505dd"
-theme.menu_bg_focus                             = "#050505dd"
+theme.menu_fg_normal                            = theme.grey
+theme.menu_fg_focus                             = theme.orange
+theme.menu_bg_normal                            = theme.black_alt
+theme.menu_bg_focus                             = theme.black_alt
 theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = true
 theme.useless_gap                               = 5
@@ -99,7 +99,7 @@ local markup = lain.util.markup
 -- Textclock
 os.setlocale(os.getenv("LANG")) -- to localize the clock
 local clockicon = wibox.widget.imagebox(theme.widget_clock)
-local mytextclock = wibox.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#ab7367", ">") .. markup("#de5e1e", " %H:%M "))
+local mytextclock = wibox.widget.textclock(markup(theme.grey, "%A %d %B ") .. markup(theme.orange, ">") .. markup(theme.orange_alt, " %H:%M "))
 mytextclock.font = theme.font
 
 -- Calendar
@@ -117,11 +117,11 @@ local weathericon = wibox.widget.imagebox(theme.widget_weather)
 theme.weather = lain.widget.weather({
     city_id = 2618425, -- placeholder (London)
     notification_preset = { font = "Terminus 10", fg = theme.fg_normal },
-    weather_na_markup = markup.fontfg(theme.font, "#eca4c4", "N/A "),
+    weather_na_markup = markup.fontfg(theme.font, theme.purple, "N/A "),
     settings = function()
         descr = weather_now["weather"][1]["description"]:lower()
         units = math.floor(weather_now["main"]["temp"])
-        widget:set_markup(markup.fontfg(theme.font, "#eca4c4", "Copenhagen " .. descr .. " @ " .. units .. "°C "))
+        widget:set_markup(markup.fontfg(theme.font, theme.purple, "Copenhagen " .. descr .. " @ " .. units .. "°C "))
     end
 })
 
@@ -163,7 +163,7 @@ theme.mail = lain.widget.imap({
 local cpuicon = wibox.widget.imagebox(theme.widget_cpu)
 local cpu = lain.widget.cpu({
     settings = function()
-        widget:set_markup(markup.fontfg(theme.font, "#e33a6e", cpu_now.usage .. "% "))
+        widget:set_markup(markup.fontfg(theme.font, theme.red, cpu_now.usage .. "% "))
     end
 })
 
@@ -171,7 +171,7 @@ local cpu = lain.widget.cpu({
 local tempicon = wibox.widget.imagebox(theme.widget_temp)
 local temp = lain.widget.temp({
     settings = function()
-        widget:set_markup(markup.fontfg(theme.font, "#f1af5f", coretemp_now .. "°C "))
+        widget:set_markup(markup.fontfg(theme.font, theme.orange_alt, coretemp_now .. "°C "))
     end
 })
 
@@ -197,7 +197,7 @@ theme.volume = lain.widget.alsa({
             volume_now.level = volume_now.level .. "M"
         end
 
-        widget:set_markup(markup.fontfg(theme.font, "#7493d2", volume_now.level .. "% "))
+        widget:set_markup(markup.fontfg(theme.font, theme.blue, volume_now.level .. "% "))
     end
 })
 
@@ -213,8 +213,8 @@ local netupinfo = lain.widget.net({
             theme.weather.update()
         end
 
-        widget:set_markup(markup.fontfg(theme.font, "#e54c62", net_now.sent .. " "))
-        netdowninfo:set_markup(markup.fontfg(theme.font, "#87af5f", net_now.received .. " "))
+        widget:set_markup(markup.fontfg(theme.font, theme.red, net_now.sent .. " "))
+        netdowninfo:set_markup(markup.fontfg(theme.font, theme.green, net_now.received .. " "))
     end
 })
 
@@ -222,7 +222,7 @@ local netupinfo = lain.widget.net({
 local memicon = wibox.widget.imagebox(theme.widget_mem)
 local memory = lain.widget.mem({
     settings = function()
-        widget:set_markup(markup.fontfg(theme.font, "#e0da37", mem_now.used .. "M "))
+        widget:set_markup(markup.fontfg(theme.font, theme.cyan, mem_now.used .. "M "))
     end
 })
 
@@ -250,7 +250,7 @@ theme.mpd = lain.widget.mpd({
             mpdicon:emit_signal("widget::redraw_needed")
             mpdicon:emit_signal("widget::layout_changed")
         end
-        widget:set_markup(markup.fontfg(theme.font, "#e54c62", artist) .. markup.fontfg(theme.font, "#b2b2b2", title))
+        widget:set_markup(markup.fontfg(theme.font, theme.green, artist) .. markup.fontfg(theme.font, theme.grey, title))
     end
 })
 

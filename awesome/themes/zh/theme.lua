@@ -38,6 +38,8 @@ theme.background = theme.black
 -- configure theme
 theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/zh"
 theme.font                                      = "Mononoki Nerd Font 12"
+theme.bar_background                            = theme.dark_grey
+theme.bar_foreground                            = theme.white
 theme.menu_bg_normal                            = theme.black
 theme.menu_bg_focus                             = theme.black
 theme.bg_normal                                 = theme.black
@@ -275,7 +277,7 @@ function theme.at_screen_connect(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(19), bg = theme.bg_normal, fg = theme.fg_normal })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(19), bg = theme.bar_background, fg = theme.bar_foreground })
 
     -- Add widgets to the wibox
     s.mywibox:setup {

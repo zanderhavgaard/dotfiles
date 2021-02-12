@@ -103,19 +103,36 @@ local markup = lain.util.markup
 
 -- Textclock
 os.setlocale(os.getenv("LANG")) -- to localize the clock
-local clockicon = wibox.widget.imagebox(theme.widget_clock)
-local mytextclock = wibox.widget.textclock(markup(theme.grey, "%A %d %B ") .. markup(theme.orange, ">") .. markup(theme.orange_alt, " %H:%M "))
-mytextclock.font = theme.font
+
+-- TODO padding instead of <space> between widgets?
+local time_date = wibox.widget.textclock(markup(theme.blue, "%A %d %B"))
+time_date.font = theme.font
 
 -- Calendar
-theme.cal = lain.widget.cal({
-    attach_to = { mytextclock },
-    notification_preset = {
-        font = "Terminus 10",
-        fg   = theme.fg_normal,
-        bg   = theme.bg_normal
-    }
-})
+-- theme.cal = lain.widget.cal({
+    -- attach_to = { mytextclock },
+    -- notification_preset = {
+        -- font = "Terminus 10",
+        -- fg   = theme.fg_normal,
+        -- bg   = theme.bg_normal
+    -- }
+-- })
+
+local time_clock = wibox.widget.textclock(markup(theme.green, " ~ %H:%M "))
+time_clock.font = theme.font
+
+-- local mytextclock = wibox.widget.textclock(markup(theme.grey, "%A %d %B ") .. markup(theme.orange, ">") .. markup(theme.orange_alt, " %H:%M "))
+-- mytextclock.font = theme.font
+
+-- -- Calendar
+-- theme.cal = lain.widget.cal({
+    -- attach_to = { mytextclock },
+    -- notification_preset = {
+        -- font = "Terminus 10",
+        -- fg   = theme.fg_normal,
+        -- bg   = theme.bg_normal
+    -- }
+-- })
 
 -- Weather
 local weathericon = wibox.widget.imagebox(theme.widget_weather)
@@ -288,54 +305,60 @@ function theme.at_screen_connect(s)
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
+        expand = "none",
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             awesome_icon,
             s.mytaglist,
             s.mylayoutbox,
 
-            mpdicon,
-            theme.mpd.widget,
+            -- mpdicon,
+            -- theme.mpd.widget,
         },
         --s.mytasklist, -- Middle widget
-        nil,
+        {
+            layout = wibox.layout.fixed.horizontal,
+            -- clockicon,
+            time_date,
+            time_clock,
+        },
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-
-            wibox.widget.systray(),
 
             --mailicon,
             --theme.mail.widget,
 
-            netdownicon,
+            -- netdownicon,
             netdowninfo,
 
-            netupicon,
+            -- netupicon,
             netupinfo.widget,
 
-            volicon,
+            -- volicon,
             theme.volume.widget,
 
-            memicon,
+            -- memicon,
             memory.widget,
 
-            cpuicon,
+            -- cpuicon,
             cpu.widget,
 
             --fsicon,
             --theme.fs.widget,
 
-            weathericon,
+            -- weathericon,
             theme.weather.widget,
 
-            tempicon,
-            temp.widget,
+            -- tempicon,
+            -- temp.widget,
 
-            baticon,
-            bat.widget,
+            -- baticon,
+            -- bat.widget,
 
-            clockicon,
-            mytextclock,
+            -- clockicon,
+            -- mytextclock,
+
+            wibox.widget.systray(),
         },
     }
 end

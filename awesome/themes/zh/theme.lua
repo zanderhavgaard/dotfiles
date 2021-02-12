@@ -35,18 +35,20 @@ theme.cyan_alt = "#13AFAF"
 theme.cyan = "#6ECFCF"
 theme.dark_grey = "#282C36"
 theme.background = theme.black
+-- custom vars
+theme.bar_background                            = theme.dark_grey
+theme.bar_foreground                            = theme.white
+theme.bar_height                                = dpi(25)
 -- configure theme
 theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/zh"
 theme.font                                      = "Mononoki Nerd Font 12"
-theme.bar_background                            = theme.dark_grey
-theme.bar_foreground                            = theme.white
 theme.menu_bg_normal                            = theme.black
 theme.menu_bg_focus                             = theme.black
 theme.bg_normal                                 = theme.black
 theme.bg_focus                                  = theme.black
 theme.bg_urgent                                 = theme.black
 theme.fg_normal                                 = theme.grey
-theme.fg_focus                                  = theme.orange
+theme.fg_focus                                  = theme.blue
 theme.fg_urgent                                 = theme.red
 theme.fg_minimize                               = theme.white
 theme.border_width                              = dpi(2)
@@ -57,7 +59,7 @@ theme.menu_border_width                         = 0
 theme.menu_width                                = dpi(130)
 theme.menu_submenu_icon                         = theme.confdir .. "/icons/submenu.png"
 theme.menu_fg_normal                            = theme.grey
-theme.menu_fg_focus                             = theme.orange
+theme.menu_fg_focus                             = theme.blue
 theme.menu_bg_normal                            = theme.black_alt
 theme.menu_bg_focus                             = theme.black_alt
 theme.tasklist_plain_task_name                  = true
@@ -65,6 +67,7 @@ theme.tasklist_disable_icon                     = true
 theme.useless_gap                               = 5
 theme.gap_single_client                         = false
 -- bar icons
+theme.awesome_icon                              = theme.confdir .. "/icons/awesome.png"
 theme.widget_temp                               = theme.confdir .. "/icons/temp.png"
 theme.widget_uptime                             = theme.confdir .. "/icons/ac.png"
 theme.widget_cpu                                = theme.confdir .. "/icons/cpu.png"
@@ -79,8 +82,8 @@ theme.widget_mail                               = theme.confdir .. "/icons/mail.
 theme.widget_batt                               = theme.confdir .. "/icons/bat.png"
 theme.widget_clock                              = theme.confdir .. "/icons/clock.png"
 theme.widget_vol                                = theme.confdir .. "/icons/spkr.png"
-theme.taglist_squares_sel                       = theme.confdir .. "/icons/square_a.png"
-theme.taglist_squares_unsel                     = theme.confdir .. "/icons/square_b.png"
+theme.taglist_squares_sel                       = theme.confdir .. "/icons/squaref.png"
+theme.taglist_squares_unsel                     = theme.confdir .. "/icons/square.png"
 -- layout icons
 theme.layout_tile                               = theme.confdir .. "/icons/tile.png"
 theme.layout_tilegaps                           = theme.confdir .. "/icons/tilegaps.png"
@@ -160,6 +163,9 @@ theme.mail = lain.widget.imap({
     end
 })
 --]]
+
+-- show off awesomewm
+local awesome_icon = wibox.widget.imagebox(theme.awesome_icon)
 
 -- CPU
 local cpuicon = wibox.widget.imagebox(theme.widget_cpu)
@@ -277,13 +283,14 @@ function theme.at_screen_connect(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(19), bg = theme.bar_background, fg = theme.bar_foreground })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = theme.bar_height, bg = theme.bar_background, fg = theme.bar_foreground })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
+            awesome_icon,
             s.mytaglist,
             s.mylayoutbox,
 

@@ -369,6 +369,7 @@ ncspot
 duf
 ctop
 lain-git
+awesome-freedesktop-git
 "
 read -p "Install AUR packages using paru? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

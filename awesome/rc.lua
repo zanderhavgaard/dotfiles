@@ -66,6 +66,67 @@ do
 end
 -- }}}
 
+-- {{{
+-- setup system specific configs
+
+-- read the hostname
+hostname = io.popen("uname -n"):read()
+
+-- defaults
+startup_cmds = {}
+wallpaper_path = ""
+
+-- load system specific options
+if hostname == "nostromo" then
+    naughty.notify({text="Loading config for " .. hostname})
+    wallpaper_path = "/home/zander/Nextcloud/Wallpapers/current"
+    startup_cmds = {
+        "feh --randomize --bg-scale " .. wallpaper_path,
+        "picom --config /home/zander/dotfiles/picom/picom.conf",
+        "bash /home/zander/dotfiles/i3lock/start_i3lock.sh",
+        "nm-applet",
+        "volumeicon",
+        "nextcloud",
+        "/opt/piavpn/bin/pia-client",
+    }
+elseif hostname == "vostok" then
+    naughty.notify({text="Loading config for " .. hostname})
+    wallpaper_path = "/home/zander/Nextcloud/Wallpapers/current"
+    startup_cmds = {
+        "feh --randomize --bg-scale " .. wallpaper_path,
+        "picom --config /home/zander/dotfiles/picom/picom.conf",
+        "bash /home/zander/dotfiles/i3lock/start_i3lock.sh",
+        "nm-applet",
+        "volumeicon",
+        "nextcloud",
+        "/opt/piavpn/bin/pia-client",
+        "blueman-applet",
+    }
+elseif hostname == "sulaco" then
+    naughty.notify({text="Loading config for " .. hostname})
+    wallpaper_path = "/home/zander/wallpaper/walls"
+    startup_cmds = {
+        "feh --randomize --bg-scale " .. wallpaper_path,
+        "picom --config /home/zander/dotfiles/picom/picom.conf",
+        "bash /home/zander/dotfiles/i3lock/start_i3lock.sh",
+        "nm-applet",
+        "volumeicon",
+        "blueman-applet",
+    }
+elseif hostname == "prometheus" then
+    naughty.notify({text="Loading config for " .. hostname})
+    wallpaper_path = "/home/zander/wallpaper/walls"
+    startup_cmds = {
+        "feh --randomize --bg-scale /home/zander/wallpaper/walls",
+        "picom --config /home/zander/dotfiles/picom/picom.conf",
+        "bash /home/zander/dotfiles/i3lock/start_i3lock.sh",
+        "nm-applet",
+        "volumeicon"
+    }
+end
+
+-- }}}
+
 -- {{{ Autostart windowless processes
 -- This function will run once every time Awesome is started
 local function run_once(cmd_arr)
@@ -75,13 +136,7 @@ local function run_once(cmd_arr)
 end
 
 -- the commands to be run on startup
-run_once({
-    "feh --randomize --bg-scale /home/zander/wallpaper/walls",
-    "picom --config /home/zander/dotfiles/picom/picom.conf",
-    "bash /home/zander/dotfiles/i3lock/start_i3lock.sh",
-    "nm-applet",
-    "volumeicon"
-}) -- entries must be separated by commas
+run_once(startup_cmds) -- entries must be separated by commas
 -- }}}
 
 -- {{{ Variable definitions
@@ -323,10 +378,20 @@ globalkeys = my_table.join(
               {description = "quit awesome", group = "awesome"}),
           --
     -- cycle wallpaper
-    awful.key({modkey, shiftkey, controlkey}, spacekey, function () awful.spawn("feh --randomize --bg-fill /home/zander/wallpaper/walls") end, {description = "cycle wallpaper", group = "launcher"}),
+    awful.key({modkey, shiftkey, controlkey}, spacekey,
+        function ()
+            awful.spawn("feh --randomize --bg-fill " .. wallpaper_path)
+        end,
+        {description = "cycle wallpaper", group = "launcher"}),
 
     -- lauch programs with rofi
-    awful.key({modkey,}, "d", function () awful.spawn("rofi -show drun ~/dotfiles/rofi/config") end, {description = "use rofi to launch applications", group = "launcher"})
+    awful.key({modkey,}, "d",
+        function ()
+            awful.spawn("rofi -show drun ~/dotfiles/rofi/config",{
+                    tag = mouse.screen.selected_tag,
+                })
+        end,
+        {description = "use rofi to launch applications", group = "launcher"})
 )
 
 clientkeys = my_table.join(
@@ -460,7 +525,10 @@ awful.rules.rules = {
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen,
-                     size_hints_honor = false
+                     size_hints_honor = false,
+                     maximized_horizontal = false,
+                     maximized_vertical = false,
+                     maximized = false,
      }
     },
 

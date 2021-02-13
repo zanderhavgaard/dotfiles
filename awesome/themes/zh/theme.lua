@@ -201,10 +201,9 @@ local temp = lain.widget.temp({
 })
 
 -- Battery
-local baticon = wibox.widget.imagebox(theme.widget_batt)
-local bat = lain.widget.bat({
+local battery0 = lain.widget.bat({
     settings = function()
-        local perc = bat_now.perc ~= "N/A" and bat_now.perc .. "%" or bat_now.perc
+        local perc = bat_now.perc ~= "N/A" and bat_now.perc .. "% bat" or bat_now.perc
 
         if bat_now.ac_status == 1 then
             perc = perc .. " plug"
@@ -354,6 +353,7 @@ function theme.at_screen_connect(s)
 
             -- baticon,
             -- bat.widget,
+            battery0,
 
             -- clockicon,
             -- mytextclock,

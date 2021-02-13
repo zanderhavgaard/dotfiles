@@ -391,7 +391,14 @@ globalkeys = my_table.join(
                     tag = mouse.screen.selected_tag,
                 })
         end,
-        {description = "use rofi to launch applications", group = "launcher"})
+        {description = "use rofi to launch applications", group = "launcher"}),
+
+    -- lock the screen
+    awful.key({modkey, shiftkey, controlkey}, "l",
+            function()
+                awful.spawn("i3lock -c 282C36")
+            end,
+            {description = "lock the screen", group = "launcher"})
 )
 
 clientkeys = my_table.join(

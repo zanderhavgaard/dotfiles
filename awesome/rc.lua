@@ -78,7 +78,6 @@ wallpaper_path = ""
 
 -- load system specific options
 if hostname == "nostromo" then
-    naughty.notify({text="Loading config for " .. hostname})
     wallpaper_path = "/home/zander/Nextcloud/Wallpapers/current"
     startup_cmds = {
         "feh --randomize --bg-scale " .. wallpaper_path,
@@ -90,7 +89,6 @@ if hostname == "nostromo" then
         "/opt/piavpn/bin/pia-client",
     }
 elseif hostname == "vostok" then
-    naughty.notify({text="Loading config for " .. hostname})
     wallpaper_path = "/home/zander/Nextcloud/Wallpapers/current"
     startup_cmds = {
         "feh --randomize --bg-scale " .. wallpaper_path,
@@ -103,7 +101,6 @@ elseif hostname == "vostok" then
         "blueman-applet",
     }
 elseif hostname == "sulaco" then
-    naughty.notify({text="Loading config for " .. hostname})
     wallpaper_path = "/home/zander/wallpaper/walls"
     startup_cmds = {
         "feh --randomize --bg-scale " .. wallpaper_path,
@@ -114,7 +111,6 @@ elseif hostname == "sulaco" then
         "blueman-applet",
     }
 elseif hostname == "prometheus" then
-    naughty.notify({text="Loading config for " .. hostname})
     wallpaper_path = "/home/zander/wallpaper/walls"
     startup_cmds = {
         "feh --randomize --bg-scale /home/zander/wallpaper/walls",

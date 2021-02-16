@@ -246,60 +246,181 @@ function theme.at_screen_connect(s)
     s.mywibox = awful.wibar({ position = "top", screen = s, height = theme.bar_height, bg = theme.bar_background, fg = theme.bar_foreground })
 
     -- Add widgets to the wibox
-    s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        -- use expanad = "none" for right,middle,left layout
-        -- expand = "none",
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            awesome_icon,
-            arrow_right(theme.black, theme.blue),
-            arrow_right(theme.blue, theme.black),
-            s.mytaglist,
-            arrow_right(theme.dark_grey, theme.white),
-            arrow_right(theme.white, theme.black),
-            s.mylayoutbox,
-            arrow_right(theme.black, theme.white),
-            arrow_right(theme.white, theme.dark_grey),
-            -- theme.mpd.widget,
-        },
-        --s.mytasklist, -- Middle widget
-        {
-            layout = wibox.layout.fixed.horizontal,
-        },
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            arrow_left(theme.dark_grey, theme.blue),
-            wibox.container.background(time_clock, theme.blue),
-            arrow_left(theme.blue, theme.green),
-            wibox.container.background(time_date, theme.green),
-            arrow_left(theme.green, theme.red),
-            wibox.container.background(theme.weather.widget, theme.red),
-            arrow_left(theme.red, theme.purple),
-            wibox.container.background(theme.volume.widget, theme.purple),
-            arrow_left(theme.purple, theme.cyan),
-            wibox.container.background(memory.widget, theme.cyan),
-            arrow_left(theme.cyan, theme.orange),
-            wibox.container.background(cpu.widget, theme.orange),
-            arrow_left(theme.orange, theme.blue),
-            wibox.container.background(battery0.widget, theme.blue),
-            arrow_left(theme.blue, theme.green),
-            wibox.container.background(battery1.widget, theme.green),
-            arrow_left(theme.green, theme.black),
-            wibox.widget.systray(),
-            -- time_clock,
-            -- time_date,
-            -- theme.weather.widget,
-            -- theme.volume.widget,
-            -- netdowninfo,
-            -- netupinfo.widget,
-            -- memory.widget,
-            -- cpu.widget,
-            -- battery0.widget,
-            -- battery1.widget,
-            -- wibox.widget.systray(),
-        },
-    }
+    --
+    -- create system specific bar
+    if hostname == "nostromo" then
+        s.mywibox:setup {
+            layout = wibox.layout.align.horizontal,
+            -- use expanad = "none" for right,middle,left layout
+            -- expand = "none",
+            { -- Left widgets
+                layout = wibox.layout.fixed.horizontal,
+                awesome_icon,
+                arrow_right(theme.black, theme.blue),
+                arrow_right(theme.blue, theme.black),
+                s.mytaglist,
+                arrow_right(theme.dark_grey, theme.white),
+                arrow_right(theme.white, theme.black),
+                s.mylayoutbox,
+                arrow_right(theme.black, theme.white),
+                arrow_right(theme.white, theme.dark_grey),
+                -- theme.mpd.widget,
+            },
+            --s.mytasklist, -- Middle widget
+            {
+                layout = wibox.layout.fixed.horizontal,
+            },
+            { -- Right widgets
+                layout = wibox.layout.fixed.horizontal,
+                arrow_left(theme.dark_grey, theme.blue),
+                wibox.container.background(time_clock, theme.blue),
+                arrow_left(theme.blue, theme.green),
+                wibox.container.background(time_date, theme.green),
+                arrow_left(theme.green, theme.red),
+                wibox.container.background(theme.weather.widget, theme.red),
+                arrow_left(theme.red, theme.purple),
+                wibox.container.background(theme.volume.widget, theme.purple),
+                arrow_left(theme.purple, theme.cyan),
+                wibox.container.background(memory.widget, theme.cyan),
+                arrow_left(theme.cyan, theme.orange),
+                wibox.container.background(cpu.widget, theme.orange),
+                arrow_left(theme.orange, theme.black),
+                wibox.widget.systray(),
+            },
+        }
+
+    elseif hostname == "vostok" then
+        s.mywibox:setup {
+            layout = wibox.layout.align.horizontal,
+            -- use expanad = "none" for right,middle,left layout
+            -- expand = "none",
+            { -- Left widgets
+                layout = wibox.layout.fixed.horizontal,
+                awesome_icon,
+                arrow_right(theme.black, theme.blue),
+                arrow_right(theme.blue, theme.black),
+                s.mytaglist,
+                arrow_right(theme.dark_grey, theme.white),
+                arrow_right(theme.white, theme.black),
+                s.mylayoutbox,
+                arrow_right(theme.black, theme.white),
+                arrow_right(theme.white, theme.dark_grey),
+                -- theme.mpd.widget,
+            },
+            --s.mytasklist, -- Middle widget
+            {
+                layout = wibox.layout.fixed.horizontal,
+            },
+            { -- Right widgets
+                layout = wibox.layout.fixed.horizontal,
+                arrow_left(theme.dark_grey, theme.blue),
+                wibox.container.background(time_clock, theme.blue),
+                arrow_left(theme.blue, theme.green),
+                wibox.container.background(time_date, theme.green),
+                arrow_left(theme.green, theme.red),
+                wibox.container.background(theme.weather.widget, theme.red),
+                arrow_left(theme.red, theme.purple),
+                wibox.container.background(theme.volume.widget, theme.purple),
+                arrow_left(theme.purple, theme.cyan),
+                wibox.container.background(memory.widget, theme.cyan),
+                arrow_left(theme.cyan, theme.orange),
+                wibox.container.background(cpu.widget, theme.orange),
+                arrow_left(theme.orange, theme.blue),
+                wibox.container.background(battery0.widget, theme.blue),
+                arrow_left(theme.blue, theme.green),
+                wibox.container.background(battery1.widget, theme.green),
+                arrow_left(theme.green, theme.black),
+                wibox.widget.systray(),
+            },
+        }
+
+    elseif hostname == "sulaco" then
+        s.mywibox:setup {
+            layout = wibox.layout.align.horizontal,
+            -- use expanad = "none" for right,middle,left layout
+            -- expand = "none",
+            { -- Left widgets
+                layout = wibox.layout.fixed.horizontal,
+                awesome_icon,
+                arrow_right(theme.black, theme.blue),
+                arrow_right(theme.blue, theme.black),
+                s.mytaglist,
+                arrow_right(theme.dark_grey, theme.white),
+                arrow_right(theme.white, theme.black),
+                s.mylayoutbox,
+                arrow_right(theme.black, theme.white),
+                arrow_right(theme.white, theme.dark_grey),
+                -- theme.mpd.widget,
+            },
+            --s.mytasklist, -- Middle widget
+            {
+                layout = wibox.layout.fixed.horizontal,
+            },
+            { -- Right widgets
+                layout = wibox.layout.fixed.horizontal,
+                arrow_left(theme.dark_grey, theme.blue),
+                wibox.container.background(time_clock, theme.blue),
+                arrow_left(theme.blue, theme.green),
+                wibox.container.background(time_date, theme.green),
+                arrow_left(theme.green, theme.red),
+                wibox.container.background(theme.weather.widget, theme.red),
+                arrow_left(theme.red, theme.purple),
+                wibox.container.background(theme.volume.widget, theme.purple),
+                arrow_left(theme.purple, theme.cyan),
+                wibox.container.background(memory.widget, theme.cyan),
+                arrow_left(theme.cyan, theme.orange),
+                wibox.container.background(cpu.widget, theme.orange),
+                arrow_left(theme.orange, theme.blue),
+                wibox.container.background(battery0.widget, theme.blue),
+                arrow_left(theme.blue, theme.green),
+                wibox.container.background(battery1.widget, theme.green),
+                arrow_left(theme.green, theme.black),
+                wibox.widget.systray(),
+            },
+        }
+
+    elseif hostname == "prometheus" then
+        s.mywibox:setup {
+            layout = wibox.layout.align.horizontal,
+            -- use expanad = "none" for right,middle,left layout
+            -- expand = "none",
+            { -- Left widgets
+                layout = wibox.layout.fixed.horizontal,
+                awesome_icon,
+                arrow_right(theme.black, theme.blue),
+                arrow_right(theme.blue, theme.black),
+                s.mytaglist,
+                arrow_right(theme.dark_grey, theme.white),
+                arrow_right(theme.white, theme.black),
+                s.mylayoutbox,
+                arrow_right(theme.black, theme.white),
+                arrow_right(theme.white, theme.dark_grey),
+                -- theme.mpd.widget,
+            },
+            --s.mytasklist, -- Middle widget
+            {
+                layout = wibox.layout.fixed.horizontal,
+            },
+            { -- Right widgets
+                layout = wibox.layout.fixed.horizontal,
+                arrow_left(theme.dark_grey, theme.blue),
+                wibox.container.background(time_clock, theme.blue),
+                arrow_left(theme.blue, theme.green),
+                wibox.container.background(time_date, theme.green),
+                arrow_left(theme.green, theme.red),
+                wibox.container.background(theme.weather.widget, theme.red),
+                arrow_left(theme.red, theme.purple),
+                wibox.container.background(theme.volume.widget, theme.purple),
+                arrow_left(theme.purple, theme.cyan),
+                wibox.container.background(memory.widget, theme.cyan),
+                arrow_left(theme.cyan, theme.orange),
+                wibox.container.background(cpu.widget, theme.orange),
+                arrow_left(theme.orange, theme.black),
+                wibox.widget.systray(),
+            },
+        }
+    end
+
 end
 
 return theme

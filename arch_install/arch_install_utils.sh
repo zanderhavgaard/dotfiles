@@ -134,7 +134,6 @@ lxappearance
 arandr
 wmctrl
 wireguard-tools
-wireguard-lts
 trayer
 nextcloud-client
 libsecret

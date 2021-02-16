@@ -35,6 +35,7 @@ theme.cyan_alt = "#13AFAF"
 theme.cyan = "#6ECFCF"
 theme.dark_grey = "#282C36"
 theme.background = theme.black
+theme.transparent = "alpha"
 -- custom vars
 theme.bar_background                            = theme.dark_grey
 theme.bar_foreground                            = theme.white
@@ -100,12 +101,17 @@ theme.layout_magnifier                          = theme.confdir .. "/icons/magni
 theme.layout_floating                           = theme.confdir .. "/icons/floating.png"
 
 local markup = lain.util.markup
+local separators = lain.util.separators
+
+-- function to create pwerline arrow
+local arrow_left = separators.arrow_left
+local arrow_right = separators.arrow_right
 
 -- Textclock
 os.setlocale(os.getenv("LANG")) -- to localize the clock
 
 -- TODO padding instead of <space> between widgets?
-local time_date = wibox.widget.textclock(markup(theme.blue, " %A %d %B "))
+local time_date = wibox.widget.textclock(markup(theme.dark_grey, "  %A %d %B "))
 time_date.font = theme.font
 
 -- Calendar
@@ -118,18 +124,18 @@ time_date.font = theme.font
     -- }
 -- })
 
-local time_clock = wibox.widget.textclock(markup(theme.green, " %H:%M "))
+local time_clock = wibox.widget.textclock(markup(theme.dark_grey, "  %H:%M "))
 time_clock.font = theme.font
 
 -- Weather
 theme.weather = lain.widget.weather({
     city_id = 2618425, -- placeholder (London)
     notification_preset = { font = "Terminus 10", fg = theme.fg_normal },
-    weather_na_markup = markup.fontfg(theme.font, theme.purple, "N/A "),
+    weather_na_markup = markup.fontfg(theme.font, theme.dark_grey, "N/A "),
     settings = function()
         descr = weather_now["weather"][1]["description"]:lower()
         units = math.floor(weather_now["main"]["temp"])
-        widget:set_markup(markup.fontfg(theme.font, theme.purple, " Copenhagen: " .. descr .. " @ " .. units .. "°C "))
+        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, "  Copenhagen: " .. descr .. " @ " .. units .. "°C "))
     end
 })
 
@@ -149,14 +155,14 @@ local awesome_icon = wibox.widget.imagebox(theme.awesome_icon)
 -- CPU
 local cpu = lain.widget.cpu({
     settings = function()
-        widget:set_markup(markup.fontfg(theme.font, theme.red, " " .. cpu_now.usage .. "% "))
+        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, "  " .. cpu_now.usage .. "% "))
     end
 })
 
 -- Coretemp
 local temp = lain.widget.temp({
     settings = function()
-        widget:set_markup(markup.fontfg(theme.font, theme.orange_alt, coretemp_now .. "°C "))
+        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, " " .. coretemp_now .. "°C "))
     end
 })
 
@@ -177,7 +183,7 @@ local battery0 = lain.widget.bat({
             battery_status = "  " .. bat_now.perc .. "%"
         end
         battery_status = battery_name .. " " .. battery_status
-        widget:set_markup(markup.fontfg(theme.font, theme.blue_alt, battery_status .. " "))
+        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, " " .. battery_status .. " "))
     end
 })
 -- external
@@ -196,7 +202,7 @@ local battery1 = lain.widget.bat({
             battery_status = "  " .. bat_now.perc .. "%"
         end
         battery_status = battery_name .. " " .. battery_status
-        widget:set_markup(markup.fontfg(theme.font, theme.blue_alt, battery_status .. " "))
+        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, " " .. battery_status .. " "))
     end
 })
 
@@ -204,33 +210,17 @@ local battery1 = lain.widget.bat({
 theme.volume = lain.widget.alsa({
     settings = function()
         if volume_now.status == "off" then
-            volume_now.level = "(Mute) "  .. volume_now.level
+            widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, " 婢 "))
+        else
+            widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, "  " .. volume_now.level .. "% "))
         end
-
-        widget:set_markup(markup.fontfg(theme.font, theme.blue, volume_now.level .. "% "))
-    end
-})
-
--- Net
-local netdowninfo = wibox.widget.textbox()
-local netupinfo = lain.widget.net({
-    settings = function()
-        if iface ~= "network off" and
-           string.match(theme.weather.widget.text, "N/A")
-        then
-            theme.weather.update()
-        end
-        local net_down = "" .. net_now.received .. " "
-        local net_up = "" .. net_now.sent .. " "
-        widget:set_markup(markup.fontfg(theme.font, theme.red, net_up))
-        netdowninfo:set_markup(markup.fontfg(theme.font, theme.green, net_down))
     end
 })
 
 -- MEM
 local memory = lain.widget.mem({
     settings = function()
-        widget:set_markup(markup.fontfg(theme.font, theme.cyan, " " .. mem_now.used .. "M "))
+        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, "  " .. mem_now.used .. "M "))
     end
 })
 
@@ -252,9 +242,6 @@ function theme.at_screen_connect(s)
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
 
-    -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
-
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = theme.bar_height, bg = theme.bar_background, fg = theme.bar_foreground })
 
@@ -266,8 +253,14 @@ function theme.at_screen_connect(s)
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             awesome_icon,
+            arrow_right(theme.black, theme.blue),
+            arrow_right(theme.blue, theme.black),
             s.mytaglist,
+            arrow_right(theme.dark_grey, theme.white),
+            arrow_right(theme.white, theme.black),
             s.mylayoutbox,
+            arrow_right(theme.black, theme.white),
+            arrow_right(theme.white, theme.dark_grey),
             -- theme.mpd.widget,
         },
         --s.mytasklist, -- Middle widget
@@ -275,21 +268,94 @@ function theme.at_screen_connect(s)
             layout = wibox.layout.fixed.horizontal,
         },
         { -- Right widgets
-            time_clock,
-            time_date,
             layout = wibox.layout.fixed.horizontal,
-            theme.weather.widget,
-            theme.volume.widget,
-            netdowninfo,
-            netupinfo.widget,
-            memory.widget,
-            cpu.widget,
-            -- temp.widget,
-            battery0.widget,
-            battery1.widget,
+            arrow_left(theme.dark_grey, theme.blue),
+            wibox.container.background(time_clock, theme.blue),
+            arrow_left(theme.blue, theme.green),
+            wibox.container.background(time_date, theme.green),
+            arrow_left(theme.green, theme.red),
+            wibox.container.background(theme.weather.widget, theme.red),
+            arrow_left(theme.red, theme.purple),
+            wibox.container.background(theme.volume.widget, theme.purple),
+            arrow_left(theme.purple, theme.cyan),
+            wibox.container.background(memory.widget, theme.cyan),
+            arrow_left(theme.cyan, theme.orange),
+            wibox.container.background(cpu.widget, theme.orange),
+            arrow_left(theme.orange, theme.blue),
+            wibox.container.background(battery0.widget, theme.blue),
+            arrow_left(theme.blue, theme.green),
+            wibox.container.background(battery1.widget, theme.green),
+            arrow_left(theme.green, theme.black),
             wibox.widget.systray(),
+            -- time_clock,
+            -- time_date,
+            -- theme.weather.widget,
+            -- theme.volume.widget,
+            -- netdowninfo,
+            -- netupinfo.widget,
+            -- memory.widget,
+            -- cpu.widget,
+            -- battery0.widget,
+            -- battery1.widget,
+            -- wibox.widget.systray(),
         },
     }
 end
 
 return theme
+
+
+
+
+
+
+    -- s.mytaglist = awful.widget.taglist({
+            -- screen = s,
+            -- filter = awful.widget.taglist.filter.all,
+            -- buttons = awful.util.taglist_buttons,
+            -- style = {
+                -- shape = gears.shape.powerline,
+            -- },
+            -- layout   = {
+                -- spacing = -12,
+                -- spacing_widget = {
+                    -- color  = theme.white,
+                    -- shape  = gears.shape.powerline,
+                    -- widget = wibox.widget.separator,
+                -- },
+                -- layout  = wibox.layout.fixed.horizontal
+            -- },
+            -- widget_template = {
+                -- {
+                    -- {
+                        -- {
+                            -- {
+                                -- id     = 'index_role',
+                                -- widget = wibox.widget.textbox,
+                            -- },
+                            -- margins = 4,
+                            -- widget  = wibox.container.margin,
+                        -- },
+                        -- bg     = '#dddddd',
+                        -- shape  = gears.shape.circle,
+                        -- widget = wibox.container.background,
+                    -- },
+                    -- {
+                        -- {
+                            -- id     = 'icon_role',
+                            -- widget = wibox.widget.imagebox,
+                        -- },
+                        -- margins = 2,
+                        -- widget  = wibox.container.margin,
+                    -- },
+                    -- {
+                        -- id     = 'text_role',
+                        -- widget = wibox.widget.textbox,
+                    -- },
+                    -- layout = wibox.layout.fixed.horizontal,
+                -- },
+                -- left  = 18,
+                -- right = 18,
+                -- widget = wibox.container.margin
+            -- },
+        -- })

@@ -158,6 +158,10 @@ local shiftkey = "Shift"
 local controlkey = "Control"
 local spacekey = "space"
 local tabkey = "Tab"
+local leftkey = "Left"
+local rightkey = "Right"
+local downkey = "Down"
+local upkey = "Up"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -285,12 +289,12 @@ awful.screen.connect_for_each_screen(function(s) beautiful.at_screen_connect(s) 
 
 -- {{{ Key bindings
 globalkeys = my_table.join(
+
+    -- show keybindings help
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
-              {description = "view previous", group = "tag"}),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
-              {description = "view next", group = "tag"}),
+
+    -- TODO not sure what this does?
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
 
@@ -394,7 +398,46 @@ globalkeys = my_table.join(
             function()
                 awful.spawn("i3lock -c 282C36")
             end,
-            {description = "lock the screen", group = "launcher"})
+            {description = "lock the screen", group = "launcher"}),
+
+    -- media contols {{{
+
+    -- play/pause
+    awful.key({modkey, controlkey}, spacekey,
+            function()
+                awful.spawn("playerctl play-pause")
+            end,
+            {description = "play/pause music", group = "media contols"}),
+
+    -- next track
+    awful.key({modkey, controlkey}, rightkey,
+            function()
+                awful.spawn("playerctl next")
+            end,
+            {description = "next track", group = "media contols"}),
+
+    -- previous track
+    awful.key({modkey, controlkey}, leftkey,
+            function()
+                awful.spawn("playerctl previous")
+            end,
+            {description = "previous track", group = "media contols"}),
+
+    -- increase volume
+    awful.key({modkey, controlkey}, upkey,
+            function()
+                awful.spawn("amixer sset Master '2%+'")
+            end,
+            {description = "increase up", group = "media contols"}),
+
+    -- decrease volume
+    awful.key({modkey, controlkey}, downkey,
+            function()
+                awful.spawn("amixer sset Master '2%-'")
+            end,
+            {description = "decrease volume", group = "media contols"})
+
+    -- }}}
 )
 
 clientkeys = my_table.join(
@@ -407,7 +450,7 @@ clientkeys = my_table.join(
         end,
         {description = "toggle fullscreen", group = "client"}),
 
-    -- quite window
+    -- quit window
     awful.key({ modkey, "Shift"   }, "q",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
 

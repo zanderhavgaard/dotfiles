@@ -291,7 +291,7 @@ awful.screen.connect_for_each_screen(function(s) beautiful.at_screen_connect(s) 
 globalkeys = my_table.join(
 
     -- show keybindings help
-    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
+    awful.key({ modkey, shiftkey }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
 
     -- TODO not sure what this does?
@@ -455,7 +455,7 @@ clientkeys = my_table.join(
               {description = "close", group = "client"}),
 
     -- toggle floating
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
+    awful.key({ modkey, }, "s",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
 
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,

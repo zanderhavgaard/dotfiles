@@ -43,39 +43,39 @@ theme.bar_height                                = dpi(25)
 -- configure theme
 theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/zh"
 theme.font                                      = "Mononoki Nerd Font 12"
-theme.menu_bg_normal                            = theme.black
-theme.menu_bg_focus                             = theme.black
-theme.bg_normal                                 = theme.black
-theme.bg_focus                                  = theme.black
-theme.bg_urgent                                 = theme.black
-theme.fg_normal                                 = theme.grey
+theme.menu_bg_normal                            = theme.dark_grey
+theme.menu_bg_focus                             = theme.dark_grey
+theme.fg_normal                                 = theme.white
+theme.bg_normal                                 = theme.dark_grey
+theme.border_normal                             = theme.black_alt
 theme.fg_focus                                  = theme.blue
-theme.fg_urgent                                 = theme.red
+theme.bg_focus                                  = theme.dark_grey
+theme.border_focus                              = theme.blue
+theme.fg_urgent                                 = theme.black
+theme.bg_urgent                                 = theme.red
 theme.fg_minimize                               = theme.white
 theme.border_width                              = dpi(2)
-theme.border_normal                             = theme.black_alt
-theme.border_focus                              = theme.blue
 theme.border_marked                             = theme.cyan
 theme.menu_border_width                         = 0
 theme.menu_width                                = dpi(130)
 theme.menu_submenu_icon                         = theme.confdir .. "/icons/submenu.png"
-theme.menu_fg_normal                            = theme.grey
+theme.menu_fg_normal                            = theme.white
 theme.menu_fg_focus                             = theme.blue
-theme.menu_bg_normal                            = theme.black_alt
-theme.menu_bg_focus                             = theme.black_alt
+theme.menu_bg_normal                            = theme.dark_grey
+theme.menu_bg_focus                             = theme.dark_grey
 theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = true
 theme.useless_gap                               = 5
 theme.gap_single_client                         = false
 -- taglist
-theme.taglist_fg_focus                          = theme.black
+theme.taglist_fg_focus                          = theme.white
 theme.taglist_bg_focus                          = theme.blue_alt
+theme.taglist_fg_occupied                       = theme.black
+theme.taglist_bg_occupied                       = theme.blue_alt
+theme.taglist_fg_empty                          = theme.dark_grey
+theme.taglist_bg_empty                          = theme.blue
 theme.taglist_fg_urgent                         = theme.black
 theme.taglist_bg_urgent                         = theme.red
-theme.taglist_fg_occupied                       = theme.black
-theme.taglist_bg_occupied                       = theme.blue
-theme.taglist_fg_empty                          = theme.white
-theme.taglist_bg_empty                          = theme.blue
 -- bar icons
 theme.awesome_icon                              = theme.confdir .. "/icons/awesome.png"
 theme.widget_temp                               = theme.confdir .. "/icons/temp.png"
@@ -111,6 +111,7 @@ theme.layout_floating                           = theme.confdir .. "/icons/float
 
 local markup = lain.util.markup
 local separators = lain.util.separators
+local blank_seperator = wibox.widget.textbox("   ")
 
 -- function to create pwerline arrow
 local arrow_left = separators.arrow_left
@@ -123,28 +124,28 @@ os.setlocale(os.getenv("LANG")) -- to localize the clock
 local time_date = wibox.widget.textclock(markup(theme.dark_grey, "  %A %d %B "))
 time_date.font = theme.font
 
--- Calendar
--- theme.cal = lain.widget.cal({
-    -- attach_to = { mytextclock },
-    -- notification_preset = {
-        -- font = "Terminus 10",
-        -- fg   = theme.fg_normal,
-        -- bg   = theme.bg_normal
-    -- }
--- })
+-- Calendar widget shown on hover over date
+theme.cal = lain.widget.cal({
+    attach_to = { time_date },
+    notification_preset = {
+        font = theme.font,
+        fg   = theme.fg_normal,
+        bg   = theme.bg_normal
+    }
+})
 
 local time_clock = wibox.widget.textclock(markup(theme.dark_grey, "  %H:%M "))
 time_clock.font = theme.font
 
 -- Weather
 theme.weather = lain.widget.weather({
-    city_id = 2618425, -- placeholder (London)
+    city_id = 2618425, -- Copenhagen
     notification_preset = { font = "Terminus 10", fg = theme.fg_normal },
     weather_na_markup = markup.fontfg(theme.font, theme.dark_grey, "N/A "),
     settings = function()
         descr = weather_now["weather"][1]["description"]:lower()
         units = math.floor(weather_now["main"]["temp"])
-        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, "  Copenhagen: " .. descr .. " @ " .. units .. "°C "))
+        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, "  " .. units .. "°C " .. descr .. " "))
     end
 })
 
@@ -161,19 +162,13 @@ theme.fs = lain.widget.fs({
 -- show off awesomewm
 local awesome_icon = wibox.widget.imagebox(theme.awesome_icon)
 
--- CPU
-local cpu = lain.widget.cpu({
-    settings = function()
-        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, "  " .. cpu_now.usage .. "% "))
-    end
-})
 
 -- Coretemp
-local temp = lain.widget.temp({
-    settings = function()
-        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, " " .. coretemp_now .. "°C "))
-    end
-})
+-- local temp = lain.widget.temp({
+    -- settings = function()
+        -- widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, " " .. coretemp_now .. "°C "))
+    -- end
+-- })
 
 -- Battery
 -- internal
@@ -226,12 +221,56 @@ theme.volume = lain.widget.alsa({
     end
 })
 
+-- CPU
+-- local cpu = lain.widget.cpu({
+    -- settings = function()
+        -- widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, "  " .. cpu_now.usage .. "% "))
+    -- end
+-- })
 -- MEM
-local memory = lain.widget.mem({
-    settings = function()
-        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, "  " .. mem_now.used .. "M "))
+-- local memory = lain.widget.mem({
+    -- settings = function()
+        -- widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, "  " .. mem_now.used .. "M "))
+    -- end
+-- })
+
+keeb_widget = {
+    {
+        {
+            font = theme.font,
+            text = "  ",
+            widget = wibox.widget.textbox,
+        },
+        {
+            font = theme.font,
+            widget = awful.widget.keyboardlayout,
+        },
+        layout = wibox.layout.fixed.horizontal,
+    },
+    widget = wibox.container.background,
+    bg = theme.orange,
+    fg = theme.dark_grey,
+}
+
+
+local spotify_widget = awful.widget.watch("bash /home/zander/dotfiles/scripts/sp_status.sh", 5,
+    function(widget, stdout)
+        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, stdout))
     end
-})
+)
+
+local kernel_widget = wibox.widget.textbox()
+awful.spawn.easy_async("bash /home/zander/dotfiles/scripts/print_osicon_kernel.sh",
+    function(output)
+        -- prometheus runs Manjaro, the others are Arch
+        if hostname == "prometheus" then
+            kernel_text = "  " .. output .. " "
+        else
+            kernel_text = "  " .. output .. " "
+        end
+        kernel_widget.markup = markup.fontfg(theme.font, theme.dark_grey, kernel_text)
+    end
+)
 
 -- setup the actual bar
 function theme.at_screen_connect(s)
@@ -264,55 +303,11 @@ function theme.at_screen_connect(s)
             -- expand = "none",
             { -- Left widgets
                 layout = wibox.layout.fixed.horizontal,
-                awesome_icon,
-                -- ugly hacky spacers using invisble arrows...
-                -- TODO do this more elegantly...
-                arrow_right(theme.dark_grey, theme.dark_grey),
-                s.mylayoutbox,
-                arrow_right(theme.dark_grey, theme.dark_grey),
-                arrow_right(theme.dark_grey, theme.blue),
-                s.mytaglist,
-                arrow_right(theme.blue, theme.dark_grey),
-            },
-            --s.mytasklist, -- Middle widget
-            {
-                layout = wibox.layout.fixed.horizontal,
-            },
-            { -- Right widgets
-                layout = wibox.layout.fixed.horizontal,
-                arrow_left(theme.dark_grey, theme.blue),
-                wibox.container.background(time_clock, theme.blue),
-                arrow_left(theme.blue, theme.green),
-                wibox.container.background(time_date, theme.green),
-                arrow_left(theme.green, theme.red),
-                wibox.container.background(theme.weather.widget, theme.red),
-                arrow_left(theme.red, theme.purple),
-                wibox.container.background(theme.volume.widget, theme.purple),
-                arrow_left(theme.purple, theme.cyan),
-                wibox.container.background(memory.widget, theme.cyan),
-                arrow_left(theme.cyan, theme.orange),
-                wibox.container.background(cpu.widget, theme.orange),
-                arrow_left(theme.orange, theme.black),
-                wibox.widget.systray(),
-            },
-        }
 
-    elseif hostname == "vostok" then
-        s.mywibox:setup {
-            layout = wibox.layout.align.horizontal,
-            -- use expanad = "none" for right,middle,left layout
-            -- expand = "none",
-            { -- Left widgets
-                layout = wibox.layout.fixed.horizontal,
-                awesome_icon,
-                -- ugly hacky spacers using invisble arrows...
-                -- TODO do this more elegantly...
-                arrow_right(theme.dark_grey, theme.dark_grey),
-                s.mylayoutbox,
-                arrow_right(theme.dark_grey, theme.dark_grey),
-                arrow_right(theme.dark_grey, theme.blue),
                 s.mytaglist,
                 arrow_right(theme.blue, theme.dark_grey),
+                blank_seperator,
+                s.mylayoutbox,
             },
             --s.mytasklist, -- Middle widget
             {
@@ -320,67 +315,25 @@ function theme.at_screen_connect(s)
             },
             { -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
-                arrow_left(theme.dark_grey, theme.blue),
-                wibox.container.background(time_clock, theme.blue),
-                arrow_left(theme.blue, theme.green),
-                wibox.container.background(time_date, theme.green),
-                arrow_left(theme.green, theme.red),
-                wibox.container.background(theme.weather.widget, theme.red),
-                arrow_left(theme.red, theme.purple),
-                wibox.container.background(theme.volume.widget, theme.purple),
-                arrow_left(theme.purple, theme.cyan),
-                wibox.container.background(memory.widget, theme.cyan),
-                arrow_left(theme.cyan, theme.orange),
-                wibox.container.background(cpu.widget, theme.orange),
-                arrow_left(theme.orange, theme.blue),
-                wibox.container.background(battery0.widget, theme.blue),
-                arrow_left(theme.blue, theme.green),
-                wibox.container.background(battery1.widget, theme.green),
-                arrow_left(theme.green, theme.black),
-                wibox.widget.systray(),
-            },
-        }
 
-    elseif hostname == "sulaco" then
-        s.mywibox:setup {
-            layout = wibox.layout.align.horizontal,
-            -- use expanad = "none" for right,middle,left layout
-            -- expand = "none",
-            { -- Left widgets
-                layout = wibox.layout.fixed.horizontal,
-                awesome_icon,
-                -- ugly hacky spacers using invisble arrows...
-                -- TODO do this more elegantly...
-                arrow_right(theme.dark_grey, theme.dark_grey),
-                s.mylayoutbox,
-                arrow_right(theme.dark_grey, theme.dark_grey),
-                arrow_right(theme.dark_grey, theme.blue),
-                s.mytaglist,
-                arrow_right(theme.blue, theme.dark_grey),
-            },
-            --s.mytasklist, -- Middle widget
-            {
-                layout = wibox.layout.fixed.horizontal,
-            },
-            { -- Right widgets
-                layout = wibox.layout.fixed.horizontal,
-                arrow_left(theme.dark_grey, theme.blue),
-                wibox.container.background(time_clock, theme.blue),
+                arrow_left(theme.dark_grey, theme.cyan),
+                wibox.container.background(time_clock, theme.cyan),
+                arrow_left(theme.cyan, theme.blue),
+                wibox.container.background(time_date, theme.blue),
                 arrow_left(theme.blue, theme.green),
-                wibox.container.background(time_date, theme.green),
+                wibox.container.background(spotify_widget, theme.green),
                 arrow_left(theme.green, theme.red),
                 wibox.container.background(theme.weather.widget, theme.red),
-                arrow_left(theme.red, theme.purple),
+                arrow_left(theme.red, theme.orange),
+                keeb_widget,
+                arrow_left(theme.orange, theme.purple),
                 wibox.container.background(theme.volume.widget, theme.purple),
-                arrow_left(theme.purple, theme.cyan),
-                wibox.container.background(memory.widget, theme.cyan),
-                arrow_left(theme.cyan, theme.orange),
-                wibox.container.background(cpu.widget, theme.orange),
-                arrow_left(theme.orange, theme.blue),
-                wibox.container.background(battery0.widget, theme.blue),
-                arrow_left(theme.blue, theme.green),
-                wibox.container.background(battery1.widget, theme.green),
-                arrow_left(theme.green, theme.black),
+                arrow_left(theme.purple, theme.blue),
+                wibox.container.background(kernel_widget, theme.blue),
+                arrow_left(theme.blue, theme.dark_grey),
+                blank_seperator,
+                awesome_icon,
+                blank_seperator,
                 wibox.widget.systray(),
             },
         }
@@ -392,15 +345,11 @@ function theme.at_screen_connect(s)
             -- expand = "none",
             { -- Left widgets
                 layout = wibox.layout.fixed.horizontal,
-                awesome_icon,
-                -- ugly hacky spacers using invisble arrows...
-                -- TODO do this more elegantly...
-                arrow_right(theme.dark_grey, theme.dark_grey),
-                s.mylayoutbox,
-                arrow_right(theme.dark_grey, theme.dark_grey),
-                arrow_right(theme.dark_grey, theme.blue),
+
                 s.mytaglist,
                 arrow_right(theme.blue, theme.dark_grey),
+                blank_seperator,
+                s.mylayoutbox,
             },
             --s.mytasklist, -- Middle widget
             {
@@ -408,22 +357,130 @@ function theme.at_screen_connect(s)
             },
             { -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
-                arrow_left(theme.dark_grey, theme.blue),
-                wibox.container.background(time_clock, theme.blue),
+
+                arrow_left(theme.dark_grey, theme.cyan),
+                wibox.container.background(time_clock, theme.cyan),
+                arrow_left(theme.cyan, theme.blue),
+                wibox.container.background(time_date, theme.blue),
                 arrow_left(theme.blue, theme.green),
-                wibox.container.background(time_date, theme.green),
+                wibox.container.background(spotify_widget, theme.green),
                 arrow_left(theme.green, theme.red),
                 wibox.container.background(theme.weather.widget, theme.red),
-                arrow_left(theme.red, theme.purple),
+                arrow_left(theme.red, theme.orange),
+                keeb_widget,
+                arrow_left(theme.orange, theme.purple),
                 wibox.container.background(theme.volume.widget, theme.purple),
-                arrow_left(theme.purple, theme.cyan),
-                wibox.container.background(memory.widget, theme.cyan),
-                arrow_left(theme.cyan, theme.orange),
-                wibox.container.background(cpu.widget, theme.orange),
-                arrow_left(theme.orange, theme.black),
+                arrow_left(theme.purple, theme.blue),
+                wibox.container.background(kernel_widget, theme.blue),
+                arrow_left(theme.blue, theme.dark_grey),
+                blank_seperator,
+                awesome_icon,
+                blank_seperator,
                 wibox.widget.systray(),
             },
         }
+
+    elseif hostname == "vostok" then
+        s.mywibox:setup {
+            layout = wibox.layout.align.horizontal,
+            -- use expanad = "none" for right,middle,left layout
+            -- expand = "none",
+            { -- Left widgets
+                layout = wibox.layout.fixed.horizontal,
+
+                s.mytaglist,
+                arrow_right(theme.blue, theme.dark_grey),
+                blank_seperator,
+                s.mylayoutbox,
+            },
+            --s.mytasklist, -- Middle widget
+            {
+                layout = wibox.layout.fixed.horizontal,
+            },
+            { -- Right widgets
+                layout = wibox.layout.fixed.horizontal,
+
+                arrow_left(theme.dark_grey, theme.cyan),
+                wibox.container.background(time_clock, theme.cyan),
+                arrow_left(theme.cyan, theme.blue),
+                wibox.container.background(time_date, theme.blue),
+                arrow_left(theme.blue, theme.green),
+                wibox.container.background(spotify_widget, theme.green),
+                arrow_left(theme.green, theme.red),
+                wibox.container.background(theme.weather.widget, theme.red),
+                arrow_left(theme.red, theme.orange),
+                keeb_widget,
+                arrow_left(theme.orange, theme.purple),
+                wibox.container.background(theme.volume.widget, theme.purple),
+                arrow_left(theme.purple, theme.blue),
+
+                arrow_left(theme.orange, theme.blue),
+                wibox.container.background(battery0.widget, theme.blue),
+                arrow_left(theme.blue, theme.green),
+                wibox.container.background(battery1.widget, theme.green),
+                arrow_left(theme.green, theme.dark_grey),
+
+                wibox.container.background(kernel_widget, theme.blue),
+                arrow_left(theme.blue, theme.dark_grey),
+                blank_seperator,
+                awesome_icon,
+                blank_seperator,
+                wibox.widget.systray(),
+            },
+        }
+
+
+
+
+    elseif hostname == "sulaco" then
+        s.mywibox:setup {
+            layout = wibox.layout.align.horizontal,
+            -- use expanad = "none" for right,middle,left layout
+            -- expand = "none",
+            { -- Left widgets
+                layout = wibox.layout.fixed.horizontal,
+
+                s.mytaglist,
+                arrow_right(theme.blue, theme.dark_grey),
+                blank_seperator,
+                s.mylayoutbox,
+            },
+            --s.mytasklist, -- Middle widget
+            {
+                layout = wibox.layout.fixed.horizontal,
+            },
+            { -- Right widgets
+                layout = wibox.layout.fixed.horizontal,
+
+                arrow_left(theme.dark_grey, theme.cyan),
+                wibox.container.background(time_clock, theme.cyan),
+                arrow_left(theme.cyan, theme.blue),
+                wibox.container.background(time_date, theme.blue),
+                arrow_left(theme.blue, theme.green),
+                wibox.container.background(spotify_widget, theme.green),
+                arrow_left(theme.green, theme.red),
+                wibox.container.background(theme.weather.widget, theme.red),
+                arrow_left(theme.red, theme.orange),
+                keeb_widget,
+                arrow_left(theme.orange, theme.purple),
+                wibox.container.background(theme.volume.widget, theme.purple),
+                arrow_left(theme.purple, theme.blue),
+
+                arrow_left(theme.orange, theme.blue),
+                wibox.container.background(battery0.widget, theme.blue),
+                arrow_left(theme.blue, theme.green),
+                wibox.container.background(battery1.widget, theme.green),
+                arrow_left(theme.green, theme.dark_grey),
+
+                wibox.container.background(kernel_widget, theme.blue),
+                arrow_left(theme.blue, theme.dark_grey),
+                blank_seperator,
+                awesome_icon,
+                blank_seperator,
+                wibox.widget.systray(),
+            },
+        }
+
     end
 
 end

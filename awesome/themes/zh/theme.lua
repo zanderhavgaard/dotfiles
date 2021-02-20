@@ -67,6 +67,15 @@ theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = true
 theme.useless_gap                               = 5
 theme.gap_single_client                         = false
+-- taglist
+theme.taglist_fg_focus                          = theme.black
+theme.taglist_bg_focus                          = theme.blue_alt
+theme.taglist_fg_urgent                         = theme.black
+theme.taglist_bg_urgent                         = theme.red
+theme.taglist_fg_occupied                       = theme.black
+theme.taglist_bg_occupied                       = theme.blue
+theme.taglist_fg_empty                          = theme.white
+theme.taglist_bg_empty                          = theme.blue
 -- bar icons
 theme.awesome_icon                              = theme.confdir .. "/icons/awesome.png"
 theme.widget_temp                               = theme.confdir .. "/icons/temp.png"
@@ -83,8 +92,8 @@ theme.widget_mail                               = theme.confdir .. "/icons/mail.
 theme.widget_batt                               = theme.confdir .. "/icons/bat.png"
 theme.widget_clock                              = theme.confdir .. "/icons/clock.png"
 theme.widget_vol                                = theme.confdir .. "/icons/spkr.png"
-theme.taglist_squares_sel                       = theme.confdir .. "/icons/squaref.png"
-theme.taglist_squares_unsel                     = theme.confdir .. "/icons/square.png"
+-- theme.taglist_squares_sel                       = theme.confdir .. "/icons/squaref.png"
+-- theme.taglist_squares_unsel                     = theme.confdir .. "/icons/square.png"
 -- layout icons
 theme.layout_tile                               = theme.confdir .. "/icons/tile.png"
 theme.layout_tilegaps                           = theme.confdir .. "/icons/tilegaps.png"
@@ -256,15 +265,14 @@ function theme.at_screen_connect(s)
             { -- Left widgets
                 layout = wibox.layout.fixed.horizontal,
                 awesome_icon,
-                arrow_right(theme.black, theme.blue),
-                arrow_right(theme.blue, theme.black),
-                s.mytaglist,
-                arrow_right(theme.dark_grey, theme.white),
-                arrow_right(theme.white, theme.black),
+                -- ugly hacky spacers using invisble arrows...
+                -- TODO do this more elegantly...
+                arrow_right(theme.dark_grey, theme.dark_grey),
                 s.mylayoutbox,
-                arrow_right(theme.black, theme.white),
-                arrow_right(theme.white, theme.dark_grey),
-                -- theme.mpd.widget,
+                arrow_right(theme.dark_grey, theme.dark_grey),
+                arrow_right(theme.dark_grey, theme.blue),
+                s.mytaglist,
+                arrow_right(theme.blue, theme.dark_grey),
             },
             --s.mytasklist, -- Middle widget
             {
@@ -297,15 +305,14 @@ function theme.at_screen_connect(s)
             { -- Left widgets
                 layout = wibox.layout.fixed.horizontal,
                 awesome_icon,
-                arrow_right(theme.black, theme.blue),
-                arrow_right(theme.blue, theme.black),
-                s.mytaglist,
-                arrow_right(theme.dark_grey, theme.white),
-                arrow_right(theme.white, theme.black),
+                -- ugly hacky spacers using invisble arrows...
+                -- TODO do this more elegantly...
+                arrow_right(theme.dark_grey, theme.dark_grey),
                 s.mylayoutbox,
-                arrow_right(theme.black, theme.white),
-                arrow_right(theme.white, theme.dark_grey),
-                -- theme.mpd.widget,
+                arrow_right(theme.dark_grey, theme.dark_grey),
+                arrow_right(theme.dark_grey, theme.blue),
+                s.mytaglist,
+                arrow_right(theme.blue, theme.dark_grey),
             },
             --s.mytasklist, -- Middle widget
             {
@@ -342,15 +349,14 @@ function theme.at_screen_connect(s)
             { -- Left widgets
                 layout = wibox.layout.fixed.horizontal,
                 awesome_icon,
-                arrow_right(theme.black, theme.blue),
-                arrow_right(theme.blue, theme.black),
-                s.mytaglist,
-                arrow_right(theme.dark_grey, theme.white),
-                arrow_right(theme.white, theme.black),
+                -- ugly hacky spacers using invisble arrows...
+                -- TODO do this more elegantly...
+                arrow_right(theme.dark_grey, theme.dark_grey),
                 s.mylayoutbox,
-                arrow_right(theme.black, theme.white),
-                arrow_right(theme.white, theme.dark_grey),
-                -- theme.mpd.widget,
+                arrow_right(theme.dark_grey, theme.dark_grey),
+                arrow_right(theme.dark_grey, theme.blue),
+                s.mytaglist,
+                arrow_right(theme.blue, theme.dark_grey),
             },
             --s.mytasklist, -- Middle widget
             {
@@ -387,15 +393,14 @@ function theme.at_screen_connect(s)
             { -- Left widgets
                 layout = wibox.layout.fixed.horizontal,
                 awesome_icon,
-                arrow_right(theme.black, theme.blue),
-                arrow_right(theme.blue, theme.black),
-                s.mytaglist,
-                arrow_right(theme.dark_grey, theme.white),
-                arrow_right(theme.white, theme.black),
+                -- ugly hacky spacers using invisble arrows...
+                -- TODO do this more elegantly...
+                arrow_right(theme.dark_grey, theme.dark_grey),
                 s.mylayoutbox,
-                arrow_right(theme.black, theme.white),
-                arrow_right(theme.white, theme.dark_grey),
-                -- theme.mpd.widget,
+                arrow_right(theme.dark_grey, theme.dark_grey),
+                arrow_right(theme.dark_grey, theme.blue),
+                s.mytaglist,
+                arrow_right(theme.blue, theme.dark_grey),
             },
             --s.mytasklist, -- Middle widget
             {

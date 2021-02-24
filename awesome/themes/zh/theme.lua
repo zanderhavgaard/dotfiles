@@ -140,7 +140,7 @@ time_clock.font = theme.font
 -- Weather
 theme.weather = lain.widget.weather({
     city_id = 2618425, -- Copenhagen
-    notification_preset = { font = "Terminus 10", fg = theme.fg_normal },
+    notification_preset = { font = theme.font, fg = theme.fg_normal },
     weather_na_markup = markup.fontfg(theme.font, theme.dark_grey, "N/A "),
     settings = function()
         descr = weather_now["weather"][1]["description"]:lower()

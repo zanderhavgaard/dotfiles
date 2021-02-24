@@ -255,7 +255,7 @@ keeb_widget = {
 
 local spotify_widget = awful.widget.watch("bash /home/zander/dotfiles/scripts/sp_status.sh", 5,
     function(widget, stdout)
-        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, stdout))
+        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, " " .. stdout))
     end
 )
 

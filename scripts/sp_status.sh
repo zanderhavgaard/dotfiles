@@ -33,5 +33,5 @@ if [[ $(ps cax | grep -c spotify) > 3 ]] || [[ $(ps cax | grep -c ncspot) > 0 ]]
   setStatusIcon
   echo " $status_icon $(playerctl metadata artist): $(playerctl metadata title) "
 else
-  echo "off"
+  echo " off "
 fi

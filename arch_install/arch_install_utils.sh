@@ -220,6 +220,7 @@ sysstat
 bpytop
 tree
 tokei
+pwgen
 "
 read -p "Install cli_tools? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -369,6 +370,7 @@ duf
 ctop
 lain-git
 awesome-freedesktop-git
+neovim-git
 "
 read -p "Install AUR packages using paru? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

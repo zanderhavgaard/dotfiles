@@ -87,6 +87,7 @@ if hostname == "nostromo" then
         "volumeicon",
         "nextcloud",
         "/opt/piavpn/bin/pia-client",
+        "caffeine",
     }
 elseif hostname == "vostok" then
     wallpaper_path = "/home/zander/Nextcloud/Wallpapers/current"
@@ -99,6 +100,7 @@ elseif hostname == "vostok" then
         "nextcloud",
         "/opt/piavpn/bin/pia-client",
         "blueman-applet",
+        "caffeine",
     }
 elseif hostname == "sulaco" then
     wallpaper_path = "/home/zander/dotfiles/wallpaper"
@@ -109,6 +111,7 @@ elseif hostname == "sulaco" then
         "nm-applet",
         "volumeicon",
         "blueman-applet",
+        "caffeine",
     }
 elseif hostname == "prometheus" then
     wallpaper_path = "/home/zander/wallpaper/walls"
@@ -117,7 +120,8 @@ elseif hostname == "prometheus" then
         "picom --config /home/zander/dotfiles/picom/picom.conf",
         "bash /home/zander/dotfiles/i3lock/start_i3lock.sh",
         "nm-applet",
-        "volumeicon"
+        "volumeicon",
+        "caffeine",
     }
 end
 

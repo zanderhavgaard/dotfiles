@@ -171,6 +171,23 @@ local awesome_icon = wibox.widget.imagebox(theme.awesome_icon)
 -- })
 
 -- Battery
+local sulaco_battery0 = lain.widget.bat({
+    battery = "BAT0",
+    settings = function()
+        local battery_status = "?"
+        if bat_now.status == "N/A" then
+            battery_status = "unknown"
+        elseif bat_now.status == "Discharging" then
+            battery_status = " " .. bat_now.perc .. "%"
+        elseif bat_now.status == "Charging" then
+            battery_status = "ﮣ " .. bat_now.perc .. "%"
+        elseif bat_now.status == "Full" then
+            battery_status = "  " .. bat_now.perc .. "%"
+        end
+        battery_status = " " .. battery_status
+        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, battery_status .. " "))
+    end
+})
 -- internal
 local battery0 = lain.widget.bat({
     battery = "BAT0",
@@ -464,14 +481,9 @@ function theme.at_screen_connect(s)
                 keeb_widget,
                 arrow_left(theme.orange, theme.purple),
                 wibox.container.background(theme.volume.widget, theme.purple),
-                arrow_left(theme.purple, theme.blue),
-
-                arrow_left(theme.orange, theme.blue),
-                wibox.container.background(battery0.widget, theme.blue),
-                arrow_left(theme.blue, theme.green),
-                wibox.container.background(battery1.widget, theme.green),
-                arrow_left(theme.green, theme.dark_grey),
-
+                arrow_left(theme.purple, theme.blue_alt),
+                wibox.container.background(sulaco_battery0.widget, theme.blue_alt),
+                arrow_left(theme.blue_alt, theme.blue),
                 wibox.container.background(kernel_widget, theme.blue),
                 arrow_left(theme.blue, theme.dark_grey),
                 blank_seperator,

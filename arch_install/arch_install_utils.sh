@@ -24,7 +24,7 @@ xorg-xrandr
 "
 read -p "Install i3-wm and xorg? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -S $xorg_windomanager
+    sudo pacman --needed -S $xorg_windomanager
 fi
 
 amd_cpu_gpu_specific="
@@ -35,7 +35,7 @@ opencl-mesa
 "
 read -p "Install packages for AMD CPU + GPU ? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -S $amd_cpu_gpu_specific
+    sudo pacman --needed -S $amd_cpu_gpu_specific
 fi
 
 audio="
@@ -47,7 +47,7 @@ pulseaudio-alsa
 "
 read -p "Install alsa and pulseaudio packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -S $audio
+    sudo pacman --needed -S $audio
 fi
 
 bluetooth="
@@ -59,7 +59,7 @@ libldac
 "
 read -p "Install bluetooth packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -S $bluetooth
+    sudo pacman --needed -S $bluetooth
 fi
 
 bspwn="
@@ -68,7 +68,7 @@ sxhkd
 "
 read -p "Install bspwm packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -S $bspwn
+    sudo pacman --needed -S $bspwn
 fi
 
 awesome="
@@ -77,7 +77,7 @@ luarocks
 "
 read -p "Install awesomewm packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -S $awesome
+    sudo pacman --needed -S $awesome
 fi
 
 qtile="
@@ -86,7 +86,7 @@ python-iwlib
 "
 read -p "Install qtile packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -S $qtile
+    sudo pacman --needed -S $qtile
 fi
 
 xfce="
@@ -94,7 +94,7 @@ xfce4
 "
 read -p "Install xfce packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -S $xfce
+    sudo pacman --needed -S $xfce
 fi
 
 gnome_shell="
@@ -104,7 +104,7 @@ gnome-control-center
 "
 read -p "Install gnome shell packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -S $gnome_shell
+    sudo pacman --needed -S $gnome_shell
 fi
 
 system_libs_utils_misc="
@@ -138,12 +138,10 @@ trayer
 nextcloud-client
 libsecret
 gnome-keyring
-flashfocus
-caffeine-ng
 "
 read -p "Install misc system libs/utils/backends? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -S $system_libs_utils_misc
+    sudo pacman --needed -S $system_libs_utils_misc
 fi
 
 read -p "Setup defaults for UFW? [y/n] " -n 1 -r ; echo
@@ -169,7 +167,7 @@ dmidecode
 "
 read -p "Install virtualization packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -S $virtualization
+    sudo pacman --needed -S $virtualization
     sudo usermod -aG libvirt $USER
     sudo systemctl enable libvirtd
 fi
@@ -225,7 +223,7 @@ pwgen
 "
 read -p "Install cli_tools? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -S $cli_tools
+    sudo pacman --needed -S $cli_tools
 fi
 
 vim_related="
@@ -237,7 +235,7 @@ xsel
 "
 read -p "Install vim packages? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -S $vim_related
+    sudo pacman --needed -S $vim_related
 fi
 
 applications="
@@ -273,7 +271,7 @@ guvcview
 "
 read -p "Install assorted applications, eg. browser/terminal/email? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -S $applications
+    sudo pacman --needed -S $applications
     sudo usermod -aG docker $USER
     sudo systemctl enable docker
 fi
@@ -299,7 +297,7 @@ ansible-lint
 "
 read -p "Install development packags? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -S $development
+    sudo pacman --needed -S $development
 fi
 
 fonts="
@@ -315,7 +313,7 @@ ttf-liberation
 "
 read -p "Install fonts? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -S $fonts
+    sudo pacman --needed -S $fonts
 fi
 
 themes="
@@ -325,7 +323,7 @@ capitaine-cursors
 "
 read -p "Install themes? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -S $themes
+    sudo pacman --needed -S $themes
 fi
 
 read -p "Install paru AUR-helper? [y/n] " -n 1 -r ; echo
@@ -372,6 +370,8 @@ ctop
 lain-git
 awesome-freedesktop-git
 neovim-git
+flashfocus-git
+caffeine-ng
 "
 read -p "Install AUR packages using paru? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

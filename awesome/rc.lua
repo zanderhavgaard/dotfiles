@@ -189,7 +189,7 @@ awful.layout.layouts = {
     -- more layouts from the lain package
     -- lain.layout.cascade,
     -- lain.layout.cascade.tile,
-    -- lain.layout.centerwork,
+    lain.layout.centerwork,
     -- lain.layout.centerwork.horizontal,
     -- lain.layout.termfair,
     -- lain.layout.termfair.center,

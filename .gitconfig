@@ -73,6 +73,6 @@
     # push
     p = push
     # force push
-    fp = push --force
+    fp = push --force-with-lease
     # clean interactively
     ci = clean -i

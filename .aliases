@@ -4,6 +4,8 @@
 # (_)/_/ \_\|____||___|/_/ \_\|___/|___||___/
 #
 
+alias k="kubectl"
+
 alias tfredep="echo '--> Destroying infrastructure ...' && terraform destroy -auto-approve && echo '--> Done destroying infrastructure!' && echo '--> Creating infrastructure ...' && terraform apply -auto-approve && echo '--> Done creating infrastructure!'"
 
 # fix laptop keyboard

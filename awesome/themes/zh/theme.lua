@@ -1,12 +1,12 @@
 --[[
-
-     @zanderhavgaard's theme
-     based on multicolor theme from github.com/lcpz
-
+    @zanderhavgaard's theme
+    based on multicolor theme from github.com/lcpz
+    requires both lain and vicious to be installed
 --]]
 
 local gears = require("gears")
 local lain  = require("lain")
+local vicious = require("vicious")
 local awful = require("awful")
 local wibox = require("wibox")
 local dpi   = require("beautiful.xresources").apply_dpi
@@ -187,53 +187,55 @@ local sulaco_battery0 = lain.widget.bat({
     settings = function()
         local battery_status = "?"
         if bat_now.status == "N/A" then
-            battery_status = "unknown"
+            battery_status = "unknown "
         elseif bat_now.status == "Discharging" then
-            battery_status = " " .. bat_now.perc .. "%"
+            battery_status = " "
         elseif bat_now.status == "Charging" then
-            battery_status = "ﮣ " .. bat_now.perc .. "%"
+            battery_status = "ﮣ "
         elseif bat_now.status == "Full" then
-            battery_status = "  " .. bat_now.perc .. "%"
+            battery_status = "  "
         end
-        battery_status = " " .. battery_status
-        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, battery_status .. " "))
+        battery_status = battery_status .. bat_now.perc .. "%"
+        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, " " .. battery_status .. " "))
     end
 })
 -- internal
 local vostok_battery0 = lain.widget.bat({
+    timeout = 5,
     battery = "BAT0",
     settings = function()
         local battery_name = "int"
-        local battery_status = "inactive"
+        local battery_status = ""
         if bat_now.status == "N/A" then
-            battery_status = "unknown"
+            battery_status = "unknown "
         elseif bat_now.status == "Discharging" then
-            battery_status = " " .. bat_now.perc .. "%"
+            battery_status = " "
         elseif bat_now.status == "Charging" then
-            battery_status = "ﮣ " .. bat_now.perc .. "%"
+            battery_status = "ﮣ "
         elseif bat_now.status == "Full" then
-            battery_status = "  " .. bat_now.perc .. "%"
+            battery_status = "  "
         end
-        battery_status = battery_name .. " " .. battery_status
+        battery_status = battery_name .. " " .. battery_status .. bat_now.perc .. "%"
         widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, " " .. battery_status .. " "))
     end
 })
 -- external
 local vostok_battery1 = lain.widget.bat({
+    timeout = 5,
     battery = "BAT1",
     settings = function()
         local battery_name = "ext"
-        local battery_status = "inactive"
+        local battery_status = ""
         if bat_now.status == "N/A" then
-            battery_status = "unknown"
+            battery_status = "unknown "
         elseif bat_now.status == "Discharging" then
-            battery_status = " " .. bat_now.perc .. "%"
+            battery_status = " "
         elseif bat_now.status == "Charging" then
-            battery_status = "ﮣ " .. bat_now.perc .. "%"
+            battery_status = "ﮣ "
         elseif bat_now.status == "Full" then
-            battery_status = "  " .. bat_now.perc .. "%"
+            battery_status = "  "
         end
-        battery_status = battery_name .. " " .. battery_status
+        battery_status = battery_name .. " " .. battery_status .. bat_now.perc .. "%"
         widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, " " .. battery_status .. " "))
     end
 })
@@ -299,6 +301,36 @@ awful.spawn.easy_async("bash /home/zander/dotfiles/scripts/print_osicon_kernel.s
         kernel_widget.markup = markup.fontfg(theme.font, theme.dark_grey, kernel_text)
     end
 )
+
+
+-- wifi widget
+local vostok_wifi_widget = wibox.widget.textbox()
+vicious.register(vostok_wifi_widget, vicious.widgets.wifi,
+    function (widget, args)
+        local wifi_text = ""
+        if args["{link}"] == 0 then
+            wifi_text = "睊"
+        else
+            wifi_text = "直 " .. args["{ssid}"]
+        end
+        return markup.fontfg(theme.font, theme.dark_grey, " " .. wifi_text .. " ")
+    end,
+    5, "wlp4s0")
+
+-- ethernet widget
+local vostok_eth_widget = wibox.widget.textbox()
+vicious.register(vostok_eth_widget, vicious.widgets.net,
+    function (widget, args)
+        local eth_text = ""
+        if args["{ip}"] == nil then
+            eth_text = ""
+        else
+            eth_text = " " .. args["{ip}"]
+        end
+        return markup.fontfg(theme.font, theme.dark_grey, " " .. eth_text .. " ")
+    end,
+    5, "enp0s31f6")
+
 
 -- setup the actual bar
 function theme.at_screen_connect(s)
@@ -440,11 +472,15 @@ function theme.at_screen_connect(s)
                 keeb_widget,
                 arrow_left(theme.orange, theme.purple),
                 wibox.container.background(theme.volume.widget, theme.purple),
-                arrow_left(theme.purple, theme.blue_alt),
-                wibox.container.background(vostok_battery0.widget, theme.blue_alt),
-                arrow_left(theme.blue_alt, theme.purple_alt),
-                wibox.container.background(vostok_battery1.widget, theme.purple_alt),
-                arrow_left(theme.purple_alt, theme.blue),
+                arrow_left(theme.purple, theme.red),
+                wibox.container.background(vostok_eth_widget, theme.red),
+                arrow_left(theme.red, theme.green),
+                wibox.container.background(vostok_wifi_widget, theme.green),
+                arrow_left(theme.green, theme.orange),
+                wibox.container.background(vostok_battery0.widget, theme.orange),
+                arrow_left(theme.orange, theme.cyan),
+                wibox.container.background(vostok_battery1.widget, theme.cyan),
+                arrow_left(theme.cyan, theme.blue),
                 wibox.container.background(kernel_widget, theme.blue),
                 arrow_left(theme.blue, theme.dark_grey),
                 blank_seperator,
@@ -453,9 +489,6 @@ function theme.at_screen_connect(s)
                 wibox.widget.systray(),
             },
         }
-
-
-
 
     elseif hostname == "sulaco" then
         s.mywibox:setup {
@@ -506,59 +539,3 @@ function theme.at_screen_connect(s)
 end
 
 return theme
-
-
-
-
-
-
-    -- s.mytaglist = awful.widget.taglist({
-            -- screen = s,
-            -- filter = awful.widget.taglist.filter.all,
-            -- buttons = awful.util.taglist_buttons,
-            -- style = {
-                -- shape = gears.shape.powerline,
-            -- },
-            -- layout   = {
-                -- spacing = -12,
-                -- spacing_widget = {
-                    -- color  = theme.white,
-                    -- shape  = gears.shape.powerline,
-                    -- widget = wibox.widget.separator,
-                -- },
-                -- layout  = wibox.layout.fixed.horizontal
-            -- },
-            -- widget_template = {
-                -- {
-                    -- {
-                        -- {
-                            -- {
-                                -- id     = 'index_role',
-                                -- widget = wibox.widget.textbox,
-                            -- },
-                            -- margins = 4,
-                            -- widget  = wibox.container.margin,
-                        -- },
-                        -- bg     = '#dddddd',
-                        -- shape  = gears.shape.circle,
-                        -- widget = wibox.container.background,
-                    -- },
-                    -- {
-                        -- {
-                            -- id     = 'icon_role',
-                            -- widget = wibox.widget.imagebox,
-                        -- },
-                        -- margins = 2,
-                        -- widget  = wibox.container.margin,
-                    -- },
-                    -- {
-                        -- id     = 'text_role',
-                        -- widget = wibox.widget.textbox,
-                    -- },
-                    -- layout = wibox.layout.fixed.horizontal,
-                -- },
-                -- left  = 18,
-                -- right = 18,
-                -- widget = wibox.container.margin
-            -- },
-        -- })

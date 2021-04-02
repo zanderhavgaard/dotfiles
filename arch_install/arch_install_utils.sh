@@ -321,6 +321,7 @@ themes="
 arc-gtk-theme
 arc-icon-theme
 capitaine-cursors
+materia-gtk-theme
 "
 read -p "Install themes? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -373,6 +374,7 @@ awesome-freedesktop-git
 neovim-git
 flashfocus-git
 caffeine-ng
+papirus-icon-theme-git
 "
 read -p "Install AUR packages using paru? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

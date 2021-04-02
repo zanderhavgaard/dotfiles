@@ -189,13 +189,13 @@ local sulaco_battery0 = lain.widget.bat({
         if bat_now.status == "N/A" then
             battery_status = "unknown "
         elseif bat_now.status == "Discharging" then
-            battery_status = " "
+            battery_status = " "
         elseif bat_now.status == "Charging" then
-            battery_status = "ﮣ "
+            battery_status = " ﮣ"
         elseif bat_now.status == "Full" then
-            battery_status = "  "
+            battery_status = "  "
         end
-        battery_status = battery_status .. bat_now.perc .. "%"
+        battery_status = bat_now.perc .. "% " .. battery_status
         widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, " " .. battery_status .. " "))
     end
 })
@@ -209,13 +209,13 @@ local vostok_battery0 = lain.widget.bat({
         if bat_now.status == "N/A" then
             battery_status = "unknown "
         elseif bat_now.status == "Discharging" then
-            battery_status = " "
+            battery_status = " "
         elseif bat_now.status == "Charging" then
-            battery_status = "ﮣ "
+            battery_status = " ﮣ"
         elseif bat_now.status == "Full" then
-            battery_status = "  "
+            battery_status = "  "
         end
-        battery_status = battery_name .. " " .. battery_status .. bat_now.perc .. "%"
+        battery_status = battery_name .. " " .. bat_now.perc .. "%" .. battery_status
         widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, " " .. battery_status .. " "))
     end
 })
@@ -229,13 +229,13 @@ local vostok_battery1 = lain.widget.bat({
         if bat_now.status == "N/A" then
             battery_status = "unknown "
         elseif bat_now.status == "Discharging" then
-            battery_status = " "
+            battery_status = " "
         elseif bat_now.status == "Charging" then
-            battery_status = "ﮣ "
+            battery_status = " ﮣ"
         elseif bat_now.status == "Full" then
-            battery_status = "  "
+            battery_status = "  "
         end
-        battery_status = battery_name .. " " .. battery_status .. bat_now.perc .. "%"
+        battery_status = battery_name .. " " .. bat_now.perc .. "%" .. battery_status
         widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, " " .. battery_status .. " "))
     end
 })

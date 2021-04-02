@@ -529,10 +529,17 @@ globalkeys = my_table.join(
         end,
         {description = "decrease volume", group = "media contols"}),
 
-    -- toggle mute
+    -- toggle audio mute
     awful.key({}, "XF86AudioMute",
         function ()
             awful.spawn("amixer set Master toggle")
+        end,
+        {description = "toggle mute", group = "media controls"}),
+
+    -- toggle mic mute
+    awful.key({}, "XF86AudioMicMute",
+        function ()
+            awful.spawn("amixer set Capture toggle")
         end,
         {description = "toggle mute", group = "media controls"})
 

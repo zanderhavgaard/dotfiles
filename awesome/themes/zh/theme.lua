@@ -317,6 +317,19 @@ vicious.register(vostok_wifi_widget, vicious.widgets.wifi,
     end,
     5, "wlp4s0")
 
+local sulaco_wifi_widget = wibox.widget.textbox()
+vicious.register(vostok_wifi_widget, vicious.widgets.wifi,
+    function (widget, args)
+        local wifi_text = ""
+        if args["{link}"] == 0 then
+            wifi_text = "睊"
+        else
+            wifi_text = "直 " .. args["{ssid}"]
+        end
+        return markup.fontfg(theme.font, theme.dark_grey, " " .. wifi_text .. " ")
+    end,
+    5, "wlp0s20f3")
+
 -- ethernet widget
 local vostok_eth_widget = wibox.widget.textbox()
 vicious.register(vostok_eth_widget, vicious.widgets.net,
@@ -331,6 +344,18 @@ vicious.register(vostok_eth_widget, vicious.widgets.net,
     end,
     5, "enp0s31f6")
 
+local sulaco_eth_widget = wibox.widget.textbox()
+vicious.register(vostok_eth_widget, vicious.widgets.net,
+    function (widget, args)
+        local eth_text = ""
+        if args["{ip}"] == nil then
+            eth_text = ""
+        else
+            eth_text = " " .. args["{ip}"]
+        end
+        return markup.fontfg(theme.font, theme.dark_grey, " " .. eth_text .. " ")
+    end,
+    5, "enp0s31f6")
 
 -- setup the actual bar
 function theme.at_screen_connect(s)
@@ -522,7 +547,11 @@ function theme.at_screen_connect(s)
                 keeb_widget,
                 arrow_left(theme.orange, theme.purple),
                 wibox.container.background(theme.volume.widget, theme.purple),
-                arrow_left(theme.purple, theme.blue_alt),
+                arrow_left(theme.purple, theme.red),
+                wibox.container.background(vostok_eth_widget, theme.red),
+                arrow_left(theme.red, theme.green),
+                wibox.container.background(vostok_wifi_widget, theme.green),
+                arrow_left(theme.green, theme.blue_alt),
                 wibox.container.background(sulaco_battery0.widget, theme.blue_alt),
                 arrow_left(theme.blue_alt, theme.blue),
                 wibox.container.background(kernel_widget, theme.blue),

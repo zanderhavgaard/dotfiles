@@ -375,6 +375,7 @@ neovim-git
 flashfocus-git
 caffeine-ng
 papirus-icon-theme-git
+kind
 "
 read -p "Install AUR packages using paru? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

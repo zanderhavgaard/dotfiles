@@ -444,6 +444,18 @@ globalkeys = my_table.join(
         end,
         {description = "lock the screen", group = "launcher"}),
 
+    -- switch keyboard language
+    awful.key({modkey, shiftkey, controlkey}, "d",
+        function()
+            awful.spawn("setxkbmap dk")
+        end,
+        {description = "switch to dk keyboard", group = "launcher"}),
+    awful.key({modkey, shiftkey, controlkey}, "u",
+        function()
+            awful.spawn("setxkbmap us")
+        end,
+        {description = "switch to us keyboard", group = "launcher"}),
+
     -- screen brightness {{{
 
     -- increase brightness

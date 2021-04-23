@@ -175,6 +175,7 @@ fi
 
 
 cli_tools="
+wget
 diff-so-fancy
 exa
 bat
@@ -244,6 +245,7 @@ zsh
 git
 alacritty
 firefox
+chromium
 qutebrowser
 vimb
 thunderbird

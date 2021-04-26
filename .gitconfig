@@ -76,3 +76,7 @@
     fp = push --force-with-lease
     # clean interactively
     ci = clean -i
+    # small log output
+    l = log -n 5
+    # get sha of last commit on current branch
+    sha = rev-parse HEAD

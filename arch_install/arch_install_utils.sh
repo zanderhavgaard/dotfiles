@@ -378,8 +378,9 @@ flashfocus-git
 caffeine-ng
 papirus-icon-theme-git
 kind
-hadolint-bin
-tflint-bin
+hadolint
+tflint
+tfsec
 "
 read -p "Install AUR packages using paru? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

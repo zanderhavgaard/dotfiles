@@ -193,10 +193,10 @@ local sulaco_battery0 = lain.widget.bat({
         elseif bat_now.status == "Charging" then
             battery_status = " ﮣ"
         elseif bat_now.status == "Full" then
-            battery_status = "  "
+            battery_status = ""
         end
         battery_status = bat_now.perc .. "% " .. battery_status
-        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, " " .. battery_status .. " "))
+        widget:set_markup(markup.fontfg(theme.font, theme.dark_grey, " bat: " .. battery_status .. " "))
     end
 })
 -- internal

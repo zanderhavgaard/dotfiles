@@ -297,6 +297,7 @@ yamllint
 python-cookiecutter
 ansible
 ansible-lint
+shfmt
 "
 read -p "Install development packags? [y/n] " -n 1 -r ; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then

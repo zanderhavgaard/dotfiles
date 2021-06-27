@@ -10,7 +10,6 @@ echo -e "
 
 echo -e "\nInstall utils ...?\n"
 
-
 xorg_windomanager="
 i3-gaps
 lightdm
@@ -22,7 +21,8 @@ xorg-apps
 xorg-xinit
 xorg-xrandr
 "
-read -p "Install i3-wm and xorg? [y/n] " -n 1 -r ; echo
+read -p "Install i3-wm and xorg? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman --needed -S $xorg_windomanager
 fi
@@ -33,7 +33,8 @@ xf86-video-amdgpu
 vulkan-radeon
 opencl-mesa
 "
-read -p "Install packages for AMD CPU + GPU ? [y/n] " -n 1 -r ; echo
+read -p "Install packages for AMD CPU + GPU ? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman --needed -S $amd_cpu_gpu_specific
 fi
@@ -45,7 +46,8 @@ alsa-lib
 pulseaudio
 pulseaudio-alsa
 "
-read -p "Install alsa and pulseaudio packages? [y/n] " -n 1 -r ; echo
+read -p "Install alsa and pulseaudio packages? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman --needed -S $audio
 fi
@@ -57,7 +59,8 @@ blueman
 pulseaudio-bluetooth
 libldac
 "
-read -p "Install bluetooth packages? [y/n] " -n 1 -r ; echo
+read -p "Install bluetooth packages? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman --needed -S $bluetooth
 fi
@@ -66,7 +69,8 @@ bspwn="
 bspwm
 sxhkd
 "
-read -p "Install bspwm packages? [y/n] " -n 1 -r ; echo
+read -p "Install bspwm packages? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman --needed -S $bspwn
 fi
@@ -76,7 +80,8 @@ awesome
 luarocks
 vicious
 "
-read -p "Install awesomewm packages? [y/n] " -n 1 -r ; echo
+read -p "Install awesomewm packages? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman --needed -S $awesome
 fi
@@ -85,7 +90,8 @@ qtile="
 qtile
 python-iwlib
 "
-read -p "Install qtile packages? [y/n] " -n 1 -r ; echo
+read -p "Install qtile packages? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman --needed -S $qtile
 fi
@@ -93,7 +99,8 @@ fi
 xfce="
 xfce4
 "
-read -p "Install xfce packages? [y/n] " -n 1 -r ; echo
+read -p "Install xfce packages? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman --needed -S $xfce
 fi
@@ -103,7 +110,8 @@ gnome-shell
 gnome-tweaks
 gnome-control-center
 "
-read -p "Install gnome shell packages? [y/n] " -n 1 -r ; echo
+read -p "Install gnome shell packages? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman --needed -S $gnome_shell
 fi
@@ -140,12 +148,14 @@ nextcloud-client
 libsecret
 gnome-keyring
 "
-read -p "Install misc system libs/utils/backends? [y/n] " -n 1 -r ; echo
+read -p "Install misc system libs/utils/backends? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman --needed -S $system_libs_utils_misc
 fi
 
-read -p "Setup defaults for UFW? [y/n] " -n 1 -r ; echo
+read -p "Setup defaults for UFW? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     # setup ufw
     sudo ufw default deny incoming
@@ -166,13 +176,13 @@ ebtables
 iptables
 dmidecode
 "
-read -p "Install virtualization packages? [y/n] " -n 1 -r ; echo
+read -p "Install virtualization packages? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman --needed -S $virtualization
     sudo usermod -aG libvirt $USER
     sudo systemctl enable libvirtd
 fi
-
 
 cli_tools="
 wget
@@ -223,7 +233,8 @@ tree
 tokei
 pwgen
 "
-read -p "Install cli_tools? [y/n] " -n 1 -r ; echo
+read -p "Install cli_tools? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman --needed -S $cli_tools
 fi
@@ -235,7 +246,8 @@ vim
 ctags
 xsel
 "
-read -p "Install vim packages? [y/n] " -n 1 -r ; echo
+read -p "Install vim packages? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman --needed -S $vim_related
 fi
@@ -272,7 +284,8 @@ signal-desktop
 falkon
 guvcview
 "
-read -p "Install assorted applications, eg. browser/terminal/email? [y/n] " -n 1 -r ; echo
+read -p "Install assorted applications, eg. browser/terminal/email? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman --needed -S $applications
     sudo usermod -aG docker $USER
@@ -297,8 +310,10 @@ yamllint
 python-cookiecutter
 ansible
 ansible-lint
+shfmt
 "
-read -p "Install development packags? [y/n] " -n 1 -r ; echo
+read -p "Install development packags? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman --needed -S $development
 fi
@@ -314,7 +329,8 @@ ttf-bitstream-vera
 ttf-droid
 ttf-liberation
 "
-read -p "Install fonts? [y/n] " -n 1 -r ; echo
+read -p "Install fonts? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman --needed -S $fonts
 fi
@@ -325,12 +341,14 @@ arc-icon-theme
 capitaine-cursors
 materia-gtk-theme
 "
-read -p "Install themes? [y/n] " -n 1 -r ; echo
+read -p "Install themes? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo pacman --needed -S $themes
 fi
 
-read -p "Install paru AUR-helper? [y/n] " -n 1 -r ; echo
+read -p "Install paru AUR-helper? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     mkdir -p ~/Applications
     git clone https://aur.archlinux.org/paru.git ~/Applications/paru
@@ -342,7 +360,8 @@ fi
 aur_bluetooth="
 pulseaudio-modules-bt
 "
-read -p "Install bluetooth-specific AUR packages using paru? [y/n] " -n 1 -r ; echo
+read -p "Install bluetooth-specific AUR packages using paru? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     paru -S $aur_bluetooth
 fi
@@ -383,14 +402,16 @@ tflint
 tfsec
 goneovim-bin
 luacheck
+dive
 "
-read -p "Install AUR packages using paru? [y/n] " -n 1 -r ; echo
+read -p "Install AUR packages using paru? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     paru -S $aur
 fi
 
-
-read -p "Create directories for Applications/python venvs? [y/n] " -n 1 -r ; echo
+read -p "Create directories for Applications/python venvs? [y/n] " -n 1 -r
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     # create dir for virtualenvs
     mkdir ~/.virtualenvs

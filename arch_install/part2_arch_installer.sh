@@ -228,7 +228,7 @@ if [ "$INSTALL_GUI" = "yes" ] ; then
   pacman --noconfirm -S xorg xorg-server xorg-apps xorg-xinit xorg-xrandr arandr
 
   pmsg "Installing i3 window manager ..."
-  pacman --noconfirm -S i3-gaps i3lock-color i3status rxvt-unicode
+  pacman --noconfirm -S i3-gaps i3lock i3status rxvt-unicode alacritty
 
   pmsg "Instlling audio alsa and pulseaudio ..."
   pacman --noconfirm -S alsa-utils alsa-plugins alsa-lib pulseaudio pulseaudio-alsa

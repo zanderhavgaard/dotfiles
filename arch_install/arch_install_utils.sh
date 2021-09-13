@@ -370,7 +370,7 @@ fi
 aur="
 librewolf-bin
 antigen-git
-bonsai.sh-git
+cbonsai
 cava
 cli-visualizer
 figlet-fonts

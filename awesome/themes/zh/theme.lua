@@ -38,10 +38,10 @@ theme.transparent = "alpha"
 -- custom vars
 theme.bar_background = theme.dark_grey
 theme.bar_foreground = theme.white
-theme.bar_height = dpi(15)
+theme.bar_height = dpi(25)
 -- configure theme
 theme.confdir = os.getenv("HOME") .. "/.config/awesome/themes/zh"
-theme.font = "Mononoki Nerd Font 8"
+theme.font = "Mononoki Nerd Font 12"
 theme.menu_bg_normal = theme.dark_grey
 theme.menu_bg_focus = theme.dark_grey
 theme.fg_normal = theme.white

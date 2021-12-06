@@ -56,7 +56,7 @@ ln -sv $dfd/neofetch/config.conf $cfd/neofetch/config.conf
 
 echo -e "\nSymlinking rofi config ..."
 rm $cfd/rofi/config
-ln -sv $dfd/rofi/config $cfd/rofi/config
+ln -sv $dfd/rofi/config.rasi $cfd/rofi/config.rasi
 
 echo -e "\nSymlinking git congfig ..."
 rm ~/.gitconfig

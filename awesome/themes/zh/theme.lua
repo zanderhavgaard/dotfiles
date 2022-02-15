@@ -328,7 +328,7 @@ vicious.register(
         end
         return markup.fontfg(theme.font, theme.green, " " .. wifi_text .. " ")
     end,
-    5,
+    10,
     "wlp4s0"
 )
 
@@ -345,7 +345,7 @@ vicious.register(
         end
         return markup.fontfg(theme.font, theme.green, " " .. wifi_text .. " ")
     end,
-    5,
+    10,
     "wlp0s20f3"
 )
 
@@ -363,7 +363,7 @@ vicious.register(
         end
         return markup.fontfg(theme.font, theme.red, " " .. eth_text .. " ")
     end,
-    5,
+    10,
     "enp0s31f6"
 )
 
@@ -380,7 +380,7 @@ vicious.register(
         end
         return markup.fontfg(theme.font, theme.red, " " .. eth_text .. " ")
     end,
-    5,
+    10,
     "enp0s31f6"
 )
 

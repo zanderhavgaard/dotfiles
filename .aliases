@@ -44,6 +44,7 @@ alias to_clipboard="xclip -i -selection c"
 alias lts="bash /home/zander/dotfiles/xrandr/only_laptop"
 alias xrandr_only_laptop="bash /home/zander/dotfiles/xrandr/only_laptop"
 alias xrandr_office_desk="bash /home/zander/dotfiles/xrandr/office_desk.sh"
+alias xrandr_office_desk2="bash /home/zander/dotfiles/xrandr/office_desk.sh"
 alias xrandr_nr_desk="bash /home/zander/dotfiles/xrandr/nr_office_desk.sh"
 
 

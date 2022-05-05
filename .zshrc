@@ -72,6 +72,9 @@ source ~/.env-local
 autoload -Uz compinit
 compinit
 
+# init zoxide
+eval "$(zoxide init zsh)"
+
 # btw I use Arch...
 pfetch
 

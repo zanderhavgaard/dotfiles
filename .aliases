@@ -95,6 +95,9 @@ alias cat="bat"
 alias ls="exa --icons"
 alias l="exa --icons --git -alh"
 
+# use zoxide over cd
+alias cd="z"
+
 # add a newline before neofetch
 alias neofetch="echo -e \"\n\" && neofetch"
 

@@ -3,50 +3,24 @@
     name = zanderhavgaard
 
 [core]
-    ; pager = cat
-    pager = diff-so-fancy | less --tabs=4 -RFX
-    ; pager = delta --theme='OneHalfDark'
+    pager = less --tabs=4 -RFX
     editor = nvim
+
+[diff]
+        tool = difftastic
+	external = difft
+
+[difftool]
+        prompt = false
+
+[difftool "difftastic"]
+        cmd = difft "$LOCAL" "$REMOTE"
 
 [pull]
 	rebase = false
 
-# url shorthands
-[url "git@github.com:"]
-    insteadOf = gh:
-[url "https://gist.github.com/"]
-    insteadOf = gist:
-[url "https://bitbucket.org/"]
-    insteadOf = bb:
-[url "https://gitlab.com/"]
-    insteadOf = gl:
-
 [color]
     ui = true
-
-[color "branch"]
-    current = green
-    local = white
-    remote = yellow
-
-[color "diff"]
-    meta = 11
-    frag = magenta bold
-    commit = yellow bold
-    old = red bold
-    new = green bold
-    whitespace = red reverse
-
-[color "diff-highlight"]
-    oldNormal = red bold
-    newNormal = green bold
-    oldHighlight = red bold 52
-    newHighlight = green bold 22
-
-[color "status"]
-    added = yellow
-    changed = green
-    untracked = red
 
 # aliases
 [alias]

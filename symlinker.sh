@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 echo -e "
 ░█▀▀░█░█░█▄█░█░░░▀█▀░█▀█░█░█░█▀▀░█▀▄
@@ -12,6 +12,8 @@ user="zander"
 dfd="/home/$user/dotfiles"
 # config files directory
 cfd="/home/$user/.config"
+# .local directory
+ldf="/home/$user/.local"
 
 echo -e "\nSymlinking .aliases ..."
 rm ~/.aliases
@@ -39,8 +41,7 @@ ln -sv $dfd/kitty/kitty.conf $cfd/kitty/kitty.conf
 
 echo -e "\nSymlinking alacritty config ..."
 rm $cfd/alacritty/alacritty.yml
-ln -sv $dfd/alacritty $cfd/alacritty
-ln -sv $cfd/alacritty/alacritty_dark.yml $cfd/alacritty.yml
+ln -sv $dfd/alacritty/alacritty.yml $cfd/alacritty/alacritty.yml
 
 echo -e "\nSymlinking i3 config ..."
 rm -r $cfd/i3/*
@@ -56,7 +57,10 @@ ln -sv $dfd/neofetch/config.conf $cfd/neofetch/config.conf
 
 echo -e "\nSymlinking rofi config ..."
 rm $cfd/rofi/config
+rm $cfd/rofi/config.rasi
+rm $ldf/share/rofi/themes/catppuccin.rasi
 ln -sv $dfd/rofi/config.rasi $cfd/rofi/config.rasi
+ln -sv $dfd/rofi/catppuccin.rasi $ldf/share/rofi/themes/catppuccin.rasi
 
 echo -e "\nSymlinking git congfig ..."
 rm ~/.gitconfig

@@ -1,4 +1,4 @@
-  /* catpuccin colorscheme: https://github.com/catppuccin/rofi */
+  /* based on catpuccin colorscheme: https://github.com/catppuccin/rofi */
 
  configuration{
     modi: "run,drun,window";
@@ -18,7 +18,7 @@
     sidebar-mode: true;
 }
 
-@theme "catppuccin"
+@theme "onedark"
 
 element-text, element-icon , mode-switcher {
     background-color: inherit;
@@ -102,4 +102,3 @@ button selected {
   background-color: @bg-col;
   text-color: @blue;
 }
-

@@ -58,9 +58,9 @@ ln -sv $dfd/neofetch/config.conf $cfd/neofetch/config.conf
 echo -e "\nSymlinking rofi config ..."
 rm $cfd/rofi/config
 rm $cfd/rofi/config.rasi
-rm $ldf/share/rofi/themes/catppuccin.rasi
+rm $ldf/share/rofi/themes/onedark.rasi
 ln -sv $dfd/rofi/config.rasi $cfd/rofi/config.rasi
-ln -sv $dfd/rofi/catppuccin.rasi $ldf/share/rofi/themes/catppuccin.rasi
+ln -sv $dfd/rofi/onedark.rasi $ldf/share/rofi/themes/onedark.rasi
 
 echo -e "\nSymlinking git congfig ..."
 rm ~/.gitconfig

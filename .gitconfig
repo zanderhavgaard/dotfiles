@@ -6,15 +6,15 @@
     pager = less --tabs=4 -RFX
     editor = nvim
 
-[diff]
-        tool = difftastic
-	external = difft
+; [diff]
+        ; tool = difftastic
+	; external = difft
 
-[difftool]
-        prompt = false
+; [difftool]
+        ; prompt = false
 
-[difftool "difftastic"]
-        cmd = difft "$LOCAL" "$REMOTE"
+; [difftool "difftastic"]
+        ; cmd = difft "$LOCAL" "$REMOTE"
 
 [pull]
 	rebase = false
@@ -51,6 +51,6 @@
     # clean interactively
     ci = clean -i
     # small log output
-    l = !git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all -n 10
+    l = !git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative -n 10
     # get sha of last commit on current branch
     sha = rev-parse HEAD

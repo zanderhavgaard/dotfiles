@@ -37,7 +37,7 @@ antigen bundle fzf
 antigen bundle python
 
 # plugins
-antigen bundle zdharma/fast-syntax-highlighting
+antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle "MichaelAquilina/zsh-autoswitch-virtualenv"
 antigen bundle hlissner/zsh-autopair

@@ -101,6 +101,116 @@ https://www.youtube.com/watch?v=w0jyU13gtBs
 https://www.youtube.com/watch?v=aXMX0sAL9bQ
 "
 
+enter_dystopia_records="
+https://www.youtube.com/watch?v=Yx5Q1N8Tiu8
+https://www.youtube.com/watch?v=KS2mRR9EA4c
+https://www.youtube.com/watch?v=gFTBNgZ9T3o
+https://www.youtube.com/watch?v=ebNb7z6_OQY
+https://www.youtube.com/watch?v=Gv3srScpOes
+https://www.youtube.com/watch?v=J9Y4MSSxld4
+https://www.youtube.com/watch?v=fF19V5KnJlg
+https://www.youtube.com/watch?v=5dHJUmQZwGA
+https://www.youtube.com/watch?v=2KoRKanghuo
+https://www.youtube.com/watch?v=9fQQqz94alI
+https://www.youtube.com/watch?v=YbLTzkoMb-s
+https://www.youtube.com/watch?v=pkLy14BO8U0
+https://www.youtube.com/watch?v=oCCaQLjW12U
+https://www.youtube.com/watch?v=S4FgYsB9LC8
+https://www.youtube.com/watch?v=nBvHKTljHqE
+https://www.youtube.com/watch?v=E3R8FhK2jfY
+https://www.youtube.com/watch?v=MnXbRJUEYmQ
+https://www.youtube.com/watch?v=Bd1yJ1B-stA
+https://www.youtube.com/watch?v=cz3kfT9mpiE
+https://www.youtube.com/watch?v=z6VtGv1sOMI
+https://www.youtube.com/watch?v=UcpNOJJceXY
+https://www.youtube.com/watch?v=WO78DDfNJcI
+https://www.youtube.com/watch?v=piFCQ4gGwZ4
+https://www.youtube.com/watch?v=PI6JNj4XnjM
+https://www.youtube.com/watch?v=3GGipHLNX4w
+https://www.youtube.com/watch?v=BJb_i6_SO-8
+https://www.youtube.com/watch?v=cjvl-mjuT5k
+https://www.youtube.com/watch?v=M8M8etl4DzM
+https://www.youtube.com/watch?v=m6YKWZd1vus
+https://www.youtube.com/watch?v=Yw0Er8lTyn8
+https://www.youtube.com/watch?v=fbgT0vCuANs
+https://www.youtube.com/watch?v=NW2RUxrtTuE
+https://www.youtube.com/watch?v=25o-sDMil0o
+https://www.youtube.com/watch?v=EPBfoB6DTjE
+https://www.youtube.com/watch?v=6ihuwXy2MtU
+https://www.youtube.com/watch?v=msh5xdDo3f8
+https://www.youtube.com/watch?v=jWLlVO5fVqA
+https://www.youtube.com/watch?v=Ia5KDvCE1-s
+https://www.youtube.com/watch?v=ThGu7SkhDak
+https://www.youtube.com/watch?v=DBwfv4JXtRE
+https://www.youtube.com/watch?v=9clsAa9ypi8
+https://www.youtube.com/watch?v=bCbQXb2xPpA
+https://www.youtube.com/watch?v=QkjHKPRrFII
+https://www.youtube.com/watch?v=kOWPCZ7CnNU
+https://www.youtube.com/watch?v=hUumqcL7f2o
+https://www.youtube.com/watch?v=bfr73A9Cr_A
+https://www.youtube.com/watch?v=5rEADN2IJ9k
+https://www.youtube.com/watch?v=LyHjSz3ZGeI
+https://www.youtube.com/watch?v=M0qybbtAu8s
+https://www.youtube.com/watch?v=HR4dD-bDj0o
+https://www.youtube.com/watch?v=Xj56R731QnY
+https://www.youtube.com/watch?v=IENfuV_-924
+https://www.youtube.com/watch?v=vwimxTQ2O4g
+https://www.youtube.com/watch?v=vwimxTQ2O4g
+https://www.youtube.com/watch?v=pfaOxu8ZKzk
+https://www.youtube.com/watch?v=IVO05agHB_4
+https://www.youtube.com/watch?v=xpeq_oJQNpc
+https://www.youtube.com/watch?v=KjC-mstZXd8
+https://www.youtube.com/watch?v=TZNYylQRV7E
+https://www.youtube.com/watch?v=R6AiU2w1Fxk
+https://www.youtube.com/watch?v=V5ru5t2Tz1U
+https://www.youtube.com/watch?v=3ooPLnToOSE
+https://www.youtube.com/watch?v=KQATTSmMxYc
+https://www.youtube.com/watch?v=nn_unk8mCfI
+https://www.youtube.com/watch?v=-ncgMODvsy4
+https://www.youtube.com/watch?v=_-WFFqHJRoY
+https://www.youtube.com/watch?v=WjRSrI0YGe4
+https://www.youtube.com/watch?v=7LLfKbDgyF8
+https://www.youtube.com/watch?v=-3exPL5Ip0Q
+https://www.youtube.com/watch?v=RS2Nb5-VAWc
+https://www.youtube.com/watch?v=dU_mfaDE0V4
+https://www.youtube.com/watch?v=-40rSCVrjCk
+https://www.youtube.com/watch?v=eL1YEOksKx8
+https://www.youtube.com/watch?v=i-mLitakxz8
+https://www.youtube.com/watch?v=-NFwbYDG8us
+https://www.youtube.com/watch?v=TQPemdekXRY
+https://www.youtube.com/watch?v=atSO4JtexH8
+https://www.youtube.com/watch?v=SAfK9bUWcZk
+https://www.youtube.com/watch?v=qwPOfEx5B_4
+https://www.youtube.com/watch?v=SyeBqkvNbUc
+https://www.youtube.com/watch?v=UXuZNMGyWLk
+https://www.youtube.com/watch?v=RgIDqglqrxA
+https://www.youtube.com/watch?v=UjjVlwsMOCk
+https://www.youtube.com/watch?v=YVTtoAai-9k
+https://www.youtube.com/watch?v=krTvsYDDIZw
+https://www.youtube.com/watch?v=HqvG5hbErnc
+https://www.youtube.com/watch?v=kA6d6dy4Xos
+https://www.youtube.com/watch?v=ueeyID6pcag
+https://www.youtube.com/watch?v=7bYDMTWL7DU
+https://www.youtube.com/watch?v=5BxPt_8ewRA
+https://www.youtube.com/watch?v=fCEiOoukh-Y
+https://www.youtube.com/watch?v=N2cZ1FUbMEc
+https://www.youtube.com/watch?v=eJRuKx23kUw
+https://www.youtube.com/watch?v=bvyQWLUA2Bw
+https://www.youtube.com/watch?v=CFDBlDv7pzM
+https://www.youtube.com/watch?v=x7bTQO65MRo
+https://www.youtube.com/watch?v=fdoA0b53Nl0
+https://www.youtube.com/watch?v=ZEQdEeNqCe8
+https://www.youtube.com/watch?v=r9opCd9q7xQ
+https://www.youtube.com/watch?v=ax3iUVDnSHA
+https://www.youtube.com/watch?v=nggGFpI9rxc
+https://www.youtube.com/watch?v=AAFhdzNXH0E
+https://www.youtube.com/watch?v=29psKDz4rhU
+https://www.youtube.com/watch?v=1J_ssPVjbD8
+https://www.youtube.com/watch?v=d6fmYn-kaFw
+https://www.youtube.com/watch?v=vhg5nXQpvCc
+https://www.youtube.com/watch?v=qtnW9m6EKPI
+https://www.youtube.com/watch?v=eD95-1ig4O0
+"
 
 function stream_no_video {
 	mpv \
@@ -131,7 +241,7 @@ function get_video_title {
 function play_music {
 	echo -e "\n>>> Press q to skip to next video <<<\n"
 	shuffled=$(shuf -e $2)
-	for url in $shuffled ; do
+	for url in $shuffled; do
 
 		# clear the screen
 		clear
@@ -145,9 +255,9 @@ function play_music {
 		echo
 
 		# play music
-		[[ "$*" = *--show-video* ]]  \
-			&& stream_with_video $url \
-			|| stream_no_video $url
+		[[ "$*" = *--show-video* ]] &&
+			stream_with_video $url ||
+			stream_no_video $url
 	done
 }
 
@@ -157,6 +267,8 @@ urls+=' '
 urls+=$electronica
 urls+=' '
 urls+=$misc_instrumental
+urls+=' '
+urls+=$enter_dystopia_records
 
 # play video?
 video=$1

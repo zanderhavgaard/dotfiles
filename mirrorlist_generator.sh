@@ -13,7 +13,7 @@ echo "$URL"
 echo "Getting mirrors and ranking by speed ..."
 
 # first fetch up-to-date mirrors from the mirrorlist generator, then uncomment each line, and rank the mirrors using rankmirrors
-curl -s "$URL" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 - > /etc/pacman.d/mirrorlist
+curl -v -s "$URL" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -v -n 5 - > /etc/pacman.d/mirrorlist
 
 echo "Wrote new mirrorlist to /etc/pacman.d/mirrorlist"
 echo "Contents:"

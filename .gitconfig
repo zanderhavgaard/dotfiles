@@ -6,6 +6,9 @@
     pager = delta
     editor = nvim
 
+[color]
+    ui = true
+
 [interactive]
     diffFilter = delta --color-only --line-numbers
 [add.interactive]
@@ -28,8 +31,8 @@
 [pull]
     rebase = false
 
-[color]
-    ui = true
+[push]
+    autoSetupRemote = true
 
 # aliases
 [alias]

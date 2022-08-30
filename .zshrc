@@ -30,10 +30,11 @@ source /usr/share/zsh/share/antigen.zsh
 antigen use oh-my-zsh
 
 # oh-my-zsh plugins
+antigen bundle fzf
 antigen bundle git
 antigen bundle docker
 antigen bundle docker-compose
-antigen bundle fzf
+antigen bundle kubernetes
 antigen bundle python
 
 # plugins

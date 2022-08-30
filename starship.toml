@@ -1,0 +1,5 @@
+[kubernetes]
+format = 'on [☸ $context \($namespace\)](blue) '
+disabled = false
+[kubernetes.context_aliases]
+"arn:aws:eks:eu-central-1:[\\d]+:cluster/(?P<var_cluster>[\\w-]+)" = "aws-$var_cluster"

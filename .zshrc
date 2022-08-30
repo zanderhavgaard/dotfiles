@@ -51,10 +51,18 @@ antigen bundle "MichaelAquilina/zsh-auto-notify"
 # antigen theme https://github.com/reobin/typewritten
 # antigen theme romkatv/powerlevel10k
 # antigen theme agnoster
-antigen theme denysdovhan/spaceship-prompt
+# antigen theme denysdovhan/spaceship-prompt
 
 # commit antigen commands
 antigen apply
+
+# use starship prompt, must be installed seperately
+# on arch: pacman -S starship
+# starship is configured in a seperate configuration file
+# located in ~/.config/starship.toml
+# if you want a simple self contained theme, comment the
+# line below and uncomment the spaceship prompt above
+eval "$(starship init zsh)"
 
 # ====== Custom settings =====
 # show hidden files in tabcompletion

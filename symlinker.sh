@@ -111,3 +111,7 @@ ln -sv $dfd/qtile $cfd/qtile
 echo -e "\n symlinking awesomewm config ..."
 rm -rf $cfd/awesome
 ln -sv $dfd/awesome $cfd/awesome
+
+echo -e "\n symlinking starship config ..."
+rm $cfd/starship.toml
+ln -sv $dfd/starship.toml $cfd/starship.toml

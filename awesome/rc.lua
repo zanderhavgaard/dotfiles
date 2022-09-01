@@ -129,6 +129,17 @@ elseif hostname == "sulaco" then
         "blueman-applet",
         "caffeine"
     }
+elseif hostname == "narcissus" then
+    wallpaper_path = "/home/zander/wallpaper/walls"
+    startup_cmds = {
+        "feh --randomize --bg-scale " .. wallpaper_path,
+        "picom --config /home/zander/dotfiles/picom/picom.conf",
+        "bash /home/zander/dotfiles/i3lock/start_i3lock.sh",
+        "nm-applet",
+        "volumeicon",
+        "blueman-applet",
+        "caffeine"
+    }
 elseif hostname == "prometheus" then
     wallpaper_path = "/home/zander/wallpaper/walls"
     startup_cmds = {

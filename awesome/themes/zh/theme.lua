@@ -572,7 +572,6 @@ function theme.at_screen_connect(s)
                 wibox.widget.systray()
             }
         }
-    end
     elseif hostname == "narcissus" then
         s.mywibox:setup {
             layout = wibox.layout.align.horizontal,

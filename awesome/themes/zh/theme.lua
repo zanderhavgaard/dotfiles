@@ -180,6 +180,26 @@ local awesome_icon = wibox.widget.imagebox(theme.awesome_icon)
 -- })
 
 -- Battery
+local narcissus_battery0 =
+    lain.widget.bat(
+    {
+        battery = "BAT0",
+        settings = function()
+            local battery_status = "?"
+            if bat_now.status == "N/A" then
+                battery_status = "unknown "
+            elseif bat_now.status == "Discharging" then
+                battery_status = " "
+            elseif bat_now.status == "Charging" then
+                battery_status = " ﮣ"
+            elseif bat_now.status == "Full" then
+                battery_status = ""
+            end
+            battery_status = bat_now.perc .. "% " .. battery_status
+            widget:set_markup(markup.fontfg(theme.font, theme.blue_alt, " bat: " .. battery_status .. " "))
+        end
+    }
+)
 local sulaco_battery0 =
     lain.widget.bat(
     {
@@ -599,7 +619,7 @@ function theme.at_screen_connect(s)
                 theme.volume.widget,
                 vostok_eth_widget,
                 vostok_wifi_widget,
-                sulaco_battery0,
+                narcissus_battery0,
                 kernel_widget,
                 blank_seperator,
                 awesome_icon,

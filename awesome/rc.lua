@@ -583,6 +583,15 @@ globalkeys =
     ),
     -- screen brightness {{{
 
+    awful.key(
+        {modkey, shiftkey, controlkey},
+        "s",
+        function()
+            awful.spawn("flameshot gui")
+        end,
+        {description = "take screenshot with flameshot", group = "launcher"}
+    ),
+
     -- increase brightness
     awful.key(
         {},

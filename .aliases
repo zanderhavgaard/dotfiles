@@ -126,3 +126,5 @@ alias wifi="nmcli radio && nmcli device && nmcli d wifi rescan && nmcli d wifi l
 
 # alias for neovim
 alias n="nvim"
+
+alias knr="kubectl describe nodes |grep '^  Resource' -A3"

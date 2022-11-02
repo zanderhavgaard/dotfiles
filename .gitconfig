@@ -1,6 +1,10 @@
 [user]
     email = zander@havgaard.dk
     name = zanderhavgaard
+    signingkey = 90E933D4D7778DF6
+
+[commit]
+	gpgsign = true
 
 [core]
     pager = delta
@@ -11,6 +15,7 @@
 
 [interactive]
     diffFilter = delta --color-only --line-numbers
+
 [add.interactive]
     useBuiltin = false # required for git 2.37.0
 

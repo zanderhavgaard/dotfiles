@@ -12,6 +12,9 @@ export LANG="en_US.UTF-8"
 # tell zsh to use colors
 export TERM="xterm-256color"
 
+# setup GPG key
+export GPG_TTY=$(tty)
+
 # ===== Typewritten customization =====
 # export TYPEWRITTEN_PROMPT_LAYOUT="singleline"
 # export TYPEWRITTEN_SYMBOL="❯"

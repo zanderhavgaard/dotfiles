@@ -1,7 +1,6 @@
-[user]
-    email = zander@havgaard.dk
-    name = zanderhavgaard
-    signingkey = D82A8F4CDA342FE9
+
+[include]
+    path = /home/zander/.gitconfig.local
 
 [commit]
 	gpgsign = true

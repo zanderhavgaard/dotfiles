@@ -1,7 +1,7 @@
 [user]
     email = zander@havgaard.dk
     name = zanderhavgaard
-    signingkey = 90E933D4D7778DF6
+    signingkey = D82A8F4CDA342FE9
 
 [commit]
 	gpgsign = true

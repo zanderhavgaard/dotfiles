@@ -128,3 +128,7 @@ alias wifi="nmcli radio && nmcli device && nmcli d wifi rescan && nmcli d wifi l
 alias n="nvim"
 
 alias knr="kubectl describe nodes |grep '^  Resource' -A3"
+
+# quick view current kubectl context and namespace
+alias kx='f() { [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ; } ; f'
+alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; f'

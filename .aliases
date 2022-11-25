@@ -100,7 +100,7 @@ alias ls="logo-ls --git-status"
 alias l="logo-ls -l --git-status"
 
 # use zoxide over cd
-alias cd="z"
+# alias cd="z"
 
 # add a newline before neofetch
 alias neofetch="echo -e \"\n\" && neofetch"

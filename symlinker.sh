@@ -115,3 +115,7 @@ ln -sv $dfd/awesome $cfd/awesome
 echo -e "\n symlinking starship config ..."
 rm $cfd/starship.toml
 ln -sv $dfd/starship.toml $cfd/starship.toml
+
+echo -e "\n symlinking hyprland config ..."
+rm $cfd/hypr/hyprland.conf
+ln -sv $dfd/hypr/hyprland.conf $cfd/hypr/hyprland.conf

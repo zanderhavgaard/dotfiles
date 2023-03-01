@@ -79,4 +79,5 @@ $character"""
 format = 'on [☸ $context \($namespace\)](blue) '
 disabled = false
 [kubernetes.context_aliases]
-"arn:aws:eks:eu-central-1:[\\d]+:cluster/(?P<var_cluster>[\\w-]+)" = "aws-$var_cluster"
+"arn:aws:eks:eu-central-1:[\\d]+:cluster/(?P<var_cluster>[\\w-]+)" = "aws-eks-$var_cluster"
+"arn:aws:eks:eu-west-1:[\\d]+:cluster/(?P<var_cluster>[\\w-]+)" = "eks-$var_cluster"

@@ -111,7 +111,7 @@ elseif hostname == "vostok" then
 		"caffeine",
 	}
 elseif hostname == "sulaco" then
-	wallpaper_path = "/home/zander/wallpaper/walls"
+	wallpaper_path = "/home/zander/Nextcloud/Wallpapers/current"
 	startup_cmds = {
 		"feh --randomize --bg-scale " .. wallpaper_path,
 		"picom --config /home/zander/dotfiles/picom/picom.conf",

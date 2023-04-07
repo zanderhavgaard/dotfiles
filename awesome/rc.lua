@@ -107,7 +107,6 @@ elseif hostname == "vostok" then
 		"volumeicon",
 		"nextcloud",
 		"/opt/piavpn/bin/pia-client",
-		"blueman-applet",
 		"caffeine",
 	}
 elseif hostname == "sulaco" then
@@ -119,7 +118,6 @@ elseif hostname == "sulaco" then
 		"nm-applet",
 		"volumeicon",
 		"nextcloud",
-		"blueman-applet",
 		"caffeine",
 	}
 elseif hostname == "narcissus" then
@@ -130,7 +128,6 @@ elseif hostname == "narcissus" then
 		"bash /home/zander/dotfiles/i3lock/start_i3lock.sh",
 		"nm-applet",
 		"volumeicon",
-		"blueman-applet",
 		"caffeine",
 	}
 elseif hostname == "prometheus" then

@@ -92,12 +92,12 @@ alias cat="bat"
 # alias l="lsd -al"
 
 # use exa
-# alias ls="exa --icons"
-# alias l="exa --icons --git -alh"
+alias ls="exa --icons"
+alias l="exa --icons --git -alh"
 
 # use logo-ls
-alias ls="logo-ls --git-status"
-alias l="logo-ls -l --git-status"
+# alias ls="logo-ls --git-status"
+# alias l="logo-ls -l --git-status"
 
 # use zoxide over cd
 # alias cd="z"

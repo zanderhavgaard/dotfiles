@@ -41,7 +41,8 @@ theme.bar_foreground = theme.white
 theme.bar_height = dpi(25)
 -- configure theme
 theme.confdir = os.getenv("HOME") .. "/.config/awesome/themes/zh"
-theme.font = "Mononoki Nerd Font 12"
+-- theme.font = "Mononoki Nerd Font 12"
+theme.font = "Hack Nerd Font 12"
 theme.menu_bg_normal = theme.dark_grey
 theme.menu_bg_focus = theme.dark_grey
 theme.fg_normal = theme.white
@@ -120,19 +121,16 @@ local time_date = wibox.widget.textclock(markup(theme.blue, "  %A %d %B "))
 time_date.font = theme.font
 
 -- Calendar widget shown on hover over date
-theme.cal =
-    lain.widget.cal(
-    {
-        attach_to = {time_date},
-        notification_preset = {
-            font = theme.font,
-            fg = theme.fg_normal,
-            bg = theme.bg_normal
-        }
-    }
-)
+theme.cal = lain.widget.cal({
+	attach_to = { time_date },
+	notification_preset = {
+		font = theme.font,
+		fg = theme.fg_normal,
+		bg = theme.bg_normal,
+	},
+})
 
-local time_clock = wibox.widget.textclock(markup(theme.cyan, "  %H:%M "))
+local time_clock = wibox.widget.textclock(markup(theme.cyan, "  %H:%M "))
 time_clock.font = theme.font
 
 -- Weather
@@ -151,14 +149,9 @@ time_clock.font = theme.font
 -- exec = echo " $(curl -s 'v2n.wttr.in/copenhagen?format=%l:+%C+%t')"
 -- format-prefix = "   "
 
-local weather_widget =
-    awful.widget.watch(
-    "bash /home/zander/dotfiles/scripts/weather.sh",
-    5,
-    function(widget, stdout)
-        widget:set_markup(markup.fontfg(theme.font, theme.red, stdout))
-    end
-)
+local weather_widget = awful.widget.watch("bash /home/zander/dotfiles/scripts/weather.sh", 5, function(widget, stdout)
+	widget:set_markup(markup.fontfg(theme.font, theme.red, stdout))
+end)
 
 -- / fs
 --[[ commented because it needs Gio/Glib >= 2.54
@@ -180,106 +173,91 @@ local awesome_icon = wibox.widget.imagebox(theme.awesome_icon)
 -- })
 
 -- Battery
-local narcissus_battery0 =
-    lain.widget.bat(
-    {
-        battery = "BAT0",
-        settings = function()
-            local battery_status = "?"
-            if bat_now.status == "N/A" then
-                battery_status = "unknown "
-            elseif bat_now.status == "Discharging" then
-                battery_status = " "
-            elseif bat_now.status == "Charging" then
-                battery_status = " ﮣ"
-            elseif bat_now.status == "Full" then
-                battery_status = ""
-            end
-            battery_status = bat_now.perc .. "% " .. battery_status
-            widget:set_markup(markup.fontfg(theme.font, theme.blue_alt, " bat: " .. battery_status .. " "))
-        end
-    }
-)
-local sulaco_battery0 =
-    lain.widget.bat(
-    {
-        battery = "BAT0",
-        settings = function()
-            local battery_status = "?"
-            if bat_now.status == "N/A" then
-                battery_status = "unknown "
-            elseif bat_now.status == "Discharging" then
-                battery_status = " "
-            elseif bat_now.status == "Charging" then
-                battery_status = " ﮣ"
-            elseif bat_now.status == "Full" then
-                battery_status = ""
-            end
-            battery_status = bat_now.perc .. "% " .. battery_status
-            widget:set_markup(markup.fontfg(theme.font, theme.blue_alt, " bat: " .. battery_status .. " "))
-        end
-    }
-)
+local narcissus_battery0 = lain.widget.bat({
+	battery = "BAT0",
+	settings = function()
+		local battery_status = "?"
+		if bat_now.status == "N/A" then
+			battery_status = "unknown "
+		elseif bat_now.status == "Discharging" then
+			battery_status = ""
+		elseif bat_now.status == "Charging" then
+			battery_status = "󰢝 "
+		elseif bat_now.status == "Full" then
+			battery_status = " "
+		end
+		battery_status = bat_now.perc .. "% " .. battery_status
+		widget:set_markup(markup.fontfg(theme.font, theme.blue_alt, " bat: " .. battery_status .. " "))
+	end,
+})
+local sulaco_battery0 = lain.widget.bat({
+	battery = "BAT0",
+	settings = function()
+		local battery_status = "?"
+		if bat_now.status == "N/A" then
+			battery_status = "unknown "
+		elseif bat_now.status == "Discharging" then
+			battery_status = ""
+		elseif bat_now.status == "Charging" then
+			battery_status = "󰢝 "
+		elseif bat_now.status == "Full" then
+			battery_status = " "
+		end
+		battery_status = bat_now.perc .. "% " .. battery_status
+		widget:set_markup(markup.fontfg(theme.font, theme.blue_alt, " bat: " .. battery_status .. " "))
+	end,
+})
 -- internal
-local vostok_battery0 =
-    lain.widget.bat(
-    {
-        timeout = 5,
-        battery = "BAT0",
-        settings = function()
-            local battery_name = "int"
-            local battery_status = ""
-            if bat_now.status == "N/A" then
-                battery_status = "unknown "
-            elseif bat_now.status == "Discharging" then
-                battery_status = " "
-            elseif bat_now.status == "Charging" then
-                battery_status = " ﮣ"
-            elseif bat_now.status == "Full" then
-                battery_status = "  "
-            end
-            battery_status = battery_name .. " " .. bat_now.perc .. "%" .. battery_status
-            widget:set_markup(markup.fontfg(theme.font, theme.blue_alt, " " .. battery_status .. " "))
-        end
-    }
-)
+local vostok_battery0 = lain.widget.bat({
+	timeout = 5,
+	battery = "BAT0",
+	settings = function()
+		local battery_name = "int"
+		local battery_status = ""
+		if bat_now.status == "N/A" then
+			battery_status = "unknown "
+		elseif bat_now.status == "Discharging" then
+			battery_status = ""
+		elseif bat_now.status == "Charging" then
+			battery_status = "󰢝 "
+		elseif bat_now.status == "Full" then
+			battery_status = " "
+		end
+		battery_status = battery_name .. " " .. bat_now.perc .. "%" .. battery_status
+		widget:set_markup(markup.fontfg(theme.font, theme.blue_alt, " " .. battery_status .. " "))
+	end,
+})
 -- external
-local vostok_battery1 =
-    lain.widget.bat(
-    {
-        timeout = 5,
-        battery = "BAT1",
-        settings = function()
-            local battery_name = "ext"
-            local battery_status = ""
-            if bat_now.status == "N/A" then
-                battery_status = "unknown "
-            elseif bat_now.status == "Discharging" then
-                battery_status = " "
-            elseif bat_now.status == "Charging" then
-                battery_status = " ﮣ"
-            elseif bat_now.status == "Full" then
-                battery_status = "  "
-            end
-            battery_status = battery_name .. " " .. bat_now.perc .. "%" .. battery_status
-            widget:set_markup(markup.fontfg(theme.font, theme.cyan, " " .. battery_status .. " "))
-        end
-    }
-)
+local vostok_battery1 = lain.widget.bat({
+	timeout = 5,
+	battery = "BAT1",
+	settings = function()
+		local battery_name = "ext"
+		local battery_status = ""
+		if bat_now.status == "N/A" then
+			battery_status = "unknown "
+		elseif bat_now.status == "Discharging" then
+			battery_status = ""
+		elseif bat_now.status == "Charging" then
+			battery_status = "󰢝 "
+		elseif bat_now.status == "Full" then
+			battery_status = "  "
+		end
+		battery_status = battery_name .. " " .. bat_now.perc .. "%" .. battery_status
+		widget:set_markup(markup.fontfg(theme.font, theme.cyan, " " .. battery_status .. " "))
+	end,
+})
 
 -- ALSA volume
-theme.volume =
-    lain.widget.alsa(
-    {
-        settings = function()
-            if volume_now.status == "off" then
-                widget:set_markup(markup.fontfg(theme.font, theme.purple, " 婢 "))
-            else
-                widget:set_markup(markup.fontfg(theme.font, theme.purple, "  " .. volume_now.level .. "% "))
-            end
-        end
-    }
-)
+theme.volume = lain.widget.alsa({
+	settings = function()
+		if volume_now.status == "off" then
+			widget:set_markup(markup.fontfg(theme.font, theme.purple, " 󰖁 "))
+		else
+			widget:set_markup(markup.fontfg(theme.font, theme.purple, "  " .. volume_now.level .. "% "))
+		end
+	end,
+})
 
 -- CPU
 -- local cpu = lain.widget.cpu({
@@ -295,339 +273,304 @@ theme.volume =
 -- })
 
 keeb_widget = {
-    {
-        {
-            font = theme.font,
-            text = "  ",
-            widget = wibox.widget.textbox
-        },
-        {
-            font = theme.font,
-            widget = awful.widget.keyboardlayout
-        },
-        layout = wibox.layout.fixed.horizontal
-    },
-    widget = wibox.container.background,
-    fg = theme.orange
+	{
+		{
+			font = theme.font,
+			text = "  ",
+			widget = wibox.widget.textbox,
+		},
+		{
+			font = theme.font,
+			widget = awful.widget.keyboardlayout,
+		},
+		layout = wibox.layout.fixed.horizontal,
+	},
+	widget = wibox.container.background,
+	fg = theme.orange,
 }
 
-local media_widget =
-    awful.widget.watch(
-    "bash /home/zander/dotfiles/scripts/sp_status.sh",
-    5,
-    function(widget, stdout)
-        widget:set_markup(markup.fontfg(theme.font, theme.green, " " .. stdout))
-    end
-)
+local media_widget = awful.widget.watch("bash /home/zander/dotfiles/scripts/sp_status.sh", 5, function(widget, stdout)
+	widget:set_markup(markup.fontfg(theme.font, theme.green, " " .. stdout))
+end)
 
 local kernel_widget = wibox.widget.textbox()
-awful.spawn.easy_async(
-    "bash /home/zander/dotfiles/scripts/print_osicon_kernel.sh",
-    function(output)
-        -- prometheus runs Manjaro, the others are Arch
-        if hostname == "prometheus" then
-            kernel_text = "  " .. output .. " "
-        else
-            kernel_text = "  " .. output .. " "
-        end
-        kernel_widget.markup = markup.fontfg(theme.font, theme.blue, kernel_text)
-    end
-)
+awful.spawn.easy_async("bash /home/zander/dotfiles/scripts/print_osicon_kernel.sh", function(output)
+	-- prometheus runs Manjaro, the others are Arch
+	if hostname == "prometheus" then
+		kernel_text = "  " .. output .. " "
+	else
+		kernel_text = "  " .. output .. " "
+	end
+	kernel_widget.markup = markup.fontfg(theme.font, theme.blue, kernel_text)
+end)
 
 -- wifi widget
 local vostok_wifi_widget = wibox.widget.textbox()
-vicious.register(
-    vostok_wifi_widget,
-    vicious.widgets.wifi,
-    function(widget, args)
-        local wifi_text = ""
-        if args["{link}"] == 0 then
-            wifi_text = "睊"
-        else
-            wifi_text = "直 " .. args["{ssid}"]
-        end
-        return markup.fontfg(theme.font, theme.green, " " .. wifi_text .. " ")
-    end,
-    10,
-    "wlp4s0"
-)
+vicious.register(vostok_wifi_widget, vicious.widgets.wifi, function(widget, args)
+	local wifi_text = ""
+	if args["{link}"] == 0 then
+		wifi_text = "󰖪 "
+	else
+		wifi_text = "󰖩 " .. args["{ssid}"]
+	end
+	return markup.fontfg(theme.font, theme.green, " " .. wifi_text .. " ")
+end, 10, "wlp4s0")
 
 local sulaco_wifi_widget = wibox.widget.textbox()
-vicious.register(
-    vostok_wifi_widget,
-    vicious.widgets.wifi,
-    function(widget, args)
-        local wifi_text = ""
-        if args["{link}"] == 0 then
-            wifi_text = "睊"
-        else
-            wifi_text = "直 " .. args["{ssid}"]
-        end
-        return markup.fontfg(theme.font, theme.green, " " .. wifi_text .. " ")
-    end,
-    10,
-    "wlp0s20f3"
-)
+vicious.register(vostok_wifi_widget, vicious.widgets.wifi, function(widget, args)
+	local wifi_text = ""
+	if args["{link}"] == 0 then
+		wifi_text = "󰖪 "
+	else
+		wifi_text = "󰖩 " .. args["{ssid}"]
+	end
+	return markup.fontfg(theme.font, theme.green, " " .. wifi_text .. " ")
+end, 10, "wlp0s20f3")
 
 -- ethernet widget
 local vostok_eth_widget = wibox.widget.textbox()
-vicious.register(
-    vostok_eth_widget,
-    vicious.widgets.net,
-    function(widget, args)
-        local eth_text = ""
-        if args["{ip}"] == nil then
-            eth_text = ""
-        else
-            eth_text = " " .. args["{ip}"]
-        end
-        return markup.fontfg(theme.font, theme.red, " " .. eth_text .. " ")
-    end,
-    10,
-    "enp0s31f6"
-)
+vicious.register(vostok_eth_widget, vicious.widgets.net, function(widget, args)
+	local eth_text = ""
+	if args["{ip}"] == nil then
+		wifi_text = "󰖪 "
+	else
+		wifi_text = "󰖩 " .. args["{ssid}"]
+	end
+	return markup.fontfg(theme.font, theme.red, " " .. eth_text .. " ")
+end, 10, "enp0s31f6")
 
 local sulaco_eth_widget = wibox.widget.textbox()
-vicious.register(
-    vostok_eth_widget,
-    vicious.widgets.net,
-    function(widget, args)
-        local eth_text = ""
-        if args["{ip}"] == nil then
-            eth_text = ""
-        else
-            eth_text = " " .. args["{ip}"]
-        end
-        return markup.fontfg(theme.font, theme.red, " " .. eth_text .. " ")
-    end,
-    10,
-    "enp0s31f6"
-)
+vicious.register(vostok_eth_widget, vicious.widgets.net, function(widget, args)
+	local eth_text = ""
+	if args["{ip}"] == nil then
+		eth_text = "󰈂"
+	else
+		eth_text = "󰈁 " .. args["{ip}"]
+	end
+	return markup.fontfg(theme.font, theme.red, " " .. eth_text .. " ")
+end, 10, "enp0s31f6")
+
+local narcissus_dock_eth_widget = wibox.widget.textbox()
+vicious.register(vostok_eth_widget, vicious.widgets.net, function(widget, args)
+	local eth_text = ""
+	if args["{ip}"] == nil then
+		eth_text = "󰈂"
+	else
+		eth_text = "󰈁 " .. args["{ip}"]
+	end
+	return markup.fontfg(theme.font, theme.red, " " .. eth_text .. " ")
+end, 10, "enp5s0u2u4")
 
 -- setup the actual bar
 function theme.at_screen_connect(s)
-    -- Tags
-    awful.tag(awful.util.tagnames, s, awful.layout.suit.tile)
+	-- Tags
+	awful.tag(awful.util.tagnames, s, awful.layout.suit.tile)
 
-    -- Create an imagebox widget which will contains an icon indicating which layout we're using.
-    -- We need one layoutbox per screen.
-    s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(
-        my_table.join(
-            awful.button(
-                {},
-                1,
-                function()
-                    awful.layout.inc(1)
-                end
-            ),
-            awful.button(
-                {},
-                3,
-                function()
-                    awful.layout.inc(-1)
-                end
-            ),
-            awful.button(
-                {},
-                4,
-                function()
-                    awful.layout.inc(1)
-                end
-            ),
-            awful.button(
-                {},
-                5,
-                function()
-                    awful.layout.inc(-1)
-                end
-            )
-        )
-    )
+	-- Create an imagebox widget which will contains an icon indicating which layout we're using.
+	-- We need one layoutbox per screen.
+	s.mylayoutbox = awful.widget.layoutbox(s)
+	s.mylayoutbox:buttons(my_table.join(
+		awful.button({}, 1, function()
+			awful.layout.inc(1)
+		end),
+		awful.button({}, 3, function()
+			awful.layout.inc(-1)
+		end),
+		awful.button({}, 4, function()
+			awful.layout.inc(1)
+		end),
+		awful.button({}, 5, function()
+			awful.layout.inc(-1)
+		end)
+	))
 
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
+	-- Create a taglist widget
+	s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
 
-    -- Create the wibox
-    s.mywibox =
-        awful.wibar(
-        {position = "top", screen = s, height = theme.bar_height, bg = theme.bar_background, fg = theme.bar_foreground}
-    )
+	-- Create the wibox
+	s.mywibox = awful.wibar({
+		position = "top",
+		screen = s,
+		height = theme.bar_height,
+		bg = theme.bar_background,
+		fg = theme.bar_foreground,
+	})
 
-    -- Add widgets to the wibox
-    --
-    -- create system specific bar
-    if hostname == "nostromo" then
-        s.mywibox:setup {
-            layout = wibox.layout.align.horizontal,
-            -- use expanad = "none" for right,middle,left layout
-            -- expand = "none",
-            {
-                -- Left widgets
-                layout = wibox.layout.fixed.horizontal,
-                s.mytaglist,
-                blank_seperator,
-                s.mylayoutbox
-            },
-            --s.mytasklist, -- Middle widget
-            {
-                layout = wibox.layout.fixed.horizontal
-            },
-            {
-                -- Right widgets
-                layout = wibox.layout.fixed.horizontal,
-                time_clock,
-                time_date,
-                media_widget,
-                weather_widget,
-                keeb_widget,
-                theme.volume.widget,
-                kernel_widget,
-                blank_seperator,
-                awesome_icon,
-                blank_seperator,
-                wibox.widget.systray()
-            }
-        }
-    elseif hostname == "prometheus" then
-        s.mywibox:setup {
-            layout = wibox.layout.align.horizontal,
-            -- use expanad = "none" for right,middle,left layout
-            -- expand = "none",
-            {
-                -- Left widgets
-                layout = wibox.layout.fixed.horizontal,
-                s.mytaglist,
-                blank_seperator,
-                s.mylayoutbox
-            },
-            --s.mytasklist, -- Middle widget
-            {
-                layout = wibox.layout.fixed.horizontal
-            },
-            {
-                -- Right widgets
-                layout = wibox.layout.fixed.horizontal,
-                time_clock,
-                time_date,
-                media_widget,
-                weather_widget,
-                keeb_widget,
-                theme.volume.widget,
-                kernel_widget,
-                blank_seperator,
-                awesome_icon,
-                blank_seperator,
-                wibox.widget.systray()
-            }
-        }
-    elseif hostname == "vostok" then
-        s.mywibox:setup {
-            layout = wibox.layout.align.horizontal,
-            -- use expanad = "none" for right,middle,left layout
-            -- expand = "none",
-            {
-                -- Left widgets
-                layout = wibox.layout.fixed.horizontal,
-                s.mytaglist,
-                blank_seperator,
-                s.mylayoutbox
-            },
-            --s.mytasklist, -- Middle widget
-            {
-                layout = wibox.layout.fixed.horizontal
-            },
-            {
-                -- Right widgets
-                layout = wibox.layout.fixed.horizontal,
-                time_clock,
-                time_date,
-                media_widget,
-                weather_widget,
-                keeb_widget,
-                theme.volume.widget,
-                vostok_eth_widget,
-                vostok_wifi_widget,
-                vostok_battery0,
-                vostok_battery1,
-                kernel_widget,
-                blank_seperator,
-                awesome_icon,
-                blank_seperator,
-                wibox.widget.systray()
-            }
-        }
-    elseif hostname == "sulaco" then
-        s.mywibox:setup {
-            layout = wibox.layout.align.horizontal,
-            -- use expanad = "none" for right,middle,left layout
-            -- expand = "none",
-            {
-                -- Left widgets
-                layout = wibox.layout.fixed.horizontal,
-                s.mytaglist,
-                blank_seperator,
-                s.mylayoutbox
-            },
-            --s.mytasklist, -- Middle widget
-            {
-                layout = wibox.layout.fixed.horizontal
-            },
-            {
-                -- Right widgets
-                layout = wibox.layout.fixed.horizontal,
-                time_clock,
-                time_date,
-                media_widget,
-                weather_widget,
-                keeb_widget,
-                theme.volume.widget,
-                vostok_eth_widget,
-                vostok_wifi_widget,
-                sulaco_battery0,
-                kernel_widget,
-                blank_seperator,
-                awesome_icon,
-                blank_seperator,
-                wibox.widget.systray()
-            }
-        }
-    elseif hostname == "narcissus" then
-        s.mywibox:setup {
-            layout = wibox.layout.align.horizontal,
-            -- use expanad = "none" for right,middle,left layout
-            -- expand = "none",
-            {
-                -- Left widgets
-                layout = wibox.layout.fixed.horizontal,
-                s.mytaglist,
-                blank_seperator,
-                s.mylayoutbox
-            },
-            --s.mytasklist, -- Middle widget
-            {
-                layout = wibox.layout.fixed.horizontal
-            },
-            {
-                -- Right widgets
-                layout = wibox.layout.fixed.horizontal,
-                time_clock,
-                time_date,
-                media_widget,
-                weather_widget,
-                keeb_widget,
-                theme.volume.widget,
-                vostok_eth_widget,
-                vostok_wifi_widget,
-                narcissus_battery0,
-                kernel_widget,
-                blank_seperator,
-                awesome_icon,
-                blank_seperator,
-                wibox.widget.systray()
-            }
-        }
-    end
+	-- Add widgets to the wibox
+	--
+	-- create system specific bar
+	if hostname == "nostromo" then
+		s.mywibox:setup({
+			layout = wibox.layout.align.horizontal,
+			-- use expanad = "none" for right,middle,left layout
+			-- expand = "none",
+			{
+				-- Left widgets
+				layout = wibox.layout.fixed.horizontal,
+				s.mytaglist,
+				blank_seperator,
+				s.mylayoutbox,
+			},
+			--s.mytasklist, -- Middle widget
+			{
+				layout = wibox.layout.fixed.horizontal,
+			},
+			{
+				-- Right widgets
+				layout = wibox.layout.fixed.horizontal,
+				time_clock,
+				time_date,
+				media_widget,
+				weather_widget,
+				keeb_widget,
+				theme.volume.widget,
+				kernel_widget,
+				blank_seperator,
+				awesome_icon,
+				blank_seperator,
+				wibox.widget.systray(),
+			},
+		})
+	elseif hostname == "prometheus" then
+		s.mywibox:setup({
+			layout = wibox.layout.align.horizontal,
+			-- use expanad = "none" for right,middle,left layout
+			-- expand = "none",
+			{
+				-- Left widgets
+				layout = wibox.layout.fixed.horizontal,
+				s.mytaglist,
+				blank_seperator,
+				s.mylayoutbox,
+			},
+			--s.mytasklist, -- Middle widget
+			{
+				layout = wibox.layout.fixed.horizontal,
+			},
+			{
+				-- Right widgets
+				layout = wibox.layout.fixed.horizontal,
+				time_clock,
+				time_date,
+				media_widget,
+				weather_widget,
+				keeb_widget,
+				theme.volume.widget,
+				kernel_widget,
+				blank_seperator,
+				awesome_icon,
+				blank_seperator,
+				wibox.widget.systray(),
+			},
+		})
+	elseif hostname == "vostok" then
+		s.mywibox:setup({
+			layout = wibox.layout.align.horizontal,
+			-- use expanad = "none" for right,middle,left layout
+			-- expand = "none",
+			{
+				-- Left widgets
+				layout = wibox.layout.fixed.horizontal,
+				s.mytaglist,
+				blank_seperator,
+				s.mylayoutbox,
+			},
+			--s.mytasklist, -- Middle widget
+			{
+				layout = wibox.layout.fixed.horizontal,
+			},
+			{
+				-- Right widgets
+				layout = wibox.layout.fixed.horizontal,
+				time_clock,
+				time_date,
+				media_widget,
+				weather_widget,
+				keeb_widget,
+				theme.volume.widget,
+				vostok_eth_widget,
+				vostok_wifi_widget,
+				vostok_battery0,
+				vostok_battery1,
+				kernel_widget,
+				blank_seperator,
+				awesome_icon,
+				blank_seperator,
+				wibox.widget.systray(),
+			},
+		})
+	elseif hostname == "sulaco" then
+		s.mywibox:setup({
+			layout = wibox.layout.align.horizontal,
+			-- use expanad = "none" for right,middle,left layout
+			-- expand = "none",
+			{
+				-- Left widgets
+				layout = wibox.layout.fixed.horizontal,
+				s.mytaglist,
+				blank_seperator,
+				s.mylayoutbox,
+			},
+			--s.mytasklist, -- Middle widget
+			{
+				layout = wibox.layout.fixed.horizontal,
+			},
+			{
+				-- Right widgets
+				layout = wibox.layout.fixed.horizontal,
+				time_clock,
+				time_date,
+				media_widget,
+				weather_widget,
+				keeb_widget,
+				theme.volume.widget,
+				vostok_eth_widget,
+				vostok_wifi_widget,
+				sulaco_battery0,
+				kernel_widget,
+				blank_seperator,
+				awesome_icon,
+				blank_seperator,
+				wibox.widget.systray(),
+			},
+		})
+	elseif hostname == "narcissus" then
+		s.mywibox:setup({
+			layout = wibox.layout.align.horizontal,
+			-- use expanad = "none" for right,middle,left layout
+			-- expand = "none",
+			{
+				-- Left widgets
+				layout = wibox.layout.fixed.horizontal,
+				s.mytaglist,
+				blank_seperator,
+				s.mylayoutbox,
+			},
+			--s.mytasklist, -- Middle widget
+			{
+				layout = wibox.layout.fixed.horizontal,
+			},
+			{
+				-- Right widgets
+				layout = wibox.layout.fixed.horizontal,
+				time_clock,
+				time_date,
+				media_widget,
+				weather_widget,
+				keeb_widget,
+				theme.volume.widget,
+				vostok_eth_widget,
+				narcissus_dock_eth_widget,
+				vostok_wifi_widget,
+				narcissus_battery0,
+				kernel_widget,
+				blank_seperator,
+				awesome_icon,
+				blank_seperator,
+				wibox.widget.systray(),
+			},
+		})
+	end
 end
 
 return theme

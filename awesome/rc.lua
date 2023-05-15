@@ -96,6 +96,7 @@ if hostname == "nostromo" then
 		"nextcloud",
 		"/opt/piavpn/bin/pia-client",
 		"caffeine",
+		"bash /home/zander/.profile",
 	}
 elseif hostname == "vostok" then
 	wallpaper_path = "/home/zander/Nextcloud/Wallpapers/current"
@@ -139,6 +140,7 @@ elseif hostname == "prometheus" then
 		"nm-applet",
 		"volumeicon",
 		"caffeine",
+		"bash /home/zander/.profile",
 	}
 end
 

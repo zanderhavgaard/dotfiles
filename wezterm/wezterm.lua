@@ -13,7 +13,10 @@ end
 -- This is where you actually apply your config choices
 
 config.color_scheme = "OneDark (base16)"
-config.font = wezterm.font("Hack Nerd Font")
+config.font = wezterm.font_with_fallback({
+	"Hack Nerd Font",
+	"Symbols Nerd Font",
+})
 
 -- and finally, return the configuration to wezterm
 return config

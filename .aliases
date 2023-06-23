@@ -4,6 +4,9 @@
 # (_)/_/ \_\|____||___|/_/ \_\|___/|___||___/
 #
 
+# make it easy to use Taskfiles
+alias t="go-task"
+
 alias sync_pacman_mirrors="reflector --country Denmark,Sweden,Norway,Germany --fastest 10 --protocol https --verbose"
 
 alias lg="lazygit"

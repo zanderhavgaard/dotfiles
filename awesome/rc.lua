@@ -110,6 +110,18 @@ elseif hostname == "vostok" then
 		"/opt/piavpn/bin/pia-client",
 		"caffeine",
 	}
+elseif hostname == "phobos" then
+	wallpaper_path = "/home/zander/Nextcloud/Wallpapers/current"
+	startup_cmds = {
+		"feh --randomize --bg-scale " .. wallpaper_path,
+		"picom --config /home/zander/dotfiles/picom/picom.conf",
+		"bash /home/zander/dotfiles/i3lock/start_i3lock.sh",
+		"nm-applet",
+		"volumeicon",
+		"nextcloud",
+		"/opt/piavpn/bin/pia-client",
+		"caffeine",
+	}
 elseif hostname == "sulaco" then
 	wallpaper_path = "/home/zander/Nextcloud/Wallpapers/current"
 	startup_cmds = {

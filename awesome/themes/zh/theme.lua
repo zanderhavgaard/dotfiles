@@ -109,6 +109,12 @@ theme.layout_fullscreen = theme.confdir .. "/icons/fullscreen.png"
 theme.layout_magnifier = theme.confdir .. "/icons/magnifier.png"
 theme.layout_floating = theme.confdir .. "/icons/floating.png"
 
+-- if phobos, account for the lower resolution screen
+if hostname == "phobos" then
+	theme.bar_height = dpi(18)
+	theme.font = "Hack Nerd Font 10"
+end
+
 local markup = lain.util.markup
 local separators = lain.util.separators
 local blank_seperator = wibox.widget.textbox("   ")
@@ -456,6 +462,41 @@ function theme.at_screen_connect(s)
 				weather_widget,
 				keeb_widget,
 				theme.volume.widget,
+				kernel_widget,
+				blank_seperator,
+				awesome_icon,
+				blank_seperator,
+				wibox.widget.systray(),
+			},
+		})
+	elseif hostname == "phobos" then
+		s.mywibox:setup({
+			layout = wibox.layout.align.horizontal,
+			-- use expanad = "none" for right,middle,left layout
+			-- expand = "none",
+			{
+				-- Left widgets
+				layout = wibox.layout.fixed.horizontal,
+				s.mytaglist,
+				blank_seperator,
+				s.mylayoutbox,
+			},
+			--s.mytasklist, -- Middle widget
+			{
+				layout = wibox.layout.fixed.horizontal,
+			},
+			{
+				-- Right widgets
+				layout = wibox.layout.fixed.horizontal,
+				time_clock,
+				time_date,
+				media_widget,
+				keeb_widget,
+				theme.volume.widget,
+				vostok_eth_widget,
+				vostok_wifi_widget,
+				vostok_battery0,
+				vostok_battery1,
 				kernel_widget,
 				blank_seperator,
 				awesome_icon,

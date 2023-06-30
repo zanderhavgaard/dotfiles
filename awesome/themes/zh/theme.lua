@@ -322,6 +322,17 @@ vicious.register(vostok_wifi_widget, vicious.widgets.wifi, function(widget, args
 	return markup.fontfg(theme.font, theme.green, " " .. wifi_text .. " ")
 end, 10, "wlp4s0")
 
+local phobos_wifi_widget = wibox.widget.textbox()
+vicious.register(phobos_wifi_widget, vicious.widgets.wifi, function(widget, args)
+	local wifi_text = ""
+	if args["{link}"] == 0 then
+		wifi_text = "󰖪 "
+	else
+		wifi_text = "󰖩 " .. args["{ssid}"]
+	end
+	return markup.fontfg(theme.font, theme.green, " " .. wifi_text .. " ")
+end, 10, "wlp3s0")
+
 local sulaco_wifi_widget = wibox.widget.textbox()
 vicious.register(vostok_wifi_widget, vicious.widgets.wifi, function(widget, args)
 	local wifi_text = ""
@@ -494,7 +505,7 @@ function theme.at_screen_connect(s)
 				keeb_widget,
 				theme.volume.widget,
 				vostok_eth_widget,
-				vostok_wifi_widget,
+				phobos_wifi_widget,
 				vostok_battery0,
 				vostok_battery1,
 				kernel_widget,

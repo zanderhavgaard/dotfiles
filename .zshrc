@@ -15,57 +15,54 @@ export TERM="xterm-256color"
 # setup GPG key
 export GPG_TTY=$(tty)
 
-# ===== Typewritten customization =====
-# export TYPEWRITTEN_PROMPT_LAYOUT="singleline"
-# export TYPEWRITTEN_SYMBOL="❯"
-# export TYPEWRITTEN_SYMBOL=">"
-# export TYPEWRITTEN_CURSOR="underscore"
-# export TYPEWRITTEN_RIGHT_PROMPT_PREFIX="> "
-# export TYPEWRITTEN_GIT_RELATIVE_PATH=true
+# === zplug ===
 
-# ===== antigen =====
-
-# use antigen
-# here installed from the AUR
-source /usr/share/zsh/share/antigen.zsh
-
-# use oh-my-zsh plugins
-antigen use oh-my-zsh
+# init zplug
+source /usr/share/zsh/scripts/zplug/init.zsh
 
 # oh-my-zsh plugins
-antigen bundle fzf
-antigen bundle git
-antigen bundle docker
-antigen bundle docker-compose
-antigen bundle kubernetes
-antigen bundle python
+zplug "plugins/fzf", from:oh-my-zsh
+zplug "plugins/colored-man-pages", from:oh-my-zsh
+zplug "plugins/ripgrep", from:oh-my-zsh
+zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/gitignore", from:oh-my-zsh
+zplug "plugins/gh", from:oh-my-zsh
+zplug "plugins/docker", from:oh-my-zsh
+zplug "plugins/docker-compose", from:oh-my-zsh
+zplug "plugins/kubernetes", from:oh-my-zsh
+zplug "plugins/aws", from:oh-my-zsh
+zplug "plugins/python", from:oh-my-zsh
+zplug "plugins/pip", from:oh-my-zsh
+zplug "plugins/golang", from:oh-my-zsh
 
 # plugins
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle "MichaelAquilina/zsh-autoswitch-virtualenv"
-antigen bundle hlissner/zsh-autopair
-antigen bundle chrissicool/zsh-256color
-antigen bundle djui/alias-tips
-antigen bundle ael-code/zsh-colored-man-pages
-antigen bundle zpm-zsh/colorize
-antigen bundle "MichaelAquilina/zsh-auto-notify"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "MichaelAquilina/zsh-autoswitch-virtualenv"
+zplug "hlissner/zsh-autopair"
+zplug "chrissicool/zsh-256color"
+zplug "djui/alias-tips"
+# zplug "ael-code/zsh-colored-man-pages"
+zplug "MichaelAquilina/zsh-auto-notify"
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
-# theme
-# antigen theme https://github.com/reobin/typewritten
-# antigen theme romkatv/powerlevel10k
-# antigen theme agnoster
-# antigen theme denysdovhan/spaceship-prompt
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
 
-# commit antigen commands
-antigen apply
+# load zplug plugins
+# zplug load --verbose
+zplug load
+
+# === end zplug ===
 
 # use starship prompt, must be installed seperately
 # on arch: pacman -S starship
 # starship is configured in a seperate configuration file
 # located in ~/.config/starship.toml
-# if you want a simple self contained theme, comment the
-# line below and uncomment the spaceship prompt above
 eval "$(starship init zsh)"
 
 # ====== Custom settings =====
@@ -80,15 +77,8 @@ source ~/.env
 source ~/.aliases
 source ~/.env-local
 
-# needed for docker plugin
-autoload -Uz compinit
-compinit
-
 # init zoxide
-eval "$(zoxide init zsh)"
+# eval "$(zoxide init zsh)"
 
 # btw I use Arch...
 pfetch
-
-# To customize prompt, run `p10k configure` or edit ~/dotfiles/.p10k.zsh.
-# [[ ! -f ~/dotfiles/.p10k.zsh ]] || source ~/dotfiles/.p10k.zsh

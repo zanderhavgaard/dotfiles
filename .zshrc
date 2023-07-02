@@ -20,6 +20,9 @@ export GPG_TTY=$(tty)
 # init zplug
 source /usr/share/zsh/scripts/zplug/init.zsh
 
+# load oh-my-zsh lib components
+zplug "lib/*", from:oh-my-zsh
+
 # oh-my-zsh plugins
 zplug "plugins/fzf", from:oh-my-zsh
 zplug "plugins/colored-man-pages", from:oh-my-zsh
@@ -36,14 +39,13 @@ zplug "plugins/pip", from:oh-my-zsh
 zplug "plugins/golang", from:oh-my-zsh
 
 # plugins
-zplug "zsh-users/zsh-autosuggestions"
-zplug "MichaelAquilina/zsh-autoswitch-virtualenv"
-zplug "hlissner/zsh-autopair"
-zplug "chrissicool/zsh-256color"
-zplug "djui/alias-tips"
-# zplug "ael-code/zsh-colored-man-pages"
-zplug "MichaelAquilina/zsh-auto-notify"
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "MichaelAquilina/zsh-autoswitch-virtualenv", from:github, as:plugin
+zplug "hlissner/zsh-autopair", from:github, as:plugin
+zplug "chrissicool/zsh-256color", from:github, as:plugin
+zplug "djui/alias-tips", from:github, as:plugin
+zplug "MichaelAquilina/zsh-auto-notify", from:github, as:plugin
+zplug "zsh-users/zsh-autosuggestions", from:github, as:plugin
+zplug "zsh-users/zsh-syntax-highlighting", from:github, as:plugin, defer:2
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then

@@ -4,6 +4,9 @@
 # (_)/_/ \_\|____||___|/_/ \_\|___/|___||___/
 #
 
+# use dog > dig
+alias dig="dog"
+
 # make it easy to use Taskfiles
 alias t="go-task"
 

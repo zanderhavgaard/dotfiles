@@ -33,6 +33,7 @@ zplug "plugins/gh", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
 zplug "plugins/docker-compose", from:oh-my-zsh
 zplug "plugins/kubernetes", from:oh-my-zsh
+zplug "plugins/kubectl", from:oh-my-zsh
 zplug "plugins/helm", from:oh-my-zsh
 zplug "plugins/aws", from:oh-my-zsh
 zplug "plugins/python", from:oh-my-zsh

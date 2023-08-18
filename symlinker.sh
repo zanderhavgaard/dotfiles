@@ -31,14 +31,6 @@ echo -e "\nSymlinking tmux config ..."
 rm ~/.tmux.conf
 ln -sv $dfd/.tmux.conf /home/$user/.tmux.conf
 
-echo -e "\nSymlinking termite config ..."
-rm -r $cfd/termite/*
-ln -sv $dfd/termite/config $cfd/termite/config
-
-echo -e "\nSymlinking kitty config ..."
-rm $cfd/kitty/kitty.conf
-ln -sv $dfd/kitty/kitty.conf $cfd/kitty/kitty.conf
-
 echo -e "\nSymlinking alacritty config ..."
 rm $cfd/alacritty/alacritty.yml
 ln -sv $dfd/alacritty/alacritty.yml $cfd/alacritty/alacritty.yml
@@ -82,31 +74,15 @@ echo -e "\n symlinking dunst config ..."
 rm $cfd/dunst/dunstrc
 ln -sv $dfd/dunst/dunstrc $cfd/dunst/dunstrc
 
-echo -e "\n symlinking qutebrowser config ..."
-rm -rf $cfd/qutebrowser
-ln -sv $dfd/qutebrowser $cfd/qutebrowser
-
 echo -e "\n symlinking bspwm config ..."
 rm -rf $cfd/bspwm
 rm -rf $cfd/sxhkd
 ln -sv $dfd/bspwm $cfd/bspwm
 ln -sv $dfd/sxhkd $cfd/sxhkd
 
-echo -e "\n symlinking ncspot config ..."
-rm $cfd/ncspot/config.toml
-ln -sv $dfd/ncspot/config.toml $cfd/ncspot/config.toml
-
 echo -e "\n symlinking lf config ..."
 rm $cfd/lf/lfrc
 ln -sv $dfd/lf/lfrc $cfd/lf/lfrc
-
-echo -e "\n symlinking flashfocus config ..."
-rm $cfd/flashfocus/flashfocus.yml
-ln -sv $dfd/flashfocus/flashfocus.yml $cfd/flashfocus/flashfocus.yml
-
-echo -e "\n symlinking qtile config ..."
-rm -rf $cfd/qtile
-ln -sv $dfd/qtile $cfd/qtile
 
 echo -e "\n symlinking awesomewm config ..."
 rm -rf $cfd/awesome
@@ -123,3 +99,7 @@ ln -sv $dfd/hypr/hyprland.conf $cfd/hypr/hyprland.conf
 echo -e "\n symlinking wezterm config ..."
 rm $cfd/wezterm/wezterm.lua
 ln -sv $dfd/wezterm/wezterm.lua $cfd/wezterm/wezterm.lua
+
+echo -e "\n symlinking zellij config ..."
+rm $cfd/zellij/config.kdl
+ln -sv $dfd/zellij/config.kdl $cfd/zellij/config.kdl

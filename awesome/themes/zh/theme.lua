@@ -622,6 +622,42 @@ function theme.at_screen_connect(s)
 				wibox.widget.systray(),
 			},
 		})
+	elseif hostname == "orion" then
+		s.mywibox:setup({
+			layout = wibox.layout.align.horizontal,
+			-- use expanad = "none" for right,middle,left layout
+			-- expand = "none",
+			{
+				-- Left widgets
+				layout = wibox.layout.fixed.horizontal,
+				s.mytaglist,
+				blank_seperator,
+				s.mylayoutbox,
+			},
+			--s.mytasklist, -- Middle widget
+			{
+				layout = wibox.layout.fixed.horizontal,
+			},
+			{
+				-- Right widgets
+				layout = wibox.layout.fixed.horizontal,
+				time_clock,
+				time_date,
+				media_widget,
+				weather_widget,
+				keeb_widget,
+				theme.volume.widget,
+				vostok_eth_widget,
+				narcissus_dock_eth_widget,
+				vostok_wifi_widget,
+				narcissus_battery0,
+				kernel_widget,
+				blank_seperator,
+				awesome_icon,
+				blank_seperator,
+				wibox.widget.systray(),
+			},
+		})
 	end
 end
 

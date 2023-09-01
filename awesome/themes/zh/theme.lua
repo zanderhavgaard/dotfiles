@@ -179,7 +179,7 @@ local awesome_icon = wibox.widget.imagebox(theme.awesome_icon)
 -- })
 
 -- Battery
-local narcissus_battery0 = lain.widget.bat({
+local covenant_battery0 = lain.widget.bat({
 	battery = "BAT0",
 	settings = function()
 		local battery_status = "?"
@@ -367,7 +367,7 @@ vicious.register(vostok_eth_widget, vicious.widgets.net, function(widget, args)
 	return markup.fontfg(theme.font, theme.red, " " .. eth_text .. " ")
 end, 10, "enp0s31f6")
 
-local narcissus_dock_eth_widget = wibox.widget.textbox()
+local covenant_dock_eth_widget = wibox.widget.textbox()
 vicious.register(vostok_eth_widget, vicious.widgets.net, function(widget, args)
 	local eth_text = ""
 	if args["{ip}"] == nil then
@@ -586,7 +586,7 @@ function theme.at_screen_connect(s)
 				wibox.widget.systray(),
 			},
 		})
-	elseif hostname == "narcissus" then
+	elseif hostname == "covenant" then
 		s.mywibox:setup({
 			layout = wibox.layout.align.horizontal,
 			-- use expanad = "none" for right,middle,left layout
@@ -612,9 +612,9 @@ function theme.at_screen_connect(s)
 				keeb_widget,
 				theme.volume.widget,
 				vostok_eth_widget,
-				narcissus_dock_eth_widget,
+				covenant_dock_eth_widget,
 				vostok_wifi_widget,
-				narcissus_battery0,
+				covenant_battery0,
 				kernel_widget,
 				blank_seperator,
 				awesome_icon,
@@ -648,9 +648,9 @@ function theme.at_screen_connect(s)
 				keeb_widget,
 				theme.volume.widget,
 				vostok_eth_widget,
-				narcissus_dock_eth_widget,
+				covenant_dock_eth_widget,
 				vostok_wifi_widget,
-				narcissus_battery0,
+				covenant_battery0,
 				kernel_widget,
 				blank_seperator,
 				awesome_icon,

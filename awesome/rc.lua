@@ -143,7 +143,7 @@ elseif hostname == "orion" then
 		"volumeicon",
 		"caffeine",
 	}
-elseif hostname == "narcissus" then
+elseif hostname == "covenant" then
 	wallpaper_path = "/home/zander/wallpaper/walls"
 	startup_cmds = {
 		"feh --randomize --bg-scale " .. wallpaper_path,

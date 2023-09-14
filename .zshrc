@@ -38,6 +38,7 @@ zplug "plugins/helm", from:oh-my-zsh
 zplug "plugins/aws", from:oh-my-zsh
 zplug "plugins/python", from:oh-my-zsh
 zplug "plugins/pip", from:oh-my-zsh
+# zplug "plugins/pyenv", from:oh-my-zsh
 zplug "plugins/golang", from:oh-my-zsh
 
 # plugins

@@ -119,6 +119,29 @@ local markup = lain.util.markup
 local separators = lain.util.separators
 local blank_seperator = wibox.widget.textbox("   ")
 
+-- local terminal_button = awful.widget.textbox({
+-- markup = "foo",
+-- buttons = {
+-- 	awful.button({}, 1, nil, function()
+-- 		print("Mouse was clicked")
+-- 		awful.spawn("alacritty")
+-- 	end),
+-- },
+-- })
+
+local terminal_button = wibox.widget({
+	markup = "  ",
+	halign = "center",
+	valign = "center",
+	widget = wibox.widget.textbox,
+	font = theme.font,
+	fg = theme.fg_normal,
+	bg = theme.bg_normal,
+})
+terminal_button:connect_signal("button::press", function()
+	awful.spawn("alacritty")
+end)
+
 -- Textclock
 os.setlocale(os.getenv("LANG")) -- to localize the clock
 
@@ -444,6 +467,7 @@ function theme.at_screen_connect(s)
 				kernel_widget,
 				blank_seperator,
 				awesome_icon,
+				terminal_button,
 				blank_seperator,
 				wibox.widget.systray(),
 			},
@@ -476,6 +500,7 @@ function theme.at_screen_connect(s)
 				kernel_widget,
 				blank_seperator,
 				awesome_icon,
+				terminal_button,
 				blank_seperator,
 				wibox.widget.systray(),
 			},
@@ -511,6 +536,7 @@ function theme.at_screen_connect(s)
 				kernel_widget,
 				blank_seperator,
 				awesome_icon,
+				terminal_button,
 				blank_seperator,
 				wibox.widget.systray(),
 			},
@@ -547,6 +573,7 @@ function theme.at_screen_connect(s)
 				kernel_widget,
 				blank_seperator,
 				awesome_icon,
+				terminal_button,
 				blank_seperator,
 				wibox.widget.systray(),
 			},
@@ -582,6 +609,7 @@ function theme.at_screen_connect(s)
 				kernel_widget,
 				blank_seperator,
 				awesome_icon,
+				terminal_button,
 				blank_seperator,
 				wibox.widget.systray(),
 			},
@@ -618,6 +646,7 @@ function theme.at_screen_connect(s)
 				kernel_widget,
 				blank_seperator,
 				awesome_icon,
+				terminal_button,
 				blank_seperator,
 				wibox.widget.systray(),
 			},
@@ -654,6 +683,7 @@ function theme.at_screen_connect(s)
 				kernel_widget,
 				blank_seperator,
 				awesome_icon,
+				terminal_button,
 				blank_seperator,
 				wibox.widget.systray(),
 			},

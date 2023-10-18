@@ -24,6 +24,7 @@ source /usr/share/zsh/scripts/zplug/init.zsh
 zplug "lib/*", from:oh-my-zsh
 
 # oh-my-zsh plugins
+zplug "plugins/ssh-agent", from:oh-my-zsh
 zplug "plugins/fzf", from:oh-my-zsh
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/ripgrep", from:oh-my-zsh

@@ -156,7 +156,7 @@ elseif hostname == "covenant" then
 elseif hostname == "prometheus" then
 	wallpaper_path = "/home/zander/wallpapers"
 	startup_cmds = {
-		"feh --randomize --bg-scale" .. wallpaper_path,
+		"feh --randomize --bg-scale " .. wallpaper_path,
 		"picom --config /home/zander/dotfiles/picom/picom.conf",
 		"bash /home/zander/dotfiles/i3lock/start_i3lock.sh",
 		"nm-applet",

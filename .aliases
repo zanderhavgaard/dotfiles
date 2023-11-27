@@ -8,7 +8,7 @@
 alias dig="dog"
 
 # make it easy to use Taskfiles
-alias t="go-task"
+alias t="task"
 
 alias sync_pacman_mirrors="reflector --country Denmark,Sweden,Norway,Germany --fastest 10 --protocol https --verbose"
 

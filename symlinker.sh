@@ -107,3 +107,9 @@ ln -sv $dfd/zellij/config.kdl $cfd/zellij/config.kdl
 echo -e "\n symlinking river config ..."
 rm $cfd/river/init
 ln -sv $dfd/river/init $cfd/river/init
+
+echo -e "\n symlinking waybar config ..."
+rm $cfd/waybar/config
+rm $cfd/waybar/style.css
+ln -sv $dfd/waybar/config.json $cfd/waybar/config
+ln -sv $dfd/waybar/style.css $cfd/waybar/style.css

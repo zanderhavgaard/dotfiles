@@ -24,10 +24,23 @@ elif [ "$(hostname)" = 'orion' ]; then
 
 fi
 
+# start generic background processes
+riverctl spawn nm-applet
+riverctl spawn mako
+
 # ==== waybar ====
 
 # spawn waybar process
 riverctl spawn waybar
+
+# ===== cycle tags =====
+# relies on extra riverwm-utils, see:
+# https://github.com/NickHastings/riverwm-utils
+# You might need to generate wayland protocol files,
+# call 'sudo cycle-focused-tags' to do so
+
+riverctl map normal Super Tab spawn "cycle-focused-tags next 9"
+riverctl map normal Super+Shift Tab spawn "cycle-focused-tags previous 9"
 
 # ===== keymaps =====
 

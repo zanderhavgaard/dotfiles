@@ -10,6 +10,29 @@
 
 # Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc.
 
+# ===== settings ======
+
+# new windows go to the top of the stack
+riverctl attach-mode top
+
+# focus should follow the mouse
+riverctl focus-follows-cursor normal
+
+# move mouse cursor when focus changes
+riverctl set-cursor-warp on-output-change
+
+# hide the mouse cursor when typing, show again on movement
+riverctl hide-cursor when-typing enabled
+
+# Set background and border color
+riverctl background-color 0x282c34
+riverctl border-color-focused 0x61afef
+riverctl border-color-unfocused 0x5c6370
+riverctl border-color-urgent 0xe06c75
+
+# Set keyboard repeat rate
+riverctl set-repeat 50 300
+
 # ===== start-up commands =====
 
 # start different programs depending on which system
@@ -24,14 +47,27 @@ elif [ "$(hostname)" = 'orion' ]; then
 
 fi
 
+# needed for xdg-desktop-portal-wlr to work, which enables screensharing
+riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
+
 # start generic background processes
 riverctl spawn nm-applet
 riverctl spawn mako
+
+# start swayidle to lock the screen automatically
+riverctl spawn /home/zander/dotfiles/scripts/swayidle.sh
 
 # ==== waybar ====
 
 # spawn waybar process
 riverctl spawn waybar
+
+# ===== wallpaper =====
+
+# set a wallpaper
+riverctl spawn /home/zander/dotfiles/scripts/swaybg-set-random-wallpaper.sh
+# keybind to cycle wallpapers
+riverctl map normal Super+Control+Shift Space spawn /home/zander/dotfiles/scripts/swaybg-set-random-wallpaper.sh
 
 # ===== cycle tags =====
 # relies on extra riverwm-utils, see:
@@ -53,6 +89,9 @@ riverctl map normal Super W spawn "firefox"
 
 # spawn wofi to launch apps
 riverctl map normal Super D spawn 'wofi --show drun'
+
+# lock the screen with swaylock
+riverctl map normal Super+Shift+Control L spawn "swaylock --color 000000"
 
 # Super+Q to close the focused view
 riverctl map normal Super+Shift Q close
@@ -117,19 +156,19 @@ riverctl map-pointer normal Super BTN_RIGHT resize-view
 riverctl map-pointer normal Super BTN_MIDDLE toggle-float
 
 for i in $(seq 1 9); do
-	tags=$((1 << ($i - 1)))
+	tags=$((1 << (i - 1)))
 
 	# Super+[1-9] to focus tag [0-8]
-	riverctl map normal Super $i set-focused-tags $tags
+	riverctl map normal Super "$i" set-focused-tags $tags
 
 	# Super+Shift+[1-9] to tag focused view with tag [0-8]
-	riverctl map normal Super+Shift $i set-view-tags $tags
+	riverctl map normal Super+Shift "$i" set-view-tags $tags
 
 	# Super+Control+[1-9] to toggle focus of tag [0-8]
-	riverctl map normal Super+Control $i toggle-focused-tags $tags
+	riverctl map normal Super+Control "$i" toggle-focused-tags $tags
 
 	# Super+Shift+Control+[1-9] to toggle tag [0-8] of focused view
-	riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
+	riverctl map normal Super+Shift+Control "$i" toggle-view-tags $tags
 done
 
 # Super+0 to focus all tags
@@ -138,8 +177,8 @@ all_tags=$(((1 << 32) - 1))
 riverctl map normal Super 0 set-focused-tags $all_tags
 riverctl map normal Super+Shift 0 set-view-tags $all_tags
 
-# Super+Space to toggle float
-riverctl map normal Super Space toggle-float
+# toggle window floating/tiling
+riverctl map normal Super S toggle-float
 
 # Super+F to toggle fullscreen
 riverctl map normal Super F toggle-fullscreen
@@ -181,29 +220,6 @@ for mode in normal locked; do
 	riverctl map $mode None XF86MonBrightnessUp spawn 'light -A 5'
 	riverctl map $mode None XF86MonBrightnessDown spawn 'light -U 5'
 done
-
-# ===== settings ======
-
-# new windows go to the top of the stack
-riverctl attach-mode top
-
-# focus should follow the mouse
-riverctl focus-follows-mouse normal
-
-# move mouse cursor when focus changes
-riverctl set-cursor-warp on-output-change
-
-# hide the mouse cursor when typing, show again on movement
-riverctl hide-cursor when-typing enabled
-
-# Set background and border color
-riverctl background-color 0x282c34
-riverctl border-color-focused 0x61afef
-riverctl border-color-unfocused 0x5c6370
-riverctl border-color-urgent 0xe06c75
-
-# Set keyboard repeat rate
-riverctl set-repeat 50 300
 
 # Make all views with an app-id that starts with "float" and title "foo" start floating.
 # riverctl rule-add -app-id 'float*' -title 'foo' float

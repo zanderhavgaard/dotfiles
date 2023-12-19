@@ -103,3 +103,7 @@ ln -sv $dfd/wezterm/wezterm.lua $cfd/wezterm/wezterm.lua
 echo -e "\n symlinking zellij config ..."
 rm $cfd/zellij/config.kdl
 ln -sv $dfd/zellij/config.kdl $cfd/zellij/config.kdl
+
+echo -e "\n symlinking river config ..."
+rm $cfd/river/init
+ln -sv $dfd/river/init $cfd/river/init

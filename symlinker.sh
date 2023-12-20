@@ -119,3 +119,7 @@ rm $cfd/wofi/config
 rm $cfd/wofi/style.css
 ln -sv $dfd/wofi/config $cfd/wofi/config
 ln -sv $dfd/wofi/style.css $cfd/wofi/style.css
+
+echo -e "\n symlinking mako config ..."
+rm $cfd/mako/config
+ln -sv $dfd/mako/config $cfd/mako/config

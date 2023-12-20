@@ -113,3 +113,9 @@ rm $cfd/waybar/config
 rm $cfd/waybar/style.css
 ln -sv $dfd/waybar/config.json $cfd/waybar/config
 ln -sv $dfd/waybar/style.css $cfd/waybar/style.css
+
+echo -e "\n symlinking wofi config ..."
+rm $cfd/wofi/config
+rm $cfd/wofi/style.css
+ln -sv $dfd/wofi/config.json $cfd/wofi/config
+ln -sv $dfd/wofi/style.css $cfd/wofi/style.css

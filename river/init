@@ -45,6 +45,9 @@ elif [ "$(hostname)" = 'prometheus' ]; then
 elif [ "$(hostname)" = 'orion' ]; then
 	bash /home/zander/dotfiles/wlr-randr/orion.sh
 
+elif [ "$(hostname)" = 'phobos' ]; then
+	bash /home/zander/dotfiles/wlr-randr/phobos.sh
+
 fi
 
 # needed for xdg-desktop-portal-wlr to work, which enables screensharing

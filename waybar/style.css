@@ -14,7 +14,6 @@ white: "#EFEFEF"
 */
 
 * {
-  /* `otf-font-awesome` is required to be installed for icons */
   font-family: Hack Nerd Font;
   font-size: 14px;
 }
@@ -74,7 +73,7 @@ button:hover {
 }
 
 #mode {
-  padding: 5;
+  padding: 5px;
   color: #1a2128;
   background-color: #9acd68;
 }
@@ -118,14 +117,18 @@ button:hover {
 }
 
 #battery {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #cb96ff;
+  color: #282c36;
 }
 
-#battery.charging,
+#battery.charging {
+  background-color: #eda55d;
+  color: #282c36;
+}
+
 #battery.plugged {
-  color: #ffffff;
-  background-color: #26a65b;
+  background-color: #9acd68;
+  color: #282c36;
 }
 
 @keyframes blink {
@@ -163,7 +166,7 @@ label:focus {
 }
 
 #backlight {
-  background-color: #90b1b1;
+  background-color: #CB96FF;
 }
 
 #network {
@@ -309,7 +312,7 @@ label:focus {
 
 #tags button {
   margin: 0;
-  padding: 2;
+  padding: 2px;
   color: #efefef;
   background-color: #282c36;
 }

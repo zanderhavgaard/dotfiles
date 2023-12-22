@@ -1,0 +1,20 @@
+// Put this at the end of: /usr/share/X11/xkb/symbols/us
+// You must use the xkb option "altwin:swap_lalt_lwin" to get the correct layout.
+// I'm not sure why it doesn't work when you just map the other modifiers naively ...
+// as it would be nice to get rid of the option ...
+
+// In riverwm this can be used with:
+// riverctl keyboard-layout -options "altwin:swap_lalt_lwin" -variant laptop us
+// should work in other WMs and in X11 also.
+
+partial alphanumeric_keys
+xkb_symbols "laptop" {
+
+    include "us(basic)"
+    name[Group1] = "English (US, switch stuff)";
+
+    key <ESC>  { [ grave, asciitilde ] };
+    key <TLDE> { [ Escape ] };
+    key <CAPS> { [ Control_L ] };
+    key <LCTL> { [ Alt_L ] };
+};

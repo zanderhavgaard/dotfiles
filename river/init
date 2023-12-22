@@ -83,6 +83,10 @@ riverctl map normal Super+Shift Tab spawn "cycle-focused-tags previous 9"
 
 # ===== keymaps =====
 
+# take a screenshot with grim, use slurp to select the geometry
+# TODO: figure out how to pipe it to clipboard for pasting
+riverctl map normal Super+Shift+Control S spawn "grim -g \"\$(slurp)\""
+
 # switch keyboard layouts
 riverctl map normal Super+Shift+Control U spawn "riverctl keyboard-layout us"
 riverctl map normal Super+Shift+Control D spawn "riverctl keyboard-layout dk"

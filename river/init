@@ -33,6 +33,12 @@ riverctl border-color-urgent 0xe06c75
 # Set keyboard repeat rate
 riverctl set-repeat 50 300
 
+# ===== theme =====
+
+riverctl spawn "gsettings set org.gnome.desktop.interface gtk-theme Catppuccin-Frappe-Standard-Blue-Dark"
+riverctl spawn "gsettings set org.gnome.desktop.interface icon-theme Papirus-Dark"
+riverctl spawn "gsettings set org.gnome.desktop.interface cursor-theme Capitaine-Cursors"
+
 # ===== start-up commands =====
 
 # start different programs depending on which system

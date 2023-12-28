@@ -1,0 +1,69 @@
+live_config_reload = true
+working_directory = "None"
+
+[bell]
+duration = 0
+
+[colors]
+draw_bold_text_with_bright_colors = true
+indexed_colors = []
+
+[colors.cursor]
+cursor = "#EFEFEF"
+
+[colors.normal]
+black = "#1A2128"
+blue = "#7DBEFF"
+cyan = "#6ECFCF"
+green = "#9ACD68"
+magenta = "#CB96FF"
+red = "#FF9191"
+white = "#EFEFEF"
+yellow = "#EDA55D"
+
+[colors.primary]
+background = "#282C36"
+foreground = "#EFEFEF"
+
+[cursor]
+style = "Block"
+unfocused_hollow = true
+
+[font]
+size = 12.0
+
+[font.bold]
+family = "Hack Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "Hack Nerd Font"
+style = "Italic"
+
+[font.normal]
+family = "Hack Nerd Font"
+style = "Regular"
+
+[mouse]
+hide_when_typing = true
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mouse = "Right"
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[selection]
+save_to_clipboard = true
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+
+[window]
+decorations = "none"
+dynamic_padding = true
+opacity = 0.9
+
+[window.padding]
+x = 10
+y = 10

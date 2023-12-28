@@ -32,8 +32,8 @@ rm ~/.tmux.conf
 ln -sv $dfd/.tmux.conf /home/$user/.tmux.conf
 
 echo -e "\nSymlinking alacritty config ..."
-rm $cfd/alacritty/alacritty.yml
-ln -sv $dfd/alacritty/alacritty.yml $cfd/alacritty/alacritty.yml
+rm $cfd/alacritty/alacritty.toml
+ln -sv $dfd/alacritty/alacritty.toml $cfd/alacritty/alacritty.toml
 
 echo -e "\nSymlinking i3 config ..."
 rm -r $cfd/i3/*

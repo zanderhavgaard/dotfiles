@@ -68,6 +68,8 @@
     p = push
     # force push
     fp = push --force-with-lease
+    # push tags
+    pt = push --tags
     # clean interactively
     ci = clean -i
     # get sha of last commit on current branch

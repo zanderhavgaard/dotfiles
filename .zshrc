@@ -87,4 +87,4 @@ source ~/.env-local
 # eval "$(zoxide init zsh)"
 
 # btw I use Arch...
-pfetch
+nitch

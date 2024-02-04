@@ -113,7 +113,7 @@ button:hover {
 }
 
 #clock {
-  color: #6ecfcf;
+  color: #7dbeff;
 }
 
 #battery {
@@ -150,15 +150,15 @@ label:focus {
 }
 
 #backlight {
-  color: #cb96ff;
+  color: #eda55d;
 }
 
 #network {
-  color: #7dbeff;
+  color: #ff9191;
 }
 
 #network.disconnected {
-  color: #f53c3c;
+  color: #ff9191;
 }
 
 #pulseaudio {
@@ -166,28 +166,7 @@ label:focus {
 }
 
 #pulseaudio.muted {
-  color: #90b1b1;
-}
-
-#wireplumber {
-  color: #fff0f5;
-}
-
-#wireplumber.muted {
-  color: #f53c3c;
-}
-
-#custom-media {
-  color: #66cc99;
-  min-width: 100px;
-}
-
-#custom-media.custom-spotify {
-  color: #66cc99;
-}
-
-#custom-media.custom-vlc {
-  color: #ffa000;
+  color: #9acd68;
 }
 
 #tray {
@@ -204,11 +183,11 @@ label:focus {
 }
 
 #idle_inhibitor {
-  color: #ff9191;
+  color: #6ecfcf;
 }
 
 #idle_inhibitor.activated {
-  color: #1a2128;
+  color: #6ecfcf;
 }
 
 #tags button {

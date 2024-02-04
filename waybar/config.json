@@ -9,19 +9,19 @@
   "modules-center": [],
   "modules-right": [
     "clock",
-    "idle_inhibitor",
     "pulseaudio",
     "network",
     "backlight",
     "battery#bat0",
     "battery#bat1",
+    "idle_inhibitor",
     "tray"
   ],
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
-      "activated": "",
-      "deactivated": ""
+      "activated": "󰅶",
+      "deactivated": "󰛊"
     }
   },
   "tray": {

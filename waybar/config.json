@@ -5,7 +5,7 @@
   // "width": 1280, // Waybar width
   "spacing": 4, // Gaps between modules (4px)
   // Choose the order of the modules
-  "modules-left": ["river/mode", "river/tags", "custom/media"],
+  "modules-left": ["river/mode", "river/tags"],
   "modules-center": [],
   "modules-right": [
     "clock",
@@ -20,8 +20,8 @@
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
-      "activated": " ",
-      "deactivated": " "
+      "activated": "",
+      "deactivated": ""
     }
   },
   "tray": {

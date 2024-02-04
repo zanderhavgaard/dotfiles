@@ -139,7 +139,7 @@ riverctl map normal Super+Shift Period send-to-output next
 riverctl map normal Super+Shift Comma send-to-output previous
 
 # Super+Return to bump the focused view to the top of the layout stack
-# riverctl map normal Super+Shift Return zoom
+riverctl map normal Super+Shift Return zoom
 
 # Super+H and Super+L to decrease/increase the main ratio of rivertile(1)
 riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
@@ -148,24 +148,6 @@ riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
 # Super+Shift+H and Super+Shift+L to increment/decrement the main count of rivertile(1)
 riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
 riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"
-
-# Super+Alt+{H,J,K,L} to move views
-riverctl map normal Super+Alt H move left 100
-riverctl map normal Super+Alt J move down 100
-riverctl map normal Super+Alt K move up 100
-riverctl map normal Super+Alt L move right 100
-
-# Super+Alt+Control+{H,J,K,L} to snap views to screen edges
-riverctl map normal Super+Alt+Control H snap left
-riverctl map normal Super+Alt+Control J snap down
-riverctl map normal Super+Alt+Control K snap up
-riverctl map normal Super+Alt+Control L snap right
-
-# Super+Alt+Shift+{H,J,K,L} to resize views
-riverctl map normal Super+Alt+Shift H resize horizontal -100
-riverctl map normal Super+Alt+Shift J resize vertical 100
-riverctl map normal Super+Alt+Shift K resize vertical -100
-riverctl map normal Super+Alt+Shift L resize horizontal 100
 
 # Super + Left Mouse Button to move views
 riverctl map-pointer normal Super BTN_LEFT move-view
@@ -223,9 +205,6 @@ riverctl map passthrough Super F11 enter-mode normal
 # Various media key mapping examples for both normal and locked mode which do
 # not have a modifier
 for mode in normal locked; do
-	# Eject the optical drive (well if you still have one that is)
-	riverctl map $mode None XF86Eject spawn 'eject -T'
-
 	# Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
 	riverctl map $mode None XF86AudioRaiseVolume spawn 'pamixer -i 5'
 	riverctl map $mode None XF86AudioLowerVolume spawn 'pamixer -d 5'
@@ -253,4 +232,4 @@ done
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
-rivertile -view-padding 6 -outer-padding 6 &
+rivertile -view-padding 5 -outer-padding 5 -main-ratio '0.5' &

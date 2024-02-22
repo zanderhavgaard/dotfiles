@@ -145,3 +145,7 @@ alias pt="pytest"
 alias rlt="figlet 'run_linters' ; run_linters ; figlet 'pytest' ; pytest"
 alias ruff_fix="ruff check . --config linting/.ruff.toml --fix"
 alias b="black ."
+
+# github cli aliases
+alias ghre="gh repo view --web"
+alias ghpr="gh pr view --web"

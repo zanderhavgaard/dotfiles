@@ -105,8 +105,8 @@ riverctl map normal Super+Shift+Control D spawn "riverctl keyboard-layout dk"
 riverctl map normal Super+Shift+Control Y spawn "riverctl keyboard-layout -options \"altwin:swap_lalt_lwin\" -variant laptop us"
 
 # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
-# riverctl map normal Super Return spawn foot # TODO: Evaluate foot
-riverctl map normal Super Return spawn alacritty
+# riverctl map normal Super Return spawn <terminal>
+riverctl map normal Super Return spawn wezterm
 
 # spawen firefox window
 riverctl map normal Super W spawn "firefox"

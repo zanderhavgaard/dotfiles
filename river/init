@@ -36,6 +36,9 @@ riverctl border-color-focused 0x61afef
 riverctl border-color-unfocused 0x5c6370
 riverctl border-color-urgent 0xe06c75
 
+# add serverside-decorations to all windows
+riverctl rule-add ssd
+
 # Set keyboard repeat rate
 riverctl set-repeat 50 300
 

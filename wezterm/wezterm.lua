@@ -17,6 +17,11 @@ config.font = wezterm.font_with_fallback({
 	"Hack Nerd Font",
 	"Symbols Nerd Font",
 })
+-- enable transparency
+config.window_background_opacity = 0.9
+
+-- setup toggle of top bar
+config.enable_tab_bar = false
 
 -- and finally, return the configuration to wezterm
 return config

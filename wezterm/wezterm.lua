@@ -13,10 +13,8 @@ end
 -- This is where you actually apply your config choices
 
 config.color_scheme = "OneDark (base16)"
-config.font = wezterm.font_with_fallback({
-	"Hack Nerd Font",
-	"Symbols Nerd Font",
-})
+config.font = wezterm.font("Hack Nerd Font")
+
 -- enable transparency
 config.window_background_opacity = 0.9
 

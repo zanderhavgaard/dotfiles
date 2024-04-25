@@ -123,3 +123,11 @@ ln -sv $dfd/wofi/style.css $cfd/wofi/style.css
 echo -e "\n symlinking mako config ..."
 rm $cfd/mako/config
 ln -sv $dfd/mako/config $cfd/mako/config
+
+echo -e "\n symlinking k9s config ..."
+rm $cfd/k9s/aliases.yaml
+rm $cfd/k9s/config.yaml
+rm -rf $cfd/k9s/skins
+ln -sv $dfd/k9s/aliases.yaml $cfd/k9s/aliases.yaml
+ln -sv $dfd/k9s/config.yaml $cfd/k9s/config.yaml
+ln -sv $dfd/k9s/skins $cfd/k9s/skins

@@ -207,3 +207,21 @@ label:focus {
   color: #1a2128;
   background-color: #ff9191;
 }
+
+#workspaces button {
+  margin: 0;
+  padding: 2px;
+  color: #efefef;
+  background-color: #282c36;
+}
+#workspaces button.occupied {
+  color: #7dbeff;
+}
+#workspaces button.active {
+  color: #1a2128;
+  background-color: #7dbeff;
+}
+#workspaces button.urgent {
+  color: #1a2128;
+  background-color: #ff9191;
+}

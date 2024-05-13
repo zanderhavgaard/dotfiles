@@ -47,6 +47,7 @@ riverctl set-repeat 50 300
 # start different programs depending on which system
 if [ "$(hostname)" = 'nostromo' ]; then
 	bash /home/zander/dotfiles/wlr-randr/home.sh
+	riverctl spawn nextcloud
 
 elif [ "$(hostname)" = 'prometheus' ]; then
 	bash /home/zander/dotfiles/wlr-randr/home.sh

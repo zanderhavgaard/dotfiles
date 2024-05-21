@@ -88,8 +88,8 @@ riverctl map normal Super+Control+Shift Space spawn /home/zander/dotfiles/script
 # You might need to generate wayland protocol files,
 # call 'sudo cycle-focused-tags' to do so
 
-riverctl map normal Super Tab spawn "cycle-focused-tags next 9"
-riverctl map normal Super+Shift Tab spawn "cycle-focused-tags previous 9"
+riverctl map normal Super Tab spawn "cycle-focused-tags +1 9"
+riverctl map normal Super+Shift Tab spawn "cycle-focused-tags -1 9"
 
 # ===== keymaps =====
 

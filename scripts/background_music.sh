@@ -232,7 +232,7 @@ function stream_with_video {
 }
 
 function get_video_title {
-	youtube-dl \
+	yt-dlp \
 		--skip-download \
 		--get-title \
 		$1

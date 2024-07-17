@@ -72,10 +72,19 @@ button:hover {
   background-color: #eb4d4b;
 }
 
-#mode {
+#layout {
   padding: 5px;
-  color: #1a2128;
-  background-color: #9acd68;
+  color: #9acd68;
+}
+
+#window {
+  padding: 5px;
+  color: #7dbeff;
+}
+
+#custom-kernel {
+  padding: 5px;
+  color: #7dbeff;
 }
 
 #clock,

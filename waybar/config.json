@@ -5,7 +5,7 @@
   // "width": 1280, // Waybar width
   "spacing": 4, // Gaps between modules (4px)
   // Choose the order of the modules
-  "modules-left": ["river/mode", "river/tags"],
+  "modules-left": ["river/tags", "river/layout", "river/window"],
   "modules-center": [],
   "modules-right": [
     "clock",
@@ -15,8 +15,12 @@
     "battery#bat0",
     "battery#bat1",
     "idle_inhibitor",
+    "custom/kernel",
     "tray"
   ],
+  "custom/kernel": {
+    "exec": "/home/zander/dotfiles/scripts/print_osicon_kernel.sh"
+  },
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {

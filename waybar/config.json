@@ -5,7 +5,7 @@
   // "width": 1280, // Waybar width
   "spacing": 4, // Gaps between modules (4px)
   // Choose the order of the modules
-  "modules-left": ["river/tags", "river/layout", "river/window"],
+  "modules-left": ["river/tags", "river/layout"],
   "modules-center": [],
   "modules-right": [
     "clock",

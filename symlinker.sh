@@ -131,3 +131,7 @@ rm -rf $cfd/k9s/skins
 ln -sv $dfd/k9s/aliases.yaml $cfd/k9s/aliases.yaml
 ln -sv $dfd/k9s/config.yaml $cfd/k9s/config.yaml
 ln -sv $dfd/k9s/skins $cfd/k9s/skins
+
+echo -e "\n symlinking zed config ..."
+rm $cfd/zed/settings.json
+ln -sv $dfd/zed/settings.json $cfd/zed/settings.json

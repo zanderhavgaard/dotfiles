@@ -12,28 +12,22 @@
   },
   "theme": "One Dark Pro",
   "vim_mode": true,
-
   "autosave": "on_focus_change",
-
   "ui_font_size": 14,
   "buffer_font_size": 14,
   "ui_font_family": "0xProto Nerd Font",
   "buffer_font_family": "0xProto Nerd Font Mono",
-
   "tabs": {
     "git_status": true
   },
-
   "indent_guides": {
     "enabled": true,
     "coloring": "indent_aware"
   },
-
   "telemetry": {
-    "diagnostics": true,
-    "metrics": true
+    "diagnostics": false,
+    "metrics": false
   },
-
   "languages": {
     "Python": {
       "formatter": {

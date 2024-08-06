@@ -18,11 +18,7 @@ export GPG_TTY=$(tty)
 # === zplug ===
 
 # init zplug
-if [[ $(hostname) == "vostok" ]] ; then
-	source /home/zander/zplug/init.zsh
-else
-	source /usr/share/zsh/scripts/zplug/init.zsh
-fi
+source /usr/share/zsh/scripts/zplug/init.zsh
 
 # load oh-my-zsh lib components
 zplug "lib/*", from:oh-my-zsh
@@ -51,7 +47,7 @@ zplug "MichaelAquilina/zsh-autoswitch-virtualenv", from:github, as:plugin
 zplug "hlissner/zsh-autopair", from:github, as:plugin
 zplug "chrissicool/zsh-256color", from:github, as:plugin
 zplug "djui/alias-tips", from:github, as:plugin
-# zplug "MichaelAquilina/zsh-auto-notify", from:github, as:plugin
+zplug "MichaelAquilina/zsh-auto-notify", from:github, as:plugin
 zplug "zsh-users/zsh-autosuggestions", from:github, as:plugin
 zplug "zsh-users/zsh-syntax-highlighting", from:github, as:plugin, defer:2
 

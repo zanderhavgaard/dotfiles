@@ -10,7 +10,7 @@
   "features": {
     "inline_completion_provider": "none"
   },
-  "theme": "Tokyo Night Storm",
+  "theme": "One Dark",
   "vim_mode": true,
   "autosave": "on_focus_change",
   "ui_font_size": 14,

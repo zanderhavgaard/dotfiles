@@ -10,7 +10,7 @@
   "features": {
     "inline_completion_provider": "none"
   },
-  "theme": "One Dark",
+  "theme": "One Dark Pro",
   "vim_mode": true,
   "autosave": "on_focus_change",
   "ui_font_size": 16,

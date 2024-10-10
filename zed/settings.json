@@ -7,9 +7,16 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "features": {
-    "inline_completion_provider": "none"
+  "assistant": {
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-4o"
+    },
+    "version": "2"
   },
+  // "features": {
+  //   "inline_completion_provider": "none"
+  // },
   "theme": "One Dark Pro",
   "vim_mode": true,
   "autosave": "on_focus_change",

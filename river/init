@@ -145,14 +145,6 @@ riverctl map normal Super+Shift Comma send-to-output previous
 # Super+Return to bump the focused view to the top of the layout stack
 riverctl map normal Super+Shift Return zoom
 
-# Super+H and Super+L to decrease/increase the main ratio of rivertile(1)
-riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
-riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
-
-# Super+Shift+H and Super+Shift+L to increment/decrement the main count of rivertile(1)
-riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
-riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"
-
 # Super + Left Mouse Button to move views
 riverctl map-pointer normal Super BTN_LEFT move-view
 
@@ -190,21 +182,44 @@ riverctl map normal Super S toggle-float
 # Super+F to toggle fullscreen
 riverctl map normal Super F toggle-fullscreen
 
+# ===== rivertile =====
+
+# Super+H and Super+L to decrease/increase the main ratio of rivertile(1)
+# riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
+# riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
+
+# Super+Shift+H and Super+Shift+L to increment/decrement the main count of rivertile(1)
+# riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
+# riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"
+
 # Super+{Up,Right,Down,Left} to change layout orientation
-riverctl map normal Super Up send-layout-cmd rivertile "main-location top"
-riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
-riverctl map normal Super Down send-layout-cmd rivertile "main-location bottom"
-riverctl map normal Super Left send-layout-cmd rivertile "main-location left"
+# riverctl map normal Super Up send-layout-cmd rivertile "main-location top"
+# riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
+# riverctl map normal Super Down send-layout-cmd rivertile "main-location bottom"
+# riverctl map normal Super Left send-layout-cmd rivertile "main-location left"
 
-# Declare a passthrough mode. This mode has only a single mapping to return to
-# normal mode. This makes it useful for testing a nested wayland compositor
-riverctl declare-mode passthrough
+# ===== wideriver =====
+riverctl map normal Super up send-layout-cmd wideriver "--layout monocle"
+riverctl map normal Super down send-layout-cmd wideriver "--layout wide --stack diminish --count 3 --ratio 0.4"
+riverctl map normal Super left send-layout-cmd wideriver "--layout left"
+riverctl map normal Super right send-layout-cmd wideriver "--layout right"
 
-# Super+F11 to enter passthrough mode
-riverctl map normal Super F11 enter-mode passthrough
+riverctl map normal Super Space send-layout-cmd wideriver "--layout-toggle"
 
-# Super+F11 to return to normal mode
-riverctl map passthrough Super F11 enter-mode normal
+riverctl map normal Super plus send-layout-cmd wideriver "--ratio +0.025"
+riverctl map normal Super equal send-layout-cmd wideriver "--ratio 0.35"
+riverctl map normal Super minus send-layout-cmd wideriver "--ratio -0.025"
+
+# riverctl map normal Super+Shift plus send-layout-cmd wideriver "--count +1"
+# riverctl map normal Super+Shift equal send-layout-cmd wideriver "--count 1"
+# riverctl map normal Super+Shift minus send-layout-cmd wideriver "--count -1"
+
+riverctl map normal Super+Shift H send-layout-cmd wideriver "--count +1"
+riverctl map normal Super+Shift L send-layout-cmd wideriver "--count -1"
+
+riverctl map normal Super+Shift e send-layout-cmd wideriver "--stack even"
+riverctl map normal Super+Shift w send-layout-cmd wideriver "--stack dwindle"
+riverctl map normal Super+Shift i send-layout-cmd wideriver "--stack diminish"
 
 # Various media key mapping examples for both normal and locked mode which do
 # not have a modifier
@@ -235,5 +250,29 @@ done
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
-riverctl default-layout rivertile
-rivertile -view-padding 5 -outer-padding 5 -main-ratio '0.5' &
+# riverctl default-layout rivertile
+riverctl default-layout wideriver
+
+# start rivertile
+# rivertile -view-padding 5 -outer-padding 5 -main-ratio '0.5' &
+
+# start wideriver
+wideriver \
+	--layout left \
+	--layout-alt monocle \
+	--stack dwindle \
+	--count-master 1 \
+	--ratio-master 0.50 \
+	--count-wide-left 0 \
+	--ratio-wide 0.35 \
+	--smart-gaps \
+	--inner-gaps 5 \
+	--outer-gaps 5 \
+	--border-width 1 \
+	--border-width-monocle 0 \
+	--border-width-smart-gaps 0 \
+	--border-color-focused "0x61afef" \
+	--border-color-focused-monocle "0x5c6370" \
+	--border-color-unfocused "0x5c6370" \
+	--log-threshold info \
+	>"/tmp/wideriver.${XDG_VTNR}.${USER}.log" 2>&1 &

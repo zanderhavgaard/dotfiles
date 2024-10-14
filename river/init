@@ -260,7 +260,7 @@ riverctl default-layout wideriver
 wideriver \
 	--layout left \
 	--layout-alt monocle \
-	--stack dwindle \
+	--stack even \
 	--count-master 1 \
 	--ratio-master 0.50 \
 	--count-wide-left 0 \

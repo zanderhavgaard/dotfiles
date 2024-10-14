@@ -200,7 +200,7 @@ riverctl map normal Super F toggle-fullscreen
 
 # ===== wideriver =====
 riverctl map normal Super up send-layout-cmd wideriver "--layout monocle"
-riverctl map normal Super down send-layout-cmd wideriver "--layout wide --stack diminish --count 3 --ratio 0.4"
+riverctl map normal Super down send-layout-cmd wideriver "--layout wide --stack diminish --count 1 --ratio 0.4"
 riverctl map normal Super left send-layout-cmd wideriver "--layout left"
 riverctl map normal Super right send-layout-cmd wideriver "--layout right"
 

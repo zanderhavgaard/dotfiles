@@ -236,8 +236,8 @@ for mode in normal locked; do
 	riverctl map $mode None XF86AudioNext spawn 'playerctl next'
 
 	# Control screen backlight brightness with light (https://github.com/haikarainen/light)
-	riverctl map $mode None XF86MonBrightnessUp spawn 'brighnessctl set +5%'
-	riverctl map $mode None XF86MonBrightnessDown spawn 'brighnessctl set -5%'
+	riverctl map $mode None XF86MonBrightnessUp spawn 'brightnessctl set +5%'
+	riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl set 5%-'
 done
 
 # Make all views with an app-id that starts with "float" and title "foo" start floating.

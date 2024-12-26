@@ -46,17 +46,17 @@ riverctl set-repeat 50 300
 
 # start different programs depending on which system
 if [ "$(hostname)" = 'nostromo' ]; then
-	bash /home/zander/dotfiles/wlr-randr/home.sh
-	riverctl spawn nextcloud
+  bash /home/zander/dotfiles/wlr-randr/home.sh
+  riverctl spawn nextcloud
 
 elif [ "$(hostname)" = 'prometheus' ]; then
-	bash /home/zander/dotfiles/wlr-randr/home.sh
+  bash /home/zander/dotfiles/wlr-randr/home.sh
 
 elif [ "$(hostname)" = 'orion' ]; then
-	bash /home/zander/dotfiles/wlr-randr/orion.sh
+  bash /home/zander/dotfiles/wlr-randr/orion.sh
 
 elif [ "$(hostname)" = 'phobos' ]; then
-	bash /home/zander/dotfiles/wlr-randr/phobos.sh
+  bash /home/zander/dotfiles/wlr-randr/phobos.sh
 
 fi
 
@@ -156,19 +156,19 @@ riverctl map-pointer normal Super BTN_RIGHT resize-view
 riverctl map-pointer normal Super BTN_MIDDLE toggle-float
 
 for i in $(seq 1 9); do
-	tags=$((1 << (i - 1)))
+  tags=$((1 << (i - 1)))
 
-	# Super+[1-9] to focus tag [0-8]
-	riverctl map normal Super "$i" set-focused-tags $tags
+  # Super+[1-9] to focus tag [0-8]
+  riverctl map normal Super "$i" set-focused-tags $tags
 
-	# Super+Shift+[1-9] to tag focused view with tag [0-8]
-	riverctl map normal Super+Shift "$i" set-view-tags $tags
+  # Super+Shift+[1-9] to tag focused view with tag [0-8]
+  riverctl map normal Super+Shift "$i" set-view-tags $tags
 
-	# Super+Control+[1-9] to toggle focus of tag [0-8]
-	riverctl map normal Super+Control "$i" toggle-focused-tags $tags
+  # Super+Control+[1-9] to toggle focus of tag [0-8]
+  riverctl map normal Super+Control "$i" toggle-focused-tags $tags
 
-	# Super+Shift+Control+[1-9] to toggle tag [0-8] of focused view
-	riverctl map normal Super+Shift+Control "$i" toggle-view-tags $tags
+  # Super+Shift+Control+[1-9] to toggle tag [0-8] of focused view
+  riverctl map normal Super+Shift+Control "$i" toggle-view-tags $tags
 done
 
 # Super+0 to focus all tags
@@ -225,20 +225,20 @@ riverctl map normal Super+Shift i send-layout-cmd wideriver "--stack diminish"
 # Various media key mapping examples for both normal and locked mode which do
 # not have a modifier
 for mode in normal locked; do
-	# Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
-	riverctl map $mode None XF86AudioRaiseVolume spawn 'pamixer -i 5'
-	riverctl map $mode None XF86AudioLowerVolume spawn 'pamixer -d 5'
-	riverctl map $mode None XF86AudioMute spawn 'pamixer --toggle-mute'
+  # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
+  riverctl map $mode None XF86AudioRaiseVolume spawn 'pamixer -i 5'
+  riverctl map $mode None XF86AudioLowerVolume spawn 'pamixer -d 5'
+  riverctl map $mode None XF86AudioMute spawn 'pamixer --toggle-mute'
 
-	# Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
-	riverctl map $mode None XF86AudioMedia spawn 'playerctl play-pause'
-	riverctl map $mode None XF86AudioPlay spawn 'playerctl play-pause'
-	riverctl map $mode None XF86AudioPrev spawn 'playerctl previous'
-	riverctl map $mode None XF86AudioNext spawn 'playerctl next'
+  # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
+  riverctl map $mode None XF86AudioMedia spawn 'playerctl play-pause'
+  riverctl map $mode None XF86AudioPlay spawn 'playerctl play-pause'
+  riverctl map $mode None XF86AudioPrev spawn 'playerctl previous'
+  riverctl map $mode None XF86AudioNext spawn 'playerctl next'
 
-	# Control screen backlight brightness with light (https://github.com/haikarainen/light)
-	riverctl map $mode None XF86MonBrightnessUp spawn 'brightnessctl set +5%'
-	riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl set 5%-'
+  # Control screen backlight brightness with light (https://github.com/haikarainen/light)
+  riverctl map $mode None XF86MonBrightnessUp spawn 'brightnessctl set +5%'
+  riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl set 5%-'
 done
 
 # Make all views with an app-id that starts with "float" and title "foo" start floating.
@@ -259,21 +259,21 @@ riverctl default-layout wideriver
 
 # start wideriver
 wideriver \
-	--layout left \
-	--layout-alt monocle \
-	--stack even \
-	--count-master 1 \
-	--ratio-master 0.50 \
-	--count-wide-left 0 \
-	--ratio-wide 0.35 \
-	--smart-gaps \
-	--inner-gaps 5 \
-	--outer-gaps 5 \
-	--border-width 1 \
-	--border-width-monocle 0 \
-	--border-width-smart-gaps 0 \
-	--border-color-focused "0x61afef" \
-	--border-color-focused-monocle "0x5c6370" \
-	--border-color-unfocused "0x5c6370" \
-	--log-threshold info \
-	>"/tmp/wideriver.${XDG_VTNR}.${USER}.log" 2>&1 &
+  --layout left \
+  --layout-alt monocle \
+  --stack even \
+  --count-master 1 \
+  --ratio-master 0.50 \
+  --count-wide-left 0 \
+  --ratio-wide 0.35 \
+  --smart-gaps \
+  --inner-gaps 5 \
+  --outer-gaps 5 \
+  --border-width 1 \
+  --border-width-monocle 0 \
+  --border-width-smart-gaps 0 \
+  --border-color-focused "0x61afef" \
+  --border-color-focused-monocle "0x5c6370" \
+  --border-color-unfocused "0x5c6370" \
+  --log-threshold info \
+  >"/tmp/wideriver.${XDG_VTNR}.${USER}.log" 2>&1 &

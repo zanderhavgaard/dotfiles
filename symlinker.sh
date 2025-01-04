@@ -135,3 +135,7 @@ ln -sv $dfd/k9s/skins $cfd/k9s/skins
 echo -e "\n symlinking zed config ..."
 rm $cfd/zed/settings.json
 ln -sv $dfd/zed/settings.json $cfd/zed/settings.json
+
+echo -e "\n symlinking fuzzel config ..."
+rm $cfd/fuzzel/fuzzel.ini
+ln -sv $dfd/fuzzel/fuzzel.ini $cfd/fuzzel/fuzzel.ini

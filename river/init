@@ -114,7 +114,7 @@ riverctl map normal Super W spawn "firefox"
 
 # spawn wofi to launch apps
 # riverctl map normal Super D spawn 'wofi --show drun'
-riverctl map normal Super D spawn "hyprlauncher"
+riverctl map normal Super D spawn "fuzzel"
 
 # lock the screen with swaylock
 riverctl map normal Super+Shift+Control L spawn "swaylock --color 000000"

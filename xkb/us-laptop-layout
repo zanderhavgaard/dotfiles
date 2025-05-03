@@ -5,13 +5,14 @@
 
 // In riverwm this can be used with:
 // riverctl keyboard-layout -options "altwin:swap_lalt_lwin" -variant laptop us
+// riverctl keyboard-layout -options "altwin:swap_lalt_lwin" us-hhkb-esque
 // should work in other WMs and in X11 also.
 
 partial alphanumeric_keys
-xkb_symbols "laptop" {
-
+xkb_symbols "laptop" 
+{
     include "us(basic)"
-    name[Group1] = "English (US, switch stuff)";
+    name[Group1] = "English (US, hhkb-esque)";
 
     key <ESC>  { [ grave, asciitilde ] };
     key <TLDE> { [ Escape ] };

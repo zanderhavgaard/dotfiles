@@ -1,7 +1,0 @@
-[kubernetes]
-format = 'on [☸ $context \($namespace\)](blue) '
-disabled = false
-
-[[kubernetes.contexts]]
-context_pattern = "arn:aws:eks:[\\w-]+:[\\d]+:cluster/(?P<cluster>[\\w-]+)"
-context_alias = "$cluster"

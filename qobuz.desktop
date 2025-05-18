@@ -1,6 +1,0 @@
-# put in ~/.local/share/applications/qobuz.desktop
-[Desktop Entry]
-Type=Application
-Name=qobuz
-Exec=/home/zander/Applications/qobuz-linux-x64/qobuz
-Terminal=false

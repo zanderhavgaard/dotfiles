@@ -1,76 +1,58 @@
-
-[include]
-    path = /home/zander/.gitconfig.local
-
-[commit]
-	gpgsign = true
-
-[core]
-    pager = delta
-    editor = nvim
+[alias]
+	a = "add -u ."
+	aliases = "!git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\ \t => \\2/' | sort"
+	b = "branch -av"
+	c = "checkout"
+	ci = "clean -i"
+	cm = "commit -m"
+	fp = "push --force-with-lease"
+	g = "!git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(bold blue)<%an>%Creset %Cgreen(%cr)%Creset %s' --abbrev-commit --date=relative --all"
+	l = "!git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(bold blue)<%an>%Creset %Cgreen(%cr)%Creset %s' --abbrev-commit --date=relative -n 10"
+	la = "!git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(bold blue)<%an>%Creset %Cgreen(%cr)%Creset %s' --abbrev-commit --date=relative -n 10 --all"
+	lag = "!git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(bold blue)<%an>%Creset %Cgreen(%cr)%Creset %s' --abbrev-commit --date=relative -n 10 --all --graph"
+	nb = "checkout -b"
+	p = "push"
+	pt = "push --tags"
+	rmb = "branch --delete --force"
+	s = "status"
+	sha = "rev-parse HEAD"
+	unstage = "reset HEAD --"
 
 [color]
-    ui = true
+	ui = true
 
-[interactive]
-    diffFilter = delta --color-only --line-numbers
+[commit]
+	gpgSign = true
 
-[add.interactive]
-    useBuiltin = false # required for git 2.37.0
+[core]
+	editor = "nvim"
+	pager = "delta"
 
 [delta]
-    navigate = true    # use n and N to move between diff sections
-    light = false      # set to true if you're in a terminal w/ a light background color
-    line-numbers = true
-    syntax-theme = OneHalfDark
-    zero-style = syntax dim
-    minus-style = syntax bold auto
+	light = false
+	line-numbers = true
+	minus-style = "syntax bold auto"
+	navigate = true
+	side-by-side = true
+	syntax-theme = "OneHalfDark"
+	zero-style = "syntax dim"
 
-[merge]
-    conflictstyle = diff3
+[gpg]
+	program = "gpg2"
 
-[diff]
-    colorMoved = default
+[interactive]
+	diffFilter = "delta --color-only --line-numbers"
 
 [pull]
-    rebase = true
+	rebase = true
 
 [push]
-    autoSetupRemote = true
+	autoSetupRemote = true
 
-# aliases
-[alias]
-    # list aliases
-    aliases = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\ \t => \\2/' | sort
-    # Unstage changes from the index
-    unstage = reset HEAD --
-    # show git log history
-    g = !git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(bold blue)<%an>%Creset %Cgreen(%cr)%Creset %s' --abbrev-commit --date=relative --all
-    # small log output
-    l = !git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(bold blue)<%an>%Creset %Cgreen(%cr)%Creset %s' --abbrev-commit --date=relative -n 10
-    la = !git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(bold blue)<%an>%Creset %Cgreen(%cr)%Creset %s' --abbrev-commit --date=relative -n 10 --all
-    lag = !git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(bold blue)<%an>%Creset %Cgreen(%cr)%Creset %s' --abbrev-commit --date=relative -n 10 --all --graph
-    # make new branch and check it out
-    nb = checkout -b
-    # add all files to staging
-    a = add -u .
-    # commit with a message
-    cm = commit -m
-    # checout branch
-    c = checkout
-    # list branches
-    b = branch -av
-    # remove branch
-    rmb = branch --delete --force
-    # status
-    s = status
-    # push
-    p = push
-    # force push
-    fp = push --force-with-lease
-    # push tags
-    pt = push --tags
-    # clean interactively
-    ci = clean -i
-    # get sha of last commit on current branch
-    sha = rev-parse HEAD
+[tag]
+	gpgSign = false
+
+[user]
+	email = "zander@havgaard.dk"
+	name = "zanderhavgaard"
+	signingKey = "9FB78AB62EDDC533"

@@ -45,23 +45,18 @@ riverctl set-repeat 50 300
 # ===== start-up commands =====
 
 # start different programs depending on which system
-if [ "$(hostname)" = 'nostromo' ]; then
-  bash /home/zander/dotfiles/wlr-randr/home.sh
+if [ "$(hostname)" = 'phobos' ]; then
+  bash /home/zander/dotfiles/wlr-randr/phobos.sh
   riverctl spawn nextcloud
-
+elif [ "$(hostname)" = 'gemini' ]; then
+  echo ""
 elif [ "$(hostname)" = 'prometheus' ]; then
   bash /home/zander/dotfiles/wlr-randr/home.sh
-
-elif [ "$(hostname)" = 'orion' ]; then
-  bash /home/zander/dotfiles/wlr-randr/orion.sh
-
-elif [ "$(hostname)" = 'phobos' ]; then
-  bash /home/zander/dotfiles/wlr-randr/phobos.sh
-
 fi
 
-# needed for xdg-desktop-portal-wlr to work, which enables screensharing
-riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
+# setup xdg-desktop-portal-wlr
+riverctl spawn "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
+riverctl spawn "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
 
 # start generic background processes
 riverctl spawn nm-applet
@@ -69,6 +64,7 @@ riverctl spawn mako
 
 # start swayidle to lock the screen automatically
 riverctl spawn /home/zander/dotfiles/scripts/swayidle.sh
+riverctl spawn "swayidle -w timeout 600 'swaylock -f -c 000000' before-sleep 'swaylock -f -c 000000'"
 
 # ==== waybar ====
 
@@ -77,10 +73,10 @@ riverctl spawn waybar
 
 # ===== wallpaper =====
 
-# set a wallpaper
-riverctl spawn /home/zander/dotfiles/scripts/swaybg-set-random-wallpaper.sh
+# start swww daemon
+riverctl spawn "swww-daemon --format xrgb"
 # keybind to cycle wallpapers
-riverctl map normal Super+Control+Shift Space spawn /home/zander/dotfiles/scripts/swaybg-set-random-wallpaper.sh
+riverctl map normal Super+Control+Shift Space spawn /home/zander/dotfiles/scripts/swww-cycle-wallpaper.sh
 
 # ===== cycle tags =====
 # relies on extra riverwm-utils, see:
@@ -183,22 +179,6 @@ riverctl map normal Super S toggle-float
 # Super+F to toggle fullscreen
 riverctl map normal Super F toggle-fullscreen
 
-# ===== rivertile =====
-
-# Super+H and Super+L to decrease/increase the main ratio of rivertile(1)
-# riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
-# riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
-
-# Super+Shift+H and Super+Shift+L to increment/decrement the main count of rivertile(1)
-# riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
-# riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"
-
-# Super+{Up,Right,Down,Left} to change layout orientation
-# riverctl map normal Super Up send-layout-cmd rivertile "main-location top"
-# riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
-# riverctl map normal Super Down send-layout-cmd rivertile "main-location bottom"
-# riverctl map normal Super Left send-layout-cmd rivertile "main-location left"
-
 # ===== wideriver =====
 riverctl map normal Super up send-layout-cmd wideriver "--layout monocle"
 riverctl map normal Super down send-layout-cmd wideriver "--layout wide --stack diminish --count 1 --ratio 0.4"
@@ -241,14 +221,6 @@ for mode in normal locked; do
   riverctl map $mode None XF86MonBrightnessUp spawn 'brightnessctl set +5%'
   riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl set 5%-'
 done
-
-# Make all views with an app-id that starts with "float" and title "foo" start floating.
-# riverctl rule-add -app-id 'float*' -title 'foo' float
-
-# Make all views with app-id "bar" and any title use client-side decorations
-# riverctl rule-add -app-id "bar" csd
-
-# ===== start rivertile =====
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.

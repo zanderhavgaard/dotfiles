@@ -1,0 +1,23 @@
+
+! these are some keybindings for using my WKL model M keyboard with i3, using a HHKB layout
+
+! Clear the current control, caps lock, alt, and super bindings
+clear control
+clear lock
+clear mod4
+clear mod1
+
+keycode 49 = Escape NoSymbol Escape
+keycode 9 = grave asciitilde grave asciitilde dead_grave dead_tilde dead_grave
+
+! Make left alt --> Super_L
+keycode 64 = Super_L
+add mod4 = Super_L
+
+! Make caps lock be Control_L, and add Control_R back in
+keycode 66 = Control_L
+add control = Control_L Control_R
+
+! left ctrl --> alt
+keycode 37 = Alt_L
+add mod1 = Alt_L

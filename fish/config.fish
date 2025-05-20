@@ -19,6 +19,8 @@ Volumes:
     abbr --add -- ghpr 'gh pr view --web'
     abbr --add -- ghre 'gh repo view --web'
     abbr --add -- gs 'git status'
+    abbr --add -- gd 'git diff'
+    abbr --add -- gds 'git diff --staged'
     abbr --add -- k kubectl
     abbr --add -- knr 'kubectl describe nodes |grep '\''^  Resource'\'' -A3'
     abbr --add -- l 'eza --icons --git -alh'

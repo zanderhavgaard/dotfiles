@@ -1,3 +1,8 @@
 libs/*
 vis/vis.log
 **/__pycache__/*
+
+fish/completions/*
+fish/conf.d/*
+fish/functions/*
+fish/fish_variables

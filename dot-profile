@@ -1,0 +1,5 @@
+# copy to ~/.profile
+export GTK_THEME="Arc-Dark"
+export ICON_THEME="Papirus-Dark"
+export XCURSOR_THEME="Capitaine-Cursors"
+export GNOME_THEME="dark"

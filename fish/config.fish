@@ -3,6 +3,20 @@ status is-login; and begin
 end
 
 status is-interactive; and begin
+
+    ## Set default applications
+    # — Web browser for tools like `git web--browse`, `crystal play`, etc.
+    set -Ux BROWSER firefox
+    # — Default editor for tools like `git commit`, `crystal init`, etc.
+    set -Ux EDITOR nvim
+    set -Ux VISUAL nvim
+    # — Pager for long output (e.g. man, git diff)
+    set -Ux PAGER nvimpager
+    # — PDF viewer (used by some scripts/tools)
+    set -Ux PDFVIEWER sioyek
+    # — Terminal emulator (for any CLI that honors TERMINAL)
+    set -Ux TERMINAL kitty
+
     # Abbreviations
     abbr --add -- b 'black .'
     abbr --add -- cat bat

@@ -56,6 +56,8 @@ elif [ "$(hostname)" = 'prometheus' ]; then
 fi
 
 # setup xdg-desktop-portal-wlr
+riverctl spawn 'export XDG_CURRENT_DESKTOP=wlroots'
+riverctl spawn 'export XDG_SESSION_TYPE=wayland'
 riverctl spawn "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
 riverctl spawn "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
 

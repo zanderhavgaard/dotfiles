@@ -15,6 +15,7 @@ Images:
 Volumes:
 " && docker volume ls'
     abbr --add -- firmware_update 'sudo fwupdmgr refresh --force && sudo fwupdmgr get-updates && sudo fwupdmgr update'
+    abbr --add -- update-grub 'sudo grub-mkconfig -o /boot/grub/grub.cfg'
     abbr --add -- g git
     abbr --add -- ghpr 'gh pr view --web'
     abbr --add -- ghre 'gh repo view --web'

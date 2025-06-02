@@ -76,6 +76,8 @@ Volumes:
     echo
     pfetch
 
+    go-task --completion fish | source
+
     zoxide init fish | source
 
     starship init fish | source

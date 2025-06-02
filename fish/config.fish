@@ -17,7 +17,10 @@ status is-interactive; and begin
     # — Terminal emulator (for any CLI that honors TERMINAL)
     set -Ux TERMINAL kitty
 
+    alias task go-task
+
     # Abbreviations
+    abbr --add -- t task
     abbr --add -- b 'black .'
     abbr --add -- cat bat
     abbr --add -- docker_clean 'docker volume prune -f && docker system prune -f'

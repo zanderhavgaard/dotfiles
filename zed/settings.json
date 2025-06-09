@@ -7,21 +7,14 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "assistant": {
-    "default_model": {
-      "provider": "copilot_chat",
-      "model": "gpt-4o"
-    },
-    "version": "2"
-  },
-  "theme": "One Dark Pro",
+  "theme": "One Dark",
   "vim_mode": true,
   "autosave": "on_focus_change",
   "ui_font_size": 14,
   "buffer_font_size": 14,
   "soft_wrap": "editor_width",
-  "ui_font_family": "0xProto Nerd Font Propo",
-  "buffer_font_family": "0xProto Nerd Font Mono",
+  "ui_font_family": "Hack Nerd Font",
+  "buffer_font_family": "MartianMono Nerd Font",
   "scrollbar": {
     "show": "never"
   },

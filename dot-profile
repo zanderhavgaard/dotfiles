@@ -1,13 +1,26 @@
+# NOTE: this .profile file is intended to be used alongside riverwm
+
+# Theme
 export GTK_THEME="Arc-Dark"
 export ICON_THEME="Papirus-Dark"
 export XCURSOR_THEME="Capitaine-Cursors"
+
+# GTK/flatpak theme
 export GNOME_THEME="dark"
 
-export MOZ_ENABLE_WAYLAND="1"
-
-export XDG_CURRENT_DESKTOP=wlroots
-export XDG_SESSION_TYPE=wayland
-
+# QT theme
 export QT_QPA_PLATFORMTHEME=qt5ct
 export QT_STYLE_OVERRIDE=kvantum
 export QT6CT_PLATFORMTHEME=qt6ct
+
+# Wayland/riverwm
+export MOZ_ENABLE_WAYLAND="1"
+export _JAVA_AWT_WM_NONREPARENTING=1
+export SDL_VIDEODRIVER=wayland
+export QT_QPA_PLATFORM=wayland
+export XDG_SESSION_TYPE=wayland
+# NOTE: we set these to 'sway' instead of 'river'
+# as some applications unintuitively only support sway 
+# and not wl-roots, for example flameshot ...
+export XDG_CURRENT_DESKTOP=sway
+export XDG_SESSION_DESKTOP=sway

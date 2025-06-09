@@ -1,14 +1,11 @@
 #!/bin/sh
 
-# This is the example configuration file for river.
-#
-# If you wish to edit this, you will probably want to copy it to
-# $XDG_CONFIG_HOME/river/init or $HOME/.config/river/init first.
-#
-# See the river(1), riverctl(1), and rivertile(1) man pages for complete
-# documentation.
+# NOTE: that some env vars are set in .profile which are neccesary for some applications to work correctly
+# Some of these are then propagated to systemd/dbus
 
-# Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc.
+# setup xdg-desktop-portal-wlr
+riverctl spawn "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE XDG_SESSION_DESKTOP"
+riverctl spawn "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE XDG_SESSION_DESKTOP"
 
 # ===== theme =====
 
@@ -55,12 +52,6 @@ elif [ "$(hostname)" = 'prometheus' ]; then
   bash /home/zander/dotfiles/wlr-randr/home.sh
 fi
 
-# setup xdg-desktop-portal-wlr
-riverctl spawn 'export XDG_CURRENT_DESKTOP=wlroots'
-riverctl spawn 'export XDG_SESSION_TYPE=wayland'
-riverctl spawn "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
-riverctl spawn "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
-
 # start generic background processes
 riverctl spawn nm-applet
 riverctl spawn mako
@@ -94,7 +85,10 @@ riverctl map normal Super+Shift Tab spawn "cycle-focused-tags -1 9"
 
 # take a screenshot with grim, use slurp to select the geometry
 # TODO: figure out how to pipe it to clipboard for pasting
-riverctl map normal Super+Shift+Control S spawn "wayshot --slurp \"\$(slurp)\" --stdout | wl-copy"
+# riverctl map normal Super+Shift+Control S spawn "wayshot --slurp \"\$(slurp)\" --stdout | wl-copy"
+riverctl map normal Super+Shift+Control S spawn "flameshot gui"
+# flameshot should always float
+riverctl rule-add -app-id "flameshot" float
 
 # switch keyboard layouts
 riverctl map normal Super+Shift+Control U spawn "riverctl keyboard-layout us"

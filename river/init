@@ -70,7 +70,7 @@ riverctl spawn waybar
 # start swww daemon
 riverctl spawn "swww-daemon --format xrgb"
 # keybind to cycle wallpapers
-riverctl map normal Super+Control+Shift Space spawn /home/zander/dotfiles/scripts/swww-cycle-wallpaper.sh
+riverctl map normal Super+Shift+Control Space spawn /home/zander/dotfiles/scripts/swww-cycle-wallpaper.sh
 
 # ===== cycle tags =====
 # relies on extra riverwm-utils, see:
@@ -179,8 +179,8 @@ riverctl map normal Super F toggle-fullscreen
 # ===== wideriver =====
 riverctl map normal Super up send-layout-cmd wideriver "--layout monocle"
 riverctl map normal Super down send-layout-cmd wideriver "--layout wide --stack diminish --count 1 --ratio 0.4"
-riverctl map normal Super left send-layout-cmd wideriver "--layout left"
-riverctl map normal Super right send-layout-cmd wideriver "--layout right"
+riverctl map normal Super left send-layout-cmd wideriver "--layout left --stack diminish --count 1 --ratio 0.5"
+riverctl map normal Super right send-layout-cmd wideriver "--layout right --stack diminish --count 1 --ratio 0.5"
 
 riverctl map normal Super Space send-layout-cmd wideriver "--layout-toggle"
 
@@ -188,9 +188,9 @@ riverctl map normal Super plus send-layout-cmd wideriver "--ratio +0.025"
 riverctl map normal Super equal send-layout-cmd wideriver "--ratio 0.35"
 riverctl map normal Super minus send-layout-cmd wideriver "--ratio -0.025"
 
-# riverctl map normal Super+Shift plus send-layout-cmd wideriver "--count +1"
-# riverctl map normal Super+Shift equal send-layout-cmd wideriver "--count 1"
-# riverctl map normal Super+Shift minus send-layout-cmd wideriver "--count -1"
+riverctl map normal Super+Shift+Control plus send-layout-cmd wideriver "--count +1"
+# riverctl map normal Super+Shift+Control equal send-layout-cmd wideriver "--count 1"
+riverctl map normal Super+Shift+Control minus send-layout-cmd wideriver "--count -1"
 
 riverctl map normal Super+Shift H send-layout-cmd wideriver "--count +1"
 riverctl map normal Super+Shift L send-layout-cmd wideriver "--count -1"
@@ -236,13 +236,13 @@ wideriver \
   --count-master 1 \
   --ratio-master 0.50 \
   --count-wide-left 0 \
-  --ratio-wide 0.35 \
+  --ratio-wide 0.50 \
   --smart-gaps \
-  --inner-gaps 5 \
-  --outer-gaps 5 \
+  --inner-gaps 0 \
+  --outer-gaps 0 \
   --border-width 1 \
-  --border-width-monocle 0 \
-  --border-width-smart-gaps 0 \
+  --border-width-monocle 1 \
+  --border-width-smart-gaps 1 \
   --border-color-focused "0x61afef" \
   --border-color-focused-monocle "0x5c6370" \
   --border-color-unfocused "0x5c6370" \

@@ -185,7 +185,7 @@ riverctl map normal Super right send-layout-cmd wideriver "--layout right --stac
 riverctl map normal Super Space send-layout-cmd wideriver "--layout-toggle"
 
 riverctl map normal Super plus send-layout-cmd wideriver "--ratio +0.025"
-riverctl map normal Super equal send-layout-cmd wideriver "--ratio 0.35"
+riverctl map normal Super equal send-layout-cmd wideriver "--ratio 0.50"
 riverctl map normal Super minus send-layout-cmd wideriver "--ratio -0.025"
 
 riverctl map normal Super+Shift+Control plus send-layout-cmd wideriver "--count +1"

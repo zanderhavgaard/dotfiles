@@ -85,8 +85,8 @@ riverctl map normal Super+Shift Tab spawn "cycle-focused-tags -1 9"
 
 # take a screenshot with grim, use slurp to select the geometry
 # TODO: figure out how to pipe it to clipboard for pasting
-# riverctl map normal Super+Shift+Control S spawn "wayshot --slurp \"\$(slurp)\" --stdout | wl-copy"
-riverctl map normal Super+Shift+Control S spawn "flameshot gui"
+riverctl map normal Super+Shift+Control S spawn "wayshot --slurp \"\$(slurp)\" --stdout | wl-copy"
+riverctl map normal Super+Shift+Control f spawn "flameshot gui"
 # flameshot should always float
 riverctl rule-add -app-id "flameshot" float
 

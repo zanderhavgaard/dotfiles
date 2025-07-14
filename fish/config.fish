@@ -50,7 +50,7 @@ Volumes:
     abbr --add -- pt pytest
     abbr --add -- rl run_linters
     abbr --add -- rlt 'figlet '\''run_linters'\'' ; run_linters ; figlet '\''pytest'\'' ; pytest'
-    abbr --add -- ruff_fix 'ruff check . --config linting/.ruff.toml --fix'
+    abbr --add -- ruff_fix 'ruff check . --config .ruff.toml --fix'
 
     # Aliases
 

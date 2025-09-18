@@ -20,7 +20,12 @@ export SDL_VIDEODRIVER=wayland
 export QT_QPA_PLATFORM=wayland
 export XDG_SESSION_TYPE=wayland
 # NOTE: we set these to 'sway' instead of 'river'
-# as some applications unintuitively only support sway 
+# as some applications unintuitively only support sway
 # and not wl-roots, for example flameshot ...
 export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_DESKTOP=sway
+
+# Japanese input
+EXPORT GTK_IM_MODULE=fcitx
+EXPORT QT_IM_MODULE=fcitx
+EXPORT XMODIFIERS=@im=fcitx

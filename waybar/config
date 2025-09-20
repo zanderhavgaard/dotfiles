@@ -65,6 +65,19 @@
         "deactivated": "󰛊"
       }
     },
+    "river/tags": {
+      "tag-labels": [
+       "一 ichi",
+       "二 ni",
+       "三 san",
+       "四 yon",
+       "五 go",
+       "六 roku",
+       "七 nana",
+       "八 hachi",
+       "九 ku"
+      ]
+    },
     "layer": "top",
     "modules-center": [],
     "modules-left": [

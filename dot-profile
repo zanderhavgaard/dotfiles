@@ -2,7 +2,7 @@
 
 # Theme
 export GTK_THEME="Arc-Dark"
-export ICON_THEME="Papirus-Dark"
+export ICON_THEME="Papirus"
 export XCURSOR_THEME="Capitaine-Cursors"
 
 # GTK/flatpak theme

@@ -67,15 +67,15 @@
     },
     "river/tags": {
       "tag-labels": [
-       "一 ichi",
-       "二 ni",
-       "三 san",
-       "四 yon",
-       "五 go",
-       "六 roku",
-       "七 nana",
-       "八 hachi",
-       "九 ku"
+       "一",
+       "二",
+       "三",
+       "四",
+       "五",
+       "六",
+       "七",
+       "八",
+       "九"
       ]
     },
     "layer": "top",

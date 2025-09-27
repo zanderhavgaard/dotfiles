@@ -238,8 +238,8 @@ wideriver \
   --count-wide-left 0 \
   --ratio-wide 0.50 \
   --smart-gaps \
-  --inner-gaps 0 \
-  --outer-gaps 0 \
+  --inner-gaps 5 \
+  --outer-gaps 5 \
   --border-width 1 \
   --border-width-monocle 1 \
   --border-width-smart-gaps 1 \

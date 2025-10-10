@@ -55,6 +55,7 @@ fi
 # start generic background processes
 riverctl spawn nm-applet
 riverctl spawn mako
+riverctl spawn kanshi
 
 # start swayidle to lock the screen automatically
 riverctl spawn /home/zander/dotfiles/scripts/swayidle.sh

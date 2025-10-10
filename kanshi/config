@@ -1,0 +1,35 @@
+output "ASUSTek COMPUTER INC PA328QV R5LMQS075207" {
+  enable
+  alias $office1
+  transform 90
+  scale 1
+  mode 2560x1440@59.951000
+}
+
+output "ASUSTek COMPUTER INC PA328QV R5LMQS075206" {
+  enable
+  alias $office2
+  transform normal
+  scale 1
+  mode 2560x1440@59.951000
+}
+
+output "Lenovo Group Limited 0x403D *" {
+  enable
+  alias $gemini
+  transform normal
+  scale 1
+  mode 1920x1200
+}
+
+# gemini, docked at office
+profile docked {
+  output $gemini
+  output $office1
+  output $office2
+}
+
+# gemini, no monitors
+profile gemini {
+  output $gemini
+}

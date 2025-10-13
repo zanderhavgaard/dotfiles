@@ -7,7 +7,22 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "theme": "One Dark",
+  "minimap": {
+    "show": "always"
+  },
+  "inlay_hints": {
+    "enabled": true
+  },
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Zed (Default)",
+    "dark": "Material Icon Theme"
+  },
+  "theme": {
+    "mode": "dark",
+    "light": "Gruvbox Light",
+    "dark": "One Dark Pro"
+  },
   "vim_mode": true,
   "autosave": "on_focus_change",
   "ui_font_size": 14,

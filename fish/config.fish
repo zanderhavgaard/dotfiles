@@ -51,6 +51,7 @@ Volumes:
     abbr --add -- rl run_linters
     abbr --add -- rlt 'figlet '\''run_linters'\'' ; run_linters ; figlet '\''pytest'\'' ; pytest'
     abbr --add -- ruff_fix 'ruff check . --config .ruff.toml --fix'
+    abbr --add -- generate-password 'date +%s | sha256sum | base64 | head -c 64 | wl-copy'
 
     # Aliases
 

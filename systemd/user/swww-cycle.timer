@@ -1,0 +1,9 @@
+[Unit]
+Description=Timer for swww-cycle-wallpaper
+
+[Timer]
+OnBootSec=1
+OnUnitActiveSec=30min
+
+[Install]
+WantedBy=timers.target

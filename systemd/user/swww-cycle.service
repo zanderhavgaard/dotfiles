@@ -1,0 +1,6 @@
+[Unit]
+Description=Cycle wallpapers randomly via swww
+
+[Service]
+Type=oneshot
+ExecStart=/home/zander/dotfiles/scripts/swww-cycle-wallpaper.sh

@@ -4,7 +4,7 @@
 
 configs=$(ls -d */)
 
-ignored_directories="archive scripts wlr-randr xkb"
+ignored_directories="archive scripts wlr-randr xkb systemd"
 
 for config in $configs; do
   # if config is in ignroed_directories, skip it

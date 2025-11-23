@@ -4,6 +4,8 @@
 
 # symlink each file in dotfiles/systemd/user to ~/.config/systemd/user
 
+mkdir -pv "$HOME/.config/systemd/user"
+
 files=$(ls systemd/user)
 
 for file in $files; do

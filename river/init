@@ -101,7 +101,7 @@ riverctl map normal Super+Shift+Control Y spawn "riverctl keyboard-layout -optio
 
 # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
 # riverctl map normal Super Return spawn <terminal>
-riverctl map normal Super Return spawn kitty
+riverctl map normal Super Return spawn ghostty
 
 # spawen firefox window
 riverctl map normal Super W spawn "firefox"

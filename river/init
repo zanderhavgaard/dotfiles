@@ -92,7 +92,11 @@ riverctl map normal Super+Shift+Control f spawn "flameshot gui"
 riverctl rule-add -app-id "flameshot" float
 
 # switch keyboard layouts
-riverctl map normal Super+Shift+Control U spawn "riverctl keyboard-layout us"
+# use altgr+key for áæø chars
+# w=å
+# z=æ
+# l=ø
+riverctl map normal Super+Shift+Control U spawn "riverctl keyboard-layout -variant altgr-intl us"
 riverctl map normal Super+Shift+Control D spawn "riverctl keyboard-layout dk"
 # for laptop, rebind some keys to be more HHKB-esque
 # got a lot of help from here:

@@ -21,6 +21,6 @@ export QT_QPA_PLATFORM=wayland
 export XDG_SESSION_TYPE=wayland
 
 # Japanese input
-EXPORT GTK_IM_MODULE=fcitx
-EXPORT QT_IM_MODULE=fcitx
-EXPORT XMODIFIERS=@im=fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx

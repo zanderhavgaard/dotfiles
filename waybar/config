@@ -51,7 +51,7 @@
       }
     },
     "clock": {
-      "format": "{:%H:%M 󰥔  %d/%m ~ %B %Y }",
+      "format": "{:%H:%M 󰥔 %d/%m %b %Y }",
       "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
     "custom/kernel": {
@@ -100,7 +100,7 @@
       "format-disconnected": "Disconnected ⚠",
       "format-ethernet": "{ipaddr}/{cidr} 󰈁",
       "format-linked": "{ifname} (No IP) 󰈂",
-      "format-wifi": "{essid} {ipaddr}/{cidr} ({signalStrength}%) ",
+      "format-wifi": "{essid} ({signalStrength}%) ",
       "tooltip-format": "{gwaddr} via {ifname} 󰈀 "
     },
     "position": "top",

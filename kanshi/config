@@ -1,19 +1,28 @@
-output "ASUSTek COMPUTER INC PA328QV R5LMQS075206" {
+# output "ASUSTek COMPUTER INC PA328QV R5LMQS075206" {
+#   enable
+#   alias $office1
+#   transform normal
+#   scale 1
+#   mode 2560x1440@59.951000
+#   position 0,0
+# }
+
+# output "ASUSTek COMPUTER INC PA328QV R5LMQS075207" {
+#   enable
+#   alias $office2
+#   transform 90
+#   scale 1
+#   mode 2560x1440@59.951000
+#   position 2560,0
+# }
+
+output "Dell Inc. DELL U4323QE *" {
   enable
-  alias $office1
+  alias $office
   transform normal
   scale 1
-  mode 2560x1440@59.951000
-  position 0,0
-}
-
-output "ASUSTek COMPUTER INC PA328QV R5LMQS075207" {
-  enable
-  alias $office2
-  transform 90
-  scale 1
-  mode 2560x1440@59.951000
-  position 2560,0
+  mode 3840x2160@59.997002
+  position 1920,0
 }
 
 output "Lenovo Group Limited 0x403D *" {
@@ -22,14 +31,13 @@ output "Lenovo Group Limited 0x403D *" {
   transform normal
   scale 1
   mode 1920x1200
-  position 640,1440
+  position 0,0
 }
 
 # gemini, docked at office
 profile docked {
   output $gemini
-  output $office1
-  output $office2
+  output $office
 }
 
 # gemini, no monitors

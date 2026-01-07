@@ -120,6 +120,10 @@ button:hover {
   color: #7dbeff;
 }
 
+#clock.extra {
+  color: #6ecfcf;
+}
+
 #battery {
   color: #cb96ff;
 }

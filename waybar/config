@@ -50,9 +50,14 @@
         "warning": 30
       }
     },
-    "clock": {
+    "clock#default": {
       "format": "{:%H:%M 󰥔 %d/%m %b %Y }",
-      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    },
+    "clock#extra": {
+      "format": "{:%H:%M (GR)}",
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+      "timezone": "Europe/Athens"
     },
     "custom/kernel": {
       "exec": "echo \"󰣇 $(uname -r)\""
@@ -85,7 +90,8 @@
       "river/layout"
     ],
     "modules-right": [
-      "clock",
+      "clock#default",
+      "clock#extra",
       "pulseaudio",
       "network",
       "backlight",

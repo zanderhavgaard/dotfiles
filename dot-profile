@@ -1,9 +1,9 @@
 # NOTE: this .profile file is intended to be used alongside riverwm
 
 # Theme
-export GTK_THEME="Arc-Dark"
-export ICON_THEME="Papirus"
-export XCURSOR_THEME="Capitaine-Cursors"
+export GTK_THEME="catppuccin-mocha-blue-standard+default"
+export ICON_THEME="Papirus-Dark"
+export XCURSOR_THEME="catppuccin-mocha-dark-cursors"
 
 # GTK/flatpak theme
 export GNOME_THEME="dark"

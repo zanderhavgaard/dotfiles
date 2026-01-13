@@ -132,9 +132,9 @@
       "format-source-muted": "",
       "on-click": "pwvucontrol"
     },
-    "spacing": 4,
+    "spacing": 1,
     "tray": {
-      "spacing": 10
+      "spacing": 5
     }
   }
 ]

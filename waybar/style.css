@@ -15,7 +15,7 @@ white: "#EFEFEF"
 
 * {
   font-family: MartianMono Nerd Font;
-  font-size: 12px;
+  font-size: 10px;
 }
 
 window#waybar {
@@ -50,7 +50,7 @@ button {
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 button:hover {
   background: inherit;
-  box-shadow: inset 0 -3px #ffffff;
+  box-shadow: inset 0 -3px #7dbeff;
 }
 
 #workspaces button {
@@ -97,7 +97,7 @@ button:hover {
 #idle_inhibitor,
 #scratchpad,
 #mpd {
-  padding: 0 10px;
+  padding: 0 5px;
   color: #1a2128;
 }
 
@@ -136,21 +136,14 @@ button:hover {
   color: #9acd68;
 }
 
-@keyframes blink {
-  to {
-    background-color: #ffffff;
-    color: #000000;
-  }
+#battery.warning:not(.charging) {
+  color: #000000;
+  background-color: #eda55d;
 }
 
 #battery.critical:not(.charging) {
-  color: #f53c3c;
-  background-color: #ffffff;
-  animation-name: blink;
-  animation-duration: 0.5s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+  color: #000000;
+  background-color: #eb4d4b;
 }
 
 label:focus {
@@ -200,7 +193,7 @@ label:focus {
 
 #tags button {
   margin: 0;
-  padding: 2px;
+  padding: 0px;
   color: #efefef;
   background-color: #282c36;
 }

@@ -11,7 +11,7 @@ status is-interactive; and begin
     set -Ux EDITOR nvim
     set -Ux VISUAL nvim
     # — Pager for long output (e.g. man, git diff)
-    set -Ux PAGER nvimpager
+    set -Ux PAGER "bat --paging=always --style=plain"
     # — PDF viewer (used by some scripts/tools)
     set -Ux PDFVIEWER sioyek
     # — Terminal emulator (for any CLI that honors TERMINAL)
@@ -20,6 +20,7 @@ status is-interactive; and begin
     alias task go-task
 
     # Abbreviations
+    abbr --add -- less "bat --paging=always"
     abbr --add -- t task
     abbr --add -- b 'black .'
     abbr --add -- cat bat

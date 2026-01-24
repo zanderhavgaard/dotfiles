@@ -83,15 +83,27 @@
        "九"
       ]
     },
+    // "niri/workspaces": {
+    //   "format": "{icon}",
+    //   "format-icons": {
+    //     "active": "",
+    //     "default": ""
+    //   }
+    // },
+    "niri/language": {
+      "format": " {short}"
+    },
     "layer": "top",
     "modules-center": [],
     "modules-left": [
       "river/tags",
-      "river/layout"
+      "river/layout",
+      "niri/workspaces",
     ],
     "modules-right": [
       "clock#default",
       "clock#extra",
+      "niri/language",
       "pulseaudio",
       "network",
       "backlight",

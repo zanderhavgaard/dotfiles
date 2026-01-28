@@ -22,7 +22,7 @@ input {
             layout "us,dk"
             variant "altgr-intl,"
         }
-        track-layout "global"
+        track-layout "global" // makes keyboard layout global, opposed to per window
         repeat-delay 300
         repeat-rate 50
     }
@@ -39,7 +39,7 @@ input {
         // drag-lock
         // natural-scroll
         // accel-speed 0.2
-        // accel-profile "flat"
+        //bombino nomad accel-profile "flat"
         // scroll-method "two-finger"
         // disabled-on-external-mouse
     }
@@ -55,7 +55,7 @@ input {
     trackpoint {
         // off
         // natural-scroll
-        // accel-speed 0.2
+        // accel-speed 0.1
         // accel-profile "flat"
         // scroll-method "on-button-down"
         // scroll-button 273
@@ -70,6 +70,10 @@ input {
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
     // focus-follows-mouse max-scroll-amount="0%"
     focus-follows-mouse
+}
+
+cursor {
+  hide-when-typing
 }
 
 // You can configure outputs by their name, which you can find
@@ -275,6 +279,7 @@ spawn-at-startup "waybar"
 spawn-at-startup "mako"
 spawn-at-startup "kanshi"
 spawn-at-startup "swww-daemon" "--format" "xrgb"
+spawn-at-startup "/home/zander/dotfiles/scripts/swayidle-niri.sh"
 
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
@@ -368,13 +373,14 @@ binds {
     // shows a list of important hotkeys.
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+Space { switch-layout "next"; }
+    // cycle keyboard layouts
+    Mod+Shift+Control+U hotkey-overlay-title="Cycle Keyboard Layout" { switch-layout "next"; }
 
-    // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Return hotkey-overlay-title="Spawn terminal" { spawn "kitty"; }
-    Mod+W hotkey-overlay-title="Spawn webbrowser" { spawn "firefox"; }
-    Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-    // Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Mod+Return hotkey-overlay-title="kitty" { spawn "kitty"; }
+    Mod+W hotkey-overlay-title="firefox" { spawn "firefox"; }
+    Mod+D hotkey-overlay-title="fuzzel" { spawn "fuzzel"; }
+    Super+Shift+Control+L hotkey-overlay-title="Lock Screen" { spawn "swaylock" "--color" "000000"; }
+    Mod+Shift+Ctrl+Space hotkey-overlay-title="Cycle Wallpaper" { spawn "~/dotfiles/scripts/swww-cycle-wallpaper.sh"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -404,6 +410,11 @@ binds {
     Mod+O repeat=false { toggle-overview; }
 
     Mod+Shift+Q repeat=false { close-window; }
+
+    // use mouse to move/resize windows
+    // Mod+MouseLeft { move-window; }
+    // Mod+MouseRight { resize-window; }
+    // Mod+MouseMiddle { toggle-window-floating; }
 
     Mod+H     { focus-column-left; }
     Mod+J     { focus-window-down; }
@@ -449,8 +460,8 @@ binds {
     // Mod+Shift+Ctrl+Left  { move-workspace-to-monitor-left; }
     // ...
 
-    Mod+Tab      { focus-workspace-down; }
-    Mod+Shift+Tab        { focus-workspace-up; }
+    Mod+Tab            { focus-workspace-down; }
+    Mod+Shift+Tab      { focus-workspace-up; }
     Mod+Page_Down      { focus-workspace-down; }
     Mod+Page_Up        { focus-workspace-up; }
     Mod+U              { focus-workspace-down; }
@@ -578,8 +589,8 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V       { toggle-window-floating; }
-    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    Mod+S       { toggle-window-floating; }
+    Mod+Shift+S { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,
@@ -594,9 +605,9 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
-    Print { screenshot; }
-    Ctrl+Print { screenshot-screen; }
-    Alt+Print { screenshot-window; }
+    Mod+Shift+Ctrl+S { screenshot; }
+    // Ctrl+Print { screenshot-screen; }
+    // Alt+Print { screenshot-window; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here

@@ -7,47 +7,56 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "agent_ui_font_size": 14.0,
-  "buffer_line_height": "comfortable",
-  "base_keymap": "SublimeText",
-  "minimap": {
-    "show": "always"
-  },
-  "inlay_hints": {
-    "enabled": true
-  },
-  "icon_theme": "Zed (Default)",
-  "theme": "One Dark",
-  "vim_mode": true,
-  "autosave": "on_focus_change",
-  "ui_font_size": 14.0,
-  "buffer_font_size": 14.0,
-  "soft_wrap": "editor_width",
-  "ui_font_family": "Hack Nerd Font",
-  "buffer_font_family": "MartianMono Nerd Font",
-  "scrollbar": {
-    "show": "never"
-  },
-  "tabs": {
-    "git_status": true
-  },
-  "indent_guides": {
-    "enabled": true,
-    "coloring": "indent_aware"
-  },
-  "telemetry": {
-    "diagnostics": false,
-    "metrics": false
-  },
-  "languages": {
-    "Python": {
-      "formatter": {
-        "external": {
-          "command": "black",
-          "arguments": ["-"]
-        }
-      }
-    }
-  },
-  "format_on_save": "on"
+    "buffer_line_height": "comfortable",
+    "base_keymap": "SublimeText",
+    "minimap": {
+        "show": "always",
+    },
+    "inlay_hints": {
+        "enabled": true,
+    },
+    "icon_theme": "Colored Zed Icons Theme Light",
+    "theme": "Catppuccin Mocha",
+    "vim_mode": true,
+    "autosave": {
+        "after_delay": {
+            "milliseconds": 1000,
+        },
+    },
+    "agent_ui_font_size": 14.0,
+    "ui_font_size": 14.0,
+    "buffer_font_size": 14.0,
+    "soft_wrap": "editor_width",
+    "ui_font_family": "MartianMono Nerd Font",
+    "buffer_font_family": "MartianMono Nerd Font",
+    "scrollbar": {
+        "show": "never",
+    },
+    "tab_size": 4,
+    "format_on_save": "on",
+    "tabs": {
+        "git_status": true,
+    },
+    "git": {
+        "inline_blame": {
+            "enabled": true,
+        },
+    },
+    "indent_guides": {
+        "enabled": true,
+        "coloring": "indent_aware",
+    },
+    "telemetry": {
+        "diagnostics": false,
+        "metrics": false,
+    },
+    "preview_tabs": {
+        "enabled": false,
+    },
+    "languages": {
+        "Python": {
+            "formatter": "language_server",
+            "language_servers": ["pyright", "ruff"],
+        },
+    },
 }

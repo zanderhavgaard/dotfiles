@@ -70,19 +70,6 @@
         "deactivated": "󰛊"
       }
     },
-    "river/tags": {
-      "tag-labels": [
-       "一",
-       "二",
-       "三",
-       "四",
-       "五",
-       "六",
-       "七",
-       "八",
-       "九"
-      ]
-    },
     // "niri/workspaces": {
     //   "format": "{icon}",
     //   "format-icons": {
@@ -96,8 +83,6 @@
     "layer": "top",
     "modules-center": [],
     "modules-left": [
-      "river/tags",
-      "river/layout",
       "niri/workspaces",
     ],
     "modules-right": [

@@ -78,7 +78,7 @@
     //   }
     // },
     "niri/language": {
-      "format": " {short}"
+      "format": "{short}  "
     },
     "layer": "top",
     "modules-center": [],
@@ -88,12 +88,13 @@
     "modules-right": [
       "clock#default",
       "clock#extra",
-      "niri/language",
       "pulseaudio",
       "network",
       "backlight",
       "battery#bat0",
       "battery#bat1",
+      "niri/language",
+      "language",
       "idle_inhibitor",
       "custom/kernel",
       "tray"

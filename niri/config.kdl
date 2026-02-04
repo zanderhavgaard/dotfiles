@@ -252,7 +252,8 @@ binds {
     Mod+Return hotkey-overlay-title="kitty" { spawn "kitty"; }
     Mod+W hotkey-overlay-title="firefox" { spawn "firefox"; }
     Mod+D hotkey-overlay-title="fuzzel" { spawn "fuzzel"; }
-    Super+Shift+Control+L hotkey-overlay-title="Lock Screen" { spawn "swaylock" "--color" "000000"; }
+    // TODO: figure out a better keybind for locking
+    Super+Shift+Control+Alt+L hotkey-overlay-title="Lock Screen" { spawn "swaylock" "--color" "000000"; }
     Mod+Shift+Ctrl+Space hotkey-overlay-title="Cycle Wallpaper" { spawn "~/dotfiles/scripts/swww-cycle-wallpaper.sh"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.

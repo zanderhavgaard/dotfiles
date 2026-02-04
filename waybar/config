@@ -54,10 +54,15 @@
       "format": "{:%H:%M 󰥔 %d/%m %b %Y }",
       "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     },
-    "clock#extra": {
-      "format": "{:%H:%M (GR)}",
+    "clock#extra1": {
+      "format": "{:%H:%M (JP)}",
       "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-      "timezone": "Europe/Athens"
+      "timezone": "Asia/Tokyo"
+    },
+    "clock#extra2": {
+      "format": "{:%H:%M (NZ)}",
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+      "timezone": "Pacific/Auckland"
     },
     "custom/kernel": {
       "exec": "echo \"󰣇 $(uname -r)\""
@@ -87,7 +92,8 @@
     ],
     "modules-right": [
       "clock#default",
-      "clock#extra",
+      "clock#extra1",
+      "clock#extra2",
       "pulseaudio",
       "network",
       "backlight",

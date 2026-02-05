@@ -44,3 +44,26 @@ profile docked {
 profile gemini {
   output $gemini
 }
+
+output "Philips Consumer Electronics Company PHL 40B1U5600 *" {
+  enable
+  alias $home-phillips
+  transform normal
+  scale 1
+  mode 3440x1440@120.000000
+  position 0,0
+}
+
+output "Ancor Communications Inc ASUS MG279 *" {
+  enable
+  alias $home-asus
+  transform normal
+  scale 1
+  mode 2560x1440@119.880997
+  position 3440,0
+}
+
+profile home-workstation {
+ output $home-phillips
+ output $home-asus
+}

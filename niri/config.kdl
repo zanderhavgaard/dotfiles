@@ -249,7 +249,7 @@ binds {
     // cycle keyboard layouts
     Mod+Shift+Control+U hotkey-overlay-title="Cycle Keyboard Layout" { switch-layout "next"; }
 
-    Mod+Return hotkey-overlay-title="kitty" { spawn "kitty"; }
+    Mod+Return hotkey-overlay-title="ghostty" { spawn "ghostty"; }
     Mod+W hotkey-overlay-title="firefox" { spawn "firefox"; }
     Mod+D hotkey-overlay-title="fuzzel" { spawn "fuzzel"; }
     // TODO: figure out a better keybind for locking

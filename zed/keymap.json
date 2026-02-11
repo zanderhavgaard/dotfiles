@@ -6,33 +6,33 @@
 // To see the default key bindings run `zed: open default keymap`
 // from the command palette.
 [
-  {
-    "context": "EmptyPane || NoDocument",
-    "bindings": {
-      "space space": "file_finder::Toggle",
-      "space /": "pane::DeploySearch"
-    }
-  },
-  {
-    "context": "Editor && vim_mode == normal",
-    "bindings": {
-      "space space": "file_finder::Toggle",
-      "space /": "pane::DeploySearch",
-      "space e": "workspace::ToggleLeftDock",
-      "space c a": "editor::ToggleCodeActions",
-      "space r n": "editor::Rename",
-      "H": "pane::ActivatePreviousItem",
-      "L": "pane::ActivateNextItem",
-      "] q": "search::SelectNextMatch",
-      "[ q": "search::SelectPreviousMatch",
-      "] d": "editor::GoToDiagnostic",
-      "[ d": "editor::GoToPreviousDiagnostic"
-    }
-  },
-  {
-    "context": "ProjectSearchBar",
-    "bindings": {
-      "enter": "search::SelectNextMatch"
-    }
-  }
+    {
+        "context": "EmptyPane || NoDocument",
+        "bindings": {
+            "space space": "file_finder::Toggle",
+            "space /": "pane::DeploySearch",
+        },
+    },
+    {
+        "context": "Editor && vim_mode == normal",
+        "bindings": {
+            "space space": "file_finder::Toggle",
+            "space /": "pane::DeploySearch",
+            "space e": "workspace::ToggleLeftDock",
+            "space c a": "editor::ToggleCodeActions",
+            "space r n": "editor::Rename",
+            "H": "pane::ActivatePreviousItem",
+            "L": "pane::ActivateNextItem",
+            "] q": "search::SelectNextMatch",
+            "[ q": "search::SelectPreviousMatch",
+            "] d": "editor::GoToDiagnostic",
+            "[ d": "editor::GoToPreviousDiagnostic",
+        },
+    },
+    {
+        "context": "ProjectSearchBar",
+        "bindings": {
+            "enter": "search::SelectNextMatch",
+        },
+    },
 ]

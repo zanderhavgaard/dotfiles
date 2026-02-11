@@ -59,7 +59,7 @@ output "Ancor Communications Inc ASUS MG279 *" {
   alias $home-asus
   transform normal
   scale 1
-  mode 2560x1440@119.880997
+  mode 2560x1440@59.951000
   position 3440,0
 }
 

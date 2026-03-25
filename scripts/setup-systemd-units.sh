@@ -15,4 +15,4 @@ for file in $files; do
 done
 
 systemctl --user daemon-reload
-systemctl --user enable --now swww-cycle.timer
+systemctl --user enable --now awww-cycle.timer

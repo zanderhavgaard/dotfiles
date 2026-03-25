@@ -68,10 +68,10 @@ riverctl spawn waybar
 
 # ===== wallpaper =====
 
-# start swww daemon
-riverctl spawn "swww-daemon --format xrgb"
+# start awww daemon
+riverctl spawn "awww-daemon --format xrgb"
 # keybind to cycle wallpapers
-riverctl map normal Super+Shift+Control Space spawn /home/zander/dotfiles/scripts/swww-cycle-wallpaper.sh
+riverctl map normal Super+Shift+Control Space spawn /home/zander/dotfiles/scripts/awww-cycle-wallpaper.sh
 
 # ===== cycle tags =====
 # relies on extra riverwm-utils, see:

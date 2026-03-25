@@ -6,5 +6,5 @@ After=graphical-session.target
 Requisite=graphical-session.target
 
 [Service]
-ExecStart=/usr/bin/swww-daemon --format xrgb
+ExecStart=/usr/bin/awww-daemon --format xrgb
 Restart=on-failure

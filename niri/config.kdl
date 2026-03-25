@@ -254,7 +254,7 @@ binds {
     Mod+D hotkey-overlay-title="fuzzel" { spawn "fuzzel"; }
     // TODO: figure out a better keybind for locking
     Super+Shift+Control+Alt+L hotkey-overlay-title="Lock Screen" { spawn "swaylock" "--color" "000000"; }
-    Mod+Shift+Ctrl+Space hotkey-overlay-title="Cycle Wallpaper" { spawn "~/dotfiles/scripts/swww-cycle-wallpaper.sh"; }
+    Mod+Shift+Ctrl+Space hotkey-overlay-title="Cycle Wallpaper" { spawn "~/dotfiles/scripts/awww-cycle-wallpaper.sh"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.

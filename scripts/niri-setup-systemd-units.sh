@@ -15,5 +15,5 @@ systemctl --user daemon-reload
 systemctl --user add-wants niri.service mako.service
 systemctl --user add-wants niri.service waybar.service
 systemctl --user add-wants niri.service kanshi.service
-systemctl --user add-wants niri.service swww.service
+systemctl --user add-wants niri.service awww.service
 systemctl --user add-wants niri.service swayidle.service

@@ -1,5 +1,5 @@
 [Unit]
-Description=Timer for swww-cycle-wallpaper
+Description=Timer for awww-cycle-wallpaper
 
 [Timer]
 OnBootSec=1

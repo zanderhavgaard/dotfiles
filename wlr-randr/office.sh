@@ -15,6 +15,6 @@ wlr-randr \
   --output DP-8 --pos 2560,0 --preferred --scale 1.0 --transform 90 \
   --output eDP-1 --pos 640,1440 --preferred --scale 1.0
 
-# restart swww-daemon
-killall swww-daemon
-riverctl spawn 'swww-daemon --format xrgb'
+# restart awww-daemon
+killall awww-daemon
+riverctl spawn 'awww-daemon --format xrgb'

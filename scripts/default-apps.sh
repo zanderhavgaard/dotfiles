@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Theme
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+gsettings set org.gnome.desktop.interface gtk-theme 'catppuccin-mocha-blue-standard+default'
+gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
+gsettings set org.gnome.desktop.interface cursor-theme 'catppuccin-mocha-dark-cursors'
+
 # Web browser
 # xdg-settings set default-web-browser firefox.desktop
 xdg-mime default firefox.desktop x-scheme-handler/http
@@ -21,7 +27,7 @@ xdg-mime default mpv.desktop audio/mpeg
 xdg-mime default mpv.desktop audio/ogg
 
 # PDF viewer
-xdg-mime default sioyek.desktop application/pdf
+xdg-mime default org.pwmt.zathura.desktop application/pdf
 
 # Email (mailto:)
 # Make Thunderbird the handler for mailto: links

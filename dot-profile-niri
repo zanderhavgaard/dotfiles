@@ -1,0 +1,23 @@
+# NOTE: this .profile file is intended to be used alongside niri
+
+# Theme
+export GTK_THEME="catppuccin-mocha-blue-standard+default"
+export ICON_THEME="Papirus-Dark"
+export XCURSOR_THEME="catppuccin-mocha-dark-cursors"
+
+# QT theme
+export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_STYLE_OVERRIDE=kvantum
+
+# Wayland/niri
+export MOZ_ENABLE_WAYLAND="1"
+export _JAVA_AWT_WM_NONREPARENTING=1
+export QT_QPA_PLATFORM=wayland
+export XDG_SESSION_TYPE=wayland
+export XDG_CURRENT_DESKTOP=niri
+export XDG_SESSION_DESKTOP=niri
+
+# Japanese input
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx

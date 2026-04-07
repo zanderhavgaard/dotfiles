@@ -51,16 +51,16 @@ output "Philips Consumer Electronics Company PHL 40B1U5600 *" {
   transform normal
   scale 1
   mode 3440x1440@120.000000
-  position 0,0
+  position 1440,0
 }
 
 output "Ancor Communications Inc ASUS MG279 *" {
   enable
   alias $home-asus
-  transform normal
+  transform 270
   scale 1
-  mode 2560x1440@59.951000
-  position 3440,0
+  mode 2560x1440
+  position 0,0
 }
 
 profile home-workstation {

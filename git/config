@@ -17,6 +17,7 @@
 	s = "status"
 	sha = "rev-parse HEAD"
 	unstage = "reset HEAD --"
+  pile = "commit --amend -n --no-edit"
 
 [color]
 	ui = true

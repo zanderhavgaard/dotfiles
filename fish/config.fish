@@ -70,6 +70,13 @@ Volumes:
         rm -f -- "$tmp"
     end
 
+    # launch neovide from a directory but in a separate process
+    function nv
+        set -l dir (test -n "$argv[1]" && realpath -- $argv[1]; or pwd)
+        neovide -- +"cd $dir" &>/dev/null &
+        disown
+    end
+
     # setup ssh-agent and add keys, supress output
     eval (ssh-agent -c) &>/dev/null
     ssh-add &>/dev/null

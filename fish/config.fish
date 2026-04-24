@@ -81,9 +81,6 @@ Volumes:
     eval (ssh-agent -c) &>/dev/null
     ssh-add &>/dev/null
 
-    echo
-    pfetch
-
     go-task --completion fish | source
 
     zoxide init fish | source
@@ -100,4 +97,9 @@ Volumes:
 
     set -gx PATH /home/zander/.local/bin $PATH
 
+    mise activate fish | source
+
+    echo
+    pfetch
+    echo
 end

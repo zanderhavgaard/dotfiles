@@ -95,6 +95,8 @@ Volumes:
 
     direnv hook fish | source
 
+    mise activate fish | source
+
     set -gx PATH /home/zander/.local/bin $PATH
 
     echo

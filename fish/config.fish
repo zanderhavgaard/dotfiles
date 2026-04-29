@@ -97,8 +97,6 @@ Volumes:
 
     set -gx PATH /home/zander/.local/bin $PATH
 
-    mise activate fish | source
-
     echo
     pfetch
     echo

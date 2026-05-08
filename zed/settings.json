@@ -48,7 +48,7 @@
     "enabled": true
   },
   "icon_theme": "Colored Zed Icons Theme Light",
-  "theme": "One Dark",
+  "theme": "Kanagawa",
   "vim_mode": true,
   "autosave": {
     "after_delay": {

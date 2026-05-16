@@ -45,7 +45,6 @@ Volumes:
     abbr --add -- lg lazygit
     abbr --add -- ls 'eza --icons'
     abbr --add -- n nvim
-    abbr --add -- ncdu 'ncdu --color dark -rr'
     abbr --add -- ping 'prettyping --nolegend'
     abbr --add -- pt pytest
     abbr --add -- rl run_linters

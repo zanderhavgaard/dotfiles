@@ -1,0 +1,5 @@
+# copy this to /etc/udev/rules.d/50-qmk.rules
+# Then reload udevadm:
+# sudo udevadm control --reload
+# sudo udevadm trigger
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", TAG+="uaccess"

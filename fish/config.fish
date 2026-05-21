@@ -98,7 +98,7 @@ Volumes:
 
     set -gx PATH /home/zander/.local/bin $PATH
 
-    echo
-    pfetch
+    cbonsai -p
+    # pfetch
     echo
 end

@@ -1,0 +1,18 @@
+# Custom node view — pool/AZ/capacity/type up front (a "knodes"-like layout),
+# plus k9s-native live STATUS / PODS / %CPU / %MEM.
+# Label keys need escaped dots (\.) per k9s column JSONPath syntax.
+views:
+  v1/nodes:
+    sortColumn: POOL:asc
+    columns:
+      - 'POOL:.metadata.labels.karpenter\.sh/nodepool'
+      - 'NODEGROUP:.metadata.labels.green\.ai/nodegroup'
+      - 'ZONE:.metadata.labels.topology\.kubernetes\.io/zone'
+      - 'CAP:.metadata.labels.karpenter\.sh/capacity-type'
+      - 'TYPE:.metadata.labels.node\.kubernetes\.io/instance-type'
+      - STATUS
+      - PODS
+      - '%CPU'
+      - '%MEM'
+      - AGE|T
+      - NAME

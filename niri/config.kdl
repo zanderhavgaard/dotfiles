@@ -224,6 +224,16 @@ window-rule {
     // block-out-from "screencast"
 }
 
+// Ghostty uses GTK and keeps drawing its own client-side decorations even with
+// `prefer-no-csd`, so niri fills the focus ring / border with a solid background
+// behind it. That fill shows through the semitransparent background of the focused
+// window (the focus ring is only drawn on the focused window), making it look opaque.
+// Telling niri not to draw the decoration background restores transparency.
+window-rule {
+    match app-id=r#"^com\.mitchellh\.ghostty$"#
+    draw-border-with-background false
+}
+
 // Example: enable rounded corners for all windows.
 // (This example rule is commented out with a "/-" in front.)
 window-rule {

@@ -78,6 +78,8 @@ input {
 
 cursor {
   hide-when-typing
+  xcursor-theme "catppuccin-mocha-dark-cursors"
+  xcursor-size 24
 }
 
 // Settings that influence how windows are positioned and sized.

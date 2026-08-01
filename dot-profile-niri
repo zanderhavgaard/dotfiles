@@ -1,23 +1,42 @@
 # NOTE: this .profile file is intended to be used alongside niri
 
 # Theme
+# Icon theme is deliberately NOT set here: no toolkit reads $ICON_THEME.
+# It is currently Papirus-Dark, and changing it means editing all five of:
+#   ~/.config/gtk-3.0/settings.ini          gtk-icon-theme-name
+#   ~/.config/gtk-4.0/settings.ini          gtk-icon-theme-name
+#   ~/.gtkrc-2.0                            gtk-icon-theme-name  (GTK2)
+#   ~/.config/qt5ct/qt5ct.conf              icon_theme
+#   ~/.config/qt6ct/qt6ct.conf              icon_theme
+#   gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
+# The gsettings key is what xdg-desktop-portal serves to sandboxed/Flatpak apps.
+# Careful: LXAppearance rewrites ~/.gtkrc-2.0 and the gsettings keys wholesale,
+# so running it will silently revert these.
 export GTK_THEME="catppuccin-mocha-blue-standard+default"
-export ICON_THEME="Papirus-Dark"
-export XCURSOR_THEME="catppuccin-mocha-dark-cursors"
+
+# Cursor theme is set in niri's `cursor {}` block, not here: niri exports
+# XCURSOR_THEME/XCURSOR_SIZE to every client it spawns and overrides this file.
 
 # QT theme
-export QT_QPA_PLATFORMTHEME=qt5ct
-export QT_STYLE_OVERRIDE=kvantum
+# Must be qt6ct, not qt5ct: only libqt6ct.so exists under
+# /usr/lib/qt6/plugins/platformthemes, so qt5ct leaves Qt6 apps with no platform
+# theme and makes all of qt6ct.conf inert. Style/icons/colours come from there.
+# Do NOT add QT_STYLE_OVERRIDE=kvantum: Kvantum is a QtWidgets style, so QtQuick
+# apps (nheko) resolve it as a QML module, fail the import, and render nothing.
+export QT_QPA_PLATFORMTHEME=qt6ct
 
 # Wayland/niri
-export MOZ_ENABLE_WAYLAND="1"
+# wayland;xcb so apps without the Qt Wayland plugin fall back to XWayland
+# instead of aborting on startup.
+export QT_QPA_PLATFORM="wayland;xcb"
 export _JAVA_AWT_WM_NONREPARENTING=1
-export QT_QPA_PLATFORM=wayland
 export XDG_SESSION_TYPE=wayland
 export XDG_CURRENT_DESKTOP=niri
 export XDG_SESSION_DESKTOP=niri
 
 # Japanese input
+# "fcitx" is correct for fcitx5: fcitx5-gtk registers it as a compat alias and
+# the Qt6 plugin advertises it as its key.
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx

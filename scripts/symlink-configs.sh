@@ -18,3 +18,7 @@ for config in $configs; do
   rm -rfv "$HOME/.config/$config_name"
   ln -sv "$PWD/$config_name" "$HOME/.config/$config_name"
 done
+
+echo "Symlinking claude themes dir ..."
+rm -rfv "$HOME/.claude/themes"
+ln -sv "$HOME/dotfiles/claude/themes" "$HOME/.claude/themes"

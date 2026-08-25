@@ -1,0 +1,37 @@
+directory: ~/Nextcloud/music/
+library: ~/Nextcloud/beets/library.db
+
+import:
+  copy: yes
+  move: no
+  write: yes
+  incremental: yes
+  resume: yes
+  detail: yes
+  log: ~/Nextcloud/beets/import.log
+  incremental_skip_later: yes
+
+plugins:
+  - musicbrainz
+  - discogs
+  - chroma
+  - fromfilename
+  - lastgenre
+  - embedart
+  - fetchart
+  - edit
+  - mbsync
+  - duplicates
+  - missing
+  - badfiles
+
+musicbrainz:
+  genres: yes
+
+lastgenre:
+  count: 5
+  prefer_specific: yes
+  canonical: yes
+
+embedart:
+  maxwidth: 1500 # you saw 25 MB of art go into each WAV

@@ -41,9 +41,9 @@ Volumes:
     abbr --add -- gds 'git diff --staged'
     abbr --add -- k kubectl
     abbr --add -- knr 'kubectl describe nodes |grep '\''^  Resource'\'' -A3'
-    abbr --add -- l 'eza --icons --git -alh'
+    abbr --add -- l 'eza --git -alh'
     abbr --add -- lg lazygit
-    abbr --add -- ls 'eza --icons'
+    abbr --add -- ls eza
     abbr --add -- n nvim
     abbr --add -- ping 'prettyping --nolegend'
     abbr --add -- pt pytest

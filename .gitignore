@@ -8,3 +8,4 @@ fish/functions/*
 fish/fish_variables
 
 beets/discogs_token.json
+beets/state.pickle

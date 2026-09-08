@@ -1,44 +1,77 @@
 # https://docs.helix-editor.com/editor.html
+# Written against helix 25.07 — check `helix --version` before adding options
+# that only exist in newer releases.
 
-theme = "onedark"
+# onedark, with the same readable comment colour as the lazyvim config
+# (themes/onedark-custom.toml). Plain `theme = "onedark"` to go back.
+theme = "onedark-custom"
 
 [editor]
-line-number = "absolute" # or relative
+line-number = "absolute"        # or relative; toggle with <space>ul
 cursorline = true
 color-modes = true
 bufferline = "multiple"
 true-color = true
-idle-timeout = 50 # ms after stopping typing
-completion-replace = true # TODO: check this
+undercurl = true
+idle-timeout = 50               # ms after you stop typing before completion/hover kicks in
+completion-replace = true       # accepting a completion replaces the whole word under the cursor
 insert-final-newline = true
 trim-final-newlines = true
 trim-trailing-whitespace = true
+popup-border = "all"
+# Diagnostics, lazyvim-virtual-text style: every diagnostic gets a marker at the
+# end of its line, and the full message(s) for the cursor line render inline
+# below it. Toggle with <space>ud.
+end-of-line-diagnostics = "hint"
 
+[editor.inline-diagnostics]
+cursor-line = "warning"
+other-lines = "disable"
 
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
 select = "underline"
 
+# same as the auto-save.nvim setup: save on focus lost (+ a debounce)
 [editor.auto-save]
 focus-lost = true
 after-delay.enable = true
 after-delay.timeout = 3000 # ms
 
 [editor.file-picker]
-# show hidden files
-hidden = false
+hidden = false    # show hidden files (snacks picker `hidden = true`)
+git-ignore = true # .venv, .terraform, dist/… stay out of the picker and global search
 
 [editor.indent-guides]
 render = true
+skip-levels = 1
 
 [editor.lsp]
 display-messages = true
-display-inlay-hints = false
+display-inlay-hints = true       # toggle with <space>uh
+display-progress-messages = true
+
+[editor.soft-wrap]
+enable = false # turned on per language (markdown, git-commit) in languages.toml; toggle with <space>uw
 
 [editor.statusline]
-left = ["mode", "spinner", "file-name", "read-only-indicator", "version-control"]
-right = ["diagnostics", "selections", "position",  "file-encoding", "file-line-ending", "file-type"]
+left = [
+  "mode",
+  "spinner",
+  "file-name",
+  "file-modification-indicator",
+  "read-only-indicator",
+  "version-control",
+]
+right = [
+  "diagnostics",
+  "selections",
+  "position",
+  "file-encoding",
+  "file-line-ending",
+  "file-type",
+]
 separator = "│"
 mode.normal = "NORMAL"
 mode.insert = "INSERT"
@@ -46,3 +79,46 @@ mode.select = "SELECT"
 diagnostics = ["warning", "error"]
 workspace-diagnostics = ["warning", "error"]
 
+# -----------------------------------------------------------------------------
+# Keys — lazyvim muscle memory where it doesn't fight helix idioms.
+# Nested tables are merged into the defaults, so everything not listed here
+# keeps its default binding: https://docs.helix-editor.com/keymap.html
+#
+# Things that already match lazyvim out of the box: <space>/ global search,
+# <space>w window mode, ]d/[d diagnostics, gd/gr/gy/gi gotos, <space>r rename,
+# <space>a code action, <space>s/<space>S symbols, <space>k hover (vim's K).
+# -----------------------------------------------------------------------------
+[keys.normal]
+# esc also collapses to a single cursor with no selection, like vim
+esc = ["collapse_selection", "keep_primary_selection"]
+# <S-h>/<S-l>: previous/next buffer (H and L are unbound in helix)
+H = "goto_previous_buffer"
+L = "goto_next_buffer"
+# <C-hjkl>: move between splits. NOTE: zellij captures Ctrl-h for its move
+# mode, so inside zellij use <space>wh (or the arrow keys in window mode).
+C-h = "jump_view_left"
+C-j = "jump_view_down"
+C-k = "jump_view_up"
+C-l = "jump_view_right"
+
+[keys.normal.space]
+space = "file_picker" # <leader><leader>
+"," = "buffer_picker" # <leader>,
+"-" = ":hsplit"       # <leader>-
+"|" = ":vsplit"       # <leader>|
+# <leader>c… code. Shadows the default <space>c (toggle comments) — use Ctrl-c.
+c = { a = "code_action", r = "rename_symbol", f = ":format", s = "symbol_picker" }
+# <leader>b… buffers. Shadows the default <space>b (buffer picker) — now <space>bb or <space>,
+b = { b = "buffer_picker", d = ":buffer-close", D = ":buffer-close!", o = ":buffer-close-others" }
+# <leader>gg lazygit (helix has no terminal; this runs it fullscreen and comes
+# back), <leader>gs changed files (the default <space>g).
+g = { g = [
+  ":new",
+  ":insert-output lazygit",
+  ":buffer-close!",
+  ":redraw",
+], s = "changed_file_picker" }
+# <leader>xx diagnostics (trouble): workspace, or X for the current buffer only
+x = { x = "workspace_diagnostics_picker", X = "diagnostics_picker" }
+# <leader>u… toggles
+u = { w = ":toggle soft-wrap.enable", l = ":toggle line-number absolute relative", h = ":toggle lsp.display-inlay-hints", d = ":toggle end-of-line-diagnostics hint disable" }

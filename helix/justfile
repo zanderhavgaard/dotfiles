@@ -1,0 +1,35 @@
+# helix config maintenance — run from ~/dotfiles/helix (or `just -f helix/justfile …`)
+#
+# Generated, git-ignored:  runtime/grammars/   (`just grammars`)
+# Generated, committed:    schemas/k8s-manifest.schema.json (`just schema`)
+
+default:
+    @just --list
+
+# regenerate everything: extra tree-sitter grammars + the k8s manifest schema
+update: grammars schema
+
+# fetch + build the grammars listed in languages.toml `use-grammars` (needs a C compiler)
+grammars:
+    helix --grammar fetch
+    helix --grammar build
+
+# delete built grammars (they are rebuilt by `just grammars`)
+clean-grammars:
+    rm -rf runtime/grammars
+
+# regenerate schemas/k8s-manifest.schema.json from schemas/generate.py
+schema:
+    python schemas/generate.py
+
+# regenerate the schema and verify every upstream schema URL still resolves
+schema-check:
+    python schemas/generate.py --check
+
+# parse the toml files and show helix's view of the languages we care about
+check:
+    python -c 'import tomllib; [tomllib.load(open(f, "rb")) for f in ("config.toml", "languages.toml")]; print("config.toml + languages.toml parse")'
+    helix --health kcl
+    @for l in python go yaml helm hcl toml json markdown bash sql just dockerfile; do \
+        printf '%-11s' "$l"; helix --health "$l" | sed 's/\x1b\[[0-9;]*m//g' | grep -E '^\s+[✓✘]' | sed -E 's/^\s+//' | tr '\n' ' '; echo; \
+    done

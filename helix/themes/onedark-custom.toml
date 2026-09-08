@@ -1,0 +1,5 @@
+# onedark with readable comments — same tweak as the lazyvim onedark.nvim setup
+# (`["@comment"] = { fg = "#6A9FB5" }`); the stock light-gray is hard to read.
+inherits = "onedark"
+
+"comment" = { fg = "#6A9FB5", modifiers = ["italic"] }

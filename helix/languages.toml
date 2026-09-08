@@ -1,29 +1,220 @@
-[language-server.terraform-ls]
-# use tofu lsp instead of terraform
-command = "tofu-ls"
-args = ["server"]
+# https://docs.helix-editor.com/languages.html
+#
+# Only overrides live here; they are merged on top of helix's built-in defaults
+# (https://github.com/helix-editor/helix/blob/25.07.1/languages.toml).
+# `helix --health <language>` shows what ends up configured.
+#
+# Language servers and formatters must be on $PATH. Projects that pin tools
+# with mise get the pinned versions through the shims; elsewhere the shims fall
+# through to the system packages.
 
-[[language]]
-name = "go"
-auto-format = true
+# Only the extra grammars listed here are fetched/built by
+# `helix --grammar fetch && helix --grammar build` (into runtime/grammars/,
+# gitignored). Everything else ships precompiled with the Arch package.
+# NOTE: must come before any [[language]] / [[grammar]] table.
+use-grammars = { only = ["kcl"] }
 
-[language-server.ruff]
-command = "ruff"
-args = ["server"]
-
+# -----------------------------------------------------------------------------
+# Python — uv projects, ruff + ty
+# -----------------------------------------------------------------------------
+# ruff: lint diagnostics, code actions, formatting. ty: types, completion,
+# hover, goto. Same tools as CI, so the editor and CI agree. ty finds the
+# project's .venv on its own when helix is started from the project root.
+#
+# To pin the editor to a project's own ruff/ty versions, drop this into
+# <project>/.helix/languages.toml (helix merges per-project config):
+#   [language-server.ruff]
+#   command = ".venv/bin/ruff"
+#   args = ["server"]
+#   [language-server.ty]
+#   command = ".venv/bin/ty"
+#   args = ["server"]
+#
+# Fallback if ty gets in the way: language-servers = ["pyright", "ruff"].
 [[language]]
 name = "python"
-language-servers = ["pyright", "ruff"]
+language-servers = [{ name = "ty", except-features = ["format"] }, "ruff"]
 auto-format = true
+
+# -----------------------------------------------------------------------------
+# Go — gopls + golangci-lint
+# -----------------------------------------------------------------------------
+# golangci-lint-langserver (AUR: golangci-lint-langserver-bin) surfaces the
+# same findings as `golangci-lint run`. gopls gofmt's on save; run the
+# "Organize Imports" code action (<space>ca) for goimports.
+[[language]]
+name = "go"
+language-servers = ["gopls", "golangci-lint-lsp"]
+auto-format = true
+
+# -----------------------------------------------------------------------------
+# YAML — Kubernetes manifests, helm values, Taskfiles, GitHub workflows
+# -----------------------------------------------------------------------------
+[[language]]
+name = "yaml"
+# default list + a few extensionless config files
+file-types = [
+  "yml",
+  "yaml",
+  { glob = ".prettierrc" },
+  { glob = ".clangd" },
+  { glob = ".clang-format" },
+  { glob = ".clang-tidy" },
+  { glob = ".gem/credentials" },
+  { glob = ".yamllint" },
+  { glob = ".yamlfmt" },
+  "sublime-syntax",
+]
+language-servers = ["yaml-language-server"]
+# yamlfmt on demand only (<space>cf) — auto-formatting would rewrite files
+# that were never formatted.
+formatter = { command = "yamlfmt", args = ["-in"] }
+auto-format = false
 
 [language-server.yaml-language-server.config.yaml]
 validation = true
+hover = true
+completion = true
+keyOrdering = false
+format = { enable = false }
+# schemastore catalog: auto-matches .github/workflows/*, Chart.yaml,
+# .pre-commit-config.yaml, .yamllint, Taskfile.yaml, renovate, …
+schemaStore = { enable = true }
 
 [language-server.yaml-language-server.config.yaml.schemas]
-kubernetes = "*.{yml,yaml}"
-"https://json.schemastore.org/github-workflow.json" = ".github/workflows/*.{yml,yaml}"
+# Kubernetes manifests in gitops trees (+ rendered chart output). The built-in
+# `kubernetes` schema only knows core kinds and rejects values files, so this
+# local schema dispatches on apiVersion/kind to the same upstream schemas
+# kubeconform uses (yannh core + datreeio CRDs catalog) and leaves documents
+# without a `kind` alone. Kinds are listed in schemas/generate.py.
+"file:///home/zander/dotfiles/helix/schemas/k8s-manifest.schema.json" = [
+  "**/gitops/**/*.yaml",
+  "**/helm-charts/out/**/*.yaml",
+]
+# Taskfile.<name>.yaml variants are not in the schemastore catalog
+"https://taskfile.dev/schema.json" = ["**/Taskfile*.{yml,yaml}"]
+
+# -----------------------------------------------------------------------------
+# Helm
+# -----------------------------------------------------------------------------
+# helm_ls (AUR: helm-ls) spawns yaml-language-server itself to lint the YAML
+# inside templates.
+[language-server.helm_ls.config.helm-ls]
+yamlls = { enabled = true, path = "yaml-language-server" }
+
+# -----------------------------------------------------------------------------
+# OpenTofu
+# -----------------------------------------------------------------------------
+# tofu-ls (AUR: tofu-ls-bin) instead of terraform-ls. It formats with
+# `tofu fmt` (auto-format is on by default for hcl/tfvars). tflint/trivy/checkov
+# have no LSP — those stay on the command line.
+[language-server.terraform-ls]
+command = "tofu-ls"
+args = ["serve"]
+
+# -----------------------------------------------------------------------------
+# TOML — taplo
+# -----------------------------------------------------------------------------
+[[language]]
+name = "toml"
+language-servers = ["taplo"] # drop tombi (default, not installed)
+auto-format = true
+
+# -----------------------------------------------------------------------------
+# JSON / JSONC / JSON5 — prettier
+# -----------------------------------------------------------------------------
+# --stdin-filepath makes prettier pick up the project's .prettierrc and the
+# right parser for the extension.
+[[language]]
+name = "json"
+formatter = { command = "prettier", args = [
+  "--stdin-filepath",
+  "%{buffer_name}",
+] }
 
 [[language]]
+name = "jsonc"
+formatter = { command = "prettier", args = [
+  "--stdin-filepath",
+  "%{buffer_name}",
+] }
+
+[[language]]
+name = "json5"
+formatter = { command = "prettier", args = [
+  "--stdin-filepath",
+  "%{buffer_name}",
+] }
+auto-format = false
+
+# -----------------------------------------------------------------------------
+# Markdown — prettier formats, marksman for links/headings
+# -----------------------------------------------------------------------------
+# For an Obsidian vault, put a .helix/languages.toml in the vault with
+# `language-servers = ["markdown-oxide"]` (pacman: markdown-oxide).
+[[language]]
 name = "markdown"
-formatter = { command = "prettier", args = ["--parser", "markdown"] }
-auto-format = true 
+language-servers = ["marksman"]
+formatter = { command = "prettier", args = [
+  "--stdin-filepath",
+  "%{buffer_name}",
+] }
+auto-format = true
+soft-wrap = { enable = true }
+
+[[language]]
+name = "git-commit"
+soft-wrap = { enable = true }
+
+# -----------------------------------------------------------------------------
+# Shell — bash-language-server (+ shellcheck when on $PATH), shfmt on demand
+# -----------------------------------------------------------------------------
+[[language]]
+name = "bash"
+formatter = { command = "shfmt", args = [
+  "-i",
+  "2",
+  "-ci",
+  "--filename",
+  "%{buffer_name}",
+] }
+auto-format = false
+
+# -----------------------------------------------------------------------------
+# SQL — sqlfluff on demand (hand-aligned DDL should never be auto-formatted)
+# -----------------------------------------------------------------------------
+[[language]]
+name = "sql"
+formatter = { command = "sqlfluff", args = [
+  "format",
+  "--dialect",
+  "postgres",
+  "-",
+] }
+auto-format = false
+
+# -----------------------------------------------------------------------------
+# KCL (*.k) — https://kcl-lang.io
+# -----------------------------------------------------------------------------
+# Not a built-in helix language. Grammar: [[grammar]] below + runtime/queries/kcl/.
+# LSP: `kcl-language-server` is not packaged for Arch and is NOT the `kcl server`
+# subcommand (that is a REST API). It ships inside the kclvm release tarball:
+#   KCL_INSTALL_DIR=$HOME/.local bash -c "$(curl -fsSL https://kcl-lang.io/script/install-kcl-lsp.sh)"
+# Formatting goes through the LSP (`kcl fmt` cannot read stdin).
+[[language]]
+name = "kcl"
+scope = "source.kcl"
+injection-regex = "kcl"
+file-types = ["k"]
+roots = ["kcl.mod", "kcl.yaml"]
+comment-token = "#"
+indent = { tab-width = 4, unit = "    " }
+language-servers = ["kcl-language-server"]
+auto-format = true
+
+[language-server.kcl-language-server]
+command = "kcl-language-server"
+
+[[grammar]]
+name = "kcl"
+source = { git = "https://github.com/kcl-lang/tree-sitter-kcl", rev = "6a5cc921928660cd6756cd6e0d636d9e24ea348e" }

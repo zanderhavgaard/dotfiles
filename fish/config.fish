@@ -45,6 +45,7 @@ Volumes:
     abbr --add -- lg lazygit
     abbr --add -- ls eza
     abbr --add -- n nvim
+    abbr --add -- h helix
     abbr --add -- ping 'prettyping --nolegend'
     abbr --add -- pt pytest
     abbr --add -- rl run_linters

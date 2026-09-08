@@ -1,0 +1,48 @@
+# https://docs.helix-editor.com/editor.html
+
+theme = "onedark"
+
+[editor]
+line-number = "absolute" # or relative
+cursorline = true
+color-modes = true
+bufferline = "multiple"
+true-color = true
+idle-timeout = 50 # ms after stopping typing
+completion-replace = true # TODO: check this
+insert-final-newline = true
+trim-final-newlines = true
+trim-trailing-whitespace = true
+
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.auto-save]
+focus-lost = true
+after-delay.enable = true
+after-delay.timeout = 3000 # ms
+
+[editor.file-picker]
+# show hidden files
+hidden = false
+
+[editor.indent-guides]
+render = true
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = false
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name", "read-only-indicator", "version-control"]
+right = ["diagnostics", "selections", "position",  "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+diagnostics = ["warning", "error"]
+workspace-diagnostics = ["warning", "error"]
+

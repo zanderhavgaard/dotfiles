@@ -1,0 +1,29 @@
+[language-server.terraform-ls]
+# use tofu lsp instead of terraform
+command = "tofu-ls"
+args = ["server"]
+
+[[language]]
+name = "go"
+auto-format = true
+
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+[[language]]
+name = "python"
+language-servers = ["pyright", "ruff"]
+auto-format = true
+
+[language-server.yaml-language-server.config.yaml]
+validation = true
+
+[language-server.yaml-language-server.config.yaml.schemas]
+kubernetes = "*.{yml,yaml}"
+"https://json.schemastore.org/github-workflow.json" = ".github/workflows/*.{yml,yaml}"
+
+[[language]]
+name = "markdown"
+formatter = { command = "prettier", args = ["--parser", "markdown"] }
+auto-format = true 

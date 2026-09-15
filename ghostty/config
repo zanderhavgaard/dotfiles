@@ -7,3 +7,4 @@ background-opacity = 0.9
 window-decoration = none
 tab-inherit-working-directory = true
 window-inherit-working-directory = false
+shell-integration-features = ssh-terminfo,ssh-env

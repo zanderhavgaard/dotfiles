@@ -8,3 +8,6 @@ window-decoration = none
 tab-inherit-working-directory = true
 window-inherit-working-directory = false
 shell-integration-features = ssh-terminfo,ssh-env
+
+# disable ghostty default ctrl+enter fullscreen toggle
+keybind = ctrl+enter=unbind

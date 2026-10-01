@@ -78,7 +78,7 @@ input {
 
 cursor {
   hide-when-typing
-  xcursor-theme "catppuccin-mocha-dark-cursors"
+  xcursor-theme "capitaine-cursors"
   xcursor-size 24
 }
 

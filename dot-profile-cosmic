@@ -3,7 +3,7 @@
 # Theme
 export GTK_THEME="Arc-Dark"
 export ICON_THEME="Cosmic"
-export XCURSOR_THEME="Capitaine-Cursors"
+export XCURSOR_THEME="capitaine-cursors"
 
 # GTK/flatpak theme
 export GNOME_THEME="dark"

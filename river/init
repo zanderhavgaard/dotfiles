@@ -11,7 +11,7 @@ riverctl spawn "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DIS
 
 riverctl spawn "gsettings set org.gnome.desktop.interface gtk-theme Arc-Dark"
 riverctl spawn "gsettings set org.gnome.desktop.interface icon-theme Papirus-Dark"
-riverctl spawn "gsettings set org.gnome.desktop.interface cursor-theme Capitaine-Cursors"
+riverctl spawn "gsettings set org.gnome.desktop.interface cursor-theme capitaine-cursors"
 riverctl spawn "gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
 
 # ===== settings ======

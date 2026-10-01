@@ -12,7 +12,7 @@
 # The gsettings key is what xdg-desktop-portal serves to sandboxed/Flatpak apps.
 # Careful: LXAppearance rewrites ~/.gtkrc-2.0 and the gsettings keys wholesale,
 # so running it will silently revert these.
-export GTK_THEME="catppuccin-mocha-blue-standard+default"
+export GTK_THEME="Arc-Dark"
 
 # Cursor theme is set in niri's `cursor {}` block, not here: niri exports
 # XCURSOR_THEME/XCURSOR_SIZE to every client it spawns and overrides this file.

@@ -35,8 +35,5 @@ export XDG_CURRENT_DESKTOP=niri
 export XDG_SESSION_DESKTOP=niri
 
 # Japanese input
-# "fcitx" is correct for fcitx5: fcitx5-gtk registers it as a compat alias and
-# the Qt6 plugin advertises it as its key.
-export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx

@@ -1,6 +1,12 @@
 [Unit]
 Description=Cycle wallpapers randomly via awww
+After=awww.service
+# awww-daemon's socket may not exist yet right after login, so retry a few times
+StartLimitIntervalSec=60
+StartLimitBurst=10
 
 [Service]
 Type=oneshot
 ExecStart=/home/zander/dotfiles/scripts/awww-cycle-wallpaper.sh
+Restart=on-failure
+RestartSec=2

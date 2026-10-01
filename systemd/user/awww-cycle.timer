@@ -1,9 +1,11 @@
 [Unit]
 Description=Timer for awww-cycle-wallpaper
+PartOf=graphical-session.target
+After=graphical-session.target
 
 [Timer]
-OnBootSec=1
+OnActiveSec=1
 OnUnitActiveSec=30min
 
 [Install]
-WantedBy=timers.target
+WantedBy=graphical-session.target

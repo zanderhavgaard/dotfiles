@@ -77,6 +77,25 @@ Volumes:
         disown
     end
 
+    # decode an on-screen QR code (select a region) into the clipboard —
+    # e.g. an otpauth:// URI to paste into a password managers's one-time password
+    # needs grim, slurp, zbar, wl-clipboard
+    function qr2clip
+        set -l tmp (mktemp -t "qr.XXXXXX.png")
+        grim -g (slurp) $tmp; or begin
+            rm -f -- $tmp
+            return 1
+        end
+        set -l payload (zbarimg -q --raw $tmp)
+        shred -u -- $tmp
+        if test -z "$payload"
+            echo "qr2clip: no QR code found in the selection" >&2
+            return 1
+        end
+        printf '%s' "$payload" | wl-copy
+        echo "copied "(string length -- "$payload")" chars to the clipboard"
+    end
+
     # setup ssh-agent and add keys, supress output
     eval (ssh-agent -c) &>/dev/null
     ssh-add &>/dev/null

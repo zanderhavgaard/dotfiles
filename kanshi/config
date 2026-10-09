@@ -22,7 +22,6 @@ output "Dell Inc. DELL U4323QE *" {
   transform normal
   scale 1
   mode 3840x2160@59.997002
-  position 1920,0
 }
 
 output "Lenovo Group Limited 0x403D *" {
@@ -36,8 +35,12 @@ output "Lenovo Group Limited 0x403D *" {
 
 # gemini, docked at office
 profile docked {
-  output $gemini
-  output $office
+  output $gemini {
+    position 0,0
+  }
+  output $office {
+    position 1920,0
+  }
 }
 
 # gemini, no monitors
@@ -66,4 +69,30 @@ output "Ancor Communications Inc ASUS MG279 *" {
 profile home-workstation {
  output $home-phillips
  output $home-asus
+}
+
+output "BOE NE135A1M-NY1 *" {
+  enable
+  alias $framework
+  transform normal
+  scale 2
+  mode 2880x1920@120.000000
+  position 0,0
+}
+
+# framework alone
+profile framework {
+  output $framework
+}
+
+# framework at home, phillips above the laptop screen, laptop centered below
+# (framework is 1440x960 logical at scale 2, so x = (3440 - 1440) / 2 = 1000)
+profile framework-home {
+  output $home-phillips {
+    mode 3440x1440@99.982002
+    position 0,0
+  }
+  output $framework {
+    position 1000,1440
+  }
 }

@@ -1,0 +1,19 @@
+# Override of /usr/share/applications/bitwarden.desktop, symlinked into
+# ~/.local/share/applications by symlink-configs.sh.
+# --xdg-portal-required-version=99 makes Electron use its in-process GTK file
+# chooser instead of the xdg-desktop-portal one. Bitwarden's process isolation
+# (PR_SET_DUMPABLE=0) makes /proc/<pid>/root unreadable, so the portal rejects
+# every request with "Unable to open /proc/<pid>/root" and Choose File / Save
+# attachment silently do nothing. Bitwarden's own code notes this breaks the
+# portal (xdg-desktop-portal#785) but only works around it for Snap.
+[Desktop Entry]
+Name=Bitwarden
+GenericName=Password Manager
+Comment=A secure and free password manager for all of your devices.
+Exec=bitwarden-desktop --xdg-portal-required-version=99 %u
+Terminal=false
+MimeType=x-scheme-handler/bitwarden
+Type=Application
+Icon=bitwarden
+Categories=Utility;
+StartupWMClass=Bitwarden

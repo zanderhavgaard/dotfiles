@@ -4,7 +4,7 @@
 
 configs=$(ls -d */)
 
-ignored_directories="archive scripts wlr-randr xkb systemd"
+ignored_directories="archive scripts wlr-randr xkb systemd applications"
 
 for config in $configs; do
   # if config is in ignroed_directories, skip it
@@ -22,3 +22,10 @@ done
 echo "Symlinking claude themes dir ..."
 rm -rfv "$HOME/.claude/themes"
 ln -sv "$HOME/dotfiles/claude/themes" "$HOME/.claude/themes"
+
+# per-file, since ~/.local/share/applications also holds entries installed by other apps
+echo "Symlinking desktop entry overrides ..."
+mkdir -p "$HOME/.local/share/applications"
+for entry in "$PWD"/applications/*.desktop; do
+  ln -sfv "$entry" "$HOME/.local/share/applications/$(basename "$entry")"
+done

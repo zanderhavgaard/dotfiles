@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Theme
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark
-gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
-gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
-gsettings set org.gnome.desktop.interface cursor-theme 'capitaine-cursors'
-
 # Web browser
 # xdg-settings set default-web-browser firefox.desktop
 xdg-mime default firefox.desktop x-scheme-handler/http

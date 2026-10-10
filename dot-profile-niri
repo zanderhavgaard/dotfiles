@@ -1,18 +1,14 @@
 # NOTE: this .profile file is intended to be used alongside niri
 
-# Theme
-# Icon theme is deliberately NOT set here: no toolkit reads $ICON_THEME.
-# It is currently Papirus-Dark, and changing it means editing all five of:
-#   ~/.config/gtk-3.0/settings.ini          gtk-icon-theme-name
-#   ~/.config/gtk-4.0/settings.ini          gtk-icon-theme-name
-#   ~/.gtkrc-2.0                            gtk-icon-theme-name  (GTK2)
-#   ~/.config/qt5ct/qt5ct.conf              icon_theme
-#   ~/.config/qt6ct/qt6ct.conf              icon_theme
-#   gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
-# The gsettings key is what xdg-desktop-portal serves to sandboxed/Flatpak apps.
-# Careful: LXAppearance rewrites ~/.gtkrc-2.0 and the gsettings keys wholesale,
-# so running it will silently revert these.
-export GTK_THEME="Arc-Dark"
+# Theme: Colloid-Dark everywhere (GTK2/3/4, icons, cursors, Kvantum).
+# Nothing is exported here on purpose. Names live in:
+#   gtk-3.0/settings.ini, gtk-4.0/settings.ini, dot-gtkrc-2.0 (GTK2)
+#   qt6ct/qt6ct.conf (icon_theme), Kvantum/kvantum.kvconfig (Qt style)
+#   fuzzel/fuzzel.ini (icon-theme), niri/config.kdl (cursor)
+#   scripts/setup-theme.sh (gsettings, served to Flatpak apps by the portal)
+# Do NOT set GTK_THEME: it replaces libadwaita's stylesheet wholesale, so any
+# widget the theme doesn't know renders broken. Instead gtk-4.0/gtk.css symlinks
+# Colloid's CSS, which GTK loads as user CSS layered on top of libadwaita's.
 
 # Cursor theme is set in niri's `cursor {}` block, not here: niri exports
 # XCURSOR_THEME/XCURSOR_SIZE to every client it spawns and overrides this file.

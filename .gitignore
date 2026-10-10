@@ -9,3 +9,5 @@ fish/fish_variables
 
 beets/discogs_token.json
 beets/state.pickle
+
+gtk-3.0/bookmarks

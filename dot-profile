@@ -1,17 +1,15 @@
 # NOTE: this .profile file is intended to be used alongside riverwm
 
 # Theme
-export GTK_THEME="Arc-Dark"
-export ICON_THEME="Papirus-Dark"
-export XCURSOR_THEME="capitaine-cursors"
+export ICON_THEME="Colloid-Dark"
+export XCURSOR_THEME="Colloid-dark-cursors"
 
 # GTK/flatpak theme
 export GNOME_THEME="dark"
 
 # QT theme
-export QT_QPA_PLATFORMTHEME=qt5ct
-export QT_STYLE_OVERRIDE=kvantum
-export QT6CT_PLATFORMTHEME=qt6ct
+# qt6ct, not qt5ct, and no QT_STYLE_OVERRIDE: see dot-profile-niri
+export QT_QPA_PLATFORMTHEME=qt6ct
 
 # Wayland/riverwm
 export MOZ_ENABLE_WAYLAND="1"

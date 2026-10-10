@@ -1,0 +1,15 @@
+# sudo install -Dm644 ~/dotfiles/udev/local-overrides.quirks /etc/libinput/local-overrides.quirks
+# copy this to /etc/libinput/local-overrides.quirks
+# Then restart niri (log out and back in) so libinput picks it up.
+# Verify with:
+# libinput quirks list /dev/input/eventX   (should show AttrKeyboardIntegration=external)
+#
+# libinput 1.32 treats USB keyboards plugged into a monitor's USB hub as
+# internal (the hub port reports removable=fixed) and pairs them with the lid
+# switch. A keypress with the lid closed then makes libinput report the lid
+# as open, and niri turns the laptop panel back on. The laptops' real internal
+# keyboards are on the i8042 bus, so marking every USB keyboard external is safe.
+[USB keyboards are external]
+MatchBus=usb
+MatchUdevType=keyboard
+AttrKeyboardIntegration=external

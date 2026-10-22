@@ -16,3 +16,8 @@ done
 
 systemctl --user daemon-reload
 systemctl --user enable --now awww-cycle.timer
+
+# shared ssh-agent (provided by openssh); fish/config.fish points SSH_AUTH_SOCK
+# at its socket, $XDG_RUNTIME_DIR/ssh-agent.socket
+# keys are added to it on first use via AddKeysToAgent in ssh/config
+systemctl --user enable --now ssh-agent.socket

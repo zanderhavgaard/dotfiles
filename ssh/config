@@ -1,0 +1,11 @@
+# symlinked to ~/.ssh/config by scripts/symlink-configs.sh
+#
+# ssh uses the first value it finds for each option, so the machine-specific
+# hosts are included first and the defaults below only fill in what's unset
+
+# machine-specific hosts, not in the dotfiles (silently skipped if missing)
+Include config.local
+
+Host *
+    # add keys to the systemd ssh-agent (ssh-agent.socket) on first use
+    AddKeysToAgent yes

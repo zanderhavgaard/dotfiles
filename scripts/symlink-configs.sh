@@ -4,7 +4,7 @@
 
 configs=$(ls -d */)
 
-ignored_directories="archive scripts wlr-randr xkb systemd applications"
+ignored_directories="archive scripts wlr-randr xkb systemd applications ssh"
 
 for config in $configs; do
   # if config is in ignroed_directories, skip it
@@ -22,6 +22,13 @@ done
 echo "Symlinking claude themes dir ..."
 rm -rfv "$HOME/.claude/themes"
 ln -sv "$HOME/dotfiles/claude/themes" "$HOME/.claude/themes"
+
+# just the config file: ~/.ssh also holds keys and known_hosts.
+# machine-specific hosts go in ~/.ssh/config.local, which ssh/config includes
+echo "Symlinking ssh config ..."
+mkdir -p "$HOME/.ssh"
+chmod 700 "$HOME/.ssh"
+ln -sfv "$PWD/ssh/config" "$HOME/.ssh/config"
 
 # per-file, since ~/.local/share/applications also holds entries installed by other apps
 echo "Symlinking desktop entry overrides ..."

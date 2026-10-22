@@ -1,36 +1,31 @@
-status is-login; and begin
-    # Login shell initialisation
-end
+## Environment (global, not universal: universals persist in fish_variables
+## and would shadow any change made here)
+# — Web browser for tools like `git web--browse`, `crystal play`, etc.
+set -gx BROWSER firefox
+# — Default editor for tools like `git commit`, `crystal init`, etc.
+set -gx EDITOR nvim
+set -gx VISUAL nvim
+# — Pager for long output (e.g. man, git diff)
+set -gx PAGER less
+# — PDF viewer (used by some scripts/tools)
+set -gx PDFVIEWER zathura
+# — Terminal emulator (for any CLI that honors TERMINAL)
+set -gx TERMINAL ghostty
+
+fish_add_path -g ~/.local/bin
+
+# use the systemd user ssh-agent (ssh-agent.socket), unless we're in an ssh
+# session that may have a forwarded agent
+set -q SSH_CONNECTION; or set -gx SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
 
 status is-interactive; and begin
-
-    ## Set default applications
-    # — Web browser for tools like `git web--browse`, `crystal play`, etc.
-    set -Ux BROWSER firefox
-    # — Default editor for tools like `git commit`, `crystal init`, etc.
-    set -Ux EDITOR nvim
-    set -Ux VISUAL nvim
-    # — Pager for long output (e.g. man, git diff)
-    set -Ux PAGER less
-    # — PDF viewer (used by some scripts/tools)
-    set -Ux PDFVIEWER sioyek
-    # — Terminal emulator (for any CLI that honors TERMINAL)
-    set -Ux TERMINAL kitty
 
     alias task go-task
 
     # Abbreviations
     abbr --add -- t task
-    abbr --add -- b 'black .'
     abbr --add -- cat bat
     abbr --add -- docker_clean 'docker volume prune -f && docker system prune -f'
-    abbr --add -- docker_status 'echo -e "
-Containers:
-" && docker ps -a && echo -e "
-Images:
-" && docker image ls && echo -e "
-Volumes:
-" && docker volume ls'
     abbr --add -- firmware_update 'sudo fwupdmgr get-devices && sudo fwupdmgr refresh --force && sudo fwupdmgr get-updates && sudo fwupdmgr update'
     abbr --add -- update-grub 'sudo grub-mkconfig -o /boot/grub/grub.cfg'
     abbr --add -- g git
@@ -47,60 +42,21 @@ Volumes:
     abbr --add -- n nvim
     abbr --add -- h helix
     abbr --add -- ping 'prettyping --nolegend'
-    abbr --add -- pt pytest
-    abbr --add -- rl run_linters
-    abbr --add -- rlt 'figlet '\''run_linters'\'' ; run_linters ; figlet '\''pytest'\'' ; pytest'
-    abbr --add -- ruff_fix 'ruff check . --config .ruff.toml --fix'
-    abbr --add -- generate-password 'date +%s | sha256sum | base64 | head -c 64 | wl-copy'
-
-    # Aliases
+    abbr --add -- generate-password 'head -c 48 /dev/urandom | base64 | head -c 64 | wl-copy'
 
     # Interactive shell initialisation
     fzf --fish | source
 
     set fish_greeting # Disable greeting
 
-    # add wrapper function for launching yazi
-    function yy
-        set tmp (mktemp -t "yazi-cwd.XXXXXX")
-        yazi $argv --cwd-file="$tmp"
-        if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
-            builtin cd -- "$cwd"
-        end
-        rm -f -- "$tmp"
-    end
+    # custom functions
+    source $__fish_config_dir/functions.fish
 
-    # launch neovide from a directory but in a separate process
-    function nv
-        set -l dir (test -n "$argv[1]" && realpath -- $argv[1]; or pwd)
-        neovide -- +"cd $dir" &>/dev/null &
-        disown
-    end
-
-    # decode an on-screen QR code (select a region) into the clipboard —
-    # e.g. an otpauth:// URI to paste into a password managers's one-time password
-    # needs grim, slurp, zbar, wl-clipboard
-    function qr2clip
-        set -l tmp (mktemp -t "qr.XXXXXX.png")
-        grim -g (slurp) $tmp; or begin
-            rm -f -- $tmp
-            return 1
-        end
-        set -l payload (zbarimg -q --raw $tmp)
-        shred -u -- $tmp
-        if test -z "$payload"
-            echo "qr2clip: no QR code found in the selection" >&2
-            return 1
-        end
-        printf '%s' "$payload" | wl-copy
-        echo "copied "(string length -- "$payload")" chars to the clipboard"
-    end
-
-    # setup ssh-agent and add keys, supress output
-    eval (ssh-agent -c) &>/dev/null
-    ssh-add &>/dev/null
-
-    go-task --completion fish | source
+    # generating go-task completions is slow (~50ms), so cache them in the
+    # (gitignored) completions dir where fish autoloads them on demand;
+    # delete the file to regenerate after a go-task upgrade
+    set -l go_task_comp $__fish_config_dir/completions/go-task.fish
+    test -e $go_task_comp; or go-task --completion fish >$go_task_comp
 
     zoxide init fish | source
 
@@ -115,8 +71,6 @@ Volumes:
     direnv hook fish | source
 
     mise activate fish | source
-
-    set -gx PATH /home/zander/.local/bin $PATH
 
     cbonsai -p
     # pfetch

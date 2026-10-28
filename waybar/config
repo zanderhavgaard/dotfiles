@@ -14,11 +14,10 @@
         ""
       ]
     },
-    "battery#bat0": {
-      "bat": "BAT0",
-      "format": "BAT0:{capacity}% {icon}",
-      "format-alt": "BAT0:{time} {icon}",
-      "format-charging": "BAT0:{capacity}% 󱐋",
+    "battery": {
+      "format": "{capacity}% {icon}",
+      "format-alt": "{time} {icon}",
+      "format-charging": "{capacity}% 󱐋",
       "format-icons": [
         "",
         "",
@@ -26,25 +25,7 @@
         "",
         ""
       ],
-      "format-plugged": "BAT0:{capacity}% ",
-      "states": {
-        "critical": 15,
-        "warning": 30
-      }
-    },
-    "battery#bat1": {
-      "bat": "BAT1",
-      "format": "BAT1:{capacity}% {icon}",
-      "format-alt": "BAT1:{time} {icon}",
-      "format-charging": "BAT1:{capacity}% 󱐋",
-      "format-icons": [
-        "",
-        "",
-        "",
-        "",
-        ""
-      ],
-      "format-plugged": "BAT1:{capacity}% ",
+      "format-plugged": "{capacity}% ",
       "states": {
         "critical": 15,
         "warning": 30
@@ -71,7 +52,9 @@
       "exec": "~/.config/waybar/vpn-status.sh",
       "return-type": "json",
       "interval": 5,
-      "tooltip": true
+      "tooltip": true,
+      "on-click": "~/.config/waybar/vpn-status.sh toggle-netbird",
+      "on-click-right": "~/.config/waybar/vpn-status.sh toggle-mullvad"
     },
     "height": 0,
     "idle_inhibitor": {
@@ -104,10 +87,8 @@
       "network",
       "custom/vpn",
       "backlight",
-      "battery#bat0",
-      "battery#bat1",
+      "battery",
       "niri/language",
-      "language",
       "idle_inhibitor",
       "custom/kernel",
       "tray"

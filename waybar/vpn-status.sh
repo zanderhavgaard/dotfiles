@@ -4,6 +4,24 @@
 
 JQ=/usr/bin/jq
 
+# click handlers: `vpn-status.sh toggle-netbird` / `toggle-mullvad`
+case "${1:-}" in
+  toggle-netbird)
+    if netbird status --json 2>/dev/null | $JQ -e '.management.connected == true' >/dev/null; then
+      exec netbird down
+    else
+      exec netbird up
+    fi
+    ;;
+  toggle-mullvad)
+    if mullvad status -j 2>/dev/null | $JQ -e '.state == "connected" or .state == "connecting"' >/dev/null; then
+      exec mullvad disconnect
+    else
+      exec mullvad connect
+    fi
+    ;;
+esac
+
 mullvad_state="off"
 mullvad_detail=""
 if command -v mullvad >/dev/null 2>&1; then

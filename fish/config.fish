@@ -55,8 +55,10 @@ status is-interactive; and begin
     # generating go-task completions is slow (~50ms), so cache them in the
     # (gitignored) completions dir where fish autoloads them on demand;
     # delete the file to regenerate after a go-task upgrade
-    set -l go_task_comp $__fish_config_dir/completions/go-task.fish
-    test -e $go_task_comp; or go-task --completion fish >$go_task_comp
+    # set -l go_task_comp $__fish_config_dir/completions/go-task.fish
+    # test -e $go_task_comp; or go-task --completion fish >$go_task_comp
+
+    go-task --completion fish | source
 
     zoxide init fish | source
 

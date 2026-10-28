@@ -56,7 +56,10 @@
       "on-click": "~/.config/waybar/vpn-status.sh toggle-netbird",
       "on-click-right": "~/.config/waybar/vpn-status.sh toggle-mullvad"
     },
-    "height": 0,
+    "height": 30,
+    "margin-top": 10,
+    "margin-left": 10,
+    "margin-right": 10,
     "idle_inhibitor": {
       "format": "{icon}",
       "format-icons": {
@@ -75,24 +78,49 @@
       "format": "{short}  "
     },
     "layer": "top",
-    "modules-center": [],
-    "modules-left": [
+        "modules-left": [
       "niri/workspaces",
     ],
-    "modules-right": [
-      "clock#default",
-      "clock#extra1",
-      "clock#extra2",
-      "pulseaudio",
-      "network",
-      "custom/vpn",
-      "backlight",
-      "battery",
-      "niri/language",
-      "idle_inhibitor",
-      "custom/kernel",
-      "tray"
+    "modules-center": [
+      "clock#default"
     ],
+    "modules-right": [
+      "group/clocks",
+      "pulseaudio",
+      "group/net",
+      "group/hw",
+      "custom/kernel",
+      "group/sys"
+    ],
+    "group/clocks": {
+      "orientation": "inherit",
+      "modules": [
+        "clock#extra1",
+        "clock#extra2"
+      ]
+    },
+    "group/net": {
+      "orientation": "inherit",
+      "modules": [
+        "network",
+        "custom/vpn"
+      ]
+    },
+    "group/hw": {
+      "orientation": "inherit",
+      "modules": [
+        "backlight",
+        "battery",
+        "niri/language"
+      ]
+    },
+    "group/sys": {
+      "orientation": "inherit",
+      "modules": [
+        "idle_inhibitor",
+        "tray"
+      ]
+    },
     "network": {
       "format-alt": "{ifname}: {ipaddr}/{cidr}",
       "format-disconnected": "Disconnected ⚠",
@@ -124,7 +152,7 @@
       "format-source-muted": "",
       "on-click": "pwvucontrol"
     },
-    "spacing": 1,
+    "spacing": 0,
     "tray": {
       "spacing": 5
     }

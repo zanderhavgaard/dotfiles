@@ -67,6 +67,12 @@
     "custom/kernel": {
       "exec": "echo \"󰣇 $(uname -r)\""
     },
+    "custom/vpn": {
+      "exec": "~/.config/waybar/vpn-status.sh",
+      "return-type": "json",
+      "interval": 5,
+      "tooltip": true
+    },
     "height": 0,
     "idle_inhibitor": {
       "format": "{icon}",
@@ -96,6 +102,7 @@
       "clock#extra2",
       "pulseaudio",
       "network",
+      "custom/vpn",
       "backlight",
       "battery#bat0",
       "battery#bat1",

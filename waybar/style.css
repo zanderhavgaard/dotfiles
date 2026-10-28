@@ -216,3 +216,14 @@ label:focus {
   color: #1a2128;
   background-color: #ff9191;
 }
+
+#custom-vpn {
+  padding: 0 5px;
+  color: #ff9191;
+}
+#custom-vpn.connected {
+  color: #9acd68;
+}
+#custom-vpn.connecting {
+  color: #eda55d;
+}

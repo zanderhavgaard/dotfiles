@@ -35,16 +35,6 @@
       "format": "{:%H:%M 󰥔 %d/%m %b %Y }",
       "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     },
-    "clock#extra1": {
-      "format": "{:%H:%M (JP)}",
-      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-      "timezone": "Asia/Tokyo"
-    },
-    "clock#extra2": {
-      "format": "{:%H:%M (NZ)}",
-      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-      "timezone": "Pacific/Auckland"
-    },
     "custom/kernel": {
       "exec": "echo \"󰣇 $(uname -r)\""
     },
@@ -81,24 +71,14 @@
         "modules-left": [
       "niri/workspaces",
     ],
-    "modules-center": [
-      "clock#default"
-    ],
     "modules-right": [
-      "group/clocks",
+      "clock#default",
       "pulseaudio",
       "group/net",
       "group/hw",
       "custom/kernel",
       "group/sys"
     ],
-    "group/clocks": {
-      "orientation": "inherit",
-      "modules": [
-        "clock#extra1",
-        "clock#extra2"
-      ]
-    },
     "group/net": {
       "orientation": "inherit",
       "modules": [

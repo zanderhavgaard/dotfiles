@@ -1,140 +1,152 @@
-[
-  {
-    "backlight": {
-      "format": "{percent}% {icon}",
-      "format-icons": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-      ]
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "spacing": 0,
+  "margin-top": 10,
+  "margin-left": 10,
+  "margin-right": 10,
+  "modules-left": ["niri/workspaces", "mpris"],
+  "modules-right": ["clock#default", "pulseaudio", "group/net", "group/stats", "group/hw", "group/arch", "group/sys"],
+  "group/net": {
+    "orientation": "inherit",
+    "modules": ["network", "custom/vpn"]
+  },
+  "group/stats": {
+    "orientation": "inherit",
+    "modules": ["cpu", "memory", "temperature"]
+  },
+  "group/hw": {
+    "orientation": "inherit",
+    "modules": ["backlight", "battery", "custom/tlp", "niri/language"]
+  },
+  "group/arch": {
+    "orientation": "inherit",
+    "modules": ["custom/kernel", "custom/updates"]
+  },
+  "group/sys": {
+    "orientation": "inherit",
+    "modules": ["idle_inhibitor", "tray"]
+  },
+  "mpris": {
+    "format": "{player_icon} {dynamic}",
+    "format-paused": "{status_icon} <i>{dynamic}</i>",
+    "dynamic-len": 40,
+    "dynamic-order": ["title", "artist"],
+    "dynamic-separator": " · ",
+    "player-icons": {
+      "default": "",
+      "spotify": "",
+      "firefox": "󰈹",
+      "mpv": "󰝙",
+      "fooyin": ""
     },
-    "battery": {
-      "format": "{capacity}% {icon}",
-      "format-alt": "{time} {icon}",
-      "format-charging": "{capacity}% 󱐋",
-      "format-icons": [
-        "",
-        "",
-        "",
-        "",
-        ""
-      ],
-      "format-plugged": "{capacity}% ",
-      "states": {
-        "critical": 15,
-        "warning": 30
-      }
+    "status-icons": {
+      "playing": "",
+      "paused": ""
     },
-    "clock#default": {
-      "format": "{:%H:%M 󰥔 %d/%m %b %Y }",
-      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "on-click-right": "playerctl next",
+    "on-click-middle": "playerctl previous"
+  },
+  "clock#default": {
+    "format": "{:%H:%M 󰥔 %d/%m %b %Y }",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "pulseaudio": {
+    "format": "{volume}% {icon} {format_source}",
+    "format-bluetooth": "{volume}% {icon} {format_source}",
+    "format-bluetooth-muted": "󰖁 {icon} {format_source}",
+    "format-icons": {
+      "car": "",
+      "default": ["", "", ""],
+      "hands-free": "󰋋",
+      "headphone": "",
+      "headset": "󰋋",
+      "phone": "",
+      "portable": ""
     },
-    "custom/kernel": {
-      "exec": "echo \"󰣇 $(uname -r)\""
-    },
-    "custom/vpn": {
-      "exec": "~/.config/waybar/vpn-status.sh",
-      "return-type": "json",
-      "interval": 5,
-      "tooltip": true,
-      "on-click": "~/.config/waybar/vpn-status.sh toggle-netbird",
-      "on-click-right": "~/.config/waybar/vpn-status.sh toggle-mullvad"
-    },
-    "height": 30,
-    "margin-top": 10,
-    "margin-left": 10,
-    "margin-right": 10,
-    "idle_inhibitor": {
-      "format": "{icon}",
-      "format-icons": {
-        "activated": "󰅶",
-        "deactivated": "󰛊"
-      }
-    },
-    // "niri/workspaces": {
-    //   "format": "{icon}",
-    //   "format-icons": {
-    //     "active": "",
-    //     "default": ""
-    //   }
-    // },
-    "niri/language": {
-      "format": "{short}  "
-    },
-    "layer": "top",
-        "modules-left": [
-      "niri/workspaces",
-    ],
-    "modules-right": [
-      "clock#default",
-      "pulseaudio",
-      "group/net",
-      "group/hw",
-      "custom/kernel",
-      "group/sys"
-    ],
-    "group/net": {
-      "orientation": "inherit",
-      "modules": [
-        "network",
-        "custom/vpn"
-      ]
-    },
-    "group/hw": {
-      "orientation": "inherit",
-      "modules": [
-        "backlight",
-        "battery",
-        "niri/language"
-      ]
-    },
-    "group/sys": {
-      "orientation": "inherit",
-      "modules": [
-        "idle_inhibitor",
-        "tray"
-      ]
-    },
-    "network": {
-      "format-alt": "{ifname}: {ipaddr}/{cidr}",
-      "format-disconnected": "Disconnected ⚠",
-      "format-ethernet": "{ipaddr}/{cidr} 󰈁",
-      "format-linked": "{ifname} (No IP) 󰈂",
-      "format-wifi": "{essid} ({signalStrength}%) ",
-      "tooltip-format": "{gwaddr} via {ifname} 󰈀 "
-    },
-    "position": "top",
-    "pulseaudio": {
-      "format": "{volume}% {icon} {format_source}",
-      "format-bluetooth": "{volume}% {icon} {format_source}",
-      "format-bluetooth-muted": "󰖁 {icon} {format_source}",
-      "format-icons": {
-        "car": "",
-        "default": [
-          "",
-          "",
-          ""
-        ],
-        "hands-free": "hands-free",
-        "headphone": "",
-        "headset": "headset",
-        "phone": "",
-        "portable": ""
-      },
-      "format-muted": "󰖁 {format_source}",
-      "format-source": "{volume}% ",
-      "format-source-muted": "",
-      "on-click": "pwvucontrol"
-    },
-    "spacing": 0,
-    "tray": {
-      "spacing": 5
+    "format-muted": "󰖁 {format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "on-click": "pwvucontrol"
+  },
+  "network": {
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "format-disconnected": "Disconnected ⚠",
+    "format-ethernet": "{ipaddr}/{cidr} 󰈁",
+    "format-linked": "{ifname} (No IP) 󰈂",
+    "format-wifi": "{essid} ({signalStrength}%) ",
+    "tooltip-format": "{gwaddr} via {ifname} 󰈀 "
+  },
+  "custom/vpn": {
+    "exec": "~/.config/waybar/vpn-status.sh",
+    "return-type": "json",
+    "interval": 5,
+    "tooltip": true,
+    "on-click": "~/.config/waybar/vpn-status.sh toggle-netbird",
+    "on-click-right": "~/.config/waybar/vpn-status.sh toggle-mullvad"
+  },
+  "cpu": {
+    "format": "󰓅 {usage}%",
+    "interval": 2,
+    "on-click": "ghostty -e btop"
+  },
+  "memory": {
+    "format": "󰍛 {percentage}%",
+    "interval": 5,
+    "tooltip-format": "{used:0.1f} / {total:0.1f} GiB used\nswap {swapUsed:0.1f} / {swapTotal:0.1f} GiB",
+    "on-click": "ghostty -e btop"
+  },
+  "temperature": {
+    // k10temp Tctl (CPU package)
+    "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
+    "input-filename": "temp1_input",
+    "interval": 5,
+    "critical-threshold": 85,
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": ["", "", ""]
+  },
+  "backlight": {
+    "format": "{percent}% {icon}",
+    "format-icons": ["", "", "", "", "", "", "", "", ""]
+  },
+  "battery": {
+    "format": "{capacity}% {icon}",
+    "format-alt": "{time} {icon}",
+    "format-charging": "{capacity}% 󱐋",
+    "format-icons": ["", "", "", "", ""],
+    "format-plugged": "{capacity}% ",
+    "states": {
+      "critical": 15,
+      "warning": 30
     }
+  },
+  "custom/tlp": {
+    "exec": "~/.config/waybar/tlp-status.sh",
+    "return-type": "json",
+    "interval": 10
+  },
+  "niri/language": {
+    "format": "{short}  "
+  },
+  "custom/kernel": {
+    "exec": "echo \"󰣇 $(uname -r)\""
+  },
+  "custom/updates": {
+    "exec": "~/.config/waybar/updates.sh",
+    "return-type": "json",
+    "interval": 1800,
+    "signal": 8,
+    "on-click": "ghostty -e sh -c 'paru; pkill -RTMIN+8 waybar'"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰅶",
+      "deactivated": "󰛊"
+    }
+  },
+  "tray": {
+    "spacing": 5
   }
-]
+}

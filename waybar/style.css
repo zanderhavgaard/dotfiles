@@ -88,9 +88,37 @@ button:hover {
 #language,
 #idle_inhibitor,
 #custom-kernel,
+#custom-updates,
+#custom-tlp,
+#cpu,
+#memory,
+#temperature,
+#mpris,
 #tray {
   padding: 0 7px;
   color: #dcdfe4;
+}
+
+#temperature.critical {
+  color: #e06c75;
+}
+
+#custom-updates.pending {
+  color: #e5c07b;
+}
+
+#custom-tlp.performance {
+  color: #61afef;
+}
+#custom-tlp.balanced {
+  color: #abb2bf;
+}
+#custom-tlp.low-power {
+  color: #98c379;
+}
+
+#mpris.paused {
+  color: #abb2bf;
 }
 
 #pulseaudio.muted {

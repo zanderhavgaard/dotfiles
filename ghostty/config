@@ -1,6 +1,6 @@
 # reload config with ctrl+shift+,
-# theme = "Atom One Dark"
-theme = "One Double Dark"
+# theme = "One Double Dark"
+theme = "Kanagawa Wave"
 font-family = "MartianMono Nerd Font"
 font-size = 12
 background-opacity = 0.9

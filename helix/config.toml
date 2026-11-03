@@ -2,9 +2,7 @@
 # Written against helix 25.07 — check `helix --version` before adding options
 # that only exist in newer releases.
 
-# onedark, with the same readable comment colour as the lazyvim config
-# (themes/onedark-custom.toml). Plain `theme = "onedark"` to go back.
-theme = "onedark-custom"
+theme = "kanagawa"
 
 [editor]
 line-number = "absolute"        # or relative; toggle with <space>ul

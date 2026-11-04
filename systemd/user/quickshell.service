@@ -5,7 +5,11 @@ Description=Quickshell (bar, OSD, notifications, launcher)
 PartOf=graphical-session.target
 After=graphical-session.target
 Requisite=graphical-session.target
+# never give up restarting: if it crashed while locked, it has to come back
+# to show the lock screen again (see quickshell/lock/Lock.qml)
+StartLimitIntervalSec=0
 
 [Service]
 ExecStart=/usr/bin/qs
 Restart=on-failure
+RestartSec=1

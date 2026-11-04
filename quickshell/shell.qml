@@ -19,8 +19,7 @@ import qs.launcher
 import qs.lock
 
 ShellRoot {
-    // TODO: set back to false when done hacking (see the note above)
-    settings.watchFiles: true
+    settings.watchFiles: false
 
     Variants {
         model: Quickshell.screens

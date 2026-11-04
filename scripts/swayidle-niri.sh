@@ -4,7 +4,7 @@
 killall swayidle >/dev/null 2>&1
 
 swayidle -w \
-  timeout 600 'swaylock -f -c 000000' \
+  timeout 600 '~/dotfiles/scripts/lock.sh' \
   timeout 660 'niri msg action power-off-monitors' \
   resume 'niri msg action power-on-monitors' \
-  before-sleep 'swaylock -f -c 000000'
+  before-sleep '~/dotfiles/scripts/lock.sh'

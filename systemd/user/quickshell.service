@@ -1,0 +1,11 @@
+# for use with niri-session
+
+[Unit]
+Description=Quickshell (bar, OSD, notifications, launcher)
+PartOf=graphical-session.target
+After=graphical-session.target
+Requisite=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/qs
+Restart=on-failure

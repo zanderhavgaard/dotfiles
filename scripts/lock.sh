@@ -6,7 +6,10 @@
 # Falls back to swaylock if quickshell isn't answering.
 
 if qs ipc call lock lock >/dev/null 2>&1; then
-  for _ in $(seq 30); do
+  # a deadline, not a loop count: a slow `qs ipc` under load mustn't stretch
+  # this past logind's 5s suspend-inhibit delay
+  deadline=$(( ${EPOCHREALTIME/./} + 3000000 ))
+  while (( ${EPOCHREALTIME/./} < deadline )); do
     [[ $(qs ipc call lock isSecure 2>/dev/null) == true ]] && exit 0
     sleep 0.1
   done

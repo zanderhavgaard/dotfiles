@@ -61,6 +61,7 @@ PopupWindow {
                 Text {
                     anchors { right: parent.right; rightMargin: 14; verticalCenter: parent.verticalCenter }
                     text: root.aside
+                    textFormat: Text.PlainText    // from outside: no markup
                     color: Theme.mutedText
                     font.family: Theme.mono
                     font.pixelSize: 10

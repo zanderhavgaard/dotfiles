@@ -6,28 +6,19 @@ import QtQuick
 
 // Mirrors niri's state from `niri msg --json event-stream`.
 // Every update reassigns the property so QML bindings re-evaluate.
+// Only workspaces and keyboard layouts are tracked; window events are ignored
+// (an empty workspace is one with no active_window_id).
 Singleton {
     id: root
 
     property var workspaces: []      // sorted by output, then idx
-    property var windows: ({})       // id -> window object
-    property var focusedWindowId: null
     property var layoutNames: []
     property int layoutIdx: 0
-    property bool overviewOpen: false
 
-    readonly property var focusedWindow: focusedWindowId !== null ? (windows[focusedWindowId] ?? null) : null
     readonly property string layoutShort: shortLayout(layoutNames[layoutIdx] ?? "")
 
     function workspacesOn(output) {
         return workspaces.filter(w => w.output === output);
-    }
-
-    // the window shown on this output's active workspace
-    function activeWindowOn(output) {
-        const ws = workspaces.find(w => w.output === output && w.is_active);
-        if (!ws || ws.active_window_id === null) return null;
-        return windows[ws.active_window_id] ?? null;
     }
 
     function action(args) {
@@ -39,10 +30,6 @@ Singleton {
         Quickshell.execDetached(["sh", "-c",
             "niri msg action focus-monitor \"$1\" && niri msg action focus-workspace \"$2\"",
             "sh", ws.output, String(ws.idx)]);
-    }
-
-    function focusWindow(id) {
-        action(["focus-window", "--id", String(id)]);
     }
 
     function shortLayout(name) {
@@ -76,35 +63,11 @@ Singleton {
         } else if (ev.WorkspaceUrgencyChanged) {
             const e = ev.WorkspaceUrgencyChanged;
             workspaces = workspaces.map(w => w.id === e.id ? Object.assign({}, w, { is_urgent: e.urgent }) : w);
-        } else if (ev.WindowsChanged) {
-            const map = {};
-            let focused = null;
-            for (const win of ev.WindowsChanged.windows) {
-                map[win.id] = win;
-                if (win.is_focused) focused = win.id;
-            }
-            windows = map;
-            focusedWindowId = focused;
-        } else if (ev.WindowOpenedOrChanged) {
-            const win = ev.WindowOpenedOrChanged.window;
-            const map = Object.assign({}, windows);
-            map[win.id] = win;
-            windows = map;
-            if (win.is_focused) focusedWindowId = win.id;
-        } else if (ev.WindowClosed) {
-            const map = Object.assign({}, windows);
-            delete map[ev.WindowClosed.id];
-            windows = map;
-            if (focusedWindowId === ev.WindowClosed.id) focusedWindowId = null;
-        } else if (ev.WindowFocusChanged) {
-            focusedWindowId = ev.WindowFocusChanged.id;
         } else if (ev.KeyboardLayoutsChanged) {
             layoutNames = ev.KeyboardLayoutsChanged.keyboard_layouts.names;
             layoutIdx = ev.KeyboardLayoutsChanged.keyboard_layouts.current_idx;
         } else if (ev.KeyboardLayoutSwitched) {
             layoutIdx = ev.KeyboardLayoutSwitched.idx;
-        } else if (ev.OverviewOpenedOrClosed) {
-            overviewOpen = ev.OverviewOpenedOrClosed.is_open;
         }
     }
 

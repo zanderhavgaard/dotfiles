@@ -21,7 +21,16 @@ MouseArea {
     cursorShape: Qt.PointingHandCursor
 
     onClicked: mouse => mouse.button === Qt.RightButton ? rightClicked() : leftClicked()
-    onWheel: wheel => scrolled(wheel.angleDelta.y > 0 ? 1 : -1)
+    // one step per mouse-wheel notch (120); a touchpad's many small deltas
+    // add up to the same, instead of each counting as a full step
+    property real wheelAccum: 0
+    onWheel: wheel => {
+        wheelAccum += wheel.angleDelta.y;
+        const steps = wheelAccum > 0 ? Math.floor(wheelAccum / 120) : Math.ceil(wheelAccum / 120);
+        if (steps === 0) return;
+        wheelAccum -= steps * 120;
+        scrolled(steps);
+    }
 
     Row {
         id: row
@@ -38,6 +47,7 @@ MouseArea {
         }
         Text {
             text: root.value
+            textFormat: Text.PlainText    // from outside: no markup
             color: root.valueColor
             font.family: Theme.mono
             font.pixelSize: 11

@@ -27,7 +27,9 @@ Item {
     Image {
         id: wallpaper
         anchors.fill: parent
-        source: root.lock.wallpaper !== "" ? "file://" + root.lock.wallpaper : ""
+        source: root.lock.wallpaper !== "" ? "file://" + encodeURI(root.lock.wallpaper) : ""
+        // it's blurred anyway: no need to decode a 6K wallpaper per screen
+        sourceSize: Qt.size(Math.max(1, Math.round(width / 2)), Math.max(1, Math.round(height / 2)))
         fillMode: Image.PreserveAspectCrop
         asynchronous: true
         visible: false
@@ -128,7 +130,8 @@ Item {
                 spacing: 6
 
                 Repeater {
-                    model: Math.min(root.lock.password.length, 28)
+                    // as many squares (7px + 6px gap) as fit between the 16px margins
+                    model: Math.min(root.lock.password.length, Math.floor((box.width - 32 + 6) / 13))
                     Rectangle {
                         width: 7
                         height: 7
@@ -144,9 +147,14 @@ Item {
                 opacity: 0
                 focus: true
                 echoMode: TextInput.Password
-                enabled: root.lock.status !== "checking"
+                // read-only (not disabled) while checking, so Esc still works
+                readOnly: root.lock.status === "checking"
 
-                Component.onCompleted: forceActiveFocus()
+                Component.onCompleted: {
+                    // a screen plugged in mid-typing starts with what's typed so far
+                    text = root.lock.password;
+                    forceActiveFocus();
+                }
 
                 onTextChanged: {
                     if (text !== root.lock.password) root.lock.password = text;
@@ -165,6 +173,7 @@ Item {
                     if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
                         root.lock.submit();
                     } else if (event.key === Qt.Key_Escape) {
+                        root.lock.cancelCheck();
                         if (root.preview) root.lock.previewing = false;
                         else root.lock.password = "";
                     } else {

@@ -201,6 +201,7 @@ Scope {
                             width: parent.width
                             elide: Text.ElideRight
                             text: root.player ? root.player.trackTitle : ""
+                            textFormat: Text.PlainText    // from outside: no markup
                             color: Theme.fujiWhite
                             font.family: Theme.mono
                             font.pixelSize: 12
@@ -211,6 +212,7 @@ Scope {
                             visible: text !== ""
                             elide: Text.ElideRight
                             text: root.player ? root.player.trackArtist : ""
+                            textFormat: Text.PlainText    // from outside: no markup
                             color: Theme.oldWhite
                             font.family: Theme.mono
                             font.pixelSize: 11
@@ -222,6 +224,7 @@ Scope {
                         anchors.right: parent.right
                         anchors.verticalCenter: parent.verticalCenter
                         text: root.player ? root.player.identity : ""
+                        textFormat: Text.PlainText    // from outside: no markup
                         color: Theme.mutedText
                         font.family: Theme.mono
                         font.pixelSize: 10

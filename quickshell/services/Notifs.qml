@@ -16,6 +16,12 @@ import QtQuick
 //
 // `popupKeys` is the subset currently shown as popups; a popup timing out
 // only removes it from there. Do-not-disturb skips popups (except critical).
+// An app replacing a notification (progress, "3 new messages", notify-send -r)
+// updates its record and pops it up again.
+//
+// Records are only replaced (never mutated) when they change, and unchanged
+// ones keep their identity, so views using ScriptModel keep their delegates
+// (and popup timers) when something else changes.
 //
 //   qs ipc call notifications toggle   open / close the center
 //   qs ipc call notifications dnd      toggle do-not-disturb
@@ -24,6 +30,7 @@ Singleton {
     id: root
 
     readonly property int maxHistory: 100
+    readonly property int maxPopups: 5
 
     property bool dnd: false
     property bool centerOpen: false
@@ -36,15 +43,35 @@ Singleton {
     property int nextKey: 1
 
     readonly property int count: history.length
-    readonly property var popups: history.filter(r => popupKeys.includes(r.key) && r.notif !== null)
+    // newest first; older ones wait their turn
+    readonly property var popups: history
+        .filter(r => popupKeys.includes(r.key) && r.notif !== null)
+        .slice(0, maxPopups)
 
     function update(key, fn) {
+        if (!history.some(r => r.key === key)) return;
         history = history.map(r => r.key === key ? fn(Object.assign({}, r)) : r);
     }
 
     function remove(key) {
-        history = history.filter(r => r.key !== key);
-        popupKeys = popupKeys.filter(k => k !== key);
+        if (history.some(r => r.key === key))
+            history = history.filter(r => r.key !== key);
+        removePopup(key);
+    }
+
+    function addPopup(key) {
+        if (!popupKeys.includes(key)) popupKeys = popupKeys.concat([key]);
+    }
+
+    function removePopup(key) {
+        if (popupKeys.includes(key)) popupKeys = popupKeys.filter(k => k !== key);
+    }
+
+    // Bodies may contain markup. Keep the harmless formatting tags and drop
+    // the rest: <img src="https://..."> would make us fetch the URL, and
+    // links aren't clickable here anyway (their text stays).
+    function sanitize(body) {
+        return (body || "").replace(/<(?!\/?(b|i|u|br)\s*\/?>)\/?[a-z][^>]*>/gi, "");
     }
 
     // ---- server ----------------------------------------------------------
@@ -65,14 +92,36 @@ Singleton {
                 notif: n,
                 appName: n.appName,
                 summary: n.summary,
-                body: n.body,
+                body: root.sanitize(n.body),
                 urgency: n.urgency,
                 time: Date.now(),
                 transient: n.transient,
             };
-            root.history = [rec].concat(root.history).slice(0, root.maxHistory);
-            if (!root.dnd || n.urgency === NotificationUrgency.Critical)
-                root.popupKeys = root.popupKeys.concat([key]);
+            const all = [rec].concat(root.history);
+            root.history = all.slice(0, root.maxHistory);
+            // pushed out of the history: nothing could dismiss these any more
+            for (const old of all.slice(root.maxHistory)) {
+                root.removePopup(old.key);
+                if (old.notif) old.notif.dismiss();
+            }
+            const popUp = () => {
+                if (!root.dnd || n.urgency === NotificationUrgency.Critical) root.addPopup(key);
+            };
+            popUp();
+
+            // replaced by the app: refresh the record (a new object, so its
+            // popup is rebuilt and its timer starts over) and show it again
+            const refresh = () => {
+                root.update(key, r => Object.assign(r, {
+                    appName: n.appName,
+                    summary: n.summary,
+                    body: root.sanitize(n.body),
+                    time: Date.now(),
+                }));
+                popUp();
+            };
+            n.summaryChanged.connect(refresh);
+            n.bodyChanged.connect(refresh);
 
             // the app (or a timeout) closed it: keep the record, drop the
             // live object and its popup. Transient ones don't belong in history.
@@ -81,7 +130,7 @@ Singleton {
                     root.remove(key);
                 } else {
                     root.update(key, r => Object.assign(r, { notif: null }));
-                    root.popupKeys = root.popupKeys.filter(k => k !== key);
+                    root.removePopup(key);
                 }
             });
         }
@@ -89,7 +138,7 @@ Singleton {
 
     // ---- actions -----------------------------------------------------------
     function hidePopup(rec) {
-        popupKeys = popupKeys.filter(k => k !== rec.key);
+        removePopup(rec.key);
         // transient notifications aren't meant for the history
         if (rec.transient && rec.notif) rec.notif.expire();
     }
@@ -100,16 +149,18 @@ Singleton {
     }
 
     function clearAll() {
-        for (const r of history)
-            if (r.notif) r.notif.dismiss();
+        // empty first, so each dismiss's `closed` finds nothing left to update
+        const old = history;
         history = [];
         popupKeys = [];
+        for (const r of old)
+            if (r.notif) r.notif.dismiss();
     }
 
     function toggleCenter() {
         centerOpen = !centerOpen;
         // opening the center replaces the popups
-        if (centerOpen) popupKeys = [];
+        if (centerOpen && popupKeys.length > 0) popupKeys = [];
     }
 
     // "now", "5m", "2h", today's time, or a date for older ones

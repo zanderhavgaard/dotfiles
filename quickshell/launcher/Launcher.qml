@@ -376,6 +376,7 @@ Scope {
                                     Text {
                                         width: parent.width
                                         text: row.modelData.title
+                                        // match highlighting; the name itself is escaped
                                         textFormat: Text.StyledText
                                         elide: Text.ElideRight
                                         color: Theme.fujiWhite
@@ -387,6 +388,7 @@ Scope {
                                         width: parent.width
                                         visible: text !== ""
                                         text: row.modelData.subtitle
+                                        textFormat: Text.PlainText    // from outside: no markup
                                         elide: Text.ElideRight
                                         color: row.isSelected ? Theme.oldWhite : Theme.mutedText
                                         font.family: Theme.sans

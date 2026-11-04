@@ -35,7 +35,8 @@ Scope {
             spacing: Theme.gap
 
             Repeater {
-                model: Notifs.popups
+                // ScriptModel keeps the other popups (and their timers) when one goes
+                model: ScriptModel { values: Notifs.popups }
 
                 delegate: NotifCard {
                     id: popup
@@ -141,7 +142,9 @@ Scope {
                     }
                     clip: true
                     spacing: 8
-                    model: Notifs.history
+                    // ScriptModel: a new notification doesn't rebuild the list or
+                    // scroll it back to the top
+                    model: ScriptModel { values: Notifs.history }
                     boundsBehavior: Flickable.StopAtBounds
 
                     delegate: NotifCard {

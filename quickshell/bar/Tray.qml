@@ -42,7 +42,15 @@ Row {
                     modelData.activate();
                 }
             }
-            onWheel: wheel => modelData.scroll(wheel.angleDelta.y / 120, false)
+            // scroll() takes whole notches; add up touchpad deltas until one is reached
+            property real wheelAccum: 0
+            onWheel: wheel => {
+                wheelAccum += wheel.angleDelta.y;
+                const steps = wheelAccum > 0 ? Math.floor(wheelAccum / 120) : Math.ceil(wheelAccum / 120);
+                if (steps === 0) return;
+                wheelAccum -= steps * 120;
+                modelData.scroll(steps, false);
+            }
 
             IconImage {
                 anchors.fill: parent

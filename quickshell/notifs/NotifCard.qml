@@ -38,6 +38,7 @@ Rectangle {
             Text {
                 anchors { left: parent.left; leftMargin: 14; verticalCenter: parent.verticalCenter }
                 text: (card.record.appName || "notification") + "  ·  " + Notifs.age(card.record)
+                textFormat: Text.PlainText
                 color: Theme.mutedText
                 font.family: Theme.mono
                 font.pixelSize: 10
@@ -97,6 +98,7 @@ Rectangle {
                 wrapMode: Text.Wrap
                 maximumLineCount: card.inCenter ? 12 : 6
                 elide: Text.ElideRight
+                // sanitized in Notifs.sanitize()
                 textFormat: Text.StyledText
             }
             Row {

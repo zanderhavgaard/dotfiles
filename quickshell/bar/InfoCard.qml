@@ -53,6 +53,7 @@ HoverCard {
                 horizontalAlignment: Text.AlignRight
                 elide: Text.ElideMiddle
                 text: row.modelData.value ?? ""
+                textFormat: Text.PlainText    // from outside: no markup
                 color: row.modelData.color ?? Theme.fujiWhite
                 font.family: Theme.mono
                 font.pixelSize: 11

@@ -41,24 +41,39 @@ Singleton {
     }
 
     // ---- screen brightness ----------------------------------------------
-    // No change signal from sysfs: polled, and refreshed right away when
-    // niri's brightness keys call `qs ipc call osd brightness`.
+    // Read straight from sysfs (no process per poll). sysfs has no change
+    // notification we can watch, so it's polled, and refreshed right away
+    // when niri's brightness keys call `qs ipc call osd brightness`.
     property int brightness: -1   // percent, -1 until first read / no backlight
+    property string backlight: "" // e.g. /sys/class/backlight/amdgpu_bl1
 
     Process {
-        id: brightnessProc
-        command: ["brightnessctl", "-m", "--class=backlight"]
+        running: true
+        command: ["sh", "-c", "ls -d /sys/class/backlight/* | head -n1"]
         stdout: StdioCollector {
-            // e.g. "amdgpu_bl1,backlight,123,48%,255"
-            onStreamFinished: {
-                const pct = parseInt(text.trim().split(",")[3]);
-                if (!isNaN(pct)) root.brightness = pct;
-            }
+            onStreamFinished: root.backlight = text.trim()
         }
     }
 
+    FileView {
+        id: maxBrightnessFile
+        path: root.backlight !== "" ? root.backlight + "/max_brightness" : ""
+        onLoaded: root.updateBrightness()
+    }
+    FileView {
+        id: brightnessFile
+        path: root.backlight !== "" ? root.backlight + "/brightness" : ""
+        onLoaded: root.updateBrightness()
+    }
+
+    function updateBrightness() {
+        const max = parseInt(maxBrightnessFile.text());
+        const cur = parseInt(brightnessFile.text());
+        if (max > 0 && !isNaN(cur)) root.brightness = Math.round(100 * cur / max);
+    }
+
     function refreshBrightness() {
-        brightnessProc.running = true;
+        if (backlight !== "") brightnessFile.reload();
     }
 
     function stepBrightness(steps) {
@@ -123,6 +138,35 @@ Singleton {
 
     // ---- network ----------------------------------------------------------
     property string network: ""       // connection name, "" when offline
+
+    // `nmcli monitor` prints a line on every NetworkManager change; re-read
+    // the state (and the VPNs, whose tunnels show up there too) when it does,
+    // instead of polling. It's restarted if it exits.
+    Process {
+        id: netMonitor
+        running: true
+        command: ["nmcli", "monitor"]
+        stdout: SplitParser {
+            onRead: netRecheck.restart()
+        }
+        onExited: netMonitorRestart.restart()
+    }
+
+    Timer {
+        id: netMonitorRestart
+        interval: 5000
+        onTriggered: netMonitor.running = true
+    }
+
+    // changes come in bursts: settle first
+    Timer {
+        id: netRecheck
+        interval: 500
+        onTriggered: {
+            netProc.running = true;
+            vpnProc.running = true;
+        }
+    }
 
     Process {
         id: netProc
@@ -219,16 +263,28 @@ Singleton {
     }
 
     // ---- polling ----------------------------------------------------------
+    // sysfs reads only, no processes
     Timer {
         interval: 5000
+        running: true
+        repeat: true
+        onTriggered: {
+            profileFile.reload();
+            root.refreshBrightness();
+        }
+    }
+
+    // network and VPN mostly come from `nmcli monitor`; this catches what it
+    // misses (a VPN daemon reconnecting on its own) without spawning a
+    // handful of processes every 5 seconds
+    Timer {
+        interval: 30000
         running: true
         repeat: true
         triggeredOnStart: true
         onTriggered: {
             vpnProc.running = true;
             netProc.running = true;
-            profileFile.reload();
-            root.refreshBrightness();
         }
     }
 

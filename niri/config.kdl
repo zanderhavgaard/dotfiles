@@ -128,40 +128,20 @@ layout {
 
     // You can change how the focus ring looks.
     focus-ring {
-        // Uncomment this line to disable the focus ring.
-        // off
+        off
+    }
 
-        // How many logical pixels the ring extends out from the windows.
+    // The wallpaper lives in the backdrop (see the awww layer-rule), which
+    // workspaces cover with an opaque background by default. Transparent
+    // lets it show in the normal view as well as the overview.
+    background-color "transparent"
+
+    // border instead of focus-ring
+    border {
         width 2
-
-        // Colors can be set in a variety of ways:
-        // - CSS named colors: "red"
-        // - RGB hex: "#rgb", "#rgba", "#rrggbb", "#rrggbbaa"
-        // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
-
-        // Color of the ring on the active monitor.
-        active-color "#61afef"
-
-        // Color of the ring on inactive monitors.
-        //
-        // The focus ring only draws around the active window, so the only place
-        // where you can see its inactive-color is on other monitors.
-        inactive-color "#5c6370"
-
-        // You can also use gradients. They take precedence over solid colors.
-        // Gradients are rendered the same as CSS linear-gradient(angle, from, to).
-        // The angle is the same as in linear-gradient, and is optional,
-        // defaulting to 180 (top-to-bottom gradient).
-        // You can use any CSS linear-gradient tool on the web to set these up.
-        // Changing the color space is also supported, check the wiki for more info.
-        //
-        // active-gradient from="#80c8ff" to="#c7ff7f" angle=45
-
-        // You can also color the gradient relative to the entire view
-        // of the workspace, rather than relative to just the window itself.
-        // To do that, set relative-to="workspace-view".
-        //
-        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+        active-color "#98BB6C"   // springGreen
+        inactive-color "#363646" // sumiInk5
+        urgent-color "#E46876"   // waveRed
     }
 
     // Struts shrink the area occupied by windows, similarly to layer-shell panels.
@@ -227,20 +207,26 @@ window-rule {
 }
 
 // Ghostty uses GTK and keeps drawing its own client-side decorations even with
-// `prefer-no-csd`, so niri fills the focus ring / border with a solid background
-// behind it. That fill shows through the semitransparent background of the focused
-// window (the focus ring is only drawn on the focused window), making it look opaque.
-// Telling niri not to draw the decoration background restores transparency.
+// `prefer-no-csd`, so niri fills the border with a solid background behind it.
+// That fill shows through ghostty's semitransparent background, making it look
+// opaque. Telling niri not to draw the decoration background restores transparency.
 window-rule {
     match app-id=r#"^com\.mitchellh\.ghostty$"#
     draw-border-with-background false
 }
 
-// Example: enable rounded corners for all windows.
-// (This example rule is commented out with a "/-" in front.)
+// Clip every window to its own geometry. Windows with client-side
+// decorations (Firefox) otherwise draw over the area where niri paints the
+// border, hiding it everywhere except their rounded bottom corners.
 window-rule {
-    geometry-corner-radius 12
     clip-to-geometry true
+}
+
+// Show the awww wallpaper behind the workspaces in the overview (Mod+O)
+// instead of a flat backdrop. Namespace from `niri msg layers`.
+layer-rule {
+    match namespace="^awww-daemon$"
+    place-within-backdrop true
 }
 
 binds {
@@ -263,9 +249,9 @@ binds {
 
     Mod+Return hotkey-overlay-title="ghostty" { spawn "ghostty"; }
     Mod+W hotkey-overlay-title="firefox" { spawn "firefox"; }
-    Mod+D hotkey-overlay-title="fuzzel" { spawn "fuzzel"; }
+    Mod+D hotkey-overlay-title="Launcher" { spawn "qs" "ipc" "call" "launcher" "toggle"; }
     // TODO: figure out a better keybind for locking
-    Super+Shift+Control+Alt+L hotkey-overlay-title="Lock Screen" { spawn "swaylock" "--color" "000000"; }
+    Super+Shift+Control+Alt+L hotkey-overlay-title="Lock Screen" { spawn "~/dotfiles/scripts/lock.sh"; }
     Mod+Shift+Ctrl+Space hotkey-overlay-title="Cycle Wallpaper" { spawn "~/dotfiles/scripts/awww-cycle-wallpaper.sh"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
@@ -287,8 +273,9 @@ binds {
     // Example brightness key mappings for brightnessctl.
     // You can use regular spawn with multiple arguments too (to avoid going through "sh"),
     // but you need to manually put each argument in separate "" quotes.
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    // brightness has no change signal, so poke the quickshell OSD afterwards
+    XF86MonBrightnessUp allow-when-locked=true { spawn-sh "brightnessctl --class=backlight set +10% && qs ipc call osd brightness"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "brightnessctl --class=backlight set 10%- && qs ipc call osd brightness"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,

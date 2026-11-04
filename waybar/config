@@ -79,12 +79,12 @@
     "tooltip-format": "{gwaddr} via {ifname} 󰈀 "
   },
   "custom/vpn": {
-    "exec": "~/.config/waybar/vpn-status.sh",
+    "exec": "~/dotfiles/scripts/vpn-status.sh",
     "return-type": "json",
     "interval": 5,
     "tooltip": true,
-    "on-click": "~/.config/waybar/vpn-status.sh toggle-netbird",
-    "on-click-right": "~/.config/waybar/vpn-status.sh toggle-mullvad"
+    "on-click": "~/dotfiles/scripts/vpn-status.sh toggle-netbird",
+    "on-click-right": "~/dotfiles/scripts/vpn-status.sh toggle-mullvad"
   },
   "cpu": {
     "format": "󰓅 {usage}%",
@@ -133,7 +133,7 @@
     "exec": "echo \"󰣇 $(uname -r)\""
   },
   "custom/updates": {
-    "exec": "~/.config/waybar/updates.sh",
+    "exec": "~/dotfiles/scripts/updates.sh",
     "return-type": "json",
     "interval": 1800,
     "signal": 8,

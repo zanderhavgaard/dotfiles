@@ -62,7 +62,7 @@ tooltip+=("Mullvad: $mullvad_state${mullvad_detail:+ ($mullvad_detail)}")
 
 if [[ $netbird_state == "connected" ]]; then
   parts+=("NetBird")
-  [[ $class != "connected" ]] && class="connected"
+  class="connected"
 elif [[ $netbird_state == "connecting" ]]; then
   parts+=("NetBird…")
   [[ $class == "disconnected" ]] && class="connecting"

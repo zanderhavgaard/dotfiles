@@ -1,0 +1,3 @@
+# Kanagawa Wave (themes/Kanagawa.tmTheme); delta uses it too (git/config).
+# After changing the theme file: bat cache --build
+--theme="Kanagawa"

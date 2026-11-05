@@ -1,1 +1,18 @@
-/usr/share/themes/Colloid-Dark/gtk-4.0/gtk.css
+/* libadwaita (GTK4): Kanagawa Wave. See kanagawa.css. */
+@import url("kanagawa.css");
+
+/* libadwaita 1.6+ takes the accent from the system accent setting through
+ * CSS variables; pin it to Kanagawa too. */
+:root {
+  --accent-bg-color: @accent_bg_color;
+  --accent-fg-color: @accent_fg_color;
+  --accent-color: @accent_color;
+}
+
+/* libadwaita turns the slider 45° on scales with marks (a teardrop when
+ * round); square corners would make that a diamond */
+scale.marks-before:not(.marks-after) > trough > slider,
+scale.marks-after:not(.marks-before) > trough > slider {
+  transform: none;
+  box-shadow: none;
+}

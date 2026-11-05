@@ -1,0 +1,151 @@
+/* Kanagawa Wave for GTK3 (adw-gtk3) and GTK4 (libadwaita), "Paper" style:
+ * square corners, 1px hairlines, no shadows. Same palette as
+ * quickshell/Theme.qml.
+ *
+ * Imported by gtk-4.0/gtk.css and gtk-3.0/gtk.css. Only @define-color and
+ * plain rules here, so GTK3 can parse it too. GTK4-only bits (CSS variables)
+ * live in gtk-4.0/gtk.css.
+ */
+
+/* ---- palette ------------------------------------------------------------ */
+@define-color sumiInk0 #16161D;
+@define-color sumiInk1 #181820;
+@define-color sumiInk2 #1A1A22;
+@define-color sumiInk3 #1F1F28;
+@define-color sumiInk4 #2A2A37;
+@define-color sumiInk5 #363646;
+@define-color sumiInk6 #54546D;
+@define-color waveBlue1 #223249;
+@define-color waveBlue2 #2D4F67;
+@define-color fujiWhite #DCD7BA;
+@define-color oldWhite #C8C093;
+@define-color fujiGray #727169;
+@define-color springGreen #98BB6C;
+@define-color autumnGreen #76946A;
+@define-color waveRed #E46876;
+@define-color autumnRed #C34043;
+@define-color carpYellow #E6C384;
+@define-color roninYellow #FF9E3B;
+@define-color crystalBlue #7E9CD8;
+
+/* ---- libadwaita named colors (adw-gtk3 uses the same names) ------------- */
+@define-color accent_color @springGreen;
+@define-color accent_bg_color @autumnGreen;
+@define-color accent_fg_color @sumiInk0;
+
+@define-color destructive_color @waveRed;
+@define-color destructive_bg_color @autumnRed;
+@define-color destructive_fg_color @fujiWhite;
+
+@define-color success_color @springGreen;
+@define-color success_bg_color @autumnGreen;
+@define-color success_fg_color @sumiInk0;
+
+@define-color warning_color @carpYellow;
+@define-color warning_bg_color @roninYellow;
+@define-color warning_fg_color @sumiInk0;
+
+@define-color error_color @waveRed;
+@define-color error_bg_color @autumnRed;
+@define-color error_fg_color @fujiWhite;
+
+@define-color window_bg_color @sumiInk3;
+@define-color window_fg_color @fujiWhite;
+
+@define-color view_bg_color @sumiInk1;
+@define-color view_fg_color @fujiWhite;
+
+@define-color headerbar_bg_color @sumiInk0;
+@define-color headerbar_fg_color @fujiWhite;
+@define-color headerbar_border_color @sumiInk5;
+@define-color headerbar_backdrop_color @sumiInk0;
+@define-color headerbar_shade_color @sumiInk5;
+@define-color headerbar_darker_shade_color @sumiInk5;
+
+@define-color sidebar_bg_color @sumiInk0;
+@define-color sidebar_fg_color @fujiWhite;
+@define-color sidebar_backdrop_color @sumiInk0;
+@define-color sidebar_border_color @sumiInk5;
+@define-color sidebar_shade_color @sumiInk5;
+
+@define-color secondary_sidebar_bg_color @sumiInk1;
+@define-color secondary_sidebar_fg_color @fujiWhite;
+@define-color secondary_sidebar_backdrop_color @sumiInk1;
+@define-color secondary_sidebar_border_color @sumiInk5;
+@define-color secondary_sidebar_shade_color @sumiInk5;
+
+@define-color card_bg_color @sumiInk4;
+@define-color card_fg_color @fujiWhite;
+@define-color card_shade_color @sumiInk5;
+
+@define-color dialog_bg_color @sumiInk3;
+@define-color dialog_fg_color @fujiWhite;
+
+@define-color popover_bg_color @sumiInk0;
+@define-color popover_fg_color @fujiWhite;
+@define-color popover_shade_color @sumiInk5;
+
+@define-color thumbnail_bg_color @sumiInk4;
+@define-color thumbnail_fg_color @fujiWhite;
+
+@define-color shade_color rgba(0, 0, 0, 0.25);
+@define-color scrollbar_outline_color @sumiInk0;
+
+/* ---- Paper: square corners, no shadows ---------------------------------- */
+* {
+  border-radius: 0;
+}
+
+/* things that are round by design stay round */
+.circular,
+radio,
+.osd.circular,
+avatar {
+  border-radius: 9999px;
+}
+
+/* hairline instead of a drop shadow on floating surfaces */
+popover > contents,
+popover.background > contents,
+menu,
+.menu,
+.context-menu,
+tooltip.background,
+.csd tooltip.background {
+  box-shadow: none;
+  border: 1px solid @sumiInk5;
+}
+
+window.csd,
+window.csd.maximized,
+dialog.csd,
+.csd decoration {
+  box-shadow: none;
+}
+
+/* keyboard focus in the window-border green */
+*:focus-visible {
+  outline-color: alpha(@springGreen, 0.6);
+}
+
+selection,
+*:selected {
+  background-color: @waveBlue2;
+  color: @fujiWhite;
+}
+
+/* slider handle: a flat square, no shadow (the rotation reset that keeps it
+ * from turning into a diamond on scales with marks is GTK4-only, in gtk.css) */
+scale > trough > slider {
+  background-color: @fujiWhite;
+  box-shadow: none;
+  border: 1px solid @sumiInk0;
+  min-width: 14px;
+  min-height: 14px;
+  margin: -6px;
+}
+
+scale:hover > trough > slider,
+scale:active > trough > slider {
+  background-color: @springGreen;
+}

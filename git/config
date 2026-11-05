@@ -30,13 +30,29 @@
 	pager = "delta"
 
 [delta]
+	# Kanagawa Wave: syntax from bat's theme (bat/themes/Kanagawa.tmTheme),
+	# diff backgrounds are kanagawa.nvim's winterGreen / winterRed
 	light = false
 	line-numbers = true
-	minus-style = "syntax bold auto"
 	navigate = true
 	side-by-side = true
-	syntax-theme = "OneHalfDark"
-	zero-style = "syntax dim"
+	syntax-theme = "Kanagawa"
+	minus-style = "syntax #43242B"
+	minus-emph-style = "syntax #6A2E38"
+	plus-style = "syntax #2B3328"
+	plus-emph-style = "syntax #3E5235"
+	zero-style = "syntax"
+	line-numbers-minus-style = "#E46876"
+	line-numbers-plus-style = "#98BB6C"
+	line-numbers-zero-style = "#54546D"
+	line-numbers-left-style = "#363646"
+	line-numbers-right-style = "#363646"
+	file-style = "#E6C384 bold"
+	file-decoration-style = "#54546D ul"
+	hunk-header-style = "file line-number syntax"
+	hunk-header-decoration-style = "#54546D box"
+	hunk-header-file-style = "#7E9CD8"
+	hunk-header-line-number-style = "#727169"
 
 [gpg]
 	program = "gpg2"

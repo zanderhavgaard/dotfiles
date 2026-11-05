@@ -1,3 +1,45 @@
 set selection-clipboard clipboard
-set recolor-lightcolor \#282C34
-set recolor-darkcolor \#efefef
+
+# Kanagawa Wave (same palette as quickshell/Theme.qml)
+set font                    "BlexMono Nerd Font 10"
+
+set default-bg              "#1F1F28"
+set default-fg              "#DCD7BA"
+
+set statusbar-bg            "#16161D"
+set statusbar-fg            "#C8C093"
+set inputbar-bg             "#16161D"
+set inputbar-fg             "#DCD7BA"
+
+set notification-bg         "#16161D"
+set notification-fg         "#DCD7BA"
+set notification-error-bg   "#16161D"
+set notification-error-fg   "#E46876"
+set notification-warning-bg "#16161D"
+set notification-warning-fg "#E6C384"
+
+set completion-bg           "#16161D"
+set completion-fg           "#C8C093"
+set completion-group-bg     "#16161D"
+set completion-group-fg     "#7E9CD8"
+set completion-highlight-bg "#2D4F67"
+set completion-highlight-fg "#DCD7BA"
+
+set index-bg                "#1F1F28"
+set index-fg                "#DCD7BA"
+set index-active-bg         "#2D4F67"
+set index-active-fg         "#DCD7BA"
+
+# search hits: waveBlue2, the current one springGreen
+set highlight-color         "rgba(45, 79, 103, 0.5)"
+set highlight-fg            "#DCD7BA"
+set highlight-active-color  "rgba(152, 187, 108, 0.5)"
+
+set render-loading          true
+set render-loading-bg       "#1F1F28"
+set render-loading-fg       "#727169"
+
+# ctrl+r: dark mode for documents (paper → sumiInk3, ink → fujiWhite)
+set recolor-lightcolor      "#1F1F28"
+set recolor-darkcolor       "#DCD7BA"
+set recolor-keephue         true

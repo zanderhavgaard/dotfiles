@@ -1,5 +1,4 @@
 import QtQuick
-import Quickshell
 import Quickshell.Io
 import qs
 
@@ -82,17 +81,14 @@ HoverCard {
 
             // city
             Row {
-                anchors { left: parent.left; leftMargin: 14; verticalCenter: parent.verticalCenter }
+                anchors { left: parent.left; leftMargin: Theme.inset; verticalCenter: parent.verticalCenter }
                 spacing: 6
 
-                Text {
+                Caps {
                     id: city
                     text: row.modelData.label
                     color: Theme.oldWhite
-                    font.family: Theme.mono
                     font.pixelSize: 11
-                    font.letterSpacing: 1
-                    font.capitalization: Font.AllUppercase
                 }
                 Text {
                     visible: text !== ""
@@ -108,28 +104,23 @@ HoverCard {
             Column {
                 anchors { left: parent.left; leftMargin: 130; verticalCenter: parent.verticalCenter }
 
-                Text {
+                Mono {
                     text: row.modelData.time
-                    color: Theme.fujiWhite
-                    font.family: Theme.mono
                     font.pixelSize: 16
                     font.weight: Font.Medium
                 }
-                Text {
+                Mono {
                     // yellow when it's already tomorrow / still yesterday there
                     text: row.modelData.date
                     color: row.modelData.otherDay ? Theme.carpYellow : Theme.mutedText
-                    font.family: Theme.mono
                     font.pixelSize: 10
                 }
             }
 
-            Text {
-                anchors { right: parent.right; rightMargin: 14; verticalCenter: parent.verticalCenter }
+            Mono {
+                anchors { right: parent.right; rightMargin: Theme.inset; verticalCenter: parent.verticalCenter }
                 text: row.modelData.offset
                 color: Theme.mutedText
-                font.family: Theme.mono
-                font.pixelSize: 11
             }
         }
     }

@@ -57,20 +57,18 @@ Item {
         anchors.verticalCenterOffset: -40
         spacing: 0
 
-        Text {
+        Mono {
             anchors.horizontalCenter: parent.horizontalCenter
             text: Qt.formatTime(clock.date, "hh:mm")
             color: Theme.fujiWhite
-            font.family: Theme.mono
             font.pixelSize: 96
             font.weight: Font.Light
         }
 
-        Text {
+        Mono {
             anchors.horizontalCenter: parent.horizontalCenter
             text: Theme.englishDateLong(clock.date)
             color: Theme.oldWhite
-            font.family: Theme.mono
             font.pixelSize: 15
             font.letterSpacing: 2
             font.capitalization: Font.AllUppercase
@@ -115,12 +113,11 @@ Item {
                 }
             }
 
-            Text {
+            Mono {
                 anchors { left: parent.left; leftMargin: 16; verticalCenter: parent.verticalCenter }
                 visible: root.lock.password === ""
                 text: root.lock.status === "checking" ? "" : "password"
                 color: Theme.fujiGray
-                font.family: Theme.mono
                 font.pixelSize: 13
                 font.letterSpacing: 1
             }
@@ -185,7 +182,7 @@ Item {
         }
 
         // status line under the box
-        Text {
+        Mono {
             anchors.horizontalCenter: parent.horizontalCenter
             topPadding: 12
             height: 30
@@ -196,7 +193,6 @@ Item {
             color: root.lock.status === "wrong" || root.lock.status === "error" ? Theme.waveRed
                 : root.lock.status === "ok" ? Theme.springGreen
                 : Theme.oldWhite
-            font.family: Theme.mono
             font.pixelSize: 12
             font.letterSpacing: 1
         }
@@ -214,24 +210,20 @@ Item {
             color: Theme.sumiInk5
         }
 
-        Text {
-            anchors { left: parent.left; leftMargin: 14; verticalCenter: parent.verticalCenter }
+        Mono {
+            anchors { left: parent.left; leftMargin: Theme.inset; verticalCenter: parent.verticalCenter }
             text: Quickshell.env("USER") + "@" + hostnameFile.text().trim()
                 + (root.preview ? "  ·  preview" : "")
             color: Theme.mutedText
-            font.family: Theme.mono
-            font.pixelSize: 11
             font.letterSpacing: 1
         }
 
         // the keyboard layout matters when typing a password
-        Text {
-            anchors { right: parent.right; rightMargin: 14; verticalCenter: parent.verticalCenter }
+        Mono {
+            anchors { right: parent.right; rightMargin: Theme.inset; verticalCenter: parent.verticalCenter }
             text: (Status.hasBattery ? "BAT " + Status.batteryPercent + (Status.charging ? "+" : "") + "  ·  " : "")
                 + "KB " + Niri.layoutShort.toUpperCase()
             color: Theme.mutedText
-            font.family: Theme.mono
-            font.pixelSize: 11
             font.letterSpacing: 1
         }
     }

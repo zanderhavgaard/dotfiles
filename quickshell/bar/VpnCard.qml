@@ -1,41 +1,23 @@
 import QtQuick
-import Quickshell.Io
 import qs
+import qs.services
 
-// Hover card for VPN: NetBird and Mullvad side by side.
-// Read from `netbird status --json` and `mullvad status -j` when the card
-// opens (and every 5s while open).
+// Hover card for VPN: NetBird and Mullvad, from the status Status keeps
+// (refreshed when the card opens).
 InfoCard {
     id: root
 
     title: "vpn"
     footer: "click: netbird · right-click: mullvad"
 
-    Process {
-        id: proc
-        command: ["sh", "-c",
-            "netbird status --json 2>/dev/null || echo '{}'; echo; echo ---; mullvad status -j 2>/dev/null || echo '{}'"]
-        stdout: StdioCollector {
-            onStreamFinished: {
-                const [nbText, mvText] = text.split("\n---");
-                let nb = {}, mv = {};
-                try { nb = JSON.parse(nbText); } catch (e) {}
-                try { mv = JSON.parse(mvText); } catch (e) {}
-                root.rows = root.netbirdRows(nb).concat([{ label: "" }], root.mullvadRows(mv));
-            }
-        }
-    }
+    onOpenChanged: if (open) Status.refreshVpn()
 
-    function stateColor(state) {
-        return state === "connected" ? Theme.springGreen
-            : state === "connecting" ? Theme.carpYellow
-            : Theme.fujiGray;
-    }
+    rows: netbirdRows(Status.netbird).concat([{ label: "" }], mullvadRows(Status.mullvad))
 
     function netbirdRows(nb) {
         if (!nb.management) return [{ label: "netbird", value: "not running", color: Theme.fujiGray }];
-        const state = nb.management.connected ? "connected" : String(nb.daemonStatus || "off").toLowerCase();
-        const rows = [{ label: "netbird", value: state, color: stateColor(state) }];
+        const state = Status.netbirdState;
+        const rows = [{ label: "netbird", value: state, color: Theme.stateColor(state) }];
         if (nb.management.connected) {
             if (nb.netbirdIp) rows.push({ label: "address", value: nb.netbirdIp });
             if (nb.fqdn) rows.push({ label: "name", value: nb.fqdn });
@@ -47,7 +29,7 @@ InfoCard {
 
     function mullvadRows(mv) {
         if (!mv.state) return [{ label: "mullvad", value: "not running", color: Theme.fujiGray }];
-        const rows = [{ label: "mullvad", value: mv.state, color: stateColor(mv.state) }];
+        const rows = [{ label: "mullvad", value: mv.state, color: Theme.stateColor(mv.state) }];
         const loc = (mv.details && mv.details.location) || {};
         const place = [loc.city, loc.country].filter(x => x).join(", ");
         if (mv.state === "connected") {
@@ -62,13 +44,5 @@ InfoCard {
         if (mv.details && mv.details.locked_down)
             rows.push({ label: "lockdown", value: "on: traffic blocked when off", color: Theme.carpYellow });
         return rows;
-    }
-
-    Timer {
-        interval: 5000
-        running: root.open
-        repeat: true
-        triggeredOnStart: true
-        onTriggered: proc.running = true
     }
 }

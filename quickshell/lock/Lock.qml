@@ -78,13 +78,29 @@ Scope {
     }
 
     // ---- lock / auth -----------------------------------------------------------
+    function clearStatus() {
+        status = "";
+        statusText = "";
+    }
+
+    // auth didn't happen (as opposed to fail(): a wrong password)
+    function showError(text) {
+        password = "";
+        status = "error";
+        statusText = text;
+    }
+
+    function fail(text) {
+        password = "";
+        failures++;
+        status = "wrong";
+        statusText = text;
+    }
+
     function cancelCheck() {
         checkMode = "";
         if (pam.active) pam.abort();
-        if (status === "checking") {
-            status = "";
-            statusText = "";
-        }
+        if (status === "checking") clearStatus();
     }
 
     function lock() {
@@ -94,8 +110,7 @@ Scope {
         previewing = false;
         if (locked) return;
         password = "";
-        status = "";
-        statusText = "";
+        clearStatus();
         failures = 0;
         wallpaperProc.running = true;
         locked = true;
@@ -110,17 +125,8 @@ Scope {
         statusText = "checking…";
         if (!pam.start()) {
             checkMode = "";
-            password = "";
-            status = "error";
-            statusText = "couldn't start authentication, see journalctl --user -u quickshell";
+            showError("couldn't start authentication, see journalctl --user -u quickshell");
         }
-    }
-
-    function fail(text) {
-        password = "";
-        failures++;
-        status = "wrong";
-        statusText = text;
     }
 
     // a PAM module that never answers shouldn't leave the lock stuck on "checking"
@@ -129,9 +135,7 @@ Scope {
         interval: 20000
         onTriggered: {
             root.cancelCheck();
-            root.password = "";
-            root.status = "error";
-            root.statusText = "authentication timed out, try again";
+            root.showError("authentication timed out, try again");
         }
     }
 
@@ -160,8 +164,7 @@ Scope {
                 root.password = "";
                 root.failures = 0;
                 if (mode === "unlock" && root.locked) {
-                    root.status = "";
-                    root.statusText = "";
+                    root.clearStatus();
                     root.locked = false;
                 } else {
                     root.status = "ok";
@@ -173,17 +176,13 @@ Scope {
                 root.fail(root.pamNote || "too many attempts, wait a moment");
             } else {
                 // the auth stack itself broke: say so instead of blaming the password
-                root.password = "";
-                root.status = "error";
-                root.statusText = root.pamNote || "authentication error, see journalctl --user -u quickshell";
+                root.showError(root.pamNote || "authentication error, see journalctl --user -u quickshell");
             }
         }
 
         onError: err => {
             root.checkMode = "";
-            root.password = "";
-            root.status = "error";
-            root.statusText = "pam error: " + PamError.toString(err);
+            root.showError("pam error: " + PamError.toString(err));
         }
     }
 
@@ -263,7 +262,7 @@ Scope {
             if (root.locked) return;    // never on top of (or instead of) a real lock
             root.cancelCheck();
             root.password = "";
-            root.status = "";
+            root.clearStatus();
             wallpaperProc.running = true;
             root.previewing = !root.previewing;
         }

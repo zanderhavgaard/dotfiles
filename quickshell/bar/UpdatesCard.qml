@@ -9,6 +9,7 @@ HoverCard {
 
     title: "updates"
     aside: Status.updates + " pending"
+    footer: "click to update with paru"
     cardWidth: 420
 
     readonly property int maxRows: 20
@@ -26,52 +27,35 @@ HoverCard {
             width: root.cardWidth
             height: 20
 
-            Text {
+            Mono {
                 id: name
-                anchors { left: parent.left; leftMargin: 14; verticalCenter: parent.verticalCenter }
+                anchors { left: parent.left; leftMargin: Theme.inset; verticalCenter: parent.verticalCenter }
                 width: 170
                 elide: Text.ElideRight
                 text: row.modelData.name
                 color: root.isKernel(row.modelData.name) ? Theme.carpYellow : Theme.fujiWhite
-                font.family: Theme.mono
-                font.pixelSize: 11
             }
-            Text {
+            Mono {
                 anchors {
                     left: name.right
                     leftMargin: 10
                     right: parent.right
-                    rightMargin: 14
+                    rightMargin: Theme.inset
                     verticalCenter: parent.verticalCenter
                 }
                 horizontalAlignment: Text.AlignRight
                 elide: Text.ElideMiddle
                 text: row.modelData.from + " → " + row.modelData.to
                 color: Theme.mutedText
-                font.family: Theme.mono
-                font.pixelSize: 11
             }
         }
     }
 
-    Text {
+    Mono {
         visible: Status.updateList.length > root.maxRows
-        leftPadding: 14
+        leftPadding: Theme.inset
         topPadding: 4
         text: "+" + (Status.updateList.length - root.maxRows) + " more"
         color: Theme.mutedText
-        font.family: Theme.mono
-        font.pixelSize: 11
-    }
-
-    Text {
-        leftPadding: 14
-        topPadding: 8
-        text: "click to update with paru"
-        color: Theme.mutedText
-        font.family: Theme.mono
-        font.pixelSize: 10
-        font.letterSpacing: 1
-        font.capitalization: Font.AllUppercase
     }
 }

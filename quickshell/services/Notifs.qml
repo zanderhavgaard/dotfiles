@@ -48,9 +48,10 @@ Singleton {
         .filter(r => popupKeys.includes(r.key) && r.notif !== null)
         .slice(0, maxPopups)
 
-    function update(key, fn) {
+    // replace record `key` with a copy that has `fields` changed
+    function patch(key, fields) {
         if (!history.some(r => r.key === key)) return;
-        history = history.map(r => r.key === key ? fn(Object.assign({}, r)) : r);
+        history = history.map(r => r.key === key ? Object.assign({}, r, fields) : r);
     }
 
     function remove(key) {
@@ -112,12 +113,12 @@ Singleton {
             // replaced by the app: refresh the record (a new object, so its
             // popup is rebuilt and its timer starts over) and show it again
             const refresh = () => {
-                root.update(key, r => Object.assign(r, {
+                root.patch(key, {
                     appName: n.appName,
                     summary: n.summary,
                     body: root.sanitize(n.body),
                     time: Date.now(),
-                }));
+                });
                 popUp();
             };
             n.summaryChanged.connect(refresh);
@@ -129,7 +130,7 @@ Singleton {
                 if (rec.transient) {
                     root.remove(key);
                 } else {
-                    root.update(key, r => Object.assign(r, { notif: null }));
+                    root.patch(key, { notif: null });
                     root.removePopup(key);
                 }
             });

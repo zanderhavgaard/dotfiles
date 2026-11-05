@@ -1,9 +1,7 @@
-//@ pragma UseQApplication
 // Kanagawa Wave × Paper: docked bottom bar, OSD, notifications, launcher, lock.
 // Run: `qs` (config lives in ~/.config/quickshell, symlinked from dotfiles).
-// IPC: `qs ipc call launcher toggle`, `qs ipc call osd brightness|media`,
-//      `qs ipc call lock lock|isSecure|preview`.
-// UseQApplication: tray menus are platform (QWidget) menus.
+// IPC: `qs ipc show` lists every target and function (launcher, osd,
+//      notifications, lock).
 //
 // Auto-reload is off: a reload while the session is locked might release the
 // lock before it's re-taken. After editing, run:
@@ -24,9 +22,7 @@ ShellRoot {
     Variants {
         model: Quickshell.screens
 
-        delegate: Component {
-            Bar {}
-        }
+        Bar {}
     }
 
     Osd {}

@@ -28,7 +28,6 @@ Canvas {
             for (let x = -2 * r + offset; x <= width + 2 * r; x += 2 * r) {
                 ctx.beginPath();
                 ctx.arc(x, y, r, 0, Math.PI * 2);
-                ctx.fillStyle = ground;
                 ctx.fill();
                 for (const f of [0.92, 0.72, 0.52, 0.32]) {
                     ctx.beginPath();

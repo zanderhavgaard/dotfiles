@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell.Io
 import qs
+import qs.services
 
 // Hover card for NET: connection, wifi signal/band, device, addresses.
 // Read from nmcli each time the card opens (and every 5s while open).
@@ -10,39 +11,32 @@ InfoCard {
     title: "network"
     footer: "click: nmtui"
 
-    // Prints `nmcli -t device show` for the first connected wifi/ethernet
-    // device, plus a "WIFI:<signal>:<freq>:<security>" line when it's wifi.
-    readonly property string script: "
-        dev=$(nmcli -t -f DEVICE,TYPE,STATE device \
-            | awk -F: '($2==\"wifi\"||$2==\"ethernet\") && $3==\"connected\" {print $1; exit}')
-        [ -z \"$dev\" ] && exit 0
-        nmcli -t -f GENERAL.DEVICE,GENERAL.TYPE,GENERAL.CONNECTION,IP4.ADDRESS,IP4.GATEWAY,IP4.DNS,IP6.ADDRESS device show \"$dev\"
-        nmcli -t -f IN-USE,SIGNAL,FREQ,SECURITY device wifi list ifname \"$dev\" --rescan no \
-            | awk -F: '$1==\"*\" {print \"WIFI:\" $2 \":\" $3 \":\" $4; exit}'
-    "
-
     Process {
         id: proc
-        command: ["sh", "-c", root.script]
+        // `device show` for the connected device, then the wifi list, whose
+        // in-use line ("*:54:5200 MHz:WPA2 WPA3") ends up under key "*"
+        command: ["sh", "-c",
+            "nmcli -t -f GENERAL.DEVICE,GENERAL.TYPE,GENERAL.CONNECTION,IP4.ADDRESS,IP4.GATEWAY,IP4.DNS,IP6.ADDRESS device show \"$1\";"
+            + " nmcli -t -f IN-USE,SIGNAL,FREQ,SECURITY device wifi list ifname \"$1\" --rescan no 2>/dev/null",
+            "sh", Status.netDevice]
         stdout: StdioCollector {
             onStreamFinished: {
+                // "IP4.ADDRESS[1]:..." -> key IP4.ADDRESS, repeated keys collected
                 const f = {};
                 for (const line of text.split("\n")) {
                     const i = line.indexOf(":");
                     if (i < 0) continue;
-                    // "IP4.ADDRESS[1]:..." -> key IP4.ADDRESS, repeated keys collected
                     const key = line.slice(0, i).replace(/\[\d+\]$/, "");
                     (f[key] = f[key] || []).push(line.slice(i + 1).replace(/\\:/g, ":"));
                 }
-
                 if (!f["GENERAL.DEVICE"]) {
-                    root.rows = [{ label: "status", value: "disconnected", color: Theme.waveRed }];
+                    root.rows = root.offline;
                     return;
                 }
 
                 const rows = [{ label: "connection", value: f["GENERAL.CONNECTION"][0] }];
-                if (f.WIFI) {
-                    const [signal, freq, security] = f.WIFI[0].split(":");
+                if (f["*"]) {
+                    const [signal, freq, security] = f["*"][0].split(":");
                     const band = parseInt(freq) >= 5900 ? "6 GHz" : parseInt(freq) >= 4900 ? "5 GHz" : "2.4 GHz";
                     rows.push({ label: "signal", value: signal + "%",
                                 color: parseInt(signal) < 40 ? Theme.carpYellow : Theme.fujiWhite });
@@ -63,11 +57,16 @@ InfoCard {
         }
     }
 
+    readonly property var offline: [{ label: "status", value: "disconnected", color: Theme.waveRed }]
+
     Timer {
         interval: 5000
         running: root.open
         repeat: true
         triggeredOnStart: true
-        onTriggered: proc.running = true
+        onTriggered: {
+            if (Status.netDevice === "") root.rows = root.offline;
+            else proc.running = true;
+        }
     }
 }

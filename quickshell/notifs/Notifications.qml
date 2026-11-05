@@ -1,7 +1,6 @@
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
-import Quickshell.Services.Notifications
 import qs
 import qs.services
 
@@ -9,6 +8,24 @@ import qs.services
 // bell in the bar). The server and history live in services/Notifs.qml.
 Scope {
     id: root
+
+    // small text button in the center's header
+    component HeaderButton: Caps {
+        id: hb
+        property bool highlight: false
+        signal activated
+        color: highlight ? Theme.carpYellow : hbArea.containsMouse ? Theme.fujiWhite : Theme.mutedText
+        font.pixelSize: 11
+
+        MouseArea {
+            id: hbArea
+            anchors.fill: parent
+            anchors.margins: -6
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            onClicked: hb.activated()
+        }
+    }
 
     // ---- popups ------------------------------------------------------------
     PanelWindow {
@@ -98,18 +115,15 @@ Scope {
                     width: parent.width - 2
                     height: 36
 
-                    Text {
-                        anchors { left: parent.left; leftMargin: 14; verticalCenter: parent.verticalCenter }
+                    Caps {
+                        anchors { left: parent.left; leftMargin: Theme.inset; verticalCenter: parent.verticalCenter }
                         text: "notifications" + (Notifs.count > 0 ? "  " + Notifs.count : "")
                         color: Theme.oldWhite
-                        font.family: Theme.mono
                         font.pixelSize: 11
-                        font.letterSpacing: 1
-                        font.capitalization: Font.AllUppercase
                     }
 
                     Row {
-                        anchors { right: parent.right; rightMargin: 14; verticalCenter: parent.verticalCenter }
+                        anchors { right: parent.right; rightMargin: Theme.inset; verticalCenter: parent.verticalCenter }
                         spacing: 16
 
                         HeaderButton {
@@ -154,12 +168,11 @@ Scope {
                         inCenter: true
                     }
 
-                    Text {
+                    Mono {
                         visible: Notifs.count === 0
                         anchors.centerIn: parent
                         text: "nothing here"
                         color: Theme.fujiGray
-                        font.family: Theme.mono
                         font.pixelSize: 12
                     }
                 }

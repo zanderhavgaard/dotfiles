@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Mpris
@@ -28,7 +29,6 @@ Scope {
         level = Math.max(0, Math.min(1, v));
         muted = m;
         shown = true;
-        hide.interval = 1500;
         hide.restart();
     }
 
@@ -36,7 +36,6 @@ Scope {
         if (!armed || !player || player.trackTitle === "") return;
         mode = "media";
         shown = true;
-        hide.interval = 3000;
         hide.restart();
     }
 
@@ -48,7 +47,7 @@ Scope {
 
     Timer {
         id: hide
-        interval: 1500
+        interval: root.mode === "media" ? 3000 : 1500
         onTriggered: root.shown = false
     }
 
@@ -120,53 +119,42 @@ Scope {
                 border.color: Theme.sumiInk6
 
                 // -- level ------------------------------------------------
-                Row {
+                RowLayout {
                     visible: root.mode === "level"
                     anchors.fill: parent
-                    anchors.leftMargin: 14
-                    anchors.rightMargin: 14
+                    anchors.leftMargin: Theme.inset
+                    anchors.rightMargin: Theme.inset
                     spacing: 12
 
-                    Text {
-                        id: label
-                        anchors.verticalCenter: parent.verticalCenter
+                    Caps {
                         text: root.kind
-                        color: Theme.mutedText
-                        font.family: Theme.mono
                         font.pixelSize: 11
-                        font.letterSpacing: 1
-                        font.capitalization: Font.AllUppercase
                     }
 
-                    // 20 segments, filled up to the level
-                    Row {
-                        id: segments
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: parent.width - label.width - value.width - 2 * parent.spacing
+                    // segments, filled up to the level
+                    RowLayout {
+                        Layout.fillWidth: true
                         spacing: 3
 
                         Repeater {
                             model: 20
                             Rectangle {
                                 required property int index
-                                width: (segments.width - 19 * segments.spacing) / 20
-                                height: 10
+                                Layout.fillWidth: true
+                                implicitHeight: 10
                                 color: !root.muted && index < Math.round(root.level * 20)
                                     ? Theme.fujiWhite : Theme.sumiInk5
                             }
                         }
                     }
 
-                    Text {
-                        id: value
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: 34
+                    Caps {
+                        Layout.preferredWidth: 34
                         horizontalAlignment: Text.AlignRight
                         text: root.muted ? "off" : Math.round(root.level * 100)
                         color: root.muted ? Theme.fujiGray : Theme.fujiWhite
-                        font.family: Theme.mono
                         font.pixelSize: 11
-                        font.capitalization: Font.AllUppercase
+                        font.letterSpacing: 0
                     }
                 }
 
@@ -174,16 +162,15 @@ Scope {
                 Item {
                     visible: root.mode === "media" && root.player !== null
                     anchors.fill: parent
-                    anchors.leftMargin: 14
-                    anchors.rightMargin: 14
+                    anchors.leftMargin: Theme.inset
+                    anchors.rightMargin: Theme.inset
 
-                    Text {
+                    Mono {
                         id: playState
                         anchors.verticalCenter: parent.verticalCenter
                         width: 18
                         text: root.player && root.player.isPlaying ? "▶" : "‖"
                         color: Theme.springGreen
-                        font.family: Theme.mono
                         font.pixelSize: 13
                     }
 
@@ -197,39 +184,27 @@ Scope {
                         }
                         spacing: 2
 
-                        Text {
+                        Mono {
                             width: parent.width
                             elide: Text.ElideRight
                             text: root.player ? root.player.trackTitle : ""
-                            textFormat: Text.PlainText    // from outside: no markup
-                            color: Theme.fujiWhite
-                            font.family: Theme.mono
                             font.pixelSize: 12
                             font.weight: Font.Medium
                         }
-                        Text {
+                        Mono {
                             width: parent.width
                             visible: text !== ""
                             elide: Text.ElideRight
                             text: root.player ? root.player.trackArtist : ""
-                            textFormat: Text.PlainText    // from outside: no markup
                             color: Theme.oldWhite
-                            font.family: Theme.mono
-                            font.pixelSize: 11
                         }
                     }
 
-                    Text {
+                    Caps {
                         id: source
                         anchors.right: parent.right
                         anchors.verticalCenter: parent.verticalCenter
                         text: root.player ? root.player.identity : ""
-                        textFormat: Text.PlainText    // from outside: no markup
-                        color: Theme.mutedText
-                        font.family: Theme.mono
-                        font.pixelSize: 10
-                        font.letterSpacing: 1
-                        font.capitalization: Font.AllUppercase
                     }
                 }
             }

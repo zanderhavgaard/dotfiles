@@ -35,15 +35,9 @@ Rectangle {
             width: parent.width
             height: 30
 
-            Text {
-                anchors { left: parent.left; leftMargin: 14; verticalCenter: parent.verticalCenter }
+            Caps {
+                anchors { left: parent.left; leftMargin: Theme.inset; verticalCenter: parent.verticalCenter }
                 text: (card.record.appName || "notification") + "  ·  " + Notifs.age(card.record)
-                textFormat: Text.PlainText
-                color: Theme.mutedText
-                font.family: Theme.mono
-                font.pixelSize: 10
-                font.letterSpacing: 1
-                font.capitalization: Font.AllUppercase
             }
 
             // dismiss
@@ -54,11 +48,10 @@ Rectangle {
                 hoverEnabled: true
                 onClicked: Notifs.dismiss(card.record)
 
-                Text {
+                Mono {
                     anchors.centerIn: parent
                     text: "×"
                     color: parent.containsMouse ? Theme.waveRed : Theme.mutedText
-                    font.family: Theme.mono
                     font.pixelSize: 14
                 }
             }
@@ -71,28 +64,24 @@ Rectangle {
         }
 
         Column {
-            x: 14
-            width: parent.width - 28
+            x: Theme.inset
+            width: parent.width - 2 * Theme.inset
             topPadding: 12
             bottomPadding: 14
             spacing: 6
 
-            Text {
+            Mono {
                 width: parent.width
                 text: card.record.summary
-                color: Theme.fujiWhite
-                font.family: Theme.sans
                 font.pixelSize: 13
                 font.weight: Font.DemiBold
                 wrapMode: Text.Wrap
-                textFormat: Text.PlainText
             }
-            Text {
+            Mono {
                 visible: text !== ""
                 width: parent.width
                 text: card.record.body
                 color: Theme.oldWhite
-                font.family: Theme.sans
                 font.pixelSize: 12
                 lineHeight: 1.3
                 wrapMode: Text.Wrap
@@ -109,12 +98,10 @@ Rectangle {
                 Repeater {
                     model: card.record.notif ? card.record.notif.actions : []
 
-                    delegate: Text {
+                    delegate: Mono {
                         id: action
                         required property NotificationAction modelData
                         text: modelData.text
-                        color: Theme.fujiWhite
-                        font.family: Theme.sans
                         font.pixelSize: 12
                         font.underline: true
 

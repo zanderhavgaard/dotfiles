@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
 import qs
@@ -12,7 +13,7 @@ PanelWindow {
     required property ShellScreen modelData
     readonly property string output: modelData.name
     // window-bound things (the idle inhibitor) live on one bar only
-    readonly property bool primary: Quickshell.screens.length > 0 && modelData === Quickshell.screens[0]
+    readonly property bool primary: modelData === Quickshell.screens[0]
 
     screen: modelData
     anchors {
@@ -23,12 +24,9 @@ PanelWindow {
     implicitHeight: Theme.barHeight
     color: Theme.sumiInk0
 
-    component Dot: Text {
-        anchors.verticalCenter: parent ? parent.verticalCenter : undefined
+    component Dot: Mono {
         text: "·"
         color: Theme.fujiGray
-        font.family: Theme.mono
-        font.pixelSize: 11
     }
 
     component Rule: Rectangle {
@@ -59,7 +57,7 @@ PanelWindow {
     }
 
     // ---- left: workspaces, kernel, updates ---------------------------------
-    Row {
+    RowLayout {
         id: left
         anchors {
             left: parent.left
@@ -72,12 +70,9 @@ PanelWindow {
             output: bar.output
         }
 
-        Rule {
-            anchors.verticalCenter: parent.verticalCenter
-        }
+        Rule {}
 
-        Row {
-            anchors.verticalCenter: parent.verticalCenter
+        RowLayout {
             spacing: 8
 
             // yellow + "reboot" once linux was upgraded under the running kernel
@@ -88,27 +83,22 @@ PanelWindow {
                 cursorShape: Qt.ArrowCursor
             }
 
-            Dot { visible: Status.updates > 0 }
+            Dot { visible: updatesStat.visible }
             // hover: the package list; click: paru
             Stat {
                 id: updatesStat
                 visible: Status.updates > 0
-                label: ""
                 value: "↑" + Status.updates
                 valueColor: Theme.surimiOrange
-                hoverEnabled: true
                 onLeftClicked: Status.runUpdates()
 
-                UpdatesCard {
-                    anchorItem: updatesStat
-                    hovered: updatesStat.containsMouse
-                }
+                UpdatesCard { anchorItem: updatesStat }
             }
         }
     }
 
     // ---- right: date + time, status, tray ----------------------------------
-    Row {
+    RowLayout {
         id: right
         anchors {
             right: parent.right
@@ -118,47 +108,38 @@ PanelWindow {
         spacing: 8
 
         // date + time; click switches the date between Tue 3 Nov and 十一月三日 火曜日,
-        // hover shows the world clock (UTC / Tokyo / Auckland)
+        // hover shows the world clock
         MouseArea {
             id: clockArea
-            anchors.verticalCenter: parent.verticalCenter
             implicitWidth: dateTime.implicitWidth
             implicitHeight: dateTime.implicitHeight
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
             onClicked: Status.japaneseDate = !Status.japaneseDate
 
-            WorldClock {
-                anchorItem: clockArea
-                hovered: clockArea.containsMouse
-            }
+            WorldClock { anchorItem: clockArea }
 
             Row {
                 id: dateTime
-                anchors.verticalCenter: parent.verticalCenter
                 spacing: 10
 
-                Text {
+                Mono {
                     anchors.baseline: time.baseline
                     text: Status.japaneseDate ? Theme.kanjiDate(clock.date) : Theme.englishDate(clock.date)
                     color: Theme.oldWhite
                     font.family: Status.japaneseDate ? Theme.serif : Theme.mono
                     font.pixelSize: 13
                 }
-                Text {
+                Mono {
                     id: time
                     text: Qt.formatTime(clock.date, "hh:mm")
-                    color: Theme.fujiWhite
-                    font.family: Theme.mono
                     font.pixelSize: 13
                     font.weight: Font.Medium
                 }
             }
         }
 
-        Rule {
-            anchors.verticalCenter: parent.verticalCenter
-        }
+        Rule {}
 
         // click: mute toggle, scroll: level. Live mic is yellow so it's noticed.
         Stat {
@@ -166,14 +147,12 @@ PanelWindow {
             label: "mic"
             value: Status.micMuted ? "off" : Math.round(Status.micVolume * 100)
             valueColor: Status.micMuted ? Theme.fujiGray : Theme.carpYellow
-            onLeftClicked: Status.toggleMicMute()
+            onLeftClicked: Status.toggleMuted(Status.source)
             onRightClicked: Quickshell.execDetached(["pwvucontrol"])
-            onScrolled: steps => Status.setMicVolume(Status.micVolume + steps * 0.05)
-            hoverEnabled: true
+            onScrolled: steps => Status.stepVolume(Status.source, steps)
 
             AudioCard {
                 anchorItem: micStat
-                hovered: micStat.containsMouse
                 node: Status.source
                 input: true
             }
@@ -186,26 +165,25 @@ PanelWindow {
             value: Status.muted ? "mute" : Math.round(Status.volume * 100)
             valueColor: Status.muted ? Theme.fujiGray : Theme.fujiWhite
             onLeftClicked: Quickshell.execDetached(["pwvucontrol"])
-            onRightClicked: Status.toggleMute()
-            onScrolled: steps => Status.setVolume(Status.volume + steps * 0.05)
-            hoverEnabled: true
+            onRightClicked: Status.toggleMuted(Status.sink)
+            onScrolled: steps => Status.stepVolume(Status.sink, steps)
 
             AudioCard {
                 anchorItem: volStat
-                hovered: volStat.containsMouse
                 node: Status.sink
             }
         }
 
-        Dot { visible: Status.brightness >= 0 }
+        Dot { visible: lumStat.visible }
         Stat {
+            id: lumStat
             visible: Status.brightness >= 0
             label: "lum"
             value: Status.brightness
             onScrolled: steps => Status.stepBrightness(steps)
         }
 
-        Dot { visible: Status.hasBattery }
+        Dot { visible: batStat.visible }
         Stat {
             id: batStat
             visible: Status.hasBattery
@@ -219,12 +197,8 @@ PanelWindow {
                 : Status.batteryPercent <= 30 ? Theme.carpYellow
                 : Theme.fujiWhite
             cursorShape: Qt.ArrowCursor
-            hoverEnabled: true
 
-            BatteryCard {
-                anchorItem: batStat
-                hovered: batStat.containsMouse
-            }
+            BatteryCard { anchorItem: batStat }
         }
 
         Dot {}
@@ -233,13 +207,9 @@ PanelWindow {
             label: "net"
             value: Status.network !== "" ? Status.network : "off"
             valueColor: Status.network !== "" ? Theme.fujiWhite : Theme.waveRed
-            hoverEnabled: true
-            onLeftClicked: Quickshell.execDetached(["ghostty", "-e", "nmtui"])
+            onLeftClicked: Status.inTerminal(["nmtui"])
 
-            NetCard {
-                anchorItem: netStat
-                hovered: netStat.containsMouse
-            }
+            NetCard { anchorItem: netStat }
         }
 
         Dot {}
@@ -248,22 +218,15 @@ PanelWindow {
             id: vpnStat
             label: "vpn"
             value: Status.vpnLabel
-            valueColor: Status.vpnState === "connected" ? Theme.springGreen
-                : Status.vpnState === "connecting" ? Theme.carpYellow
-                : Theme.fujiGray
-            hoverEnabled: true
+            valueColor: Theme.stateColor(Status.vpnState)
             onLeftClicked: Status.toggleVpn("netbird")
             onRightClicked: Status.toggleVpn("mullvad")
 
-            VpnCard {
-                anchorItem: vpnStat
-                hovered: vpnStat.containsMouse
-            }
+            VpnCard { anchorItem: vpnStat }
         }
 
         Dot {}
         Stat {
-            label: ""
             value: Niri.layoutShort
             onLeftClicked: Niri.action(["switch-layout", "next"])
         }
@@ -271,7 +234,6 @@ PanelWindow {
         Dot {}
         // notifications: bell + count. Click: center, right-click: do-not-disturb
         Stat {
-            label: ""
             value: (Notifs.dnd ? "󰂛" : "󰂚") + (Notifs.count > 0 ? " " + Notifs.count : "")
             valueColor: Notifs.dnd ? Theme.carpYellow
                 : Notifs.centerOpen || Notifs.count > 0 ? Theme.fujiWhite
@@ -283,21 +245,13 @@ PanelWindow {
         Dot {}
         // idle inhibitor: coffee cup, yellow while the screen is kept awake
         Stat {
-            label: ""
             value: Status.idleInhibited ? "󰅶" : "󰛊"
             valueColor: Status.idleInhibited ? Theme.carpYellow : Theme.fujiGray
             onLeftClicked: Status.idleInhibited = !Status.idleInhibited
         }
 
-        Rule {
-            anchors.verticalCenter: parent.verticalCenter
-            visible: tray.count > 0
-        }
+        Rule { visible: tray.count > 0 }
 
-        Tray {
-            id: tray
-            anchors.verticalCenter: parent.verticalCenter
-            barWindow: bar
-        }
+        Tray { id: tray }
     }
 }

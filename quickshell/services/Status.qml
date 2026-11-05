@@ -6,11 +6,18 @@ import Quickshell.Services.Pipewire
 import Quickshell.Services.UPower
 import QtQuick
 
-// Everything the bar's right-hand side shows, in one place.
+// System state for the bar and its hover cards: audio, brightness, battery,
+// power profile, network, VPN, kernel, pending updates, plus a couple of
+// UI toggles shared between bars (idle inhibitor, date language).
 Singleton {
     id: root
 
     readonly property string scripts: Quickshell.env("HOME") + "/dotfiles/scripts"
+
+    // run a command in a terminal window
+    function inTerminal(cmd) {
+        Quickshell.execDetached(["ghostty", "-e"].concat(cmd));
+    }
 
     // ---- audio ------------------------------------------------------------
     readonly property PwNode sink: Pipewire.defaultAudioSink
@@ -27,17 +34,13 @@ Singleton {
         objects: [root.sink, root.source]
     }
 
-    function setVolume(v) {
-        if (audioReady) sink.audio.volume = Math.max(0, Math.min(1, v));
+    // for the sink or the source; 5% per step
+    function stepVolume(node, steps) {
+        if (node && node.audio)
+            node.audio.volume = Math.max(0, Math.min(1, node.audio.volume + steps * 0.05));
     }
-    function toggleMute() {
-        if (audioReady) sink.audio.muted = !sink.audio.muted;
-    }
-    function setMicVolume(v) {
-        if (micReady) source.audio.volume = Math.max(0, Math.min(1, v));
-    }
-    function toggleMicMute() {
-        if (micReady) source.audio.muted = !source.audio.muted;
+    function toggleMuted(node) {
+        if (node && node.audio) node.audio.muted = !node.audio.muted;
     }
 
     // ---- screen brightness ----------------------------------------------
@@ -69,7 +72,7 @@ Singleton {
     function updateBrightness() {
         const max = parseInt(maxBrightnessFile.text());
         const cur = parseInt(brightnessFile.text());
-        if (max > 0 && !isNaN(cur)) root.brightness = Math.round(100 * cur / max);
+        if (max > 0 && !isNaN(cur)) brightness = Math.round(100 * cur / max);
     }
 
     function refreshBrightness() {
@@ -88,36 +91,6 @@ Singleton {
         onTriggered: root.refreshBrightness()
     }
 
-    // ---- idle inhibitor (the IdleInhibitor itself lives on a bar window) --
-    property bool idleInhibited: false
-
-    // ---- clock: English or kanji date (click the clock to switch) ---------
-    property bool japaneseDate: false
-
-    // ---- kernel -----------------------------------------------------------
-    // kernelStale: the running kernel's modules are gone, i.e. linux was
-    // upgraded and a reboot is pending.
-    property string kernel: ""
-    property bool kernelStale: false
-
-    Process {
-        id: kernelProc
-        running: true
-        command: ["uname", "-r"]
-        stdout: StdioCollector {
-            onStreamFinished: {
-                root.kernel = text.trim();
-                staleProc.running = true;
-            }
-        }
-    }
-
-    Process {
-        id: staleProc
-        command: ["test", "-d", "/usr/lib/modules/" + root.kernel]
-        onExited: code => root.kernelStale = code !== 0
-    }
-
     // ---- battery ----------------------------------------------------------
     readonly property var battery: UPower.displayDevice
     readonly property bool hasBattery: battery !== null && battery.isLaptopBattery
@@ -128,16 +101,47 @@ Singleton {
             || battery.state === UPowerDeviceState.PendingCharge)
 
     // ---- power profile (TLP sets the ACPI platform profile) --------------
-    property string powerProfile: ""
+    readonly property string powerProfile: profileFile.text().trim()
 
     FileView {
         id: profileFile
         path: "/sys/firmware/acpi/platform_profile"
-        onLoaded: root.powerProfile = text().trim()
+    }
+
+    // brightness and profile: sysfs reads only, no processes
+    Timer {
+        interval: 5000
+        running: true
+        repeat: true
+        onTriggered: {
+            profileFile.reload();
+            root.refreshBrightness();
+        }
+    }
+
+    // ---- UI toggles ---------------------------------------------------------
+    // the IdleInhibitor lives on the primary bar; deliberately not remembered,
+    // so a restart can't leave the screen kept awake
+    property bool idleInhibited: false
+
+    // click the clock to switch; remembered in ~/.local/state/quickshell/.../ui.json
+    property alias japaneseDate: ui.japaneseDate
+
+    FileView {
+        path: Quickshell.statePath("ui.json")
+        blockLoading: true
+        printErrors: false   // missing on first run
+        onAdapterUpdated: writeAdapter()
+
+        JsonAdapter {
+            id: ui
+            property bool japaneseDate: false
+        }
     }
 
     // ---- network ----------------------------------------------------------
     property string network: ""       // connection name, "" when offline
+    property string netDevice: ""     // e.g. wlan0, "" when offline
 
     // `nmcli monitor` prints a line on every NetworkManager change; re-read
     // the state (and the VPNs, whose tunnels show up there too) when it does,
@@ -170,48 +174,85 @@ Singleton {
 
     Process {
         id: netProc
-        command: ["nmcli", "-t", "-f", "TYPE,STATE,CONNECTION", "device"]
+        command: ["nmcli", "-t", "-f", "TYPE,STATE,DEVICE,CONNECTION", "device"]
         stdout: StdioCollector {
             onStreamFinished: {
-                let name = "";
+                let name = "", dev = "";
                 for (const line of text.split("\n")) {
                     // CONNECTION may itself contain ':' (escaped as '\:')
-                    const [type, state, ...rest] = line.split(":");
+                    const [type, state, device, ...rest] = line.split(":");
                     if ((type === "wifi" || type === "ethernet") && state === "connected") {
                         name = rest.join(":").replace(/\\:/g, ":");
+                        dev = device;
                         break;
                     }
                 }
                 root.network = name;
+                root.netDevice = dev;
             }
         }
     }
 
-    // ---- vpn (shared script with the old waybar module) -------------------
-    property string vpnState: "disconnected"   // connected | connecting | disconnected
-    property string vpnLabel: "off"            // netbird | mullvad | netbird+mullvad | off
-    property string vpnTooltip: ""
+    // network and VPN mostly come from `nmcli monitor`; this catches what it
+    // misses (a VPN daemon reconnecting on its own)
+    Timer {
+        interval: 30000
+        running: true
+        repeat: true
+        triggeredOnStart: true
+        onTriggered: {
+            vpnProc.running = true;
+            netProc.running = true;
+        }
+    }
+
+    // ---- vpn: NetBird + Mullvad --------------------------------------------
+    // Raw status JSON from both CLIs ({} when a daemon isn't running); the bar
+    // and VpnCard derive everything from these.
+    property var netbird: ({})
+    property var mullvad: ({})
+
+    // connected | connecting | disconnecting | off | (netbird's daemon status)
+    readonly property string netbirdState: !netbird.management ? "off"
+        : netbird.management.connected ? "connected"
+        : String(netbird.daemonStatus || "off").toLowerCase()
+    readonly property string mullvadState: mullvad.state || "off"
+
+    function busy(state) {
+        return state === "connecting" || state === "disconnecting";
+    }
+
+    // overall: connected | connecting | disconnected
+    readonly property string vpnState: netbirdState === "connected" || mullvadState === "connected" ? "connected"
+        : busy(netbirdState) || busy(mullvadState) ? "connecting"
+        : "disconnected"
+    // netbird | mullvad | netbird+mullvad | off
+    readonly property string vpnLabel: {
+        const on = [];
+        if (netbirdState === "connected" || busy(netbirdState)) on.push("netbird");
+        if (mullvadState === "connected" || busy(mullvadState)) on.push("mullvad");
+        return on.length ? on.join("+") : "off";
+    }
+
+    function refreshVpn() {
+        vpnProc.running = true;
+    }
 
     Process {
         id: vpnProc
-        command: [root.scripts + "/vpn-status.sh"]
+        command: ["sh", "-c",
+            // (echo: the JSON has no trailing newline)
+            "netbird status --json 2>/dev/null || echo '{}'; echo; echo ---; mullvad status -j 2>/dev/null || echo '{}'"]
         stdout: StdioCollector {
             onStreamFinished: {
-                try {
-                    const j = JSON.parse(text);
-                    root.vpnState = j["class"];
-                    root.vpnTooltip = j.tooltip;
-                    const on = [];
-                    if (j.text.includes("NetBird")) on.push("netbird");
-                    if (j.text.includes("Mullvad")) on.push("mullvad");
-                    root.vpnLabel = on.length ? on.join("+") : "off";
-                } catch (e) {
-                    console.warn("vpn-status:", e);
-                }
+                const [nb, mv] = text.split("\n---");
+                try { root.netbird = JSON.parse(nb); } catch (e) { root.netbird = {}; }
+                try { root.mullvad = JSON.parse(mv); } catch (e) { root.mullvad = {}; }
             }
         }
     }
 
+    // the script works out up/down (shared with the old waybar module)
     function toggleVpn(which) {
         Quickshell.execDetached([scripts + "/vpn-status.sh", "toggle-" + which]);
         vpnRecheck.restart();
@@ -223,28 +264,38 @@ Singleton {
         onTriggered: vpnProc.running = true
     }
 
+    // ---- kernel -----------------------------------------------------------
+    // kernelStale: the running kernel's modules are gone, i.e. linux was
+    // upgraded and a reboot is pending.
+    readonly property string kernel: osrelease.text().trim()
+    property bool kernelStale: false
+
+    FileView {
+        id: osrelease
+        path: "/proc/sys/kernel/osrelease"
+        blockLoading: true
+    }
+
+    Process {
+        id: staleProc
+        command: ["test", "-d", "/usr/lib/modules/" + root.kernel]
+        onExited: code => root.kernelStale = code !== 0
+    }
+
     // ---- pending updates --------------------------------------------------
-    property int updates: 0
     property var updateList: []   // [{ name, from, to }]
+    readonly property int updates: updateList.length
 
     Process {
         id: updatesProc
-        command: [root.scripts + "/updates.sh"]
+        // syncs a private copy of the db, never touches the real one
+        command: ["checkupdates"]
         stdout: StdioCollector {
-            onStreamFinished: {
-                try {
-                    const j = JSON.parse(text);
-                    root.updates = parseInt(j.text) || 0;
-                    // checkupdates lines: "linux 7.2.14.arch1-1 -> 7.2.15.arch1-1"
-                    root.updateList = root.updates === 0 ? [] : j.tooltip.split("\n")
-                        .map(l => l.trim().split(/\s+/))
-                        .filter(f => f.length >= 4)
-                        .map(f => ({ name: f[0], from: f[1], to: f[3] }));
-                } catch (e) {
-                    root.updates = 0;
-                    root.updateList = [];
-                }
-            }
+            // "linux 7.2.14.arch1-1 -> 7.2.15.arch1-1"
+            onStreamFinished: root.updateList = text.split("\n")
+                .map(l => l.trim().split(/\s+/))
+                .filter(f => f.length >= 4)
+                .map(f => ({ name: f[0], from: f[1], to: f[3] }))
         }
     }
 
@@ -262,32 +313,6 @@ Singleton {
         paruProc.running = true;
     }
 
-    // ---- polling ----------------------------------------------------------
-    // sysfs reads only, no processes
-    Timer {
-        interval: 5000
-        running: true
-        repeat: true
-        onTriggered: {
-            profileFile.reload();
-            root.refreshBrightness();
-        }
-    }
-
-    // network and VPN mostly come from `nmcli monitor`; this catches what it
-    // misses (a VPN daemon reconnecting on its own) without spawning a
-    // handful of processes every 5 seconds
-    Timer {
-        interval: 30000
-        running: true
-        repeat: true
-        triggeredOnStart: true
-        onTriggered: {
-            vpnProc.running = true;
-            netProc.running = true;
-        }
-    }
-
     Timer {
         interval: 30 * 60 * 1000
         running: true
@@ -295,7 +320,7 @@ Singleton {
         triggeredOnStart: true
         onTriggered: {
             updatesProc.running = true;
-            if (root.kernel !== "") staleProc.running = true;
+            staleProc.running = true;
         }
     }
 }

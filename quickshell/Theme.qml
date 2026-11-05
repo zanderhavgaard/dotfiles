@@ -31,11 +31,11 @@ Singleton {
     // type: IBM Plex Mono (nerd-font patched, so icons work) for everything
     // latin, Shippori Mincho (ttf-shippori-mincho, AUR) for the kanji.
     readonly property string mono: "BlexMono Nerd Font"
-    readonly property string sans: mono
     readonly property string serif: "Shippori Mincho"
 
     readonly property int barHeight: 32
-    readonly property int gap: 10
+    readonly property int gap: 10      // between floating surfaces and screen edges
+    readonly property int inset: 14    // left/right padding inside cards
 
     readonly property var _digits: ["", "一", "二", "三", "四", "五", "六", "七", "八", "九"]
 
@@ -46,27 +46,29 @@ Singleton {
         return (tens > 1 ? _digits[tens] : "") + (tens > 0 ? "十" : "") + _digits[ones];
     }
 
-    readonly property var _weekdays: ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"]
+    // explicit locales: the system one (en_DK) would turn the English Danish
+    readonly property var _en: Qt.locale("en_GB")
+    readonly property var _ja: Qt.locale("ja_JP")
 
     // 十一月三日 火曜日
     function kanjiDate(d) {
-        return kanji(d.getMonth() + 1) + "月" + kanji(d.getDate()) + "日 " + _weekdays[d.getDay()];
+        return kanji(d.getMonth() + 1) + "月" + kanji(d.getDate()) + "日 " + d.toLocaleDateString(_ja, "dddd");
     }
 
-    readonly property var _daysEn: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-    readonly property var _monthsEn: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-
-    // Tue 3 Nov (built by hand so the system locale can't turn it Danish)
+    // Tue 3 Nov
     function englishDate(d) {
-        return _daysEn[d.getDay()] + " " + d.getDate() + " " + _monthsEn[d.getMonth()];
+        return d.toLocaleDateString(_en, "ddd d MMM");
     }
-
-    readonly property var _daysEnLong: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    readonly property var _monthsEnLong: ["January", "February", "March", "April", "May", "June", "July",
-        "August", "September", "October", "November", "December"]
 
     // Tuesday 3 November
     function englishDateLong(d) {
-        return _daysEnLong[d.getDay()] + " " + d.getDate() + " " + _monthsEnLong[d.getMonth()];
+        return d.toLocaleDateString(_en, "dddd d MMMM");
+    }
+
+    // connected / connecting / anything else (VPN states)
+    function stateColor(state) {
+        return state === "connected" ? springGreen
+            : state === "connecting" || state === "disconnecting" ? carpYellow
+            : fujiGray;
     }
 }

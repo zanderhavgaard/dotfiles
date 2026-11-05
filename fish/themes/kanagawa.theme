@@ -1,0 +1,40 @@
+# name: 'Kanagawa Wave'
+# preferred_background: 1f1f28
+# Same palette as quickshell/Theme.qml (rebelot/kanagawa.nvim names in comments).
+
+fish_color_normal DCD7BA
+# crystalBlue commands, oniViolet keywords, fujiWhite arguments
+fish_color_command 7E9CD8
+fish_color_keyword 957FB8
+fish_color_param DCD7BA
+fish_color_option C8C093
+# springGreen strings, carpYellow escapes, boatYellow2 operators
+fish_color_quote 98BB6C
+fish_color_escape E6C384
+fish_color_operator C0A36E
+fish_color_redirection 7AA89F
+fish_color_end FFA066
+fish_color_error E46876
+fish_color_comment 727169
+fish_color_autosuggestion 727169
+fish_color_valid_path --underline
+fish_color_selection DCD7BA --bold --background=2D4F67
+fish_color_search_match --background=2D4F67
+fish_color_history_current --bold
+fish_color_cancel --reverse
+# prompt bits (starship draws the prompt, but fish's own functions use these)
+fish_color_cwd 98BB6C
+fish_color_cwd_root E46876
+fish_color_user 98BB6C
+fish_color_host 7E9CD8
+fish_color_host_remote E6C384
+fish_color_status E46876
+
+fish_pager_color_prefix 7E9CD8 --bold
+fish_pager_color_completion DCD7BA
+fish_pager_color_description 727169
+fish_pager_color_progress C8C093 --background=2A2A37
+fish_pager_color_selected_background --background=2D4F67
+fish_pager_color_selected_prefix 7E9CD8 --bold
+fish_pager_color_selected_completion DCD7BA
+fish_pager_color_selected_description C8C093

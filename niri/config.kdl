@@ -136,12 +136,21 @@ layout {
     // lets it show in the normal view as well as the overview.
     background-color "transparent"
 
-    // border instead of focus-ring
+    // border instead of focus-ring (Tokyo Night)
     border {
-        width 2
-        active-color "#98BB6C"   // springGreen
-        inactive-color "#363646" // sumiInk5
-        urgent-color "#E46876"   // waveRed
+        width 1
+        active-color "#7aa2f7"   // blue
+        inactive-color "#292e42" // bg_highlight
+        urgent-color "#f7768e"   // red
+    }
+
+    // soft shadows under windows, like the shell's cards
+    shadow {
+        on
+        softness 30
+        spread 4
+        offset x=0 y=8
+        color "#00000080"
     }
 
     // Struts shrink the area occupied by windows, similarly to layer-shell panels.
@@ -215,10 +224,11 @@ window-rule {
     draw-border-with-background false
 }
 
-// Clip every window to its own geometry. Windows with client-side
-// decorations (Firefox) otherwise draw over the area where niri paints the
-// border, hiding it everywhere except their rounded bottom corners.
+// Round every window's corners, and clip it to that shape. Windows with
+// client-side decorations (Firefox) otherwise draw over the area where niri
+// paints the border, hiding it everywhere except their own bottom corners.
 window-rule {
+    geometry-corner-radius 12
     clip-to-geometry true
 }
 

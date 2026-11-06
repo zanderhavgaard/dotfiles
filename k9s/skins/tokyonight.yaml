@@ -1,0 +1,97 @@
+# Tokyo Night (night), mapped from one-dark.yaml
+k9s:
+  body:
+    bgColor: '#1a1b26'
+    fgColor: '#c0caf5'
+    logoColor: '#9ece6a'
+  dialog:
+    bgColor: '#1a1b26'
+    buttonBgColor: '#9ece6a'
+    buttonFgColor: '#c0caf5'
+    buttonFocusBgColor: '#7aa2f7'
+    buttonFocusFgColor: '#16161e'
+    fgColor: '#16161e'
+    fieldFgColor: '#7aa2f7'
+    labelFgColor: '#ff9e64'
+  frame:
+    border:
+      fgColor: '#9ece6a'
+      focusColor: '#9ece6a'
+    crumbs:
+      activeColor: '#e0af68'
+      bgColor: '#9ece6a'
+      fgColor: '#16161e'
+    menu:
+      fgColor: '#c0caf5'
+      keyColor: '#e0af68'
+      numKeyColor: '#e0af68'
+    status:
+      addColor: '#c0caf5'
+      completedColor: '#c0caf5'
+      errorColor: '#f7768e'
+      highlightColor: '#e0af68'
+      killColor: '#bb9af7'
+      modifyColor: '#9ece6a'
+      newColor: '#7aa2f7'
+      pendingColor: '#ff9e64'
+    title:
+      bgColor: '#1a1b26'
+      counterColor: '#c0caf5'
+      fgColor: '#7aa2f7'
+      filterColor: '#7aa2f7'
+      highlightColor: '#bb9af7'
+  help:
+    bgColor: '#1a1b26'
+    fgColor: '#c0caf5'
+    keyColor: '#e0af68'
+    numKeyColor: '#7aa2f7'
+    sectionColor: '#bb9af7'
+  info:
+    fgColor: '#c0caf5'
+    sectionColor: '#9ece6a'
+  prompt:
+    bgColor: '#1a1b26'
+    fgColor: '#c0caf5'
+    suggestColor: '#ff9e64'
+  views:
+    charts:
+      bgColor: '#1a1b26'
+      defaultChartColors:
+      - '#9ece6a'
+      - '#f7768e'
+      defaultDialColors:
+      - '#9ece6a'
+      - '#f7768e'
+    help:
+      bgColor: '#1a1b26'
+      fgColor: '#c0caf5'
+      indicator:
+        fgColor: '#7aa2f7'
+    logs:
+      bgColor: '#1a1b26'
+      fgColor: '#c0caf5'
+      indicator:
+        bgColor: '#1a1b26'
+        fgColor: '#7aa2f7'
+        toggleOffColor: '#c0caf5'
+        toggleOnColor: '#f7768e'
+    table:
+      bgColor: '#1a1b26'
+      cursorBgColor: '#7aa2f7'
+      cursorFgColor: '#16161e'
+      fgColor: '#e0af68'
+      header:
+        bgColor: '#1a1b26'
+        fgColor: '#c0caf5'
+        sorterColor: '#ff9e64'
+      markColor: '#ff9e64'
+    xray:
+      bgColor: '#1a1b26'
+      cursorColor: '#c0caf5'
+      fgColor: '#7aa2f7'
+      graphicColor: '#ff9e64'
+      showIcons: false
+    yaml:
+      colonColor: '#c0caf5'
+      keyColor: '#f7768e'
+      valueColor: '#c0caf5'

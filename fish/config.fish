@@ -20,8 +20,8 @@ set -q SSH_CONNECTION; or set -gx SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socke
 
 status is-interactive; and begin
 
-    # colours: Kanagawa Wave, from themes/kanagawa.theme
-    fish_config theme choose kanagawa
+    # colours: Tokyo Night, from themes/tokyonight.theme
+    fish_config theme choose tokyonight
 
     alias task go-task
 

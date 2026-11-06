@@ -279,7 +279,7 @@ plugins {
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-theme "one-half-dark"
+theme "tokyo-night-dark"
 
 // The name of the default layout to load on startup
 // Default: "default"

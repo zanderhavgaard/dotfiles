@@ -2,7 +2,7 @@
 
 # Theme
 export ICON_THEME="Colloid-Dark"
-export XCURSOR_THEME="Colloid-dark-cursors"
+export XCURSOR_THEME="capitaine-cursors"
 
 # GTK/flatpak theme
 export GNOME_THEME="dark"

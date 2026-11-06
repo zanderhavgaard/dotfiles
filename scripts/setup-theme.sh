@@ -10,12 +10,12 @@ set -euo pipefail
 #
 # Requires: adw-gtk-theme papirus-icon-theme ttf-ibm-plex ttf-martian-mono-nerd
 #           ttf-nerd-fonts-symbols qt6ct qt5ct
-#           colloid-cursors-git (AUR, cursors only)
+#           capitaine-cursors
 
 GTK_THEME_NAME="adw-gtk3-dark"
 ICON_THEME_NAME="Papirus-Dark"
 FONT_NAME="IBM Plex Sans 11"
-CURSOR_THEME_NAME="Colloid-dark-cursors"
+CURSOR_THEME_NAME="capitaine-cursors"
 CURSOR_SIZE=24
 
 # gsettings is what xdg-desktop-portal serves to sandboxed/Flatpak apps,

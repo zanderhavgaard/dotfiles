@@ -1,0 +1,107 @@
+/* Tokyo Night (night) for GTK3 (adw-gtk3) and GTK4 (libadwaita). Same
+ * palette as quickshell/Theme.qml. Shapes stay libadwaita's own (rounded),
+ * which already matches the shell; only the colours change.
+ *
+ * Imported by gtk-4.0/gtk.css and gtk-3.0/gtk.css. Only @define-color and
+ * plain rules here, so GTK3 can parse it too. GTK4-only bits (CSS variables)
+ * live in gtk-4.0/gtk.css.
+ */
+
+/* ---- palette (names from folke/tokyonight.nvim) -------------------------- */
+@define-color bg_dark #16161e;
+@define-color bg #1a1b26;
+@define-color bg_float #1f2335;
+@define-color bg_highlight #292e42;
+@define-color bg_visual #283457;
+@define-color gutter #3b4261;
+@define-color comment #565f89;
+@define-color fg_dark #a9b1d6;
+@define-color fg #c0caf5;
+@define-color blue #7aa2f7;
+@define-color green #9ece6a;
+@define-color yellow #e0af68;
+@define-color red #f7768e;
+@define-color red1 #db4b4b;
+
+/* ---- libadwaita named colors (adw-gtk3 uses the same names) ------------- */
+@define-color accent_color @blue;
+@define-color accent_bg_color @blue;
+@define-color accent_fg_color @bg_dark;
+
+@define-color destructive_color @red;
+@define-color destructive_bg_color @red1;
+@define-color destructive_fg_color @fg;
+
+@define-color success_color @green;
+@define-color success_bg_color @green;
+@define-color success_fg_color @bg_dark;
+
+@define-color warning_color @yellow;
+@define-color warning_bg_color @yellow;
+@define-color warning_fg_color @bg_dark;
+
+@define-color error_color @red;
+@define-color error_bg_color @red1;
+@define-color error_fg_color @fg;
+
+@define-color window_bg_color @bg;
+@define-color window_fg_color @fg;
+
+@define-color view_bg_color @bg_dark;
+@define-color view_fg_color @fg;
+
+@define-color headerbar_bg_color @bg_dark;
+@define-color headerbar_fg_color @fg;
+@define-color headerbar_border_color @bg_highlight;
+@define-color headerbar_backdrop_color @bg_dark;
+@define-color headerbar_shade_color rgba(0, 0, 0, 0.36);
+@define-color headerbar_darker_shade_color rgba(0, 0, 0, 0.5);
+
+@define-color sidebar_bg_color @bg_dark;
+@define-color sidebar_fg_color @fg;
+@define-color sidebar_backdrop_color @bg_dark;
+@define-color sidebar_border_color @bg_highlight;
+@define-color sidebar_shade_color rgba(0, 0, 0, 0.36);
+
+@define-color secondary_sidebar_bg_color @bg;
+@define-color secondary_sidebar_fg_color @fg;
+@define-color secondary_sidebar_backdrop_color @bg;
+@define-color secondary_sidebar_border_color @bg_highlight;
+@define-color secondary_sidebar_shade_color rgba(0, 0, 0, 0.36);
+
+@define-color card_bg_color @bg_float;
+@define-color card_fg_color @fg;
+@define-color card_shade_color rgba(0, 0, 0, 0.36);
+
+@define-color dialog_bg_color @bg;
+@define-color dialog_fg_color @fg;
+
+@define-color popover_bg_color @bg_dark;
+@define-color popover_fg_color @fg;
+@define-color popover_shade_color rgba(0, 0, 0, 0.36);
+
+@define-color thumbnail_bg_color @bg_float;
+@define-color thumbnail_fg_color @fg;
+
+@define-color shade_color rgba(0, 0, 0, 0.36);
+@define-color scrollbar_outline_color @bg_dark;
+
+/* ---- details ----------------------------------------------------------- */
+/* a 1px border on floating surfaces, like the shell's cards */
+popover > contents,
+popover.background > contents,
+menu,
+.menu,
+.context-menu {
+  border: 1px solid @gutter;
+}
+
+*:focus-visible {
+  outline-color: alpha(@blue, 0.6);
+}
+
+selection,
+*:selected {
+  background-color: @bg_visual;
+  color: @fg;
+}

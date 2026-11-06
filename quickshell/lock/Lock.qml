@@ -204,7 +204,7 @@ Scope {
         locked: root.locked
 
         WlSessionLockSurface {
-            color: Theme.sumiInk0
+            color: Theme.bgDark
 
             LockSurface {
                 anchors.fill: parent
@@ -226,7 +226,7 @@ Scope {
                 right: true
             }
             exclusionMode: ExclusionMode.Ignore
-            color: Theme.sumiInk0
+            color: Theme.bgDark
             WlrLayershell.layer: WlrLayer.Overlay
             WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
             WlrLayershell.namespace: "qs-lock-preview"

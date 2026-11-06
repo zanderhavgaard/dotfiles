@@ -18,7 +18,7 @@ HoverCard {
             required property var modelData
             readonly property bool separator: modelData.label === ""
             width: root.cardWidth
-            height: separator ? 9 : 22
+            height: separator ? 11 : 23
 
             Rectangle {
                 visible: row.separator
@@ -26,12 +26,13 @@ HoverCard {
                 anchors.leftMargin: Theme.inset
                 anchors.rightMargin: Theme.inset
                 height: 1
-                color: Theme.sumiInk4
+                color: Theme.bgHighlight
             }
 
-            Caps {
+            Label {
                 id: label
                 visible: !row.separator
+                color: Theme.subtext
                 anchors { left: parent.left; leftMargin: Theme.inset; verticalCenter: parent.verticalCenter }
                 width: 96
                 text: row.modelData.label
@@ -47,7 +48,7 @@ HoverCard {
                 horizontalAlignment: Text.AlignRight
                 elide: Text.ElideMiddle
                 text: row.modelData.value ?? ""
-                color: row.modelData.color ?? Theme.fujiWhite
+                color: row.modelData.color ?? Theme.fg
             }
         }
     }

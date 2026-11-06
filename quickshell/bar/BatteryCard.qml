@@ -8,7 +8,7 @@ import qs.services
 InfoCard {
     id: root
 
-    title: "battery"
+    title: "Battery"
 
     // the physical battery (BAT1), not UPower's combined display device,
     // so model / health / cycle count are available
@@ -44,7 +44,7 @@ InfoCard {
         const pct = dev.energyCapacity > 0 ? Math.round(100 * dev.energy / dev.energyCapacity) : 0;
         const rows = [
             { label: "charge", value: pct + "% · " + dev.energy.toFixed(1) + " / " + dev.energyCapacity.toFixed(1) + " Wh",
-              color: pct <= 15 ? Theme.waveRed : pct <= 30 ? Theme.carpYellow : Theme.fujiWhite },
+              color: pct <= 15 ? Theme.red : pct <= 30 ? Theme.yellow : Theme.fg },
             { label: "state", value: stateText(dev.state) },
         ];
         if (dev.state === UPowerDeviceState.Discharging && duration(dev.timeToEmpty))
@@ -59,7 +59,7 @@ InfoCard {
         rows.push({ label: "" });
         if (dev.healthSupported)
             rows.push({ label: "health", value: Math.round(dev.healthPercentage) + "%",
-                        color: dev.healthPercentage < 70 ? Theme.carpYellow : Theme.fujiWhite });
+                        color: dev.healthPercentage < 70 ? Theme.yellow : Theme.fg });
         const c = parseInt(cycles.text());
         if (!isNaN(c)) rows.push({ label: "cycles", value: String(c) });
         if (dev.model) rows.push({ label: "model", value: dev.model });

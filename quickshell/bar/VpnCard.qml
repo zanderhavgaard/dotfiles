@@ -7,7 +7,7 @@ import qs.services
 InfoCard {
     id: root
 
-    title: "vpn"
+    title: "VPN"
     footer: "click: netbird · right-click: mullvad"
 
     onOpenChanged: if (open) Status.refreshVpn()
@@ -15,7 +15,7 @@ InfoCard {
     rows: netbirdRows(Status.netbird).concat([{ label: "" }], mullvadRows(Status.mullvad))
 
     function netbirdRows(nb) {
-        if (!nb.management) return [{ label: "netbird", value: "not running", color: Theme.fujiGray }];
+        if (!nb.management) return [{ label: "netbird", value: "not running", color: Theme.subtext }];
         const state = Status.netbirdState;
         const rows = [{ label: "netbird", value: state, color: Theme.stateColor(state) }];
         if (nb.management.connected) {
@@ -28,7 +28,7 @@ InfoCard {
     }
 
     function mullvadRows(mv) {
-        if (!mv.state) return [{ label: "mullvad", value: "not running", color: Theme.fujiGray }];
+        if (!mv.state) return [{ label: "mullvad", value: "not running", color: Theme.subtext }];
         const rows = [{ label: "mullvad", value: mv.state, color: Theme.stateColor(mv.state) }];
         const loc = (mv.details && mv.details.location) || {};
         const place = [loc.city, loc.country].filter(x => x).join(", ");
@@ -42,7 +42,7 @@ InfoCard {
             if (loc.ipv4) rows.push({ label: "public ip", value: loc.ipv4 });
         }
         if (mv.details && mv.details.locked_down)
-            rows.push({ label: "lockdown", value: "on: traffic blocked when off", color: Theme.carpYellow });
+            rows.push({ label: "lockdown", value: "on: traffic blocked when off", color: Theme.yellow });
         return rows;
     }
 }

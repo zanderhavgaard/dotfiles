@@ -1,4 +1,4 @@
-// Kanagawa Wave × Paper: docked bottom bar, OSD, notifications, launcher, lock.
+// Tokyo Night, refined: floating top bar, OSD, notifications, launcher, lock.
 // Run: `qs` (config lives in ~/.config/quickshell, symlinked from dotfiles).
 // IPC: `qs ipc show` lists every target and function (launcher, osd,
 //      notifications, lock).

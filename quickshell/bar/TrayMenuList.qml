@@ -41,52 +41,57 @@ ColumnLayout {
                 anchors.leftMargin: Theme.inset
                 anchors.rightMargin: Theme.inset
                 height: 1
-                color: Theme.sumiInk4
+                color: Theme.bgHighlight
             }
 
             // the entry itself
             Rectangle {
                 id: row
                 visible: !entry.modelData.isSeparator
-                width: parent.width
+                x: 5
+                width: parent.width - 10
                 implicitWidth: rowContent.implicitWidth + 2 * Theme.inset + root.depth * Theme.inset
-                implicitHeight: 26
-                color: area.containsMouse && entry.modelData.enabled ? Theme.waveBlue1 : "transparent"
+                implicitHeight: 28
+                radius: 6
+                color: area.containsMouse && entry.modelData.enabled ? Theme.bgHighlight : "transparent"
 
                 RowLayout {
                     id: rowContent
                     anchors {
                         left: parent.left
                         right: parent.right
-                        leftMargin: Theme.inset + root.depth * Theme.inset
-                        rightMargin: Theme.inset
+                        leftMargin: Theme.inset - 5 + root.depth * Theme.inset
+                        rightMargin: Theme.inset - 5
                         verticalCenter: parent.verticalCenter
                     }
                     spacing: 8
 
-                    // check / radio state: square boxes, round dots
-                    Mono {
+                    // check / radio state
+                    Icon {
                         visible: entry.modelData.buttonType !== QsMenuButtonType.None
+                        readonly property bool on: entry.modelData.checkState === Qt.Checked
                         text: entry.modelData.buttonType === QsMenuButtonType.RadioButton
-                            ? (entry.modelData.checkState === Qt.Checked ? "●" : "○")
-                            : (entry.modelData.checkState === Qt.Checked ? "■" : "□")
-                        color: entry.modelData.checkState === Qt.Checked ? Theme.focus : Theme.fujiGray
+                            ? (on ? Theme.glyph.radioOn : Theme.glyph.radioOff)
+                            : (on ? Theme.glyph.checked : Theme.glyph.unchecked)
+                        color: on ? Theme.accent : Theme.subtext
+                        font.pixelSize: 14
                     }
                     IconImage {
                         visible: entry.modelData.icon !== ""
                         implicitSize: 14
                         source: entry.modelData.icon
                     }
-                    Mono {
+                    Label {
                         Layout.fillWidth: true
                         text: entry.modelData.text.replace(/_(?!_)/g, "").replace(/__/g, "_")  // drop mnemonics
-                        color: entry.modelData.enabled ? Theme.fujiWhite : Theme.fujiGray
+                        color: entry.modelData.enabled ? Theme.fg : Theme.subtext
                         elide: Text.ElideRight
                     }
-                    Mono {
+                    Icon {
                         visible: entry.modelData.hasChildren
-                        text: entry.expanded ? "−" : "+"
-                        color: Theme.mutedText
+                        text: entry.expanded ? Theme.glyph.collapse : Theme.glyph.expand
+                        color: Theme.subtext
+                        font.pixelSize: 13
                     }
                 }
 

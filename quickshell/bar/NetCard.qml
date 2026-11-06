@@ -8,7 +8,7 @@ import qs.services
 InfoCard {
     id: root
 
-    title: "network"
+    title: "Network"
     footer: "click: nmtui"
 
     Process {
@@ -39,10 +39,10 @@ InfoCard {
                     const [signal, freq, security] = f["*"][0].split(":");
                     const band = parseInt(freq) >= 5900 ? "6 GHz" : parseInt(freq) >= 4900 ? "5 GHz" : "2.4 GHz";
                     rows.push({ label: "signal", value: signal + "%",
-                                color: parseInt(signal) < 40 ? Theme.carpYellow : Theme.fujiWhite });
+                                color: parseInt(signal) < 40 ? Theme.yellow : Theme.fg });
                     rows.push({ label: "band", value: band + " · " + freq });
                     rows.push({ label: "security", value: security || "open",
-                                color: security ? Theme.fujiWhite : Theme.carpYellow });
+                                color: security ? Theme.fg : Theme.yellow });
                 }
                 rows.push({ label: "device", value: f["GENERAL.DEVICE"][0] + " · " + f["GENERAL.TYPE"][0] });
                 rows.push({ label: "" });
@@ -57,7 +57,7 @@ InfoCard {
         }
     }
 
-    readonly property var offline: [{ label: "status", value: "disconnected", color: Theme.waveRed }]
+    readonly property var offline: [{ label: "status", value: "disconnected", color: Theme.red }]
 
     Timer {
         interval: 5000

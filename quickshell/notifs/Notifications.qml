@@ -4,26 +4,36 @@ import Quickshell.Wayland
 import qs
 import qs.services
 
-// Popups (top right) and the notification center (bottom right, above the
-// bell in the bar). The server and history live in services/Notifs.qml.
+// Popups and the notification center, both top right (below the top bar).
+// The server and history live in services/Notifs.qml.
+// Their windows are Theme.gap from the screen edges, with room on the
+// inner sides for the shadow.
 Scope {
     id: root
 
-    // small text button in the center's header
-    component HeaderButton: Caps {
+    // small pill button in the center's header
+    component HeaderButton: MouseArea {
         id: hb
+        property string text
         property bool highlight: false
-        signal activated
-        color: highlight ? Theme.carpYellow : hbArea.containsMouse ? Theme.fujiWhite : Theme.mutedText
-        font.pixelSize: 11
+        implicitWidth: hbText.implicitWidth + 20
+        implicitHeight: 24
+        hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
 
-        MouseArea {
-            id: hbArea
+        Rectangle {
             anchors.fill: parent
-            anchors.margins: -6
-            hoverEnabled: true
-            cursorShape: Qt.PointingHandCursor
-            onClicked: hb.activated()
+            radius: height / 2
+            color: hb.highlight ? Qt.alpha(Theme.yellow, 0.16) : hb.containsMouse ? Theme.bgHighlight : "transparent"
+            border.width: 1
+            border.color: hb.highlight ? Theme.yellow : Theme.gutter
+        }
+        Label {
+            id: hbText
+            anchors.centerIn: parent
+            text: hb.text
+            color: hb.highlight ? Theme.yellow : hb.containsMouse ? Theme.fg : Theme.fgDark
+            font.pixelSize: 11
         }
     }
 
@@ -34,21 +44,20 @@ Scope {
             top: true
             right: true
         }
-        margins {
-            top: Theme.gap
-            right: Theme.gap
-        }
         exclusionMode: ExclusionMode.Normal
         exclusiveZone: 0
-        implicitWidth: 360
-        implicitHeight: Math.max(1, popupColumn.implicitHeight)
+        implicitWidth: 360 + Theme.shadowPad + Theme.gap
+        implicitHeight: Math.max(1, popupColumn.implicitHeight + Theme.gap + Theme.shadowPad)
         color: "transparent"
+        mask: Region { item: popupColumn }
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.namespace: "qs-notifications"
 
         Column {
             id: popupColumn
-            width: parent.width
+            x: Theme.shadowPad
+            y: Theme.gap
+            width: 360
             spacing: Theme.gap
 
             Repeater {
@@ -79,69 +88,75 @@ Scope {
         active: Notifs.centerOpen
 
         PanelWindow {
+            id: centerWindow
             anchors {
-                bottom: true
+                top: true
                 right: true
-            }
-            margins {
-                bottom: Theme.gap
-                right: Theme.gap
             }
             exclusionMode: ExclusionMode.Normal
             exclusiveZone: 0
-            implicitWidth: 380
-            implicitHeight: Math.min(panel.implicitHeight, Math.round((screen ? screen.height : 900) * 0.75))
+            implicitWidth: 400 + Theme.shadowPad + Theme.gap
+            implicitHeight: panel.height + Theme.gap + Theme.shadowPad
             color: "transparent"
+            mask: Region { item: panel }
             WlrLayershell.layer: WlrLayer.Overlay
             WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
             WlrLayershell.namespace: "qs-notification-center"
 
-            Rectangle {
+            Card {
                 id: panel
-                anchors.fill: parent
+                x: Theme.shadowPad
+                y: Theme.gap
+                width: 400
                 // header + list (at least room for the empty state) + list margins
-                implicitHeight: header.height + Math.max(list.contentHeight, 60) + 22
-                color: Theme.sumiInk1
-                border.width: 1
-                border.color: Theme.sumiInk5
+                height: Math.min(header.height + Math.max(list.contentHeight, 80) + 20,
+                                 Math.round((centerWindow.screen ? centerWindow.screen.height : 900) * 0.75))
                 focus: true
                 Keys.onEscapePressed: Notifs.centerOpen = false
 
-                // header: NOTIFICATIONS 3 ....... DND · CLEAR
+                // header: Notifications 3 ....... (dnd) (clear)
                 Item {
                     id: header
-                    x: 1
-                    y: 1
-                    width: parent.width - 2
-                    height: 36
+                    width: parent.width
+                    height: 48
 
-                    Caps {
-                        anchors { left: parent.left; leftMargin: Theme.inset; verticalCenter: parent.verticalCenter }
-                        text: "notifications" + (Notifs.count > 0 ? "  " + Notifs.count : "")
-                        color: Theme.oldWhite
-                        font.pixelSize: 11
+                    Row {
+                        anchors { left: parent.left; leftMargin: 16; verticalCenter: parent.verticalCenter }
+                        spacing: 8
+
+                        Label {
+                            text: "Notifications"
+                            font.pixelSize: 14
+                            font.weight: Font.DemiBold
+                        }
+                        Mono {
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible: Notifs.count > 0
+                            text: Notifs.count
+                            color: Theme.subtext
+                        }
                     }
 
                     Row {
-                        anchors { right: parent.right; rightMargin: Theme.inset; verticalCenter: parent.verticalCenter }
-                        spacing: 16
+                        anchors { right: parent.right; rightMargin: 12; verticalCenter: parent.verticalCenter }
+                        spacing: 6
 
                         HeaderButton {
-                            text: Notifs.dnd ? "dnd on" : "dnd off"
+                            text: Notifs.dnd ? "Do not disturb" : "DND off"
                             highlight: Notifs.dnd
-                            onActivated: Notifs.dnd = !Notifs.dnd
+                            onClicked: Notifs.dnd = !Notifs.dnd
                         }
                         HeaderButton {
                             visible: Notifs.count > 0
-                            text: "clear"
-                            onActivated: Notifs.clearAll()
+                            text: "Clear all"
+                            onClicked: Notifs.clearAll()
                         }
                     }
 
                     Rectangle {
-                        anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+                        anchors { left: parent.left; right: parent.right; bottom: parent.bottom; leftMargin: 12; rightMargin: 12 }
                         height: 1
-                        color: Theme.sumiInk4
+                        color: Theme.bgHighlight
                     }
                 }
 
@@ -168,12 +183,12 @@ Scope {
                         inCenter: true
                     }
 
-                    Mono {
+                    Label {
                         visible: Notifs.count === 0
                         anchors.centerIn: parent
-                        text: "nothing here"
-                        color: Theme.fujiGray
-                        font.pixelSize: 12
+                        text: "All caught up"
+                        color: Theme.subtext
+                        font.pixelSize: 13
                     }
                 }
             }

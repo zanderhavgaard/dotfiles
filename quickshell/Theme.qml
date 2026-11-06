@@ -3,39 +3,79 @@ pragma Singleton
 import Quickshell
 import QtQuick
 
-// Kanagawa Wave, laid out Paper-style: square corners, 1px rules, no shadows.
-// Green is reserved for focus (matches niri's border active-color).
+// Tokyo Night (night), "refined": floating rounded surfaces, 1px borders,
+// soft shadows. Blue is focus (matches niri's active border).
 Singleton {
-    // palette (names from rebelot/kanagawa.nvim)
-    readonly property color sumiInk0: "#16161D"   // bar, cards
-    readonly property color sumiInk1: "#181820"
-    readonly property color sumiInk3: "#1F1F28"   // window background
-    readonly property color sumiInk4: "#2A2A37"   // inner rules
-    readonly property color sumiInk5: "#363646"   // outer rules
-    readonly property color sumiInk6: "#54546D"   // card borders
-    readonly property color waveBlue1: "#223249"
-    readonly property color waveBlue2: "#2D4F67"  // selection
-    readonly property color fujiWhite: "#DCD7BA"  // text
-    readonly property color oldWhite: "#C8C093"   // secondary text
-    readonly property color fujiGray: "#727169"   // labels, empty things
-    readonly property color mutedText: "#a09d8a"  // small labels that must stay readable
-    readonly property color springGreen: "#98BB6C"
-    readonly property color crystalBlue: "#7E9CD8"
-    readonly property color carpYellow: "#E6C384"
-    readonly property color surimiOrange: "#FFA066"
-    readonly property color waveRed: "#E46876"
-    readonly property color waveAqua: "#7AA89F"
+    // palette (names from folke/tokyonight.nvim)
+    readonly property color bgDark: "#16161e"      // bar, cards
+    readonly property color bg: "#1a1b26"
+    readonly property color bgHighlight: "#292e42" // hover, dividers, empty tracks
+    readonly property color bgVisual: "#283457"    // selection
+    readonly property color gutter: "#3b4261"      // card borders
+    readonly property color comment: "#565f89"     // decoration only: too dim for text
+    readonly property color subtext: "#828bb8"     // muted text that must stay readable
+    readonly property color fgDark: "#a9b1d6"      // secondary text, idle icons
+    readonly property color fg: "#c0caf5"
+    readonly property color blue: "#7aa2f7"
+    readonly property color magenta: "#bb9af7"
+    readonly property color green: "#9ece6a"
+    readonly property color yellow: "#e0af68"
+    readonly property color orange: "#ff9e64"
+    readonly property color red: "#f7768e"
 
-    readonly property color focus: springGreen
+    readonly property color accent: blue
 
-    // type: IBM Plex Mono (nerd-font patched, so icons work) for everything
-    // latin, Shippori Mincho (ttf-shippori-mincho, AUR) for the kanji.
-    readonly property string mono: "BlexMono Nerd Font"
-    readonly property string serif: "Shippori Mincho"
+    // IBM Plex Sans for the interface (same as GTK/Qt), Martian Mono for
+    // numbers (same as ghostty), nerd-font symbols for icons.
+    readonly property string sans: "IBM Plex Sans"
+    readonly property string mono: "MartianMono Nerd Font"
+    readonly property string icons: "Symbols Nerd Font"
+    readonly property string japanese: "IBM Plex Sans JP"
 
-    readonly property int barHeight: 32
-    readonly property int gap: 10      // between floating surfaces and screen edges
-    readonly property int inset: 14    // left/right padding inside cards
+    readonly property int barSize: 38     // bar thickness, either orientation
+    readonly property int gap: 10         // between floating surfaces and screen edges
+    readonly property int inset: 14       // left/right padding inside cards
+    readonly property int radius: 12      // cards, bar
+    readonly property int radiusSmall: 8  // rows, buttons, pills
+    // windows holding a card are this much bigger on each side, so the
+    // card's shadow isn't cut off; the extra is masked out for input
+    readonly property int shadowPad: 28
+    readonly property int popupOffset: 14 // from a bar item to its hover card
+
+    // nerd-font glyphs (Material Design set)
+    readonly property var glyph: ({
+        volume: ["\u{f057f}", "\u{f0580}", "\u{f057e}"], // low, medium, high
+        volumeOff: "\u{f0581}",
+        mic: "\u{f036c}",
+        micOff: "\u{f036d}",
+        brightness: "\u{f00df}",
+        battery: ["\u{f007a}", "\u{f007b}", "\u{f007c}", "\u{f007d}", "\u{f007e}",
+                  "\u{f007f}", "\u{f0080}", "\u{f0081}", "\u{f0082}", "\u{f0079}"], // 10..100
+        batteryCharging: "\u{f0084}",
+        wifi: "\u{f05a9}",
+        wifiOff: "\u{f05aa}",
+        ethernet: "\u{f0200}",
+        vpnOn: "\u{f0565}",
+        vpnOff: "\u{f0499}",
+        bell: "\u{f009c}",
+        bellBadge: "\u{f0178}",
+        bellOff: "\u{f0a91}",
+        awake: "\u{f0176}",
+        sleepy: "\u{f06ca}",
+        updates: "\u{f03d5}",
+        linux: "\u{f033d}",
+        play: "\u{f040a}",
+        pause: "\u{f03e4}",
+        search: "\u{f0349}",
+        close: "\u{f0156}",
+        lock: "\u{f033e}",
+        checked: "\u{f0132}",
+        unchecked: "\u{f0131}",
+        radioOn: "\u{f043e}",
+        radioOff: "\u{f043d}",
+        expand: "\u{f0142}",
+        collapse: "\u{f0140}",
+    })
 
     readonly property var _digits: ["", "一", "二", "三", "四", "五", "六", "七", "八", "九"]
 
@@ -67,8 +107,8 @@ Singleton {
 
     // connected / connecting / anything else (VPN states)
     function stateColor(state) {
-        return state === "connected" ? springGreen
-            : state === "connecting" || state === "disconnecting" ? carpYellow
-            : fujiGray;
+        return state === "connected" ? green
+            : state === "connecting" || state === "disconnecting" ? yellow
+            : subtext;
     }
 }

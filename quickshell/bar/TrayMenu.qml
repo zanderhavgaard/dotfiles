@@ -31,16 +31,13 @@ PanelWindow {
         onClicked: root.dismissed()
     }
 
-    Rectangle {
+    Card {
         id: card
-        // above the bar, right-aligned to the icon, kept on screen
+        // below the bar, right-aligned to the icon, kept on screen
         width: Math.max(200, Math.min(360, list.implicitWidth + 2))
-        height: header.height + list.implicitHeight + 10
+        height: header.height + list.implicitHeight + 12
         x: Math.max(Theme.gap, Math.min(root.width - width - Theme.gap, root.anchorX - width + 20))
-        y: root.height - Theme.barHeight - 8 - height
-        color: Theme.sumiInk0
-        border.width: 1
-        border.color: Theme.sumiInk6
+        y: Theme.gap + Theme.barSize + Theme.popupOffset - 5
         focus: true
         Keys.onEscapePressed: root.dismissed()
 
@@ -53,24 +50,25 @@ PanelWindow {
             id: header
             x: 1
             width: parent.width - 2
-            height: 28
+            height: 34
 
-            Caps {
+            Label {
                 anchors { left: parent.left; leftMargin: Theme.inset; right: parent.right; rightMargin: Theme.inset; verticalCenter: parent.verticalCenter }
                 text: root.trayItem ? root.trayItem.tooltipTitle || root.trayItem.title || root.trayItem.id : ""
+                font.weight: Font.DemiBold
                 elide: Text.ElideRight
             }
             Rectangle {
-                anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+                anchors { left: parent.left; right: parent.right; bottom: parent.bottom; leftMargin: Theme.inset; rightMargin: Theme.inset }
                 height: 1
-                color: Theme.sumiInk4
+                color: Theme.bgHighlight
             }
         }
 
         TrayMenuList {
             id: list
             x: 1
-            y: header.height + 5
+            y: header.height + 6
             width: parent.width - 2
             handle: root.trayItem ? root.trayItem.menu : null
             onDone: root.dismissed()

@@ -97,12 +97,12 @@ Scope {
         return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
-    // highlight matched letters in carpYellow (StyledText)
+    // highlight matched letters in yellow (StyledText)
     function highlight(s, idx) {
         const set = new Set(idx);
         let out = "";
         for (let i = 0; i < s.length; i++)
-            out += set.has(i) ? "<font color=\"" + Theme.carpYellow + "\">" + escapeHtml(s[i]) + "</font>" : escapeHtml(s[i]);
+            out += set.has(i) ? "<font color=\"" + Theme.yellow + "\">" + escapeHtml(s[i]) + "</font>" : escapeHtml(s[i]);
         return out;
     }
 

@@ -2,11 +2,11 @@ import QtQuick
 import Quickshell
 import qs
 
-// A card that pops up above a bar item while it's hovered, after a short
+// A card that pops up below a bar item while it's hovered, after a short
 // delay so sweeping the mouse along the bar doesn't flash it.
-//   TITLE ........ ASIDE
+//   Title ........ aside
 //   (children)
-//   FOOTER HINT
+//   footer hint
 PopupWindow {
     id: root
 
@@ -28,42 +28,53 @@ PopupWindow {
         onTriggered: root.open = true
     }
 
+    // The window starts right at the item's bottom edge and must not overlap
+    // it: the input mask isn't reliable on popups, and a window over the item
+    // steals the hover, closing the card, which then reopens (flicker).
+    // The card sits Theme.popupOffset down, with room around it for the shadow.
     anchor.item: anchorItem
-    anchor.edges: Edges.Top
-    anchor.gravity: Edges.Top
+    anchor.edges: Edges.Bottom
+    anchor.gravity: Edges.Bottom
     visible: open
-    implicitWidth: cardWidth
-    implicitHeight: card.height + 8   // 8px of air between card and bar
+    implicitWidth: cardWidth + 2 * Theme.shadowPad
+    implicitHeight: card.y + card.height + Theme.shadowPad
     color: "transparent"
+    mask: Region { item: card }
 
-    Rectangle {
+    Card {
         id: card
-        width: parent.width
+        x: Theme.shadowPad
+        y: Theme.popupOffset
+        width: root.cardWidth
         height: col.implicitHeight
-        color: Theme.sumiInk0
-        border.width: 1
-        border.color: Theme.sumiInk6
 
         Column {
             id: col
             width: parent.width
+            topPadding: 4
+            bottomPadding: 8
 
             Item {
+                visible: root.title !== ""
                 width: parent.width
-                height: 28
+                height: 34
 
-                Caps {
+                Label {
                     anchors { left: parent.left; leftMargin: Theme.inset; verticalCenter: parent.verticalCenter }
                     text: root.title
+                    font.pixelSize: 13
+                    font.weight: Font.DemiBold
                 }
-                Caps {
+                Label {
                     anchors { right: parent.right; rightMargin: Theme.inset; verticalCenter: parent.verticalCenter }
                     text: root.aside
+                    color: Theme.subtext
+                    font.pixelSize: 11
                 }
                 Rectangle {
-                    anchors { left: parent.left; right: parent.right; bottom: parent.bottom; margins: 1 }
+                    anchors { left: parent.left; right: parent.right; bottom: parent.bottom; leftMargin: Theme.inset; rightMargin: Theme.inset }
                     height: 1
-                    color: Theme.sumiInk4
+                    color: Theme.bgHighlight
                 }
             }
 
@@ -71,14 +82,16 @@ PopupWindow {
                 id: body
                 width: parent.width
                 topPadding: 6
-                bottomPadding: 8
+                bottomPadding: 4
             }
 
-            Caps {
+            Label {
                 visible: root.footer !== ""
                 leftPadding: Theme.inset
-                bottomPadding: 8
+                topPadding: 4
                 text: root.footer
+                color: Theme.subtext
+                font.pixelSize: 11
             }
         }
     }

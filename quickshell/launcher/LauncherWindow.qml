@@ -4,8 +4,8 @@ import Quickshell.Wayland
 import Quickshell.Widgets
 import qs
 
-// The launcher's window: dimmed backdrop, card with a seigaiha header,
-// search field, results, key hints. Matching and history live in Launcher.qml.
+// The launcher's window: dimmed backdrop, card with a search field,
+// results, key hints. Matching and history live in Launcher.qml.
 PanelWindow {
     id: win
 
@@ -35,7 +35,7 @@ PanelWindow {
         right: true
     }
     exclusionMode: ExclusionMode.Ignore
-    color: Qt.alpha(Theme.sumiInk0, 0.45)   // dims the desktop
+    color: Qt.alpha(Theme.bgDark, 0.35)   // dims the desktop
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
     WlrLayershell.namespace: "qs-launcher"
@@ -47,15 +47,13 @@ PanelWindow {
     }
 
     // ---- card ----------------------------------------------------
-    Rectangle {
+    Card {
         id: card
         anchors.horizontalCenter: parent.horizontalCenter
         y: Math.round(parent.height * 0.18)
-        width: 560
+        width: 580
         height: content.implicitHeight + 2
-        color: Theme.sumiInk0
-        border.width: 1
-        border.color: Theme.sumiInk5
+        radius: 16
 
         // swallow clicks so they don't reach the close-on-click area
         MouseArea {
@@ -68,44 +66,24 @@ PanelWindow {
             y: 1
             width: parent.width - 2
 
-            // header: wave pattern + 起動
+            // search field
             Item {
                 width: parent.width
                 height: 56
 
-                Seigaiha {
-                    anchors.fill: parent
-                }
-                Row {
-                    anchors { left: parent.left; leftMargin: 18; bottom: parent.bottom; bottomMargin: 10 }
-                    spacing: 10
-
-                    Text {
-                        id: headTitle
-                        text: "起動"
-                        color: Theme.fujiWhite
-                        font.family: Theme.serif
-                        font.pixelSize: 20
-                        font.bold: true
-                    }
-                    Mono {
-                        anchors.baseline: headTitle.baseline
-                        text: "launch"
-                        color: Theme.oldWhite
-                    }
-                }
-            }
-
-            // search field
-            Item {
-                width: parent.width
-                height: 48
-
-                Mono {
+                Icon {
                     id: prompt
-                    anchors { left: parent.left; leftMargin: 18; verticalCenter: parent.verticalCenter }
-                    text: "❯"
-                    color: Theme.crystalBlue
+                    anchors { left: parent.left; leftMargin: 20; verticalCenter: parent.verticalCenter }
+                    text: Theme.glyph.search
+                    color: Theme.accent
+                    font.pixelSize: 18
+                }
+
+                Label {
+                    anchors { left: input.left; verticalCenter: parent.verticalCenter }
+                    visible: input.text === ""
+                    text: "Search apps"
+                    color: Theme.subtext
                     font.pixelSize: 15
                 }
 
@@ -113,15 +91,15 @@ PanelWindow {
                     id: input
                     anchors {
                         left: prompt.right
-                        leftMargin: 10
+                        leftMargin: 12
                         right: parent.right
-                        rightMargin: 18
+                        rightMargin: 20
                         verticalCenter: parent.verticalCenter
                     }
                     focus: true
-                    color: Theme.fujiWhite
-                    selectionColor: Theme.waveBlue2
-                    font.family: Theme.mono
+                    color: Theme.fg
+                    selectionColor: Theme.bgVisual
+                    font.family: Theme.sans
                     font.pixelSize: 15
                     onTextChanged: win.query = text
 
@@ -144,9 +122,9 @@ PanelWindow {
                 }
 
                 Rectangle {
-                    anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+                    anchors { left: parent.left; right: parent.right; bottom: parent.bottom; leftMargin: 12; rightMargin: 12 }
                     height: 1
-                    color: Theme.sumiInk4
+                    color: Theme.bgHighlight
                 }
             }
 
@@ -169,8 +147,9 @@ PanelWindow {
                         readonly property bool isSelected: index === win.selected
 
                         width: parent.width - 16
-                        height: 46
-                        color: isSelected ? Theme.waveBlue2 : "transparent"
+                        height: 48
+                        radius: 10
+                        color: isSelected ? Theme.bgVisual : "transparent"
 
                         MouseArea {
                             anchors.fill: parent
@@ -184,23 +163,25 @@ PanelWindow {
                         Rectangle {
                             id: tile
                             anchors { left: parent.left; leftMargin: 12; verticalCenter: parent.verticalCenter }
-                            width: 28
-                            height: 28
-                            color: row.isSelected ? Theme.waveBlue1 : Theme.sumiInk4
+                            width: 32
+                            height: 32
+                            radius: 8
+                            color: icon.visible ? "transparent" : Theme.bgHighlight
 
                             IconImage {
                                 id: icon
                                 anchors.centerIn: parent
-                                implicitSize: 22
+                                implicitSize: 28
                                 source: Quickshell.iconPath(row.modelData.icon, true)
                                 visible: source != ""
                             }
-                            Mono {
+                            Label {
                                 anchors.centerIn: parent
                                 visible: !icon.visible
                                 text: row.modelData.letter
-                                color: Theme.crystalBlue
-                                font.pixelSize: 12
+                                color: Theme.accent
+                                font.pixelSize: 14
+                                font.weight: Font.DemiBold
                             }
                         }
 
@@ -213,7 +194,7 @@ PanelWindow {
                                 verticalCenter: parent.verticalCenter
                             }
 
-                            Mono {
+                            Label {
                                 width: parent.width
                                 text: row.modelData.title
                                 // match highlighting; the name itself is escaped
@@ -222,12 +203,13 @@ PanelWindow {
                                 font.pixelSize: 13
                                 font.weight: Font.Medium
                             }
-                            Mono {
+                            Label {
                                 width: parent.width
                                 visible: text !== ""
                                 text: row.modelData.subtitle
                                 elide: Text.ElideRight
-                                color: row.isSelected ? Theme.oldWhite : Theme.mutedText
+                                color: row.isSelected ? Theme.fgDark : Theme.subtext
+                                font.pixelSize: 11
                             }
                         }
 
@@ -236,27 +218,28 @@ PanelWindow {
                             anchors { right: parent.right; rightMargin: 12; verticalCenter: parent.verticalCenter }
                             visible: row.isSelected
                             text: "↵"
-                            color: Theme.oldWhite
+                            color: Theme.fgDark
                         }
                     }
                 }
 
-                Mono {
+                Label {
                     visible: win.results.length === 0
                     leftPadding: 12
                     topPadding: 8
                     bottomPadding: 8
                     text: "no matches"
-                    color: Theme.mutedText
+                    color: Theme.subtext
                     font.pixelSize: 12
                 }
             }
 
             // footer
             Rectangle {
-                width: parent.width
+                x: 12
+                width: parent.width - 24
                 height: 1
-                color: Theme.sumiInk4
+                color: Theme.bgHighlight
             }
             Item {
                 width: parent.width
@@ -268,18 +251,14 @@ PanelWindow {
 
                     Repeater {
                         model: [["↵", "open"], ["⇥", "next"], ["esc", "close"]]
-                        delegate: Mono {
+                        delegate: Label {
                             required property var modelData
-                            text: "<font color=\"" + Theme.fujiWhite + "\">" + modelData[0] + "</font> " + modelData[1]
+                            text: "<font color=\"" + Theme.fg + "\">" + modelData[0] + "</font> " + modelData[1]
                             textFormat: Text.StyledText
-                            color: Theme.mutedText
+                            color: Theme.subtext
+                            font.pixelSize: 11
                         }
                     }
-                }
-                Mono {
-                    anchors { right: parent.right; rightMargin: 18; verticalCenter: parent.verticalCenter }
-                    text: "quickshell"
-                    color: Theme.mutedText
                 }
             }
         }

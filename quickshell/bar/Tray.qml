@@ -12,9 +12,11 @@ Row {
 
     readonly property int count: SystemTray.items.values.length
 
-    // the item whose menu is open, and where its icon is on screen
+    // the item whose menu is open, and the centre of its icon on screen
     property var menuItem: null
     property real menuX: 0
+
+    spacing: 10
 
     LazyLoader {
         active: root.menuItem !== null
@@ -26,8 +28,6 @@ Row {
             onDismissed: root.menuItem = null
         }
     }
-
-    spacing: 10
 
     Repeater {
         model: SystemTray.items
@@ -43,6 +43,7 @@ Row {
             cursorShape: Qt.PointingHandCursor
 
             function openMenu() {
+                // the bar spans the screen, so window x is screen x
                 root.menuX = QsWindow.itemPosition(item).x + width / 2;
                 root.menuItem = modelData;
             }

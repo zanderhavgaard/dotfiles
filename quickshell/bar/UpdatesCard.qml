@@ -7,7 +7,7 @@ import qs.services
 HoverCard {
     id: root
 
-    title: "updates"
+    title: "Updates"
     aside: Status.updates + " pending"
     footer: "click to update with paru"
     cardWidth: 420
@@ -33,7 +33,7 @@ HoverCard {
                 width: 170
                 elide: Text.ElideRight
                 text: row.modelData.name
-                color: root.isKernel(row.modelData.name) ? Theme.carpYellow : Theme.fujiWhite
+                color: root.isKernel(row.modelData.name) ? Theme.yellow : Theme.fg
             }
             Mono {
                 anchors {
@@ -46,7 +46,7 @@ HoverCard {
                 horizontalAlignment: Text.AlignRight
                 elide: Text.ElideMiddle
                 text: row.modelData.from + " → " + row.modelData.to
-                color: Theme.mutedText
+                color: Theme.subtext
             }
         }
     }
@@ -56,6 +56,6 @@ HoverCard {
         leftPadding: Theme.inset
         topPadding: 4
         text: "+" + (Status.updateList.length - root.maxRows) + " more"
-        color: Theme.mutedText
+        color: Theme.subtext
     }
 }

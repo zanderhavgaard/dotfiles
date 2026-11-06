@@ -8,14 +8,15 @@ import qs
 HoverCard {
     id: root
 
-    title: "world clock"
+    title: "World clock"
     aside: "vs local"
+    cardWidth: 320
 
     readonly property var zones: [
-        { tz: "UTC", label: "utc", kanji: "" },
-        { tz: "America/New_York", label: "atlanta", kanji: "" },
-        { tz: "Asia/Tokyo", label: "tokyo", kanji: "東京" },
-        { tz: "Pacific/Auckland", label: "auckland", kanji: "" },
+        { tz: "UTC", label: "UTC", kanji: "" },
+        { tz: "America/New_York", label: "Atlanta", kanji: "" },
+        { tz: "Asia/Tokyo", label: "Tokyo", kanji: "東京" },
+        { tz: "Pacific/Auckland", label: "Auckland", kanji: "" },
     ]
 
     property var rows: []
@@ -84,18 +85,17 @@ HoverCard {
                 anchors { left: parent.left; leftMargin: Theme.inset; verticalCenter: parent.verticalCenter }
                 spacing: 6
 
-                Caps {
+                Label {
                     id: city
                     text: row.modelData.label
-                    color: Theme.oldWhite
-                    font.pixelSize: 11
+                    color: Theme.fgDark
                 }
                 Text {
                     visible: text !== ""
                     anchors.baseline: city.baseline
                     text: row.modelData.kanji
-                    color: Theme.mutedText
-                    font.family: Theme.serif
+                    color: Theme.subtext
+                    font.family: Theme.japanese
                     font.pixelSize: 12
                 }
             }
@@ -112,7 +112,7 @@ HoverCard {
                 Mono {
                     // yellow when it's already tomorrow / still yesterday there
                     text: row.modelData.date
-                    color: row.modelData.otherDay ? Theme.carpYellow : Theme.mutedText
+                    color: row.modelData.otherDay ? Theme.yellow : Theme.subtext
                     font.pixelSize: 10
                 }
             }
@@ -120,7 +120,7 @@ HoverCard {
             Mono {
                 anchors { right: parent.right; rightMargin: Theme.inset; verticalCenter: parent.verticalCenter }
                 text: row.modelData.offset
-                color: Theme.mutedText
+                color: Theme.subtext
             }
         }
     }

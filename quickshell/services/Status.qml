@@ -2,13 +2,14 @@ pragma Singleton
 
 import Quickshell
 import Quickshell.Io
+import Quickshell.Services.Mpris
 import Quickshell.Services.Pipewire
 import Quickshell.Services.UPower
 import QtQuick
 
-// System state for the bar and its hover cards: audio, brightness, battery,
-// power profile, network, VPN, kernel, pending updates, plus a couple of
-// UI toggles shared between bars (idle inhibitor, date language).
+// System state for the bars and their hover cards: audio, media, brightness,
+// battery, power profile, network, VPN, kernel, pending updates, plus the UI
+// toggles shared between bars (idle inhibitor, date language).
 Singleton {
     id: root
 
@@ -41,6 +42,14 @@ Singleton {
     }
     function toggleMuted(node) {
         if (node && node.audio) node.audio.muted = !node.audio.muted;
+    }
+
+    // ---- media ------------------------------------------------------------
+    // the player to report on: whichever is playing, else the first one
+    // (playerctld is a proxy that mirrors another player; skipped)
+    readonly property MprisPlayer player: {
+        const ps = Mpris.players.values.filter(p => !p.dbusName.includes("playerctld"));
+        return ps.find(p => p.isPlaying) ?? ps[0] ?? null;
     }
 
     // ---- screen brightness ----------------------------------------------

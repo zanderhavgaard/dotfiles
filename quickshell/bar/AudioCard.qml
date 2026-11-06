@@ -11,7 +11,7 @@ InfoCard {
     required property PwNode node
     property bool input: false   // true for the mic
 
-    title: input ? "microphone" : "output"
+    title: input ? "Microphone" : "Output"
     cardWidth: 390   // fits the footer hint and long device names
 
     // links into a sink come from playback streams; links out of a
@@ -36,17 +36,17 @@ InfoCard {
     }
 
     rows: {
-        if (!node || !node.audio) return [{ label: "device", value: "none", color: Theme.fujiGray }];
+        if (!node || !node.audio) return [{ label: "device", value: "none", color: Theme.subtext }];
         const muted = node.audio.muted;
         const rows = [
             { label: "device", value: node.description || node.nickname || node.name },
             { label: input ? "level" : "volume", value: Math.round(node.audio.volume * 100) + "%" },
             { label: "state", value: muted ? "muted" : (input ? "live" : "on"),
-              color: muted ? Theme.fujiGray : (input ? Theme.carpYellow : Theme.fujiWhite) },
+              color: muted ? Theme.subtext : (input ? Theme.yellow : Theme.fg) },
             { label: "" },
         ];
         if (streams.length === 0) {
-            rows.push({ label: input ? "listening" : "playing", value: "nothing", color: Theme.fujiGray });
+            rows.push({ label: input ? "listening" : "playing", value: "nothing", color: Theme.subtext });
         } else {
             // de-duplicate apps with several streams (browsers do this)
             const seen = {};
@@ -57,7 +57,7 @@ InfoCard {
                 rows.push({
                     label: input ? "listening" : "playing",
                     value: name + (!input && s.audio ? " · " + Math.round(s.audio.volume * 100) + "%" : ""),
-                    color: input ? Theme.carpYellow : Theme.fujiWhite,
+                    color: input ? Theme.yellow : Theme.fg,
                 });
             }
         }

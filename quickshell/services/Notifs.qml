@@ -38,7 +38,7 @@ Singleton {
     property date now: new Date()    // ticks so "5m" age labels update
 
     // newest first. Record:
-    // { key, notif (live Notification or null), appName, summary, body, urgency, time, transient }
+    // { key, notif (live Notification or null), appName, icon, summary, body, urgency, time, transient }
     property var history: []
     property int nextKey: 1
 
@@ -75,6 +75,17 @@ Singleton {
         return (body || "").replace(/<(?!\/?(b|i|u|br)\s*\/?>)\/?[a-z][^>]*>/gi, "");
     }
 
+    // the notification's own image, else its app icon (a theme name or a
+    // path), else "" for the card's bell
+    function iconSource(n) {
+        if (n.image) return n.image;
+        const icon = n.appIcon || "";
+        if (icon === "") return "";
+        if (icon.startsWith("/")) return "file://" + icon;
+        if (icon.includes("://")) return icon;
+        return Quickshell.iconPath(icon, true);
+    }
+
     // ---- server ----------------------------------------------------------
     NotificationServer {
         id: server
@@ -92,6 +103,7 @@ Singleton {
                 key: key,
                 notif: n,
                 appName: n.appName,
+                icon: root.iconSource(n),
                 summary: n.summary,
                 body: root.sanitize(n.body),
                 urgency: n.urgency,

@@ -47,8 +47,8 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: Theme.sumiInk0
-        opacity: 0.72
+        color: Theme.bgDark
+        opacity: 0.6
     }
 
     // ---- centre: clock, date, password -----------------------------------
@@ -57,45 +57,52 @@ Item {
         anchors.verticalCenterOffset: -40
         spacing: 0
 
-        Mono {
+        Label {
             anchors.horizontalCenter: parent.horizontalCenter
             text: Qt.formatTime(clock.date, "hh:mm")
-            color: Theme.fujiWhite
-            font.pixelSize: 96
+            font.pixelSize: 112
             font.weight: Font.Light
         }
 
-        Mono {
+        Label {
             anchors.horizontalCenter: parent.horizontalCenter
             text: Theme.englishDateLong(clock.date)
-            color: Theme.oldWhite
-            font.pixelSize: 15
-            font.letterSpacing: 2
-            font.capitalization: Font.AllUppercase
+            color: Theme.fgDark
+            font.pixelSize: 18
         }
 
-        Text {
+        Label {
             anchors.horizontalCenter: parent.horizontalCenter
-            topPadding: 6
+            topPadding: 4
             text: Theme.kanjiDate(clock.date)
-            color: Theme.mutedText
-            font.family: Theme.serif
-            font.pixelSize: 15
+            color: Theme.subtext
+            font.family: Theme.japanese
+            font.pixelSize: 14
         }
 
-        Item { width: 1; height: 48 }
+        Item { width: 1; height: 44 }
 
-        // password box: a hairline frame, one square per typed character
+        // password pill: one dot per typed character
         Rectangle {
             id: box
             anchors.horizontalCenter: parent.horizontalCenter
             width: 340
-            height: 46
-            color: Theme.sumiInk0
+            height: 48
+            radius: height / 2
+            color: Qt.alpha(Theme.bgDark, 0.85)
             border.width: 1
-            border.color: root.lock.status === "wrong" ? Theme.waveRed
-                : root.lock.password !== "" ? Theme.focus
-                : Theme.sumiInk6
+            border.color: root.lock.status === "wrong" ? Theme.red
+                : root.lock.password !== "" ? Theme.accent
+                : Theme.gutter
+
+            Icon {
+                id: lockIcon
+                anchors { left: parent.left; leftMargin: 18; verticalCenter: parent.verticalCenter }
+                text: Theme.glyph.lock
+                color: root.lock.status === "wrong" ? Theme.red
+                    : root.lock.password !== "" ? Theme.accent : Theme.subtext
+                font.pixelSize: 16
+            }
 
             // horizontal shake on a wrong password
             transform: Translate { id: shakeOffset }
@@ -113,26 +120,27 @@ Item {
                 }
             }
 
-            Mono {
-                anchors { left: parent.left; leftMargin: 16; verticalCenter: parent.verticalCenter }
+            Label {
+                anchors { left: lockIcon.right; leftMargin: 12; verticalCenter: parent.verticalCenter }
                 visible: root.lock.password === ""
-                text: root.lock.status === "checking" ? "" : "password"
-                color: Theme.fujiGray
-                font.pixelSize: 13
-                font.letterSpacing: 1
+                text: root.lock.status === "checking" ? "" : "Password"
+                color: Theme.subtext
+                font.pixelSize: 14
             }
 
             Row {
-                anchors { left: parent.left; leftMargin: 16; verticalCenter: parent.verticalCenter }
+                id: dots
+                anchors { left: lockIcon.right; leftMargin: 12; verticalCenter: parent.verticalCenter }
                 spacing: 6
 
                 Repeater {
-                    // as many squares (7px + 6px gap) as fit between the 16px margins
-                    model: Math.min(root.lock.password.length, Math.floor((box.width - 32 + 6) / 13))
+                    // as many dots (8px + 6px gap) as fit before the right edge
+                    model: Math.min(root.lock.password.length, Math.floor((box.width - dots.x - 24 + 6) / 14))
                     Rectangle {
-                        width: 7
-                        height: 7
-                        color: Theme.fujiWhite
+                        width: 8
+                        height: 8
+                        radius: 4
+                        color: Theme.fg
                     }
                 }
             }
@@ -182,7 +190,7 @@ Item {
         }
 
         // status line under the box
-        Mono {
+        Label {
             anchors.horizontalCenter: parent.horizontalCenter
             topPadding: 12
             height: 30
@@ -190,41 +198,26 @@ Item {
                 ? root.lock.statusText + " · " + root.lock.failures + " failed"
                 : root.lock.statusText
             visible: root.lock.status !== ""
-            color: root.lock.status === "wrong" || root.lock.status === "error" ? Theme.waveRed
-                : root.lock.status === "ok" ? Theme.springGreen
-                : Theme.oldWhite
-            font.pixelSize: 12
-            font.letterSpacing: 1
+            color: root.lock.status === "wrong" || root.lock.status === "error" ? Theme.red
+                : root.lock.status === "ok" ? Theme.green
+                : Theme.fgDark
+            font.pixelSize: 13
         }
     }
 
     // ---- footer ----------------------------------------------------------
-    Rectangle {
-        anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
-        height: Theme.barHeight
-        color: Theme.sumiInk0
+    Label {
+        anchors { left: parent.left; bottom: parent.bottom; margins: 20 }
+        text: Quickshell.env("USER") + "@" + hostnameFile.text().trim()
+            + (root.preview ? "  ·  preview" : "")
+        color: Theme.subtext
+    }
 
-        Rectangle {
-            anchors { left: parent.left; right: parent.right; top: parent.top }
-            height: 1
-            color: Theme.sumiInk5
-        }
-
-        Mono {
-            anchors { left: parent.left; leftMargin: Theme.inset; verticalCenter: parent.verticalCenter }
-            text: Quickshell.env("USER") + "@" + hostnameFile.text().trim()
-                + (root.preview ? "  ·  preview" : "")
-            color: Theme.mutedText
-            font.letterSpacing: 1
-        }
-
-        // the keyboard layout matters when typing a password
-        Mono {
-            anchors { right: parent.right; rightMargin: Theme.inset; verticalCenter: parent.verticalCenter }
-            text: (Status.hasBattery ? "BAT " + Status.batteryPercent + (Status.charging ? "+" : "") + "  ·  " : "")
-                + "KB " + Niri.layoutShort.toUpperCase()
-            color: Theme.mutedText
-            font.letterSpacing: 1
-        }
+    // the keyboard layout matters when typing a password
+    Label {
+        anchors { right: parent.right; bottom: parent.bottom; margins: 20 }
+        text: (Status.hasBattery ? "battery " + Status.batteryPercent + "%" + (Status.charging ? " charging" : "") + "  ·  " : "")
+            + "keyboard " + Niri.layoutShort
+        color: Theme.subtext
     }
 }

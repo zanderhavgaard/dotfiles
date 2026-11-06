@@ -7,8 +7,8 @@ import Quickshell.Wayland
 import qs
 import qs.services
 
-// Popups that sit just above the bar for a moment:
-//  - levels: VOL / MIC / LUM as 20 segments
+// A pill near the bottom of the screen, for a moment:
+//  - levels: volume / mic / brightness as a bar
 //  - media: play state + track when the player changes track or pauses
 // Volume and mic are watched directly. Brightness has no change signal, so
 // niri's brightness binds call `qs ipc call osd brightness` after brightnessctl.
@@ -80,12 +80,7 @@ Scope {
     }
 
     // ---- media -----------------------------------------------------------
-    // the player to report on: whichever is playing, else the first one
-    readonly property MprisPlayer player: {
-        // playerctld is a proxy that mirrors another player; skip it
-        const ps = Mpris.players.values.filter(p => !p.dbusName.includes("playerctld"));
-        return ps.find(p => p.isPlaying) ?? ps[0] ?? null;
-    }
+    readonly property MprisPlayer player: Status.player
 
     onPlayerChanged: showMedia()
 
@@ -101,110 +96,113 @@ Scope {
 
         PanelWindow {
             anchors.bottom: true
-            margins.bottom: 12
-            // Normal + zone 0: stay out of the bar's reserved strip
-            exclusionMode: ExclusionMode.Normal
-            exclusiveZone: 0
-            implicitWidth: root.mode === "media" ? 440 : 300
-            implicitHeight: root.mode === "media" ? 56 : 38
+            margins.bottom: 40 - Theme.shadowPad
+            exclusionMode: ExclusionMode.Ignore
+            implicitWidth: pill.width + 2 * Theme.shadowPad
+            implicitHeight: pill.height + 2 * Theme.shadowPad
             color: "transparent"
-            mask: Region {}
+            mask: Region {}   // never takes input
             WlrLayershell.layer: WlrLayer.Overlay
             WlrLayershell.namespace: "qs-osd"
 
-            Rectangle {
-                anchors.fill: parent
-                color: Theme.sumiInk0
-                border.width: 1
-                border.color: Theme.sumiInk6
+            Card {
+                id: pill
+                x: Theme.shadowPad
+                y: Theme.shadowPad
+                width: root.mode === "media" ? 420 : 320
+                height: root.mode === "media" ? 64 : 48
+                radius: height / 2
 
                 // -- level ------------------------------------------------
                 RowLayout {
                     visible: root.mode === "level"
                     anchors.fill: parent
-                    anchors.leftMargin: Theme.inset
-                    anchors.rightMargin: Theme.inset
-                    spacing: 12
+                    anchors.leftMargin: 20
+                    anchors.rightMargin: 20
+                    spacing: 14
 
-                    Caps {
-                        text: root.kind
-                        font.pixelSize: 11
+                    Icon {
+                        Layout.preferredWidth: 18
+                        horizontalAlignment: Text.AlignHCenter
+                        text: root.kind === "lum" ? Theme.glyph.brightness
+                            : root.kind === "mic" ? (root.muted ? Theme.glyph.micOff : Theme.glyph.mic)
+                            : root.muted ? Theme.glyph.volumeOff
+                            : Theme.glyph.volume[Math.min(2, Math.floor(root.level * 3))]
+                        color: root.muted ? Theme.subtext : Theme.fg
+                        font.pixelSize: 17
                     }
 
-                    // segments, filled up to the level
-                    RowLayout {
+                    Rectangle {
                         Layout.fillWidth: true
-                        spacing: 3
+                        implicitHeight: 6
+                        radius: 3
+                        color: Theme.bgHighlight
 
-                        Repeater {
-                            model: 20
-                            Rectangle {
-                                required property int index
-                                Layout.fillWidth: true
-                                implicitHeight: 10
-                                color: !root.muted && index < Math.round(root.level * 20)
-                                    ? Theme.fujiWhite : Theme.sumiInk5
-                            }
+                        Rectangle {
+                            width: root.muted ? 0 : parent.width * root.level
+                            height: parent.height
+                            radius: 3
+                            color: root.kind === "mic" ? Theme.yellow : Theme.accent
+                            Behavior on width { NumberAnimation { duration: 90 } }
                         }
                     }
 
-                    Caps {
-                        Layout.preferredWidth: 34
+                    Mono {
+                        Layout.preferredWidth: 28
                         horizontalAlignment: Text.AlignRight
                         text: root.muted ? "off" : Math.round(root.level * 100)
-                        color: root.muted ? Theme.fujiGray : Theme.fujiWhite
-                        font.pixelSize: 11
-                        font.letterSpacing: 0
+                        color: root.muted ? Theme.subtext : Theme.fg
+                        font.pixelSize: 12
                     }
                 }
 
                 // -- media ------------------------------------------------
-                Item {
+                RowLayout {
                     visible: root.mode === "media" && root.player !== null
                     anchors.fill: parent
-                    anchors.leftMargin: Theme.inset
-                    anchors.rightMargin: Theme.inset
+                    anchors.leftMargin: 12
+                    anchors.rightMargin: 24
+                    spacing: 12
 
-                    Mono {
-                        id: playState
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: 18
-                        text: root.player && root.player.isPlaying ? "▶" : "‖"
-                        color: Theme.springGreen
-                        font.pixelSize: 13
+                    // play state in a tinted circle
+                    Rectangle {
+                        implicitWidth: 40
+                        implicitHeight: 40
+                        radius: 20
+                        color: Qt.alpha(Theme.magenta, 0.16)
+
+                        Icon {
+                            anchors.centerIn: parent
+                            text: root.player && root.player.isPlaying ? Theme.glyph.play : Theme.glyph.pause
+                            color: Theme.magenta
+                            font.pixelSize: 18
+                        }
                     }
 
                     Column {
-                        anchors {
-                            left: playState.right
-                            leftMargin: 10
-                            right: source.left
-                            rightMargin: 12
-                            verticalCenter: parent.verticalCenter
-                        }
-                        spacing: 2
+                        Layout.fillWidth: true
+                        spacing: 1
 
-                        Mono {
+                        Label {
                             width: parent.width
                             elide: Text.ElideRight
                             text: root.player ? root.player.trackTitle : ""
-                            font.pixelSize: 12
-                            font.weight: Font.Medium
+                            font.pixelSize: 13
+                            font.weight: Font.DemiBold
                         }
-                        Mono {
+                        Label {
                             width: parent.width
                             visible: text !== ""
                             elide: Text.ElideRight
                             text: root.player ? root.player.trackArtist : ""
-                            color: Theme.oldWhite
+                            color: Theme.fgDark
                         }
                     }
 
-                    Caps {
-                        id: source
-                        anchors.right: parent.right
-                        anchors.verticalCenter: parent.verticalCenter
+                    Label {
                         text: root.player ? root.player.identity : ""
+                        color: Theme.subtext
+                        font.pixelSize: 11
                     }
                 }
             }

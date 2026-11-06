@@ -1,45 +1,45 @@
 set selection-clipboard clipboard
 
-# Kanagawa Wave (same palette as quickshell/Theme.qml)
-set font                    "BlexMono Nerd Font 10"
+# Tokyo Night (same palette as quickshell/Theme.qml)
+set font                    "MartianMono Nerd Font 9"
 
-set default-bg              "#1F1F28"
-set default-fg              "#DCD7BA"
+set default-bg              "#1A1B26"
+set default-fg              "#C0CAF5"
 
-set statusbar-bg            "#16161D"
-set statusbar-fg            "#C8C093"
-set inputbar-bg             "#16161D"
-set inputbar-fg             "#DCD7BA"
+set statusbar-bg            "#16161E"
+set statusbar-fg            "#A9B1D6"
+set inputbar-bg             "#16161E"
+set inputbar-fg             "#C0CAF5"
 
-set notification-bg         "#16161D"
-set notification-fg         "#DCD7BA"
-set notification-error-bg   "#16161D"
-set notification-error-fg   "#E46876"
-set notification-warning-bg "#16161D"
-set notification-warning-fg "#E6C384"
+set notification-bg         "#16161E"
+set notification-fg         "#C0CAF5"
+set notification-error-bg   "#16161E"
+set notification-error-fg   "#F7768E"
+set notification-warning-bg "#16161E"
+set notification-warning-fg "#E0AF68"
 
-set completion-bg           "#16161D"
-set completion-fg           "#C8C093"
-set completion-group-bg     "#16161D"
-set completion-group-fg     "#7E9CD8"
-set completion-highlight-bg "#2D4F67"
-set completion-highlight-fg "#DCD7BA"
+set completion-bg           "#16161E"
+set completion-fg           "#A9B1D6"
+set completion-group-bg     "#16161E"
+set completion-group-fg     "#7AA2F7"
+set completion-highlight-bg "#283457"
+set completion-highlight-fg "#C0CAF5"
 
-set index-bg                "#1F1F28"
-set index-fg                "#DCD7BA"
-set index-active-bg         "#2D4F67"
-set index-active-fg         "#DCD7BA"
+set index-bg                "#1A1B26"
+set index-fg                "#C0CAF5"
+set index-active-bg         "#283457"
+set index-active-fg         "#C0CAF5"
 
-# search hits: waveBlue2, the current one springGreen
-set highlight-color         "rgba(45, 79, 103, 0.5)"
-set highlight-fg            "#DCD7BA"
-set highlight-active-color  "rgba(152, 187, 108, 0.5)"
+# search hits: bg_visual blue, the current one orange
+set highlight-color         "rgba(61, 89, 161, 0.5)"
+set highlight-fg            "#C0CAF5"
+set highlight-active-color  "rgba(255, 158, 100, 0.5)"
 
 set render-loading          true
-set render-loading-bg       "#1F1F28"
-set render-loading-fg       "#727169"
+set render-loading-bg       "#1A1B26"
+set render-loading-fg       "#565F89"
 
-# ctrl+r: dark mode for documents (paper → sumiInk3, ink → fujiWhite)
-set recolor-lightcolor      "#1F1F28"
-set recolor-darkcolor       "#DCD7BA"
+# ctrl+r: dark mode for documents (paper → bg, ink → fg)
+set recolor-lightcolor      "#1A1B26"
+set recolor-darkcolor       "#C0CAF5"
 set recolor-keephue         true

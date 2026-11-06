@@ -15,4 +15,4 @@ if qs ipc call lock lock >/dev/null 2>&1; then
   done
 fi
 
-exec swaylock -f -c 16161D
+exec swaylock -f -c 1a1b26

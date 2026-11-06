@@ -1,6 +1,6 @@
 # reload config with ctrl+shift+,
-# theme = "One Double Dark"
-theme = "Kanagawa Wave"
+# theme = "Kanagawa Wave"
+theme = "TokyoNight Night"
 font-family = "MartianMono Nerd Font"
 font-size = 12
 background-opacity = 0.9

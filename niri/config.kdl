@@ -239,6 +239,14 @@ layer-rule {
     place-within-backdrop true
 }
 
+// With the wallpaper behind (not on) the workspaces, their shadows in the
+// overview are just a dark frame around nothing.
+overview {
+    workspace-shadow {
+        off
+    }
+}
+
 binds {
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
     // in the end. To find an XKB name for a particular key, you may use a program

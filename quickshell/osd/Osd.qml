@@ -8,8 +8,9 @@ import qs
 import qs.services
 
 // A pill near the bottom of the screen, for a moment:
-//  - levels: volume / mic / brightness as a bar
+//  - levels: volume / mic / brightness as a bar (bottom centre)
 //  - media: play state + track when the player changes track or pauses
+//    (top-right corner, under the bar)
 // Volume and mic are watched directly. Brightness has no change signal, so
 // niri's brightness binds call `qs ipc call osd brightness` after brightnessctl.
 Scope {
@@ -95,10 +96,16 @@ Scope {
         active: root.shown
 
         PanelWindow {
-            anchors.bottom: true
+            // levels sit bottom-centre; media goes top-right under the bar,
+            // lined up with the notification popups (same gap, same right edge)
+            readonly property bool corner: root.mode === "media"
+            anchors.bottom: !corner
+            anchors.top: corner
+            anchors.right: corner
             margins.bottom: 40 - Theme.shadowPad
+            margins.top: Theme.gap + Theme.barSize + Theme.gap - Theme.shadowPad
             exclusionMode: ExclusionMode.Ignore
-            implicitWidth: pill.width + 2 * Theme.shadowPad
+            implicitWidth: pill.width + Theme.shadowPad + (corner ? Theme.gap : Theme.shadowPad)
             implicitHeight: pill.height + 2 * Theme.shadowPad
             color: "transparent"
             mask: Region {}   // never takes input

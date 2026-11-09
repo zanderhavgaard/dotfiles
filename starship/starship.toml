@@ -1,0 +1,43 @@
+# ~/.config/starship/starship.toml  (fish sets STARSHIP_CONFIG to point here)
+
+# the "is 📦 v1.0.0" from pyproject/package.json versions isn't useful; python/nodejs stay at defaults
+[package]
+disabled = true
+
+[kubernetes]
+disabled = false
+format = 'on [☸ $context \($namespace\)]($style) '
+# fallback for contexts not matched below (local clusters etc.)
+style = 'bold cyan'
+
+# convention: production is blue, development is purple.
+# first matching pattern wins, so the env-specific rules come before the generic EKS alias.
+[[kubernetes.contexts]]
+context_pattern = 'arn:aws:eks:[\w-]+:\d+:cluster/(?P<cluster>prod-[\w-]+)'
+context_alias = '$cluster'
+style = 'bold blue'
+
+[[kubernetes.contexts]]
+context_pattern = 'arn:aws:eks:[\w-]+:\d+:cluster/(?P<cluster>dev-[\w-]+)'
+context_alias = '$cluster'
+style = 'bold purple'
+
+# any other EKS cluster: still strip the ARN down to the cluster name
+[[kubernetes.contexts]]
+context_pattern = 'arn:aws:eks:[\w-]+:\d+:cluster/(?P<cluster>[\w-]+)'
+context_alias = '$cluster'
+
+# aws only renders when AWS_PROFILE / AWS_REGION etc. are set (starship default)
+[aws]
+symbol = '󰸏 '
+style = 'bold yellow'
+format = 'on [$symbol$profile( \($region\))]($style) '
+
+# gcloud would otherwise always render (it reads ~/.config/gcloud/active_config);
+# gate it on the gcloud CLI's own env vars so it only shows when opted in, e.g.
+#   set -gx CLOUDSDK_ACTIVE_CONFIG_NAME default
+[gcloud]
+symbol = '󱇶 '
+style = 'bold green'
+format = 'on [$symbol$project( \($account\))]($style) '
+detect_env_vars = ['CLOUDSDK_ACTIVE_CONFIG_NAME', 'CLOUDSDK_CORE_PROJECT']

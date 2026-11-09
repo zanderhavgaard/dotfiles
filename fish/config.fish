@@ -65,6 +65,7 @@ status is-interactive; and begin
 
     zoxide init fish | source
 
+    set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
     starship init fish | source
 
     if set -q KITTY_INSTALLATION_DIR

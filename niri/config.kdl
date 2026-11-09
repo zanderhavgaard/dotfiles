@@ -138,7 +138,7 @@ layout {
 
     // border instead of focus-ring (Tokyo Night)
     border {
-        width 1
+        width 2
         active-color "#7aa2f7"   // blue
         inactive-color "#292e42" // bg_highlight
         urgent-color "#f7768e"   // red

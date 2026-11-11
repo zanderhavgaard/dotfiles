@@ -297,10 +297,11 @@ Singleton {
 
     Process {
         id: updatesProc
-        // syncs a private copy of the db, never touches the real one
-        command: ["checkupdates"]
+        // repo: checkupdates syncs a private copy of the db, never touches the real one
+        // aur:  paru -Qua queries the AUR RPC for installed foreign packages
+        command: ["sh", "-c", "checkupdates; paru -Qua"]
         stdout: StdioCollector {
-            // "linux 7.2.14.arch1-1 -> 7.2.15.arch1-1"
+            // both print "linux 7.2.14.arch1-1 -> 7.2.15.arch1-1"
             onStreamFinished: root.updateList = text.split("\n")
                 .map(l => l.trim().split(/\s+/))
                 .filter(f => f.length >= 4)
@@ -323,7 +324,7 @@ Singleton {
     }
 
     Timer {
-        interval: 30 * 60 * 1000
+        interval: 10 * 60 * 1000
         running: true
         repeat: true
         triggeredOnStart: true

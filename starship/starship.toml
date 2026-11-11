@@ -1,5 +1,10 @@
 # ~/.config/starship/starship.toml  (fish sets STARSHIP_CONFIG to point here)
 
+# default module order, except kubernetes is moved to the end of the first line.
+# $all expands to every module not named here, so the second-line modules have to be
+# listed explicitly (in their default order) to keep them after the line break.
+format = '$all$kubernetes$line_break$jobs$battery$time$status$container$netns$os$shell$character'
+
 # the "is 📦 v1.0.0" from pyproject/package.json versions isn't useful; python/nodejs stay at defaults
 [package]
 disabled = true
